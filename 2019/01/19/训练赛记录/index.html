@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732333338636361313061626437387D 后半段 303032653732333338636361313061626437387D 看起来是16进制串，解出来 002e72338cca10a">
-<meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
+    <meta name="description" content="前言这周做了UCAS的内部赛, 好像是什么月赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303">
+<meta name="keywords" content="ctf, pwn, mips">
 <meta property="og:type" content="article">
 <meta property="og:title" content="训练赛记录">
 <meta property="og:url" content="http://1nv0k3r.me/2019/01/19/训练赛记录/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732333338636361313061626437387D 后半段 303032653732333338636361313061626437387D 看起来是16进制串，解出来 002e72338cca10a">
+<meta property="og:description" content="前言这周做了UCAS的内部赛, 好像是什么月赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/1.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/2.png">
@@ -21,10 +21,10 @@
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/5.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/6.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/7.png">
-<meta property="og:updated_time" content="2019-01-24T05:22:37.670Z">
+<meta property="og:updated_time" content="2019-01-24T05:33:05.379Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="训练赛记录">
-<meta name="twitter:description" content="checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732333338636361313061626437387D 后半段 303032653732333338636361313061626437387D 看起来是16进制串，解出来 002e72338cca10a">
+<meta name="twitter:description" content="前言这周做了UCAS的内部赛, 好像是什么月赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303">
 <meta name="twitter:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/1.png">
     
     
@@ -107,7 +107,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#checkin"><span class="toc-number">1.</span> <span class="toc-text">checkin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN1"><span class="toc-number">2.</span> <span class="toc-text">PWN1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-QEMU-MIPS调试环境搭建"><span class="toc-number">2.1.</span> <span class="toc-text">0x01 QEMU MIPS调试环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-反编译代码分析"><span class="toc-number">2.2.</span> <span class="toc-text">0x02 反编译代码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-分析"><span class="toc-number">3.</span> <span class="toc-text">0x03 分析</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#checkin"><span class="toc-number">2.</span> <span class="toc-text">checkin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN1"><span class="toc-number">3.</span> <span class="toc-text">PWN1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-QEMU-MIPS调试环境搭建"><span class="toc-number">3.1.</span> <span class="toc-text">0x01 QEMU MIPS调试环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-反编译代码分析"><span class="toc-number">3.2.</span> <span class="toc-text">0x02 反编译代码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-分析"><span class="toc-number">4.</span> <span class="toc-text">0x03 分析</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -140,13 +140,19 @@
       
 
       
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/ctf-pwn-mips/">ctf, pwn, mips</a>
+    </div>
+
 
     </div>
   </header>
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="checkin"><a href="#checkin" class="headerlink" title="checkin"></a>checkin</h1><p>文件: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/checkin.png">checkin.png</a></p>
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这周做了UCAS的内部赛, 好像是什么月赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜</p>
+<h1 id="checkin"><a href="#checkin" class="headerlink" title="checkin"></a>checkin</h1><p>文件: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/checkin.png">checkin.png</a></p>
 <p>LSB低位隐写，提取出来</p>
 <p><code>XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732333338636361313061626437387D</code></p>
 <p>后半段 <code>303032653732333338636361313061626437387D</code> 看起来是16进制串，解出来 <code>002e72338cca10abd78}</code></p>
@@ -297,7 +303,7 @@ heuristic-fence-post&apos; command.
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#checkin"><span class="toc-number">1.</span> <span class="toc-text">checkin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN1"><span class="toc-number">2.</span> <span class="toc-text">PWN1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-QEMU-MIPS调试环境搭建"><span class="toc-number">2.1.</span> <span class="toc-text">0x01 QEMU MIPS调试环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-反编译代码分析"><span class="toc-number">2.2.</span> <span class="toc-text">0x02 反编译代码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-分析"><span class="toc-number">3.</span> <span class="toc-text">0x03 分析</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#checkin"><span class="toc-number">2.</span> <span class="toc-text">checkin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN1"><span class="toc-number">3.</span> <span class="toc-text">PWN1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-QEMU-MIPS调试环境搭建"><span class="toc-number">3.1.</span> <span class="toc-text">0x01 QEMU MIPS调试环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-反编译代码分析"><span class="toc-number">3.2.</span> <span class="toc-text">0x02 反编译代码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-分析"><span class="toc-number">4.</span> <span class="toc-text">0x03 分析</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
