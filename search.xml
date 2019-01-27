@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Codegate CTF 2019</title>
+      <link href="/2019/01/26/Codegate-CTF-2019/"/>
+      <url>/2019/01/26/Codegate-CTF-2019/</url>
+      
+        <content type="html"><![CDATA[<h1 id="签到题"><a href="#签到题" class="headerlink" title="签到题"></a>签到题</h1><p>base85一把梭</p><h1 id="KingMaker"><a href="#KingMaker" class="headerlink" title="KingMaker"></a>KingMaker</h1><h1 id="20000"><a href="#20000" class="headerlink" title="20000"></a>20000</h1><p>给了20k个.so文件, 然后用一个程序去调用, 分类一波以后一共如下四种:</p><ol><li>filter1<br> 过滤了;, *, |, &amp;, $, `, &gt;, &lt;, r</li><li>filter2<br> 过滤了v, m, p, d, n, bin, sh, bash, f, l, g     </li><li><p>test1</p> <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="built_in">memset</span>(&amp;buf, <span class="number">0</span>, <span class="number">0x30</span>uLL);</span><br><span class="line">v2 = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">puts</span>(<span class="string">"This is lib_100 file."</span>);</span><br><span class="line"><span class="built_in">puts</span>(<span class="string">"How do you find vulnerable file?"</span>);</span><br><span class="line">read(<span class="number">0</span>, &amp;buf, <span class="number">0x32</span>uLL);</span><br><span class="line">system(<span class="string">"exit"</span>);</span><br></pre></td></tr></table></figure></li><li><p>test2<br> 用filter1和filter2过滤后, 执行system(“ls \”input\”)</p></li></ol><p>看起来似乎是命令注入</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> CTF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Jarvis Oj Pwn 做题记录</title>
       <link href="/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"/>
       <url>/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/</url>
