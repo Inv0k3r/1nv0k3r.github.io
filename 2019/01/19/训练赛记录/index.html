@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="前言这周做了UCAS的内部赛, 好像是什么月赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303">
-<meta name="keywords" content="ctf,pwn,mips">
+    <meta name="description" content="前言这周做了UCAS的内部赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732">
+<meta name="keywords" content="pwn,ctf,mips">
 <meta property="og:type" content="article">
 <meta property="og:title" content="训练赛记录">
 <meta property="og:url" content="http://1nv0k3r.me/2019/01/19/训练赛记录/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="前言这周做了UCAS的内部赛, 好像是什么月赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303">
+<meta property="og:description" content="前言这周做了UCAS的内部赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/1.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/2.png">
@@ -21,10 +21,10 @@
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/5.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/6.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/7.png">
-<meta property="og:updated_time" content="2019-01-25T05:44:49.521Z">
+<meta property="og:updated_time" content="2019-02-27T03:22:21.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="训练赛记录">
-<meta name="twitter:description" content="前言这周做了UCAS的内部赛, 好像是什么月赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303">
+<meta name="twitter:description" content="前言这周做了UCAS的内部赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732">
 <meta name="twitter:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/1.png">
     
     
@@ -155,7 +155,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这周做了UCAS的内部赛, 好像是什么月赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜</p>
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这周做了UCAS的内部赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜</p>
 <h1 id="checkin"><a href="#checkin" class="headerlink" title="checkin"></a>checkin</h1><p>文件: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/checkin.png">checkin.png</a></p>
 <p>LSB低位隐写，提取出来</p>
 <p><code>XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732333338636361313061626437387D</code></p>
@@ -168,30 +168,30 @@
 <p>结果：<code>purple{ez_check_in_e7f8b198476dc002e72338cca10abd78}</code></p>
 <h1 id="PWN1"><a href="#PWN1" class="headerlink" title="PWN1"></a>PWN1</h1><p>文件在这里下载: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/bin.233">bin.233</a></p>
 <p>题目给了一个binfile， checksec</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">Arch:</span>     <span class="string">mips-32-big</span></span><br><span class="line"><span class="attr">RELRO:</span>    <span class="literal">No</span> <span class="string">RELRO</span></span><br><span class="line"><span class="attr">Stack:</span>    <span class="literal">No</span> <span class="string">canary</span> <span class="string">found</span></span><br><span class="line"><span class="attr">NX:</span>       <span class="string">NX</span> <span class="string">disabled</span></span><br><span class="line"><span class="attr">PIE:</span>      <span class="literal">No</span> <span class="string">PIE</span> <span class="string">(0x400000)</span></span><br><span class="line"><span class="attr">RWX:</span>      <span class="string">Has</span> <span class="string">RWX</span> <span class="string">segments</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Arch:     mips-32-big</span><br><span class="line">RELRO:    No RELRO</span><br><span class="line">Stack:    No canary found</span><br><span class="line">NX:       NX disabled</span><br><span class="line">PIE:      No PIE (0x400000)</span><br><span class="line">RWX:      Has RWX segments</span><br></pre></td></tr></table></figure>
 <p>fine…mips环境搞起来</p>
 <h2 id="0x01-QEMU-MIPS调试环境搭建"><a href="#0x01-QEMU-MIPS调试环境搭建" class="headerlink" title="0x01 QEMU MIPS调试环境搭建"></a>0x01 QEMU MIPS调试环境搭建</h2><p>下载虚拟机和内核文件 <code>https://people.debian.org/~aurel32/qemu/mips/</code></p>
 <p>这里下载 <code>debian_wheezy_mips_standard.qcow2</code> 和 <code>vmlinux-3.2.0-4-4kc-malta</code></p>
 <p>我宿主机是Vmware的Ubuntu 16.04, 在里面开qemu虚拟机, 采用网桥的方式建立MIPS虚拟机和Ubuntu的连接</p>
 <p>安装QEMU: </p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">apt-get <span class="keyword">install</span> -y qemu qemu-<span class="keyword">user</span>-<span class="keyword">static</span> qemu-<span class="keyword">system</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install -y qemu qemu-user-static qemu-system</span><br></pre></td></tr></table></figure>
 <p>下载虚拟机和内核文件</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>people.debian.org<span class="regexp">/~aurel32/</span>qemu<span class="regexp">/mips/</span>debian_wheezy_mips_standard.qcow2 &amp;&amp;</span><br><span class="line">wget https:<span class="regexp">//</span>people.debian.org<span class="regexp">/~aurel32/</span>qemu<span class="regexp">/mips/</span>vmlinux-<span class="number">3.2</span>.<span class="number">0</span>-<span class="number">4</span>-<span class="number">4</span>kc-malta</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wget https://people.debian.org/~aurel32/qemu/mips/debian_wheezy_mips_standard.qcow2 &amp;&amp;</span><br><span class="line">wget https://people.debian.org/~aurel32/qemu/mips/vmlinux-3.2.0-4-4kc-malta</span><br></pre></td></tr></table></figure>
 <p>然后，虚拟机，启动！</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo qemu-system-mips \</span><br><span class="line">    -M malta \</span><br><span class="line">    -kernel vmlinux-3.2.0-4-4kc-malta \</span><br><span class="line">    -hda debian_wheezy_mips_standard.qcow2 \</span><br><span class="line">    -append <span class="string">"root=/dev/sda1 console=tty0"</span> \</span><br><span class="line">    -netdev user,<span class="attribute">id</span>=net0 \</span><br><span class="line">    -device e1000,<span class="attribute">netdev</span>=net0,id=net0,mac=52:54:00:c9:18:27 \</span><br><span class="line">    -net<span class="built_in"> user </span>-redir tcp:2222::2222 \</span><br><span class="line">    -gdb tcp::22333 \</span><br><span class="line">    -redir tcp:1234::1234 \</span><br><span class="line">    -nographic</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo qemu-system-mips \</span><br><span class="line">    -M malta \</span><br><span class="line">    -kernel vmlinux-3.2.0-4-4kc-malta \</span><br><span class="line">    -hda debian_wheezy_mips_standard.qcow2 \</span><br><span class="line">    -append &quot;root=/dev/sda1 console=tty0&quot; \</span><br><span class="line">    -netdev user,id=net0 \</span><br><span class="line">    -device e1000,netdev=net0,id=net0,mac=52:54:00:c9:18:27 \</span><br><span class="line">    -net user -redir tcp:2222::2222 \</span><br><span class="line">    -gdb tcp::22333 \</span><br><span class="line">    -redir tcp:1234::1234 \</span><br><span class="line">    -nographic</span><br></pre></td></tr></table></figure>
 <p>账号密码都是root, 然后添加了端口映射, 便于在Ubuntu里调试</p>
-<p>给Ubuntu安装pwndbg和调试MIPS的插件：<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/pwndbg/pwndbg &amp;&amp;</span><br><span class="line"><span class="keyword">cd</span> pwndbg &amp;&amp;</span><br><span class="line">sudo bash setup.<span class="keyword">sh</span> &amp;&amp;</span><br><span class="line">sudo apt install gdb-multiarch</span><br></pre></td></tr></table></figure></p>
+<p>给Ubuntu安装pwndbg和调试MIPS的插件：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/pwndbg/pwndbg &amp;&amp;</span><br><span class="line">cd pwndbg &amp;&amp;</span><br><span class="line">sudo bash setup.sh &amp;&amp;</span><br><span class="line">sudo apt install gdb-multiarch</span><br></pre></td></tr></table></figure></p>
 <p>关于调试:</p>
 <p>我在qemu虚拟机里装了gdb和socat, 即:</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">apt-<span class="builtin-name">get</span> install gdb socat</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get install gdb socat</span><br></pre></td></tr></table></figure>
 <p>然后把要调试的文件传到了免费网盘github, 之后通过wget下载到qemu虚拟机中</p>
 <p>然后用socat启动gdb调试, 这里的1234端口是上面启动虚拟机的时候设置的端口映射</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">socat</span> <span class="selector-tag">TCP-LISTEN</span><span class="selector-pseudo">:1234</span>,<span class="selector-tag">reuseaddr</span>,<span class="selector-tag">fork</span> <span class="selector-tag">EXEC</span><span class="selector-pseudo">:"gdb</span> <span class="selector-tag">bin</span><span class="selector-class">.233</span>"</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">socat TCP-LISTEN:1234,reuseaddr,fork EXEC:&quot;gdb bin.233&quot;</span><br></pre></td></tr></table></figure>
 <p>这样我们在Ubuntu机里就可以用 <code>nc 127.0.0.1 1234</code> 进行连接</p>
 <p>输入payload可以用python脚本配合pwntools</p>
-<p>如:<br><figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">r = remote('<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>', <span class="number">1234</span>)</span><br></pre></td></tr></table></figure></p>
+<p>如:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">r = remote(&apos;127.0.0.1&apos;, 1234)</span><br></pre></td></tr></table></figure></p>
 <p>后面的操作就相当于开了一个远程调试的gdb, 直接用pwntools发送指令即可, 比如查看栈内存:</p>
-<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">r</span><span class="selector-class">.sendline</span>(<span class="string">'x/100wx $sp'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">r.sendline(&apos;x/100wx $sp&apos;)</span><br></pre></td></tr></table></figure>
 <p>蛋疼的是mips虚拟机里没法装pwndbg之类的工具, 只能用原始的gdb来调, 不过足够了</p>
 <h2 id="0x02-反编译代码分析"><a href="#0x02-反编译代码分析" class="headerlink" title="0x02 反编译代码分析"></a>0x02 反编译代码分析</h2><p>我用的是jeb的mips反编译的, 可以试用一个月, 开个虚拟机到期就重置2333</p>
 <p>main函数:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> param0, <span class="keyword">unsigned</span> <span class="keyword">int</span> param1)</span> </span>&#123;</span><br><span class="line">    setvbuf(*gvar_411214, <span class="number">6</span>, <span class="number">2</span>, <span class="number">6</span>);</span><br><span class="line">    setvbuf(**&amp;gvar_411208, <span class="number">6</span>, <span class="number">2</span>, <span class="number">6</span>);</span><br><span class="line">    param0 = *&amp;gvar_4111D4 + <span class="number">4448</span>;</span><br><span class="line">    <span class="keyword">char</span> *v0 = getenv(<span class="string">"PWD"</span>);</span><br><span class="line">    *&amp;ROOT = v0;</span><br><span class="line">    menu(param0, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span>; ++i) &#123;</span><br><span class="line">        respond(param0, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -259,7 +259,7 @@ heuristic-fence-post&apos; command.
 <p>m4x师傅给了我一个docker: <a href="https://github.com/Inv0k3r/multiarch-docker">multiarch-docker</a></p>
 <p>能运行了但是一调试就炸…最后没办法了才直接在虚拟机里跑, 装个gdb然后端口映射233</p>
 <h1 id="re"><a href="#re" class="headerlink" title="re"></a>re</h1><p>程序很简单, 对输入的64字节进行计算然后输出结果</p>
-<figure class="highlight lsl"><table><tr><td class="code"><pre><span class="line">__int64 __fastcall main(__int64 a1, char **a2, char **a3)</span><br><span class="line">&#123;</span><br><span class="line">  const char *v3; <span class="comment">// rdi</span></span><br><span class="line">  __int128 v5; <span class="comment">// [rsp+0h] [rbp-48h]</span></span><br><span class="line">  __int128 v6; <span class="comment">// [rsp+10h] [rbp-38h]</span></span><br><span class="line">  __int128 v7; <span class="comment">// [rsp+20h] [rbp-28h]</span></span><br><span class="line">  __int128 v8; <span class="comment">// [rsp+30h] [rbp-18h]</span></span><br><span class="line"></span><br><span class="line">  v5 = <span class="number">0</span>LL;</span><br><span class="line">  v6 = <span class="number">0</span>LL;</span><br><span class="line">  v7 = <span class="number">0</span>LL;</span><br><span class="line">  v8 = <span class="number">0</span>LL;</span><br><span class="line">  fgets((char *)&amp;v5, <span class="number">64</span>, stdin);</span><br><span class="line">  v3 = <span class="string">"Correct"</span>;</span><br><span class="line">  if ( <span class="number">3115122397540209627</span>LL * (_QWORD)v5 != <span class="number">-8945977187951441533</span>LL</span><br><span class="line">    &amp;&amp; <span class="number">4414703129018815665</span>LL * *((_QWORD *)&amp;v5 + <span class="number">1</span>) != <span class="number">4916877443135797676</span>LL</span><br><span class="line">    &amp;&amp; <span class="number">-3600163150705005919</span>LL * (_QWORD)v6 != <span class="number">7810089588917861348</span>LL</span><br><span class="line">    &amp;&amp; <span class="number">2848986016212807631</span>LL * *((_QWORD *)&amp;v6 + <span class="number">1</span>) != <span class="number">167648691539577515</span>LL</span><br><span class="line">    &amp;&amp; <span class="number">-1642960843930225163</span>LL * (_QWORD)v7 != <span class="number">7205007458378757539</span>LL</span><br><span class="line">    &amp;&amp; <span class="number">-1825322870425963839</span>LL * *((_QWORD *)&amp;v7 + <span class="number">1</span>) != <span class="number">-4377928447117523719</span>LL</span><br><span class="line">    &amp;&amp; <span class="number">2026288208431064569</span>LL * (_QWORD)v8 != <span class="number">1464929445109676135</span>LL</span><br><span class="line">    &amp;&amp; <span class="number">7391496157776266721</span>LL * *((_QWORD *)&amp;v8 + <span class="number">1</span>) != <span class="number">-2449767388115536590</span>LL )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = <span class="string">"Wrong"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  puts(v3);</span><br><span class="line">  return <span class="number">0</span>LL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__int64 __fastcall main(__int64 a1, char **a2, char **a3)</span><br><span class="line">&#123;</span><br><span class="line">  const char *v3; // rdi</span><br><span class="line">  __int128 v5; // [rsp+0h] [rbp-48h]</span><br><span class="line">  __int128 v6; // [rsp+10h] [rbp-38h]</span><br><span class="line">  __int128 v7; // [rsp+20h] [rbp-28h]</span><br><span class="line">  __int128 v8; // [rsp+30h] [rbp-18h]</span><br><span class="line"></span><br><span class="line">  v5 = 0LL;</span><br><span class="line">  v6 = 0LL;</span><br><span class="line">  v7 = 0LL;</span><br><span class="line">  v8 = 0LL;</span><br><span class="line">  fgets((char *)&amp;v5, 64, stdin);</span><br><span class="line">  v3 = &quot;Correct&quot;;</span><br><span class="line">  if ( 3115122397540209627LL * (_QWORD)v5 != -8945977187951441533LL</span><br><span class="line">    &amp;&amp; 4414703129018815665LL * *((_QWORD *)&amp;v5 + 1) != 4916877443135797676LL</span><br><span class="line">    &amp;&amp; -3600163150705005919LL * (_QWORD)v6 != 7810089588917861348LL</span><br><span class="line">    &amp;&amp; 2848986016212807631LL * *((_QWORD *)&amp;v6 + 1) != 167648691539577515LL</span><br><span class="line">    &amp;&amp; -1642960843930225163LL * (_QWORD)v7 != 7205007458378757539LL</span><br><span class="line">    &amp;&amp; -1825322870425963839LL * *((_QWORD *)&amp;v7 + 1) != -4377928447117523719LL</span><br><span class="line">    &amp;&amp; 2026288208431064569LL * (_QWORD)v8 != 1464929445109676135LL</span><br><span class="line">    &amp;&amp; 7391496157776266721LL * *((_QWORD *)&amp;v8 + 1) != -2449767388115536590LL )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = &quot;Wrong&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  puts(v3);</span><br><span class="line">  return 0LL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>v5-8都是int128类型, 占用128 / 8 = 16字节, qword是8个字节</p>
 <p>4个变量共64字节构成key, 然后每个变量又分别分成8个字节去计算</p>
 <pre><code>3115122397540209627LL * (_QWORD)v5 != -8945977187951441533LL
@@ -273,7 +273,7 @@ heuristic-fence-post&apos; command.
 </code></pre>
       <script>
         window.disqusProxy={
-          shortname: '1nv0k3r',
+          shortname: 'blog-tw5j2p4htr',
           username: '1nv0k3r',
           server: 'disqus.1nv0k3r.me',
           port: 5509,
@@ -411,7 +411,7 @@ heuristic-fence-post&apos; command.
 <!-- Disqus Comments -->
 
     <script type="text/javascript">
-        var disqus_shortname = '1nv0k3r';
+        var disqus_shortname = 'blog-tw5j2p4htr';
 
         (function(){
             var dsq = document.createElement('script');

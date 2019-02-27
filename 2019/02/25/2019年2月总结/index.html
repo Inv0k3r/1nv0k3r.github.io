@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Welcome to my blog! 修修改改博客终于搞起来了从WordPress到hexo再到github+hexo 然后换了三五个主题 最终决定用这个仙人掌, 非常合我口味 同时也安利一下 https://probberechts.github.io/hexo-theme-cactus/ 404页面的小恐龙用的是这个 https://github.com/wayou/t-rex-runner">
-<meta name="keywords" content="博客">
+    <meta name="description" content="年前:  用python完成了一个ctftime的爬虫, 可以指定题目类型, 通过对writeup搜索关键字来找某一类题(eg: fastbin attack) 搜集了ctftime上的fastbin attack类题目 参考UCAS Hcaking群的pwntutorialrevisit从头学pwn 做了一下Codegate CTF 2019的题目 完善了一下个人博客年后: 复现了CVE-201">
+<meta name="keywords" content="总结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://1nv0k3r.me/2019/01/15/hello-world/index.html">
+<meta property="og:title" content="2019年2月总结">
+<meta property="og:url" content="http://1nv0k3r.me/2019/02/25/2019年2月总结/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="Welcome to my blog! 修修改改博客终于搞起来了从WordPress到hexo再到github+hexo 然后换了三五个主题 最终决定用这个仙人掌, 非常合我口味 同时也安利一下 https://probberechts.github.io/hexo-theme-cactus/ 404页面的小恐龙用的是这个 https://github.com/wayou/t-rex-runner">
+<meta property="og:description" content="年前:  用python完成了一个ctftime的爬虫, 可以指定题目类型, 通过对writeup搜索关键字来找某一类题(eg: fastbin attack) 搜集了ctftime上的fastbin attack类题目 参考UCAS Hcaking群的pwntutorialrevisit从头学pwn 做了一下Codegate CTF 2019的题目 完善了一下个人博客年后: 复现了CVE-201">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-25T10:53:08.907Z">
+<meta property="og:updated_time" content="2019-02-25T07:20:59.496Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to my blog! 修修改改博客终于搞起来了从WordPress到hexo再到github+hexo 然后换了三五个主题 最终决定用这个仙人掌, 非常合我口味 同时也安利一下 https://probberechts.github.io/hexo-theme-cactus/ 404页面的小恐龙用的是这个 https://github.com/wayou/t-rex-runner">
+<meta name="twitter:title" content="2019年2月总结">
+<meta name="twitter:description" content="年前:  用python完成了一个ctftime的爬虫, 可以指定题目类型, 通过对writeup搜索关键字来找某一类题(eg: fastbin attack) 搜集了ctftime上的fastbin attack类题目 参考UCAS Hcaking群的pwntutorialrevisit从头学pwn 做了一下Codegate CTF 2019的题目 完善了一下个人博客年后: 复现了CVE-201">
     
     
         
@@ -37,7 +37,7 @@
         
     
     <!-- title -->
-    <title>Hello World</title>
+    <title>2019年2月总结</title>
     <!-- styles -->
     <link rel="stylesheet" href="/css/style.css">
     <!-- persian styles -->
@@ -73,8 +73,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2019/01/18/如何提高git-clone的速度/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/02/26/how2heap-学习记录/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
+        
+        <li><a class="icon" href="/2019/02/20/CVE-2019-6116-GhostScript-沙箱绕过（命令执行）漏洞复现/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -87,21 +89,21 @@
     <br>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/01/15/hello-world/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/01/15/hello-world/&text=Hello World"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/01/15/hello-world/&title=Hello World"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/01/15/hello-world/&is_video=false&description=Hello World"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Hello World&body=Check out this article: http://1nv0k3r.me/2019/01/15/hello-world/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/01/15/hello-world/&title=Hello World"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/01/15/hello-world/&title=Hello World"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/01/15/hello-world/&title=Hello World"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/01/15/hello-world/&title=Hello World"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/01/15/hello-world/&name=Hello World&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/02/25/2019年2月总结/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&text=2019年2月总结"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&title=2019年2月总结"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&is_video=false&description=2019年2月总结"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=2019年2月总结&body=Check out this article: http://1nv0k3r.me/2019/02/25/2019年2月总结/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&title=2019年2月总结"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&title=2019年2月总结"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&title=2019年2月总结"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&title=2019年2月总结"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&name=2019年2月总结&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#修修改改博客终于搞起来了"><span class="toc-number">1.</span> <span class="toc-text">修修改改博客终于搞起来了</span></a></li></ol>
+      
     </div>
   </span>
 </div>
@@ -113,7 +115,7 @@
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
-        Hello World
+        2019年2月总结
     </h1>
 
 
@@ -125,7 +127,7 @@
       
     <div class="postdate">
       
-        <time datetime="2019-01-15T11:47:00.952Z" itemprop="datePublished">2019-01-15</time>
+        <time datetime="2019-02-25T06:26:53.000Z" itemprop="datePublished">2019-02-25</time>
         
       
     </div>
@@ -136,7 +138,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/博客/">博客</a>
+        <a class="tag-link" href="/tags/总结/">总结</a>
     </div>
 
 
@@ -145,15 +147,19 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>Welcome to my blog!</p>
-<h1 id="修修改改博客终于搞起来了"><a href="#修修改改博客终于搞起来了" class="headerlink" title="修修改改博客终于搞起来了"></a>修修改改博客终于搞起来了</h1><p>从WordPress到hexo再到github+hexo</p>
-<p>然后换了三五个主题</p>
-<p>最终决定用这个仙人掌, 非常合我口味</p>
-<p>同时也安利一下 <a href="https://probberechts.github.io/hexo-theme-cactus/">https://probberechts.github.io/hexo-theme-cactus/</a></p>
-<p>404页面的小恐龙用的是这个 <a href="https://github.com/wayou/t-rex-runner">https://github.com/wayou/t-rex-runner</a></p>
-<p>有时间准备给about me写个好看的js</p>
-<p>然后emmmmmmmmmmmm</p>
-<p>想试试把NES.css结合进来, 八像素风格真好看233</p>
+    <p>年前:</p>
+<ol>
+<li>用python完成了一个ctftime的爬虫, 可以指定题目类型, 通过对writeup搜索关键字来找某一类题(eg: fastbin attack)</li>
+<li>搜集了ctftime上的fastbin attack类题目</li>
+<li>参考UCAS Hcaking群的pwntutorialrevisit从头学pwn</li>
+<li>做了一下Codegate CTF 2019的题目</li>
+<li>完善了一下个人博客<br>年后:</li>
+<li>复现了CVE-2019-6116(GhostScript), CVE-2018-20250~3(WinRAR)</li>
+<li>做了HGAME CTF的pwn的部分题目, 对栈的各种花式利用做了一个更深的理解</li>
+<li>简单研究了一下木马免杀</li>
+<li>研究毕业设计(二进制深度神经网络的设计与实现), 找了一些论文和代码</li>
+<li>月赛做了一下乙组的题, 甲组的re1(自动化逆向)研究了一下, 不会做, 其他题目看了一下</li>
+</ol>
 
       <script>
         window.disqusProxy={
@@ -162,7 +168,7 @@
           server: 'disqus.1nv0k3r.me',
           port: 5509,
           adminAvatar: '/avatars/admin-avatar.jpg',
-          identifier: '2019/01/15/hello-world/',
+          identifier: '2019/02/25/2019年2月总结/',
         };
         window.disqus_config = function () {
           this.page.url = window.location.href;
@@ -205,21 +211,21 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#修修改改博客终于搞起来了"><span class="toc-number">1.</span> <span class="toc-text">修修改改博客终于搞起来了</span></a></li></ol>
+      
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/01/15/hello-world/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/01/15/hello-world/&text=Hello World"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/01/15/hello-world/&title=Hello World"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/01/15/hello-world/&is_video=false&description=Hello World"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Hello World&body=Check out this article: http://1nv0k3r.me/2019/01/15/hello-world/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/01/15/hello-world/&title=Hello World"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/01/15/hello-world/&title=Hello World"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/01/15/hello-world/&title=Hello World"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/01/15/hello-world/&title=Hello World"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/01/15/hello-world/&name=Hello World&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/02/25/2019年2月总结/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&text=2019年2月总结"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&title=2019年2月总结"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&is_video=false&description=2019年2月总结"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=2019年2月总结&body=Check out this article: http://1nv0k3r.me/2019/02/25/2019年2月总结/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&title=2019年2月总结"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&title=2019年2月总结"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&title=2019年2月总结"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&title=2019年2月总结"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/02/25/2019年2月总结/&name=2019年2月总结&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

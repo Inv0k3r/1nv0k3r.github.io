@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https://www.thinkcss.com/css/921.shtml 要实现最外层div高度为100%（百分之百），关键对html和body要设置高度100%,如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。但犹">
+    <meta name="description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https://www.thinkcss.com/css/921.shtml 要实现最外层div高度为100%（百分之百 关键对html和body要设置高度100% 如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。 但由">
 <meta name="keywords" content="博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo Cactus主题主页有滚动条的解决方法">
 <meta property="og:url" content="http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https://www.thinkcss.com/css/921.shtml 要实现最外层div高度为100%（百分之百），关键对html和body要设置高度100%,如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。但犹">
+<meta property="og:description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https://www.thinkcss.com/css/921.shtml 要实现最外层div高度为100%（百分之百 关键对html和body要设置高度100% 如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。 但由">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/1.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/2.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/3.png">
-<meta property="og:updated_time" content="2019-01-27T09:13:00.318Z">
+<meta property="og:updated_time" content="2019-02-27T01:55:13.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo Cactus主题主页有滚动条的解决方法">
-<meta name="twitter:description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https://www.thinkcss.com/css/921.shtml 要实现最外层div高度为100%（百分之百），关键对html和body要设置高度100%,如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。但犹">
+<meta name="twitter:description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https://www.thinkcss.com/css/921.shtml 要实现最外层div高度为100%（百分之百 关键对html和body要设置高度100% 如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。 但由">
 <meta name="twitter:image" content="http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/1.png">
     
     
@@ -76,6 +76,8 @@
     <br>
     <span id="actions">
       <ul>
+        
+        <li><a class="icon" href="/2019/02/15/二进制深度神经网络/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2019/01/26/Codegate-CTF-2019/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -153,7 +155,11 @@
 <p>如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受</p>
 <p>搜了一波解决方案:</p>
 <p><a href="https://www.thinkcss.com/css/921.shtml">https://www.thinkcss.com/css/921.shtml</a></p>
-<pre><code>要实现最外层div高度为100%（百分之百），关键对html和body要设置高度100%,如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。但犹豫body默认有一定margin值，但设置body高度height 100%后，浏览器就会出现滚动条，所以可以对body设置margin为零，去除间距实现div height 100%也无滚动条效果。
+<pre><code>要实现最外层div高度为100%（百分之百
+关键对html和body要设置高度100%
+如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。
+但由于body默认有一定margin值，但设置body高度height 100%后，浏览器就会出现滚动条，
+所以可以对body设置margin为零，去除间距实现div height 100%也无滚动条效果。
 </code></pre><p>打开hexo的文件夹, 在 <code>./themes/cactus/source/css/style.styl</code> 文件里</p>
 <p>body下加一行 <code>margin: 0</code> 即可解决</p>
 <p><img src="/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/2.png" alt="img"></p>
@@ -161,7 +167,7 @@
 
       <script>
         window.disqusProxy={
-          shortname: '1nv0k3r',
+          shortname: 'blog-tw5j2p4htr',
           username: '1nv0k3r',
           server: 'disqus.1nv0k3r.me',
           port: 5509,
@@ -299,7 +305,7 @@
 <!-- Disqus Comments -->
 
     <script type="text/javascript">
-        var disqus_shortname = '1nv0k3r';
+        var disqus_shortname = 'blog-tw5j2p4htr';
 
         (function(){
             var dsq = document.createElement('script');
