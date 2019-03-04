@@ -6,19 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间:  众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#include &amp;lt;unist">
+    <meta name="description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp;amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
 <meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
 <meta property="og:type" content="article">
 <meta property="og:title" content="调用Malloc后发生了什么">
 <meta property="og:url" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间:  众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#include &amp;lt;unist">
+<meta property="og:description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp;amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/1.jpg">
-<meta property="og:updated_time" content="2019-02-27T03:25:51.666Z">
+<meta property="og:image" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/2.jpg">
+<meta property="og:updated_time" content="2019-03-04T10:30:56.503Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="调用Malloc后发生了什么">
-<meta name="twitter:description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间:  众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#include &amp;lt;unist">
+<meta name="twitter:description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp;amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
 <meta name="twitter:image" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/1.jpg">
     
     
@@ -75,6 +76,8 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" href="/2019/03/04/peda的几个命令/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
         
         <li><a class="icon" href="/2019/02/26/2月月赛记录/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
@@ -103,7 +106,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#进程的地址空间"><span class="toc-number">1.</span> <span class="toc-text">进程的地址空间:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#brk-amp-sbrk"><span class="toc-number">2.</span> <span class="toc-text">brk &amp; sbrk</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#arena"><span class="toc-number">3.</span> <span class="toc-text">arena</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据结构"><span class="toc-number">4.</span> <span class="toc-text">数据结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bins和chunk"><span class="toc-number">5.</span> <span class="toc-text">bins和chunk:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四种类型的bin"><span class="toc-number">6.</span> <span class="toc-text">四种类型的bin:</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#fastbin"><span class="toc-number">6.1.</span> <span class="toc-text">fastbin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#small-bin"><span class="toc-number">6.2.</span> <span class="toc-text">small bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#large-bin"><span class="toc-number">6.3.</span> <span class="toc-text">large bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unsorted-bin"><span class="toc-number">6.4.</span> <span class="toc-text">unsorted bin</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#top-chunk和remainder-chunk"><span class="toc-number">7.</span> <span class="toc-text">top chunk和remainder chunk</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#内存操作过程"><span class="toc-number">8.</span> <span class="toc-text">内存操作过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#heap初始化"><span class="toc-number">8.1.</span> <span class="toc-text">heap初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#heap-创建"><span class="toc-number">8.2.</span> <span class="toc-text">heap 创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分配fastbin-chunk"><span class="toc-number">8.3.</span> <span class="toc-text">分配fastbin chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分配small-bin-chunk"><span class="toc-number">8.4.</span> <span class="toc-text">分配small bin chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分配-large-chunk"><span class="toc-number">8.5.</span> <span class="toc-text">分配 large chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#释放"><span class="toc-number">8.6.</span> <span class="toc-text">释放</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文章"><span class="toc-number">9.</span> <span class="toc-text">参考文章:</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -144,10 +147,9 @@
   <div class="content" itemprop="articleBody">
     <p>malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址</p>
 <p>malloc是glibc函数, 实际上对应的系统调用是brk()函数</p>
-<p>进程的地址空间:</p>
-<p><img src="/2019/02/26/调用malloc后发生了什么/1.jpg" alt="img"></p>
+<h1 id="进程的地址空间"><a href="#进程的地址空间" class="headerlink" title="进程的地址空间:"></a>进程的地址空间:</h1><p><img src="/2019/02/26/调用malloc后发生了什么/1.jpg" alt="img"></p>
 <p>众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加</p>
-<p>看一下<a href="https://www.cnblogs.com/shayu/p/3371880.html">brk和sbrk的用法</a>:</p>
+<h1 id="brk-amp-sbrk"><a href="#brk-amp-sbrk" class="headerlink" title="brk &amp; sbrk"></a>brk &amp; sbrk</h1><p>看一下<a href="https://www.cnblogs.com/shayu/p/3371880.html">brk和sbrk的用法</a>:</p>
 <p>brk和sbrk提供底层的内存分配</p>
 <p>共同维护一个系统指针, 用于对同类型的大块数据的动态存放</p>
 <p>定义:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">brk</span><span class="params">(<span class="keyword">void</span> *end_data_segment)</span></span>; <span class="comment">// 通过移动指针分配空间，释放空间</span></span><br><span class="line"><span class="function"><span class="keyword">void</span>* <span class="title">sbrk</span><span class="params">(<span class="keyword">ptrdiff_t</span> increment)</span></span>; <span class="comment">// 分配内存空间，返回指定大小空间的地址</span></span><br></pre></td></tr></table></figure></p>
@@ -189,8 +191,251 @@ gdb-peda$ x/10gx 0x602000
 0x602040:    0x0000000000000000    0x0000000000000000
 gdb-peda$ x/10gx 0x623000
 0x623000:    Cannot access memory at address 0x623000
-</code></pre><p>可以看到调用brk(0x1000)后, 堆末地址会移动到一个不可读的地方<br>距离堆顶为<code>0x623000 - 0x602000 = 0x21000</code></p>
+gdb-peda$ vmmap heap
+Start              End                Perm    Name
+0x00602000         0x00623000         rw-p    [heap]
+</code></pre><p>可以看到调用brk(0x1000)后, 堆末地址会移动到一个不可读的地方, 即<code>0x623000</code></p>
+<p>距离堆顶为<code>0x623000 - 0x602000 = 0x21000, 0x21000 / 0x400 = 132KB</code></p>
+<h1 id="arena"><a href="#arena" class="headerlink" title="arena"></a>arena</h1><p>这132KB的空间叫做arena, 由于是主线程分配的, 所以叫main_arena</p>
+<p>而其他子线程分配的空间则叫做thread_arena</p>
+<p>arena的数量是和处理器的核心数相关的:</p>
+<pre><code>32位系统下:
+    arena数 = 2 * 核心数 + 1.
+64位系统下:
+    arena数 = 8 * 核心数 + 1.
+</code></pre><p>分配arena的策略是:</p>
+<pre><code>1. 主线程malloc的时候, 无条件直接分配main arena
+2. 分线程分别分配thread arena
+3. 当线程数多于arena数时, 循环遍历所有arena, 尝试通过互斥锁锁定第一个可被锁定的arena, 然后给这个多的线程使用
+4. 如果没有可用的arena时, 则此线程将被阻塞
+</code></pre><h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>ptmalloc通过arena, heap, chunk三种层级的数据结构来对内存管理</p>
+<p>分别对应heap_info, malloc_state, malloc_chunk三种数据结构</p>
+<p>每个线程对应一个arena, 而每个arena包含了多个heap, 每个heap又拥有多个chunk</p>
+<ol>
+<li>heap_info</li>
+</ol>
+<p>即heap header, 由于一个arena包括多个heap, 所以给每个heap设置一个header便于管理</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">heap_info</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    mstate ar_ptr; <span class="comment">/* 这个heap所在的arena */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">heap_info</span> *<span class="title">prev</span>;</span> <span class="comment">/* 前一个heap */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">size_t</span> size;   <span class="comment">/* 当前heap的大小(单位: byte) */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">size_t</span> mprotect_size; <span class="comment">/* 写保护和读保护的字节数 PROT_READ|PROT_WRITE */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> pad[<span class="number">-6</span> * SIZE_SZ &amp; MALLOC_ALIGN_MASK]; <span class="comment">/* 用于数据对齐, 确保 sizeof (heap_info) + 2 * SIZE_SZ 的值是MALLOC_ALIGNMENT的倍数*/</span></span><br><span class="line"></span><br><span class="line">&#125; heap_info;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>malloc_state</li>
+</ol>
+<p>即arena header, 每个线程只有一个arena header, 包括各种bins的信息, top chunk和remainder chunk等信息</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">mutex_t</span> mutex; <span class="comment">/* 互斥锁, 学过操作系统的应该对mutex这个词很熟悉, 用来对arena进行操作时的同步和互斥 */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> flags; <span class="comment">/* 标志位 */</span></span><br><span class="line"></span><br><span class="line">    mfastbinptr fastbinsY[NFASTBINS]; <span class="comment">/* fastbin的链表数组, 包括了多个fastbin链表, 是单链表结构 */</span></span><br><span class="line"></span><br><span class="line">    mchunkptr top; <span class="comment">/* top chunk, 当找不到合适大小的bin时, 就在top chunk中分离一段内存并分配 */</span></span><br><span class="line"></span><br><span class="line">    mchunkptr last_remainder; <span class="comment">/* top chunk分离后剩下的未分配的内存 */</span></span><br><span class="line"></span><br><span class="line">    mchunkptr bins[NBINS * <span class="number">2</span> - <span class="number">2</span>];  <span class="comment">/* 除了fastbin的其他bin, 即small bin, large bin, unsorted bin, 都使用的是双向链表*/</span></span><br><span class="line">                                    <span class="comment">/* 下表1是unsorted bin, 2~63是small bin, 64~126是large bin */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> binmap[BINMAPSIZE]; <span class="comment">/* 用于指示bin是否被使用的一个位图 */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span> *<span class="title">next</span>;</span> <span class="comment">/* 下一个已分配的malloc_state的位置, 即malloc_state是单链表的一个结点 */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span> *<span class="title">next_free</span>;</span> <span class="comment">/* 指向未分配的arena的列表 */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 当前arena中被分配的系统内存的总量  */</span></span><br><span class="line"></span><br><span class="line">    INTERNAL_SIZE_T system_mem;</span><br><span class="line">    INTERNAL_SIZE_T max_system_mem;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>malloc_chunk</li>
+</ol>
+<p>即chunk header, 一个heap被分为多个chunk</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span> &#123;</span></span><br><span class="line">    <span class="comment">/* #define INTERNAL_SIZE_T size_t */</span></span><br><span class="line">    INTERNAL_SIZE_T      prev_size;  <span class="comment">/* 前一个chunk的大小(前一个chunk空闲时有意义, 若非空闲则指向用户数据)  */</span></span><br><span class="line">    INTERNAL_SIZE_T      size;       <span class="comment">/* 当前chunk的大小, 包括头部数据, 末三位作为标志位 */</span></span><br><span class="line">                                     <span class="comment">/* 最低位表示前一个chunk是否被使用 */</span></span><br><span class="line">                                     <span class="comment">/* 倒数第二位表示该chunk是否由mmap分配 */</span></span><br><span class="line">                                     <span class="comment">/* 倒数第三位表示该chunk是否存在于main arena */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd</span>;</span>         <span class="comment">/* 双向链表的前向指针, 这两个指针只在free chunk中存在*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk</span>;</span>         <span class="comment">/* 双向链表的后向指针, 同上 */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 只用于大的块, 指向下一个更大的size */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd_nextsize</span>;</span> <span class="comment">/* 双向链表, 空闲时有效 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk_nextsize</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>未被分配时:</p>
+<pre><code>    chunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             Size of previous chunk                            |
+            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    `head:&apos; |             Size of chunk, in bytes                         |P|
+      mem-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             Forward pointer to previous chunk in list         |
+            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             Back pointer to next chunk in list                |
+            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             Unused space (may be 0 bytes long)                .
+            .                                                               .
+            .                                                               |
+nextchunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    `foot:&apos; |             Size of chunk, in bytes                           |
+            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</code></pre><p>被分配时:</p>
+<pre><code>chunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        |             Size of previous chunk, if unallocated (P clear)  |
+        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        |             Size of chunk, in bytes                     |A|M|P|
+mem-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        |             User data starts here...                          .
+        .                                                               .
+        .             (malloc_usable_size() bytes)                      .
+next    .                                                               |
+chunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        |             (size of chunk, but used for application data)    |
+        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+        |             Size of next chunk, in bytes                |A|0|1|
+        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+</code></pre><h1 id="bins和chunk"><a href="#bins和chunk" class="headerlink" title="bins和chunk:"></a>bins和chunk:</h1><pre><code>bins直译过来是箱子的意思, 因而bins是和内存回收相关的一个结构
+用户释放之前申请的内存时, 操作系统根据释放的内存大小来决定将释放的内存放入哪个bin中
+所以bin相当于一个内存回收的分类
 
+而chunk翻译是块,  即数据块, 是内存分配的单位
+操作系统根据申请内存大小的不同, 从相应的bin中取出内存来分配
+如果没有合适大小的内存会从top chunk中分割一部分内存来分配
+剩余内存则放在remainder chunk中
+</code></pre><h1 id="四种类型的bin"><a href="#四种类型的bin" class="headerlink" title="四种类型的bin:"></a>四种类型的bin:</h1><h2 id="fastbin"><a href="#fastbin" class="headerlink" title="fastbin"></a>fastbin</h2><pre><code>fastbin存放最小的chunk, 分配起来也是最快的, 可以分配从0到80byte的chunk
+有10个链表, 分别对应不通大小的fastbin(初始化的时候只到64byte而不是80byte, 便于对齐)
+fastbin是一个单链表, 操作更快
+如果有两个相邻的空闲fastbin是不会合并的, 因而fastbin会在malloc_state结构中独立于其他的bin
+大小必须是 2 * SIZE_SZ 的整数倍。
+如果申请的内存大小不是 2 * SIZE_SZ 的整数倍，
+会被转换满足大小的最小的 2 * SIZE_SZ 的倍数。32 位系统中，SIZE_SZ 是 4；64 位系统中，SIZE_SZ 是 8。
+</code></pre><p>32位下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Fastbin</th>
+<th style="text-align:center">chunk大小</th>
+<th style="text-align:center">实际chunk大小（包括元数据）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">00 - 12</td>
+<td style="text-align:center">16</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">13 - 20</td>
+<td style="text-align:center">24</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">21 - 28</td>
+<td style="text-align:center">32</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">29 - 36</td>
+<td style="text-align:center">40</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">37 - 44</td>
+<td style="text-align:center">48</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">45 - 52</td>
+<td style="text-align:center">56</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">53 - 60</td>
+<td style="text-align:center">64</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">61 - 68</td>
+<td style="text-align:center">72</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">69 - 76</td>
+<td style="text-align:center">80</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">77 - 80</td>
+<td style="text-align:center">88</td>
+</tr>
+</tbody>
+</table>
+<p>64位下:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Fastbin</th>
+<th style="text-align:center">chunk大小</th>
+<th style="text-align:center">实际chunk大小（包括元数据）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">00 - 24</td>
+<td style="text-align:center">32</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">25 - 40</td>
+<td style="text-align:center">48</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">41 - 56</td>
+<td style="text-align:center">64</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">57 - 72</td>
+<td style="text-align:center">80</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">73 - 88</td>
+<td style="text-align:center">96</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">89 - 104</td>
+<td style="text-align:center">112</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">105 - 120</td>
+<td style="text-align:center">128</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">121 - 136</td>
+<td style="text-align:center">144</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">137 - 152</td>
+<td style="text-align:center">160</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">153 - 168</td>
+<td style="text-align:center">176</td>
+</tr>
+</tbody>
+</table>
+<h2 id="small-bin"><a href="#small-bin" class="headerlink" title="small bin"></a>small bin</h2><pre><code>small bin 用来存放512byte以内的chunk, 共62个, 每个的间距是8byte
+如果有两个相邻的空闲small bin, 则这两个bin会合并
+</code></pre><h2 id="large-bin"><a href="#large-bin" class="headerlink" title="large bin"></a>large bin</h2><pre><code>包含大于512 byte的chunk, 共63个, 间距为8byte
+</code></pre><p>组织方法如下:</p>
+<pre><code>32个bin, 每64个byte一个阶层, 第一个512~568(512 + 64 - 8), 第二个576~632...
+16个bin, 每512个byte一个阶层
+8个bin, 每4096个byte一个阶层
+4个bin, 每32768个byte一个阶层
+2个bin, 每262144个byte一个阶层
+最后一个bin包括剩下的所有大小
+</code></pre><p>和small bin不同的地方在于，这里的每一个bin都保存的是一个范围而不是一个确定的值，每一个bin内的chunk大小是排好序的。不过和small bin一样也可以合并。</p>
+<h2 id="unsorted-bin"><a href="#unsorted-bin" class="headerlink" title="unsorted bin"></a>unsorted bin</h2><pre><code>当small bin和large bin中的chunk被释放的时候会放入unsorted bin
+只有一个, 是一个循环链表
+</code></pre><h1 id="top-chunk和remainder-chunk"><a href="#top-chunk和remainder-chunk" class="headerlink" title="top chunk和remainder chunk"></a>top chunk和remainder chunk</h1><p>引用一张图片:</p>
+<p><img src="/2019/02/26/调用malloc后发生了什么/2.jpg" alt="img"></p>
+<p>可以看到top chunk是在最上面的(最高地址处), 是一个内存分配的边界(有效内存)</p>
+<p>这个chunk不属于任何bin, 默认这个chunk永远存在, 大小不够的时候会通过系统调用来分配新的内存</p>
+<p>在main arena通过sbrk分配的内存会直接加入到top chunk来拓展heap</p>
+<p>在thread arena通过mmap分配的内存则会拥有新的heap, 同时拥有了新的top chunk</p>
+<p>top chunk分配后, 剩下的chunk会分配给remainder chunk</p>
+<h1 id="内存操作过程"><a href="#内存操作过程" class="headerlink" title="内存操作过程"></a>内存操作过程</h1><h2 id="heap初始化"><a href="#heap初始化" class="headerlink" title="heap初始化"></a>heap初始化</h2><pre><code>是在第一次请求分配内存的时候进行的，比如第一次进行malloc的时候。 
+进行了一系列函数调用，并且设置了初始化标志位，将main_arena的next arena指向自己等等。
+在这个阶段，heap还没有被分配。
+</code></pre><h2 id="heap-创建"><a href="#heap-创建" class="headerlink" title="heap 创建"></a>heap 创建</h2><pre><code>是在请求分配，初始化完成之后，但是还没有可以进行分配的内存的时候，也就是上述初始化结束之后进行。
+跳过一些列函数调用，大概内容也是进行一些数据结构的初始化，不过在这个阶段，在所有bin中依然没有任何可以分配的chunk。
+</code></pre><h2 id="分配fastbin-chunk"><a href="#分配fastbin-chunk" class="headerlink" title="分配fastbin chunk"></a>分配fastbin chunk</h2><pre><code>刚初始化之后max size和索引值均为空，由small bin处理 
+不为空的时候，计算索引，根据索引找到相应的bin 
+取走该bin的第一个chunk，第二个chunk成为第一个chunk 
+将chunk地址转换为用户的mem地址，返回
+</code></pre><h2 id="分配small-bin-chunk"><a href="#分配small-bin-chunk" class="headerlink" title="分配small bin chunk"></a>分配small bin chunk</h2><pre><code>刚初始化之后small bin都为空。
+Small bin某一个bin为空的时候就交给unsorted bin处理 
+不为空的时候，最后一个chunk被取走 
+转换为mem地址，返回
+</code></pre><h2 id="分配-large-chunk"><a href="#分配-large-chunk" class="headerlink" title="分配 large chunk"></a>分配 large chunk</h2><pre><code>刚初始化之后，large bin都为空，为空或者large bin中最大的也无法满足要求，就交给下一个最大的bin来处理 
+不为空的时候，如果最大的chunk大小比请求的空间大，从后往前找能够满足要求的chunk 
+找到之后，切成两半，一个返回给用户，一个加入unsorted bin
+</code></pre><h2 id="释放"><a href="#释放" class="headerlink" title="释放"></a>释放</h2><pre><code>释放基本上就是检查前后一个相邻的chunk是否是空闲的，是空闲的则合并，然后加入unsorted bin，否则直接加入unsorted bin
+</code></pre><h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章:"></a>参考文章:</h1><pre><code>https://blog.csdn.net/qq_29343201/article/details/59614863
+https://www.anquanke.com/post/id/163971
+</code></pre>
       <script>
         window.disqusProxy={
           shortname: 'blog-tw5j2p4htr',
@@ -241,7 +486,7 @@ gdb-peda$ x/10gx 0x623000
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#进程的地址空间"><span class="toc-number">1.</span> <span class="toc-text">进程的地址空间:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#brk-amp-sbrk"><span class="toc-number">2.</span> <span class="toc-text">brk &amp; sbrk</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#arena"><span class="toc-number">3.</span> <span class="toc-text">arena</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据结构"><span class="toc-number">4.</span> <span class="toc-text">数据结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bins和chunk"><span class="toc-number">5.</span> <span class="toc-text">bins和chunk:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四种类型的bin"><span class="toc-number">6.</span> <span class="toc-text">四种类型的bin:</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#fastbin"><span class="toc-number">6.1.</span> <span class="toc-text">fastbin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#small-bin"><span class="toc-number">6.2.</span> <span class="toc-text">small bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#large-bin"><span class="toc-number">6.3.</span> <span class="toc-text">large bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#unsorted-bin"><span class="toc-number">6.4.</span> <span class="toc-text">unsorted bin</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#top-chunk和remainder-chunk"><span class="toc-number">7.</span> <span class="toc-text">top chunk和remainder chunk</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#内存操作过程"><span class="toc-number">8.</span> <span class="toc-text">内存操作过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#heap初始化"><span class="toc-number">8.1.</span> <span class="toc-text">heap初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#heap-创建"><span class="toc-number">8.2.</span> <span class="toc-text">heap 创建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分配fastbin-chunk"><span class="toc-number">8.3.</span> <span class="toc-text">分配fastbin chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分配small-bin-chunk"><span class="toc-number">8.4.</span> <span class="toc-text">分配small bin chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分配-large-chunk"><span class="toc-number">8.5.</span> <span class="toc-text">分配 large chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#释放"><span class="toc-number">8.6.</span> <span class="toc-text">释放</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文章"><span class="toc-number">9.</span> <span class="toc-text">参考文章:</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
