@@ -15,7 +15,7 @@
 <meta property="og:description" content="0x01 环境how2heap 是由 shellphish 团队制作的堆利用教程，介绍了多种堆利用技术。使用 Ubuntu 16.04 64位系统环境，glibc 版本如下： $ file /lib/x86_64-linux-gnu/libc-2.23.so /lib/x86_64-linux-gnu/libc-2.23.so: ELF 64-bit LSB shared object, x86-">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/02/26/how2heap-学习记录/1.jpg">
-<meta property="og:updated_time" content="2019-03-04T11:22:50.518Z">
+<meta property="og:updated_time" content="2019-03-04T11:31:59.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How2heap 学习记录">
 <meta name="twitter:description" content="0x01 环境how2heap 是由 shellphish 团队制作的堆利用教程，介绍了多种堆利用技术。使用 Ubuntu 16.04 64位系统环境，glibc 版本如下： $ file /lib/x86_64-linux-gnu/libc-2.23.so /lib/x86_64-linux-gnu/libc-2.23.so: ELF 64-bit LSB shared object, x86-">
@@ -105,7 +105,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-环境"><span class="toc-number">1.</span> <span class="toc-text">0x01 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-堆分配机制-amp-malloc-amp-free"><span class="toc-number">2.</span> <span class="toc-text">0x02 堆分配机制 &amp; malloc &amp; free</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc-malloc-size-t-n"><span class="toc-number">2.0.1.</span> <span class="toc-text">malloc: malloc(size_t n)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#free-free-void-p"><span class="toc-number">2.0.2.</span> <span class="toc-text">free: free(void* p)</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-pwndbg的几个操作指令"><span class="toc-number">3.</span> <span class="toc-text">0x03 pwndbg的几个操作指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-first-fit"><span class="toc-number">4.</span> <span class="toc-text">0x04 first_fit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-fastbin-dup"><span class="toc-number">5.</span> <span class="toc-text">0x05 fastbin_dup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-fastbin-dup-into-stack"><span class="toc-number">6.</span> <span class="toc-text">0x06 fastbin_dup_into_stack</span></a></li>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-环境"><span class="toc-number">1.</span> <span class="toc-text">0x01 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-堆分配机制-amp-malloc-amp-free"><span class="toc-number">2.</span> <span class="toc-text">0x02 堆分配机制 &amp; malloc &amp; free</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-malloc-size-t-n"><span class="toc-number">2.1.</span> <span class="toc-text">malloc: malloc(size_t n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#free-free-void-p"><span class="toc-number">2.2.</span> <span class="toc-text">free: free(void* p)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-pwndbg的几个操作指令"><span class="toc-number">3.</span> <span class="toc-text">0x03 pwndbg的几个操作指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-first-fit"><span class="toc-number">4.</span> <span class="toc-text">0x04 first_fit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-fastbin-dup"><span class="toc-number">5.</span> <span class="toc-text">0x05 fastbin_dup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-fastbin-dup-into-stack"><span class="toc-number">6.</span> <span class="toc-text">0x06 fastbin_dup_into_stack</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -158,7 +158,7 @@ $ cd how2heap
 $ make
 </code></pre><h2 id="0x02-堆分配机制-amp-malloc-amp-free"><a href="#0x02-堆分配机制-amp-malloc-amp-free" class="headerlink" title="0x02 堆分配机制 &amp; malloc &amp; free"></a>0x02 堆分配机制 &amp; malloc &amp; free</h2><p>在用malloc分配内存时, 程序向堆管理器发起请求</p>
 <p>为了保持内存管理高效, 内核会预先分配一块内存给堆管理器, 堆空间不足时, 堆管理器向操作系统进行交互</p>
-<h4 id="malloc-malloc-size-t-n"><a href="#malloc-malloc-size-t-n" class="headerlink" title="malloc: malloc(size_t n)"></a>malloc: <code>malloc(size_t n)</code></h4><ul>
+<h3 id="malloc-malloc-size-t-n"><a href="#malloc-malloc-size-t-n" class="headerlink" title="malloc: malloc(size_t n)"></a>malloc: <code>malloc(size_t n)</code></h3><ul>
 <li>当<code>n=0</code>时, 返回操作系统允许的最小内存块</li>
 <li>当<code>n&lt;0</code>时, 由于size_t是无符号整型, 因此会分配一个很大的内存(通常失败, 因为没有这么大内存)</li>
 <li>正常情况下返回指定大小的内存的指针</li>
@@ -167,7 +167,7 @@ $ make
 <p><img src="/2019/02/26/how2heap-学习记录/1.jpg" alt="img"></p>
 <p>图片来自<a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/heap_overview/#_4">ctfwiki</a></p>
 <p>限于篇幅, 调用malloc后系统的操作将在另一篇文章里说明</p>
-<h4 id="free-free-void-p"><a href="#free-free-void-p" class="headerlink" title="free: free(void* p)"></a>free: <code>free(void* p)</code></h4><ul>
+<h3 id="free-free-void-p"><a href="#free-free-void-p" class="headerlink" title="free: free(void* p)"></a>free: <code>free(void* p)</code></h3><ul>
 <li>p=null时, free不做任何操作</li>
 <li>p指向的内存如果被释放, 会造成各种影响 (glibc的原文说明:It can have arbitrary (i.e., bad!)effects if p has already been freed.)</li>
 <li>除了在用mallopt限制了一些内存操作的情况下,当free很大的内存时, 会将这些内存直接返还给系统, 而不是交给堆管理器 </li>
@@ -484,7 +484,7 @@ fastbins
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-环境"><span class="toc-number">1.</span> <span class="toc-text">0x01 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-堆分配机制-amp-malloc-amp-free"><span class="toc-number">2.</span> <span class="toc-text">0x02 堆分配机制 &amp; malloc &amp; free</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc-malloc-size-t-n"><span class="toc-number">2.0.1.</span> <span class="toc-text">malloc: malloc(size_t n)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#free-free-void-p"><span class="toc-number">2.0.2.</span> <span class="toc-text">free: free(void* p)</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-pwndbg的几个操作指令"><span class="toc-number">3.</span> <span class="toc-text">0x03 pwndbg的几个操作指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-first-fit"><span class="toc-number">4.</span> <span class="toc-text">0x04 first_fit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-fastbin-dup"><span class="toc-number">5.</span> <span class="toc-text">0x05 fastbin_dup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-fastbin-dup-into-stack"><span class="toc-number">6.</span> <span class="toc-text">0x06 fastbin_dup_into_stack</span></a></li>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-环境"><span class="toc-number">1.</span> <span class="toc-text">0x01 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-堆分配机制-amp-malloc-amp-free"><span class="toc-number">2.</span> <span class="toc-text">0x02 堆分配机制 &amp; malloc &amp; free</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-malloc-size-t-n"><span class="toc-number">2.1.</span> <span class="toc-text">malloc: malloc(size_t n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#free-free-void-p"><span class="toc-number">2.2.</span> <span class="toc-text">free: free(void* p)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-pwndbg的几个操作指令"><span class="toc-number">3.</span> <span class="toc-text">0x03 pwndbg的几个操作指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-first-fit"><span class="toc-number">4.</span> <span class="toc-text">0x04 first_fit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-fastbin-dup"><span class="toc-number">5.</span> <span class="toc-text">0x05 fastbin_dup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-fastbin-dup-into-stack"><span class="toc-number">6.</span> <span class="toc-text">0x06 fastbin_dup_into_stack</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
