@@ -16,7 +16,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/1.jpg">
 <meta property="og:image" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/2.jpg">
-<meta property="og:updated_time" content="2019-03-05T09:45:04.489Z">
+<meta property="og:updated_time" content="2019-03-07T10:21:34.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="调用Malloc后发生了什么">
 <meta name="twitter:description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp;amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
@@ -225,7 +225,7 @@ Start              End                Perm    Name
 <li>malloc_chunk</li>
 </ol>
 <p>即chunk header, 一个heap被分为多个chunk</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span> &#123;</span></span><br><span class="line">    <span class="comment">/* #define INTERNAL_SIZE_T size_t */</span></span><br><span class="line">    INTERNAL_SIZE_T      prev_size;  <span class="comment">/* 前一个chunk的大小(前一个chunk空闲时有意义, 若非空闲则指向用户数据)  */</span></span><br><span class="line">    INTERNAL_SIZE_T      size;       <span class="comment">/* 当前chunk的大小, 包括头部数据, 末三位作为标志位 */</span></span><br><span class="line">                                     <span class="comment">/* 最低位表示前一个chunk是否被使用 */</span></span><br><span class="line">                                     <span class="comment">/* 倒数第二位表示该chunk是否由mmap分配 */</span></span><br><span class="line">                                     <span class="comment">/* 倒数第三位表示该chunk是否存在于main arena */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd</span>;</span>         <span class="comment">/* 双向链表的前向指针, 这两个指针只在free chunk中存在*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk</span>;</span>         <span class="comment">/* 双向链表的后向指针, 同上 */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 只用于大的块, 指向下一个更大的size */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd_nextsize</span>;</span> <span class="comment">/* 双向链表, 空闲时有效 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk_nextsize</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span> &#123;</span></span><br><span class="line">    <span class="comment">/* #define INTERNAL_SIZE_T size_t */</span></span><br><span class="line">    INTERNAL_SIZE_T      prev_size;  <span class="comment">/* 前一个chunk的大小(前一个chunk空闲时有意义, 若非空闲则指向用户数据)  */</span></span><br><span class="line">    INTERNAL_SIZE_T      size;       <span class="comment">/* 当前chunk的大小, 包括头部数据, 末三位作为标志位 */</span></span><br><span class="line">                                     <span class="comment">/* 最低位表示前一个chunk是否被使用 */</span></span><br><span class="line">                                     <span class="comment">/* 倒数第二位表示该chunk是否由mmap分配 */</span></span><br><span class="line">                                     <span class="comment">/* 倒数第三位表示该chunk是否存在于main arena */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd</span>;</span>         <span class="comment">/* 双向链表的前向指针, 这两个指针只在free chunk中存在*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk</span>;</span>         <span class="comment">/* 双向链表的后向指针, 同上 */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 只用于large chunk, 指向下一个large chunk size */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd_nextsize</span>;</span> <span class="comment">/* 双向链表, 空闲时有效 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk_nextsize</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>未被分配时:</p>
 <pre><code>    chunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             |             Size of previous chunk                            |
@@ -266,7 +266,7 @@ chunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 如果没有合适大小的内存会从top chunk中分割一部分内存来分配
 剩余内存则放在remainder chunk中
 </code></pre><h2 id="四种类型的bin"><a href="#四种类型的bin" class="headerlink" title="四种类型的bin:"></a>四种类型的bin:</h2><h3 id="fastbin"><a href="#fastbin" class="headerlink" title="fastbin"></a>fastbin</h3><pre><code>fastbin存放最小的chunk, 分配起来也是最快的, 可以分配从0到80byte的chunk
-有10个链表, 分别对应不通大小的fastbin(初始化的时候只到64byte而不是80byte, 便于对齐)
+有10个链表, 分别对应不同大小的fastbin(初始化的时候只到64byte而不是80byte, 便于对齐)
 fastbin是一个单链表, 操作更快
 如果有两个相邻的空闲fastbin是不会合并的, 因而fastbin会在malloc_state结构中独立于其他的bin
 大小必须是 2 * SIZE_SZ 的整数倍。
@@ -379,21 +379,6 @@ fastbin是一个单链表, 操作更快
 <td style="text-align:center">105 - 120</td>
 <td style="text-align:center">128</td>
 </tr>
-<tr>
-<td style="text-align:center">7</td>
-<td style="text-align:center">121 - 136</td>
-<td style="text-align:center">144</td>
-</tr>
-<tr>
-<td style="text-align:center">8</td>
-<td style="text-align:center">137 - 152</td>
-<td style="text-align:center">160</td>
-</tr>
-<tr>
-<td style="text-align:center">9</td>
-<td style="text-align:center">153 - 168</td>
-<td style="text-align:center">176</td>
-</tr>
 </tbody>
 </table>
 <h3 id="small-bin"><a href="#small-bin" class="headerlink" title="small bin"></a>small bin</h3><pre><code>small bin 用来存放512byte以内的chunk, 共62个, 每个的间距是8byte
@@ -405,7 +390,7 @@ fastbin是一个单链表, 操作更快
 8个bin, 每4096个byte一个阶层
 4个bin, 每32768个byte一个阶层
 2个bin, 每262144个byte一个阶层
-最后一个bin包括剩下的所有大小
+最后一个bin包括剩下的所有大小   
 </code></pre><p>和small bin不同的地方在于，这里的每一个bin都保存的是一个范围而不是一个确定的值，每一个bin内的chunk大小是排好序的。不过和small bin一样也可以合并。</p>
 <h3 id="unsorted-bin"><a href="#unsorted-bin" class="headerlink" title="unsorted bin"></a>unsorted bin</h3><pre><code>当small bin和large bin中的chunk被释放的时候会放入unsorted bin
 只有一个, 是一个循环链表

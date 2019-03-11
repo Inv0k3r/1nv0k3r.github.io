@@ -14,13 +14,14 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="unlink() 是一个宏，用于将某一个空闲 chunk 从其所处的 bin 中脱链。 在 malloc_consolidate() 函数中将 fastbin 中的空闲 chunk 整理到 unsorted_bin，在 malloc() 函数中用于将 unsorted_bin 中的空闲 chunk 整理到 smallbin 或者 largebin，以及在 malloc() 中获得堆空间时，均有可能">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/06/unlink宏的实现机制/unlink.jpg">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/06/unlink宏的实现机制/largebin.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/06/unlink宏的实现机制/small%20bin.png">
-<meta property="og:updated_time" content="2019-03-06T10:56:30.665Z">
+<meta property="og:updated_time" content="2019-03-07T08:20:35.790Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unlink宏的实现机制">
 <meta name="twitter:description" content="unlink() 是一个宏，用于将某一个空闲 chunk 从其所处的 bin 中脱链。 在 malloc_consolidate() 函数中将 fastbin 中的空闲 chunk 整理到 unsorted_bin，在 malloc() 函数中用于将 unsorted_bin 中的空闲 chunk 整理到 smallbin 或者 largebin，以及在 malloc() 中获得堆空间时，均有可能">
-<meta name="twitter:image" content="http://1nv0k3r.me/2019/03/06/unlink宏的实现机制/largebin.png">
+<meta name="twitter:image" content="http://1nv0k3r.me/2019/03/06/unlink宏的实现机制/unlink.jpg">
     
     
         
@@ -75,6 +76,8 @@
     <br>
     <span id="actions">
       <ul>
+        
+        <li><a class="icon" href="/2019/03/11/3月月赛/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2019/03/04/peda的几个命令/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -158,9 +161,13 @@
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (__builtin_expect (FD-&gt;bk != P || BK-&gt;fd != P, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
 <p>即 判断前一个空闲chunk的后向指针和后一个空闲chunk的前向指针是否指向P</p>
 <p>因为fastbins是单链表结构, 所以unlink只能是从smallbins和largebins来脱离</p>
+<p>判断成立的话, 会把这个chunk解下来</p>
+<p>贴一张ctf wiki的图</p>
+<p><img src="/2019/03/06/unlink宏的实现机制/unlink.jpg" alt="unlink"></p>
 <p>接着判断:</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!in_smallbin_range (P-&gt;size) &amp;&amp; __builtin_expect (P-&gt;fd_nextsize != <span class="literal">NULL</span>, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
-<p>即 判断P chunk的size是否在small bin的范围内<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NBINS             128</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NSMALLBINS         64</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SMALLBIN_WIDTH    MALLOC_ALIGNMENT <span class="comment">//16 in i386</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SMALLBIN_CORRECTION (MALLOC_ALIGNMENT &gt; 2 * SIZE_SZ)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN_LARGE_SIZE    ((NSMALLBINS - SMALLBIN_CORRECTION) * SMALLBIN_WIDTH)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> in_smallbin_range(sz)  \</span></span><br><span class="line">  ((<span class="keyword">unsigned</span> <span class="keyword">long</span>) (sz) &lt; (<span class="keyword">unsigned</span> <span class="keyword">long</span>) MIN_LARGE_SIZE)</span><br></pre></td></tr></table></figure></p>
+<p>即 判断P chunk的size是否在small bin的范围内, 并且判断前一个chunk的size是否为空</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NBINS             128</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NSMALLBINS         64</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SMALLBIN_WIDTH    MALLOC_ALIGNMENT <span class="comment">//16 in i386</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SMALLBIN_CORRECTION (MALLOC_ALIGNMENT &gt; 2 * SIZE_SZ)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN_LARGE_SIZE    ((NSMALLBINS - SMALLBIN_CORRECTION) * SMALLBIN_WIDTH)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> in_smallbin_range(sz)  \</span></span><br><span class="line">  ((<span class="keyword">unsigned</span> <span class="keyword">long</span>) (sz) &lt; (<span class="keyword">unsigned</span> <span class="keyword">long</span>) MIN_LARGE_SIZE)</span><br></pre></td></tr></table></figure>
 <p>large bin 结构图:</p>
 <p><img src="/2019/03/06/unlink宏的实现机制/largebin.png" alt="large bin"></p>
 <p>small bin 结构图:</p>
