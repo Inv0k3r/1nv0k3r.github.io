@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +16,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/1.jpg">
 <meta property="og:image" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/2.jpg">
-<meta property="og:updated_time" content="2019-03-07T10:21:34.442Z">
+<meta property="og:updated_time" content="2019-04-22T08:16:47.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="调用Malloc后发生了什么">
 <meta name="twitter:description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp;amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
@@ -72,7 +72,7 @@
         
       </ul>
     </span>
-    <br>
+    <br/>
     <span id="actions">
       <ul>
         
@@ -89,7 +89,7 @@
       <span id="i-top" class="info" style="display:none;">Back to top</span>
       <span id="i-share" class="info" style="display:none;">Share post</span>
     </span>
-    <br>
+    <br/>
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
@@ -114,7 +114,7 @@
     
     <div class="content index py4">
         
-        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
@@ -124,7 +124,7 @@
 
 
     <div class="meta">
-      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span itemprop="name">1nv0k3r's blog</span>
       </span>
       
@@ -379,6 +379,11 @@ fastbin是一个单链表, 操作更快
 <td style="text-align:center">105 - 120</td>
 <td style="text-align:center">128</td>
 </tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">121 - 136</td>
+<td style="text-align:center">144</td>
+</tr>
 </tbody>
 </table>
 <h3 id="small-bin"><a href="#small-bin" class="headerlink" title="small bin"></a>small bin</h3><pre><code>small bin 用来存放512byte以内的chunk, 共62个, 每个的间距是8byte
@@ -421,31 +426,11 @@ Small bin某一个bin为空的时候就交给unsorted bin处理
 </code></pre><h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章:"></a>参考文章:</h2><pre><code>https://blog.csdn.net/qq_29343201/article/details/59614863
 https://www.anquanke.com/post/id/163971
 </code></pre>
-      <script>
-        window.disqusProxy={
-          shortname: 'blog-tw5j2p4htr',
-          username: '1nv0k3r',
-          server: 'disqus.1nv0k3r.me',
-          port: 5509,
-          adminAvatar: '/avatars/admin-avatar.jpg',
-          identifier: '2019/02/26/调用malloc后发生了什么/',
-        };
-        window.disqus_config = function () {
-          this.page.url = window.location.href;
-          this.page.identifier = window.disqusProxy.identifier;
-        };
-      </script>
   </div>
 </article>
 
     <div class="blog-post-comments">
-        
-      <script src="//cdn.bootcss.com/react/16.0.0/umd/react.production.min.js"></script>
-      <script src="//cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.production.min.js"></script>
-      <script src="//cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
-      <script src="//cdn.jsdelivr.net/npm/blockies-identicon@0.1.0/blockies.min.js"></script>
-      <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-      <div id="disqus_proxy_thread"><script src="/scripts/hexo-disqus-proxy-primary.js" async></script>
+        <div id="disqus_thread">
             <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
     </div>

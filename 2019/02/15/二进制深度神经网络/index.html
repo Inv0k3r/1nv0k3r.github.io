@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="papers:https://arxiv.org/pdf/1602.02830v3.pdf http://www.csl.cornell.edu/~zhiruz/pdfs/bnn-fpga2017.pdf https://dl.acm.org/citation.cfm?doid=3020078.3021741 https://arxiv.org/pdf/1808.00278.pdf https:/">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-08T10:28:13.476Z">
+<meta property="og:updated_time" content="2019-05-29T03:11:35.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二进制深度神经网络">
 <meta name="twitter:description" content="papers:https://arxiv.org/pdf/1602.02830v3.pdf http://www.csl.cornell.edu/~zhiruz/pdfs/bnn-fpga2017.pdf https://dl.acm.org/citation.cfm?doid=3020078.3021741 https://arxiv.org/pdf/1808.00278.pdf https:/">
@@ -69,7 +69,7 @@
         
       </ul>
     </span>
-    <br>
+    <br/>
     <span id="actions">
       <ul>
         
@@ -86,7 +86,7 @@
       <span id="i-top" class="info" style="display:none;">Back to top</span>
       <span id="i-share" class="info" style="display:none;">Share post</span>
     </span>
-    <br>
+    <br/>
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/02/15/二进制深度神经网络/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
@@ -103,7 +103,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#papers"><span class="toc-number">1.</span> <span class="toc-text">papers:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#github"><span class="toc-number">2.</span> <span class="toc-text">github:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#other-refer"><span class="toc-number">3.</span> <span class="toc-text">other refer:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#csdn"><span class="toc-number">4.</span> <span class="toc-text">csdn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#methods"><span class="toc-number">5.</span> <span class="toc-text">methods</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#papers"><span class="toc-number">1.</span> <span class="toc-text">papers:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#github"><span class="toc-number">2.</span> <span class="toc-text">github:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#other-refer"><span class="toc-number">3.</span> <span class="toc-text">other refer:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#csdn"><span class="toc-number">4.</span> <span class="toc-text">csdn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#methods"><span class="toc-number">5.</span> <span class="toc-text">methods</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#enviroment"><span class="toc-number">6.</span> <span class="toc-text">enviroment</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#train"><span class="toc-number">7.</span> <span class="toc-text">train</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码"><span class="toc-number">8.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#论文翻译"><span class="toc-number">9.</span> <span class="toc-text">论文翻译:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">10.</span> <span class="toc-text">摘要:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#介绍"><span class="toc-number">11.</span> <span class="toc-text">介绍:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本文贡献如下"><span class="toc-number">12.</span> <span class="toc-text">本文贡献如下:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-二值化神经网络"><span class="toc-number">13.</span> <span class="toc-text">1. 二值化神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1。-确定性与随机二值化"><span class="toc-number">13.1.</span> <span class="toc-text">1.1。 确定性与随机二值化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-梯度计算和累积"><span class="toc-number">13.2.</span> <span class="toc-text">1.2 梯度计算和累积</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-通过离散化传播梯度"><span class="toc-number">13.3.</span> <span class="toc-text">1.3 通过离散化传播梯度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-基于移位的批量标准化-SBN"><span class="toc-number">13.4.</span> <span class="toc-text">1.4 基于移位的批量标准化(SBN)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-基于移位的AdaMax-SAdaMax"><span class="toc-number">13.5.</span> <span class="toc-text">1.5 基于移位的AdaMax(SAdaMax)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-第一层"><span class="toc-number">13.6.</span> <span class="toc-text">1.6 第一层</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-基准测试结果"><span class="toc-number">14.</span> <span class="toc-text">2 基准测试结果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-1-MLP-on-MNIST-Theano"><span class="toc-number">15.</span> <span class="toc-text">2.1. MLP on MNIST (Theano)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-2-MLP-on-MNIST-Torch7"><span class="toc-number">16.</span> <span class="toc-text">2.2. MLP on MNIST (Torch7)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-3-ConvNet-on-CIFAR-10-Theano"><span class="toc-number">17.</span> <span class="toc-text">2.3. ConvNet on CIFAR-10 (Theano)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-4-ConvNet-on-CIFAR-10-Torch7"><span class="toc-number">18.</span> <span class="toc-text">2.4. ConvNet on CIFAR-10 (Torch7)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-5-ConvNet-on-SVHN"><span class="toc-number">19.</span> <span class="toc-text">2.5. ConvNet on SVHN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-正向传播时非常节能"><span class="toc-number">20.</span> <span class="toc-text">3. 正向传播时非常节能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-1-内存大小和访问次数"><span class="toc-number">21.</span> <span class="toc-text">3.1. 内存大小和访问次数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-2-异或操作的数量"><span class="toc-number">22.</span> <span class="toc-text">3.2 异或操作的数量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-3-利用过滤器重复"><span class="toc-number">23.</span> <span class="toc-text">3.3. 利用过滤器重复</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-在GPU上运行时快7倍"><span class="toc-number">24.</span> <span class="toc-text">4. 在GPU上运行时快7倍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-讨论和相关工作"><span class="toc-number">25.</span> <span class="toc-text">5.讨论和相关工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-结论"><span class="toc-number">26.</span> <span class="toc-text">6. 结论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-致谢"><span class="toc-number">27.</span> <span class="toc-text">7. 致谢</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -111,7 +111,7 @@
     
     <div class="content index py4">
         
-        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
@@ -121,7 +121,7 @@
 
 
     <div class="meta">
-      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span itemprop="name">1nv0k3r's blog</span>
       </span>
       
@@ -162,32 +162,143 @@
 <p><a href="https://blog.csdn.net/nature553863/article/details/80653521">https://blog.csdn.net/nature553863/article/details/80653521</a></p>
 <p><a href="https://blog.csdn.net/yishuicanhong/column/info/23686">https://blog.csdn.net/yishuicanhong/column/info/23686</a></p>
 <h1 id="methods"><a href="#methods" class="headerlink" title="methods"></a>methods</h1><p>XNOR-Net, Binary-Weight-Networks, BMXNet</p>
+<h1 id="enviroment"><a href="#enviroment" class="headerlink" title="enviroment"></a>enviroment</h1><p>OS: ubuntu 16.04</p>
+<p>github: <a href="https://github.com/Inv0k3r/BinaryNet-1">https://github.com/Inv0k3r/BinaryNet-1</a></p>
+<p><a href="https://github.com/itayhubara/BinaryNet.tf">https://github.com/itayhubara/BinaryNet.tf</a></p>
+<p>Dependencies: </p>
+<ul>
+<li><p>Torch(<a href="http://torch.ch/docs/getting-started.html#_">http://torch.ch/docs/getting-started.html#_</a>)</p>
+<p>  git clone <a href="https://github.com/torch/distro.git">https://github.com/torch/distro.git</a> ~/torch –recursive<br>  cd ~/torch; bash install-deps;<br>  ./install.sh<br>  source ~/.bashrc</p>
+</li>
+<li><p>DataProvider.torch</p>
+<p>  luarocks install <a href="https://raw.githubusercontent.com/eladhoffer/DataProvider.torch/master/dataprovider-scm-1.rockspec">https://raw.githubusercontent.com/eladhoffer/DataProvider.torch/master/dataprovider-scm-1.rockspec</a></p>
+</li>
+<li><p>cudnn.torch</p>
+<p>  cuda: <a href="https://developer.nvidia.com/cuda-downloads">https://developer.nvidia.com/cuda-downloads</a><br>  sudo apt-get update<br>  sudo apt-get install cuda<br>  nvidia-smi<br>  luarocks install cutorch<br>  luarocks install cunn<br>  th -e “require ‘cutorch’; require ‘cunn’; print(cutorch)”</p>
+<p>  tar -xzvf  cudnn-8.0-linux-x64-v5.1.tgz<br>  sudo cp cuda/lib64/libcudnn* /usr/local/cuda-8.0/lib64/<br>  sudo cp cuda/include/cudnn.h /usr/local/cuda-8.0/include/<br>  luarocks install cudnn<br>  th neural_style.lua -gpu 0 -backend cudnn<br>  cd ~/torch<br>  ./test.sh<br>  refer: <a href="https://blog.csdn.net/hungryof/article/details/51557666">https://blog.csdn.net/hungryof/article/details/51557666</a></p>
+</li>
+<li><p>dp</p>
+<p>  luarocks install dp<br>  <a href="https://github.com/nicholas-leonard/dp">https://github.com/nicholas-leonard/dp</a></p>
+</li>
+<li><p>unsup</p>
+<p>  luarocks install unsup<br>  <a href="https://github.com/koraykv/unsup">https://github.com/koraykv/unsup</a></p>
+</li>
+</ul>
+<h1 id="train"><a href="#train" class="headerlink" title="train"></a>train</h1><p>Create pre-processing folder:</p>
+<pre><code>cd BinaryNet
+mkdir PreProcData
+</code></pre><p>Start training using:</p>
+<pre><code>th Main_BinaryNet_Cifar10.lua -network BinaryNet_Cifar10_Model
+</code></pre><p>or,</p>
+<pre><code>th Main_BinaryNet_MNIST.lua -network BinaryNet_MNIST_Model
+</code></pre><p>MNIST : 手写数字数据集</p>
+<p>CIFAR-10 : 10种图片的分类</p>
+<p>SVHN : 街景数据</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>基于<a href="https://github.com/eladhoffer/convNet.tf">https://github.com/eladhoffer/convNet.tf</a></p>
+<h1 id="论文翻译"><a href="#论文翻译" class="headerlink" title="论文翻译:"></a>论文翻译:</h1><p>Binarized Neural Networks: Training Neural Networks with Weights and Activations Constrained to +1 or −1<br>二值化神经网络: 训练权值和激活限制在+1和-1的神经网络</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要:"></a>摘要:</h1><p>本文介绍了一种训练二值化神经网络(BNNs)的方法，即在运行时训练具有二值权值和激活量的神经网络<br>在训练时，用二元权值和激活量计算参数梯度。在正向传播中，BNNs大大减小了内存大小和访问次数<br>并将大部分算术运算替换为逐位运算，有望大幅度提高电能效率<br>我们在Torch7和Theano框架上验证的有效性<br>在这两个实验中，BNNs用MNIST、CIFAR-10和SVHN数据集都取得了近乎最先进的成果<br>最后，我们写了一个二元矩阵乘法GPU内核，它运行我们的MNIST BNN的速度比使用未优化的GPU内核快7倍<br>而且在分类精度上没有任何损失。我们的BNNs的训练和运行代码可以在线获得</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍:"></a>介绍:</h1><p>深度神经网络(DNNs)在各种任务中大大推进了人工智能(AI)的限制，包括但不限于图像中的目标识别(Krizhevsky et al.， 2012;Szegedy等，2014)，语音识别(Hinton等，2012;Sainath等人，2013)，统计机器翻译(Devlin et al., 2014; Sutskever et al., 2014; Bahdanau et al., 2015),雅达利和GO游戏(Mnih et al., 2015; Silver et al., 2016), 甚至抽象艺术(Mordvintsev et al.， 2015)。<br>如今，DNNs几乎只接受一个或多个非常快速且耗电的图形处理训练设备(gpu) (Coates et al.， 2013)。因此，在目标为低功耗设备上运行DNNs常常是一个挑战，大量的研究工作被投入到在运行时加速这两种通用DNNs和专业计算硬件上</p>
+<h1 id="本文贡献如下"><a href="#本文贡献如下" class="headerlink" title="本文贡献如下:"></a>本文贡献如下:</h1><ul>
+<li>我们介绍了一种在运行时训练二值化神经网络（BNN），具有二进制权重和激活的神经网络，以及在训练时计算参数梯度的方法（参见第1节）。</li>
+<li>我们进行了两组实验，每组实验都在不同的框架上实施，即Torch7（Collobert等，2011）和heano（Bergstra等，2010; Bastien等，2012），它们表明可以训练 关于MNIST，CIFAR-10和SVHN的BNN，并取得了近乎最先进的结果（参见第2节）</li>
+<li>我们展示了在正向传递期间（在运行时和训练时），BNN大大减少了内存消耗（访问的内存大小和数量），并用位操作替换了大多数算术运算，这可能导致功效的大幅增加（见第3节）。 而且，二值化的CNN可以导致二进制卷积核重叠; 我们认为专用硬件可以将时间复杂度降低60％</li>
+<li>最后但并非最不重要的是，我们编写了一个二进制矩阵乘法GPU内核，使用该内核可以比未经优化的GPU内核运行我们的MNIST BNN快7倍，而不会损失分类精度（参见第4节）。</li>
+<li>训练和运行我们的BNN的代码可在线获得（在Theano框架1和Torch框架2中）。</li>
+</ul>
+<h1 id="1-二值化神经网络"><a href="#1-二值化神经网络" class="headerlink" title="1. 二值化神经网络"></a>1. 二值化神经网络</h1><p>在本节中，我们详细介绍了二值化函数，展示了我们如何使用它来计算参数梯度，以及我们如何反向传播它。</p>
+<h2 id="1-1。-确定性与随机二值化"><a href="#1-1。-确定性与随机二值化" class="headerlink" title="1.1。 确定性与随机二值化"></a>1.1。 确定性与随机二值化</h2><p>在训练BNN时，我们将权重和激活约束为+1或-1。 从硬件的角度来看，这两个值是非常有利的，正如我们在第4节中解释的那样。<br>为了将实值变量转换为这两个值，我们使用两个不同的二值化函数，如（Courbariaux等，2015）。 </p>
+<p>我们的第一个二值化函数是确定性的</p>
+<p>$x^b = Sign(x) = \begin{cases}+1\quad if\ x \geq 0\-1\quad otherwise\end{cases}$</p>
+<p>其中$x^b$是二值化变量（权重或激活），x是实值变量。 实施起来非常简单，并且在实践中运作良好。 </p>
+<p>我们的第二个二值化函数是随机的：</p>
+<p>$x^b = Sign(x) = \begin{cases}+1\quad x的概率 p = σ(x),\-1\quad x的概率\ 1-p\end{cases}$</p>
+<p>σ 是 “hard sigmoid” 函数:</p>
+<p>随机二值化比符号函数更具吸引力，但更难实现，因为它需要硬件在量化时生成随机位。<br>因此，我们大多使用确定性二值化函数（即符号函数），但在我们的一些实验中，在训练时的激活值除外。</p>
+<h2 id="1-2-梯度计算和累积"><a href="#1-2-梯度计算和累积" class="headerlink" title="1.2 梯度计算和累积"></a>1.2 梯度计算和累积</h2><p>虽然我们的BNN训练方法使用二进制加权和激活来计算参数梯度，但是根据算法1，权值的实值梯度累积在实值变量中。<br>实值权重可能是随机梯度下降（SGD）所需的 ）工作。 SGD在小的和嘈杂的步骤中探索参数的空间，并且通过在每个权重中累积的随机梯度贡献来平均噪声。 因此，为这些蓄电池保持足够的分辨率非常重要，乍一看这表明绝对需要高精度。</p>
+<p>此外，在计算参数梯度时，为权重和激活添加噪声提供了一种正规化形式，可以帮助更好地推广，如先前所示的变量权重噪声（Graves，2011），Dropout（Srivastava，2013; Srivastava等，2014） ）和DropConnect（Wan等，2013）。<br>我们训练BNN的方法可以看作是Dropout的一种变体，在计算参数梯度时，我们不是将激活的一半随机设置为零，而是将激活和权重二进制化。</p>
+<h2 id="1-3-通过离散化传播梯度"><a href="#1-3-通过离散化传播梯度" class="headerlink" title="1.3 通过离散化传播梯度"></a>1.3 通过离散化传播梯度</h2><p>符号函数的导数处处为零，使其显然与反向传播不相容，因为相对于离散化之前的量（预激活或权重）的成本的精确梯度将为零。<br>注意，即使使用随机量化，这仍然是正确的。<br>Bengio（2013）研究了通过随机离散神经元估计或传播梯度的问题。<br>他们在实验中发现，使用“直通估算器”时，获得了最快速的训练，此前曾在Hinton（2012）的讲座中介绍过。<br>我们遵循类似的方法，但使用考虑饱和效应的直通估计器的版本，并且确实使用比特的确定性而非随机抽样。 考虑符号函数量化</p>
+<p>q = Sign(r)</p>
+<p>并假设已经获得了梯度∂C/∂q的估计量gq（在需要时使用直通估计器）。 然后，我们直接估算的∂C∂r就是这么简单</p>
+<p>gr = gq1|r|≤1.</p>
+<p>请注意，这会保留渐变的信息，并在r过大时取消渐变。 当r太大时不取消梯度会显着恶化性能。 算法1中说明了这种直通估计器的使用</p>
+<p>导数1 | r |≤1也可以看作是通过hard tanh传播梯度，这是下面的分段线性激活函数：</p>
+<p>Htanh(x) = Clip(x, −1, 1) = max(−1, min(1, x)). (5)</p>
+<p>对于隐藏单元，我们使用符号函数非线性来获得二元激活，对于权重，我们将两个成分组合在一起：</p>
+<p>根据算法1，当权重更新使得wr超出[-1,1]，即在训练期间剪切权重时，将每个实值权重约束在-1和1之间，通过将wr投影到-1或1。 否则，评估的权重会变得非常大，而不会对二进制权重产生任何影响。</p>
+<p>使用权重wr时，使用wb = Sign（wr）对其进行量化。<br>这与| wr |时的梯度取消一致 &gt; 1，根据Eq。4。</p>
+<h2 id="1-4-基于移位的批量标准化-SBN"><a href="#1-4-基于移位的批量标准化-SBN" class="headerlink" title="1.4 基于移位的批量标准化(SBN)"></a>1.4 基于移位的批量标准化(SBN)</h2><p>批量标准化（BN）（Ioffe＆Szegedy，2015），加速了训练，似乎也降低了权重规模的整体影响。<br>归一化噪声也可能有助于使模型正规化。 然而，在训练时，BN需要很多乘法（计算标准偏差并除以它），即除以运行方差（训练集激活方差的加权平均值）。 尽管缩放计算的数量与神经元的数量相同，但在ConvNets的情况下，这个数字非常大。 例如，在CIFAR-10数据集（使用我们的架构）中，第一个卷积层（仅由128×3×3滤镜掩码组成）将大小为3×32×32的图像转换为3×128×28×28的大小 ，这比权重的数量大两个数量级。<br>为了实现BN将获得的结果，我们使用基于移位的批量归一化（SBN）技术。 在算法3中有详细描述.<br>SBN几乎没有乘法但是结果却接近BN的结果</p>
+<p>在我们进行的实验中，当使用基于移位的BN算法而不是普通BN算法时，我们没有观察到精度损失。</p>
+<h2 id="1-5-基于移位的AdaMax-SAdaMax"><a href="#1-5-基于移位的AdaMax-SAdaMax" class="headerlink" title="1.5 基于移位的AdaMax(SAdaMax)"></a>1.5 基于移位的AdaMax(SAdaMax)</h2><p>ADAM学习规则（Kingma＆Ba，2014）似乎也减少了权重规模的影响。 由于ADAM需要多次乘法，我们建议使用算法4中详述的基于移位的AdaMax。<br>我们进行的实验中，我们没有观察到使用基于移位的AdaMax算法而不是普通ADAM算法时的精度损失</p>
+<h2 id="1-6-第一层"><a href="#1-6-第一层" class="headerlink" title="1.6 第一层"></a>1.6 第一层</h2><p>在BNN中，在所有计算中仅使用权重和激活的二值化值。 由于一层的输出是下一层的输入，所有层输入都是二进制的，但第一层除外。 但是，我们认为这不是一个重大问题。 首先，在计算机视觉中，输入表示通常具有比内部表示（例如，512）少得多的通道（例如，红色，绿色和蓝色）。 因此，ConvNet的第一层通常是最小的卷积层，无论是参数还是计算（Szegedy等，2014）。其次，将连续值输入作为定点数处理相对容易， 具有m位精度。 例如，在8位定点输入的常见情况下：</p>
+<p>其中x是1024个8位输入的向量，x是第一个输入的最高有效位，wb是1024个1位权重的向量，s是得到的加权和。 算法5中使用了这个技巧。</p>
+<h1 id="2-基准测试结果"><a href="#2-基准测试结果" class="headerlink" title="2 基准测试结果"></a>2 基准测试结果</h1><p>我们进行了两组实验，每组都基于不同的框架，即Torch7（Collobert等，2011）和Theano（Bergstra等，2010; Bastien等，2012）。 除了框架，两组实验非常相似：</p>
+<p>在两组实验中，我们使用MNIST，CIFAR-10和SVHN基准数据集上的BNN获得接近最先进的结果。</p>
+<p>在我们的Torch7实验中, 训练时的激活都是随机二值化, 而在我们的Theano实验中他们是确定性的二值化</p>
+<p>在我们的Torch7实验中, 我们用了基于位移的BN和AdaMax(算法3和4), 而在Theano中使用的是常规的BN和AdaMax算法</p>
+<h1 id="2-1-MLP-on-MNIST-Theano"><a href="#2-1-MLP-on-MNIST-Theano" class="headerlink" title="2.1. MLP on MNIST (Theano)"></a>2.1. MLP on MNIST (Theano)</h1><p>MNIST是图像分类基准数据集（LeCun等，1998）。 它包括一个60K的训练集和一个10K 28×28灰度图像的测试集，表示从0到9的数字。为了使这个基准仍然是一个挑战，我们没有使用任何卷积，数据增强， 预处理或无监督学习。</p>
+<p>我们在MNIST上训练的MLP包括3个4096个二进制单元的隐藏层（见第1节）和L2-SVM输出层;已经证明L2-SVM在几个分类基准测试中表现优于Softmax（Tang，2013; Lee等，2014）。我们使用Dropout对模型进行规范化（Srivastava，2013; Srivastava等，2014）。使用ADAM自适应学习速率方法最小化方形铰链损耗（Kingma＆Ba，2014）。根据算法1，我们使用指数衰减的全局学习率，并且还根据Courbariaux等人的建议，用（Glorot＆Bengio，2010）的初始化系数来衡量权重的学习率。 （2015年）。我们使用批量标准化和大小为100的小批量来加速培训。通常，我们使用训练集的最后10K样本作为早期停止和模型选择的验证集。我们报告在1000个时期之后与最佳验证错误率相关联的测试错误率（我们不在验证集上重新训练）。结果报告在表1中。</p>
+<h1 id="2-2-MLP-on-MNIST-Torch7"><a href="#2-2-MLP-on-MNIST-Torch7" class="headerlink" title="2.2. MLP on MNIST (Torch7)"></a>2.2. MLP on MNIST (Torch7)</h1><p>我们使用与Theano实验类似的架构，不使用dropout，每层使用2048个二进制单元而不是4096.此外，我们使用Shift-based AdaMax和BN（使用大小为100的小批量）代替普通实现， 减少乘法次数。 同样，我们通过每10个时期使用1位右移来衰减学习速率。 结果列于表1中</p>
+<h1 id="2-3-ConvNet-on-CIFAR-10-Theano"><a href="#2-3-ConvNet-on-CIFAR-10-Theano" class="headerlink" title="2.3. ConvNet on CIFAR-10 (Theano)"></a>2.3. ConvNet on CIFAR-10 (Theano)</h1><p>CIFAR-10是图像分类基准数据集。它包括一个50K的训练集和一个10K的测试集，其中实例是32×32彩色图像，代表飞机，汽车，鸟类，猫，鹿，狗，青蛙，马，船和卡车。我们不使用任何预处理或数据扩充（这实际上可以改变这个数据集的游戏规则（Graham，2014））。除了激活的二值化之外，我们的ConvNet架构与？的架构相同。 Courbariaux等。 （2015）的架构本身主要受到VGG的启发（Simonyan＆Zisserman，2015）。使用ADAM可以最大限度地减少方铰链损耗。我们使用指数衰减学习率，就像我们为MNIST所做的那样。我们根据（Glorot＆Bengio，2010）的初始化系数来衡量权重的学习率。我们使用批量标准化和大小为50的小批量来加速培训。我们使用训练集的最后5000个样本作为验证集。我们在500个训练时期之后报告与最佳验证错误率相关的测试错误率（我们不在验证集上重新训练）。结果列于表1和图1中。</p>
+<h1 id="2-4-ConvNet-on-CIFAR-10-Torch7"><a href="#2-4-ConvNet-on-CIFAR-10-Torch7" class="headerlink" title="2.4. ConvNet on CIFAR-10 (Torch7)"></a>2.4. ConvNet on CIFAR-10 (Torch7)</h1><p>我们使用与Theano实验相同的架构。 我们应用基于移位的AdaMax和BN（使用大小为200的小批量）而不是普通算法实现来减少乘法次数。 同样，我们通过每50个时期使用1位右移来衰减学习速率。 结果列于表1和图1中。</p>
+<h1 id="2-5-ConvNet-on-SVHN"><a href="#2-5-ConvNet-on-SVHN" class="headerlink" title="2.5. ConvNet on SVHN"></a>2.5. ConvNet on SVHN</h1><p>SVHN也是图像分类基准数据集。 它由一个大小为604K的训练集和一个大小为26K的测试集组成，其中实例是32×32彩色图像，表示从0到9的数字。在两组实验中，我们遵循与CIFAR相同的程序 -  10个实验，有一些值得注意的例外：我们使用卷积层中单位数量的一半，我们训练200个时期而不是500个（因为SVHN是比CIFAR-10大得多的数据集）。 结果列于表1中。</p>
+<h1 id="3-正向传播时非常节能"><a href="#3-正向传播时非常节能" class="headerlink" title="3. 正向传播时非常节能"></a>3. 正向传播时非常节能</h1><p>计算机硬件，无论是通用的还是专用的，都由存储器，算术运算器和控制逻辑组成。 在正向传播期间（在运行时和训练时），BNN大大减少了存储器大小和访问，并且通过逐位操作替换了大多数算术运算，这可能导致功率效率的大幅提高。 此外，二进制化的CNN可能导致二进制卷积内核重复，我们认为专用硬件可以将时间复杂度降低60％。</p>
+<h1 id="3-1-内存大小和访问次数"><a href="#3-1-内存大小和访问次数" class="headerlink" title="3.1. 内存大小和访问次数"></a>3.1. 内存大小和访问次数</h1><p>提高计算性能始终是一项挑战。 在过去十年中，电力一直是能效的主要制约因素（Horowitz，2014）。 这就是为什么许多研究工作致力于减少神经网络的能量消耗的原因。 Horowitz（2014）提供了计算能耗的粗略数字（给定数字用于45nm技术），如表2和表3所示。重要的是，我们可以看到内存访问通常比算术运算和内存访问消耗更多的能量。 内存大小增加了成本。 与32位DNN相比，BNN减少了32倍的内存大小和32倍的内存访问。 预计这将大大减少能量消耗（即，超过32倍）。</p>
+<h1 id="3-2-异或操作的数量"><a href="#3-2-异或操作的数量" class="headerlink" title="3.2 异或操作的数量"></a>3.2 异或操作的数量</h1><p>应用DNN主要包括卷积和矩阵乘法。 因此，深度学习的关键算术运算是乘法累加运算。 人工神经元基本上是乘法累加器，计算其输入的加权和。 在BNN中，激活和权重都被约束为-1或+1。 结果，大多数32位浮点乘积累被1位XNOR计数操作所取代。 这可能会对深度学习专用硬件产生重大影响。 例如，32位浮点乘法器需要大约200个Xilinx FPGA片段（Govindu等人，2004; Beauchamp等人，2006），而1位XNOR门只需要一个片段。</p>
+<h1 id="3-3-利用过滤器重复"><a href="#3-3-利用过滤器重复" class="headerlink" title="3.3. 利用过滤器重复"></a>3.3. 利用过滤器重复</h1><p>使用具有二进制权重的ConvNet体系结构时，唯一过滤器的数量受过滤器大小的限制。<br>例如，在我们的实现中，我们使用大小为3×3的滤波器，因此唯一2D滤波器的最大数量是29 = 512.但是，这不应该阻止扩展超出此数量的特征映射的数量，因为实际的滤波器是3D矩阵。假设我们在卷积层中有M个滤波器，我们必须存储大小为M<code>×M</code>-1×k×k的4D权重矩阵。<br>因此，唯一滤波器的数量是2 k 2M`-1。必要时，我们在图上应用每个过滤器并执行所需的乘法累加（MAC）操作（在我们的例子中，使用XNOR和popcount操作）。由于我们现在有二进制滤波器，因此许多大小为k×k的2D滤波器会重复。通过使用专用硬件/软件，我们可以在每个要素图上仅应用唯一的2D滤波器，并明智地对结果进行求和，以接收每个3D滤波器的卷积结果。注意，逆滤波器（即，[ -  1,1，-1]是[1，-1,1]的倒数）也可以被视为重复;它只是原始滤波器乘以-1。例如，在我们使用CIFAR-10基准测试培训的ConvNet架构中，每层平均只有42％的独特过滤器。因此，我们可以将XNORpopcount操作的数量减少3。</p>
+<h1 id="4-在GPU上运行时快7倍"><a href="#4-在GPU上运行时快7倍" class="headerlink" title="4. 在GPU上运行时快7倍"></a>4. 在GPU上运行时快7倍</h1><p>通过在寄存器（SWAR）中使用有时称为SIMD（单指令，多数据）的方法，可以加速BNN的GPU实现。 SWAR的基本思想是将32个二进制变量的组连接成32位寄存器，从而在按位运算（例如，XNOR）上获得32倍的加速。使用SWAR，可以仅用3条指令评估32个连接：a1 + = popcount（xnor（a 32b 0，w32b 1）），（8）其中a1是结果加权和，32b 0和w 32b 1是连接的输入和权重。这3条指令（accum，popcount，xnor）在最近的Nvidia GPU上需要1 + 4 + 1 = 6个时钟周期（如果它们成为融合指令，则只需要一个时钟周期）。因此，我们获得了理论上的Nvidia GPU加速因子为32 /6≈5.3。在实践中，这种加速很容易获得，因为存储器带宽与计算比率也增加了6倍。为了验证这些理论结果，我们编写了程序<br>两个GPU内核：</p>
+<p>•第一个内核（基线）是一个非常优化的矩阵乘法内核。<br>•第二个内核（XNOR）与基线内核几乎完全相同，只是它使用SWAR方法，如公式（8）所示。</p>
+<p>当它们的输入被约束为-1或+1时，两个GPU内核返回相同的输出（但不是其他情况）。 XNOR内核比基线内核快23倍，比cuBLAS快3.4倍，如图3所示。最后但并非最不重要的是，第2节中的MLP使用XNOR内核比基线内核运行快7倍，没有 遭受分类准确性的任何损失（见图3）。</p>
+<h1 id="5-讨论和相关工作"><a href="#5-讨论和相关工作" class="headerlink" title="5.讨论和相关工作"></a>5.讨论和相关工作</h1><p>直到最近，极低精度网络（在极端情况下为二进制）的使用被认为对网络性能具有高度破坏性（Courbariaux等，2014）。 Soudry等人。 （2014）; ？通过表明即使所有神经元和重量都被二值化为±1，也可以实现良好的性能。这是使用期望反向传播（EBP）进行的，这是一种变分贝叶斯方法，通过更新权重上的后验分布来推断具有二元权重和神经元的网络。通过经由反向传播（BP）算法区分它们的参数（例如，平均值）来更新这些分布。 Esser等。（2015）在运行时使用非常类似的EBP方法实现了完全二进制网络，显示出能效的显着提高。 EBP的缺点是二值化参数仅在推理期间使用。 </p>
+<p>EBP背后的概率思想在Courbariaux等人的BinaryConnect算法中得到了扩展。（2015年）。在BinaryConnect中，权重的实值版本被保存并用作二值化过程的关键参考。二值化噪声在不同权重之间是独立的，可以通过构造（通过使用随机量化）或通过假设（常见的简化;参见Spang（1962）。）噪声对下一个神经元的输入几乎没有影响，因为输入是总和因此，通过简单地忽略更新中的二值化噪声，可以通过反向传播的误差来更新实值版本。使用这种方法，Courbariaux等人（2015）是第一个将CNN中的权重二值化并实现的, 他们还认为，噪声权重提供了一种正则化形式，这有助于改善泛化，如先前所示（Wan et al。，2013）。这种方法在保持权重的同时保持了权重完全精确的神经元</p>
+<p>.Lin等人（2015）通过量化网络每一层的表示，将Courbariaux等人（2015）的工作延伸到反向传播过程，通过限制两个幂的整数的神经元值，将一些剩余的乘法转换成二进制移位。林等人。 （2015）我们的工作似乎具有相似的特征。但是，他们的方法在测试阶段继续使用全精度重量。此外，林等人。 （2015）仅在反向传播过程中量化神经元，而不是在前向传播期间量化神经元。</p>
+<p>其他研究（Baldassi等，2015）表明，在具有随机输入的委员会机器阵列中可以进行完全二元训练和测试，其中仅调整一个权重层。 Judd等人。和Gonget al。旨在通过使用量化或矩阵分解方法来压缩完全训练的高精度网络。这些方法需要用全精度权重和神经元训练网络，因此需要通过所提出的BNN算法避免许多MAC操作。 Hwang＆Sung（2014）专注于定点神经网络设计，其性能几乎与浮点结构相同。 Kim等人。 （2014）提供的证据表明，在专用电路上使用的具有三重权重的DNN在运行时消耗非常低的功率并且可以仅用片上存储器操作。 Sunget al。还表明了具有8位精度的神经网络的令人满意的经验性能。 Kim＆Paris（2015）用二进制权重和激活重新训练神经网络。</p>
+<p>到目前为止，据我们所知，在深度网络的推理阶段和整个训练阶段，没有任何工作成功地对权重和神经元进行二值化。这是在目前的工作中实现的。我们依赖于二值化可以随机进行，或近似为随机噪声的想法。这是以前由Courbariaux等人对重量进行的。 （2015年），但我们的BNN将此扩展到激活。请注意，二进制激活对于ConvNets尤其重要，其中通常存在比自由权重更多的神经元。这允许二进制化DNN在运行时和训练期间的前向传播阶段的高效操作。此外，我们的训练方法几乎没有乘法，因此可以在专用硬件中有效地实现。但是，我们必须保存全精度权重的值。这是训练期间剩余的计算瓶颈，因为它需要相对较高的能量资源。未来可能会使用新型存储设备来缓解这个问题;见例如（Soudry等人）。</p>
+<h1 id="6-结论"><a href="#6-结论" class="headerlink" title="6. 结论"></a>6. 结论</h1><p>我们在运行时引入了BNN，具有二进制权重和激活的DNN，并且在训练时计算参数梯度（参见第1节）。我们在两个不同的框架上进行了两组实验，即Torch7和Theano，它们表明可以在MNIST，CIFAR-10和SVHN上训练BNN，并获得近乎最先进的结果（参见第2节） 。<br>此外，在前向传递期间（在运行时和训练时），BNN大大减少了存储器大小和访问，并且通过逐位操作取代了大多数算术运算，这可能导致功率效率的大幅提升（参见第3节）。<br>最后但并非最不重要的是，我们编写了一个二进制矩阵乘法GPU内核，使用它可以比未经优化的GPU内核快7倍地运行我们的MNIST MLP，而不会损失分类精度（参见第4节）。<br>未来的工作应该探索如何将加速扩展到训练时间（例如，通过二值化一些梯度），并且还将基准测试结果扩展到其他模型（例如，RNN）和数据集（例如，ImageNet）。</p>
+<h1 id="7-致谢"><a href="#7-致谢" class="headerlink" title="7. 致谢"></a>7. 致谢</h1><p>我们对Elad Hoffer的技术援助和建设性意见表示赞赏。 我们感谢我们的MILA实验室成员，他们花时间阅读文章并给我们一些反馈。 我们感谢Torch的开发人员（Collobert等人，2011）基于Lua的环境，以及Theano（Bergstra等人，2010; Bastien等人，2012），这是一个允许我们轻松开发快速和优化的GPU代码。 我们还要感谢Pylearn2（Goodfellow等人，2013）和Lasagne（Dieleman等人，2015）的开发人员，这两个深度学习库建立在Theano之上。 我们感谢Yuxin Wu帮助我们将GPU内核与cuBLAS进行比较。 我们也感谢来自CIFAR，NSERC，IBM，三星和以色列科学基金会（ISF）的资助。</p>
+<p>参考文献:<br><a href="http://kns.cnki.net/kcms/detail/detail.aspx?filename=NGZK201801001&amp;dbcode=CJFQ&amp;dbname=CJFD2018&amp;v=">http://kns.cnki.net/kcms/detail/detail.aspx?filename=NGZK201801001&amp;dbcode=CJFQ&amp;dbname=CJFD2018&amp;v=</a></p>
+<p>目录结构:</p>
+<ul>
+<li>第一章 绪论<ul>
+<li>论文背景及意义</li>
+<li>深度神经网络在低功率设备上的应用</li>
+<li>论文内容安排</li>
+</ul>
+</li>
+<li>第二章 二值化神经网络的方式简介<ul>
+<li>确定性与非确定性的二值化</li>
+<li>梯度计算和累加</li>
+<li>通过离散化传播梯度</li>
+</ul>
+</li>
+<li>第三章 二值化神经网络的程序设计<ul>
+<li>程序框架概述<ul>
+<li>程序开发环境 - tensorflow pycharm ubuntu python</li>
+<li>程序架构 - convnet files</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第四章 实验结果分析<ul>
+<li>准确率比较</li>
+<li>内存占用情况和内存访问次数比较</li>
+<li>功耗计算</li>
+</ul>
+</li>
+<li>第五章 工作展望</li>
+<li>结论<ul>
+<li>更低的能耗</li>
+<li>更快的运行速度</li>
+<li>随机二值化</li>
+</ul>
+</li>
+<li>致谢</li>
+</ul>
 
-      <script>
-        window.disqusProxy={
-          shortname: 'blog-tw5j2p4htr',
-          username: '1nv0k3r',
-          server: 'disqus.1nv0k3r.me',
-          port: 5509,
-          adminAvatar: '/avatars/admin-avatar.jpg',
-          identifier: '2019/02/15/二进制深度神经网络/',
-        };
-        window.disqus_config = function () {
-          this.page.url = window.location.href;
-          this.page.identifier = window.disqusProxy.identifier;
-        };
-      </script>
   </div>
 </article>
 
     <div class="blog-post-comments">
-        
-      <script src="//cdn.bootcss.com/react/16.0.0/umd/react.production.min.js"></script>
-      <script src="//cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.production.min.js"></script>
-      <script src="//cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
-      <script src="//cdn.jsdelivr.net/npm/blockies-identicon@0.1.0/blockies.min.js"></script>
-      <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-      <div id="disqus_proxy_thread"><script src="/scripts/hexo-disqus-proxy-primary.js" async></script>
+        <div id="disqus_thread">
             <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
     </div>
@@ -213,7 +324,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#papers"><span class="toc-number">1.</span> <span class="toc-text">papers:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#github"><span class="toc-number">2.</span> <span class="toc-text">github:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#other-refer"><span class="toc-number">3.</span> <span class="toc-text">other refer:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#csdn"><span class="toc-number">4.</span> <span class="toc-text">csdn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#methods"><span class="toc-number">5.</span> <span class="toc-text">methods</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#papers"><span class="toc-number">1.</span> <span class="toc-text">papers:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#github"><span class="toc-number">2.</span> <span class="toc-text">github:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#other-refer"><span class="toc-number">3.</span> <span class="toc-text">other refer:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#csdn"><span class="toc-number">4.</span> <span class="toc-text">csdn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#methods"><span class="toc-number">5.</span> <span class="toc-text">methods</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#enviroment"><span class="toc-number">6.</span> <span class="toc-text">enviroment</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#train"><span class="toc-number">7.</span> <span class="toc-text">train</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码"><span class="toc-number">8.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#论文翻译"><span class="toc-number">9.</span> <span class="toc-text">论文翻译:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">10.</span> <span class="toc-text">摘要:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#介绍"><span class="toc-number">11.</span> <span class="toc-text">介绍:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本文贡献如下"><span class="toc-number">12.</span> <span class="toc-text">本文贡献如下:</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-二值化神经网络"><span class="toc-number">13.</span> <span class="toc-text">1. 二值化神经网络</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1。-确定性与随机二值化"><span class="toc-number">13.1.</span> <span class="toc-text">1.1。 确定性与随机二值化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-梯度计算和累积"><span class="toc-number">13.2.</span> <span class="toc-text">1.2 梯度计算和累积</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-通过离散化传播梯度"><span class="toc-number">13.3.</span> <span class="toc-text">1.3 通过离散化传播梯度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-基于移位的批量标准化-SBN"><span class="toc-number">13.4.</span> <span class="toc-text">1.4 基于移位的批量标准化(SBN)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-基于移位的AdaMax-SAdaMax"><span class="toc-number">13.5.</span> <span class="toc-text">1.5 基于移位的AdaMax(SAdaMax)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-第一层"><span class="toc-number">13.6.</span> <span class="toc-text">1.6 第一层</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-基准测试结果"><span class="toc-number">14.</span> <span class="toc-text">2 基准测试结果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-1-MLP-on-MNIST-Theano"><span class="toc-number">15.</span> <span class="toc-text">2.1. MLP on MNIST (Theano)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-2-MLP-on-MNIST-Torch7"><span class="toc-number">16.</span> <span class="toc-text">2.2. MLP on MNIST (Torch7)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-3-ConvNet-on-CIFAR-10-Theano"><span class="toc-number">17.</span> <span class="toc-text">2.3. ConvNet on CIFAR-10 (Theano)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-4-ConvNet-on-CIFAR-10-Torch7"><span class="toc-number">18.</span> <span class="toc-text">2.4. ConvNet on CIFAR-10 (Torch7)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-5-ConvNet-on-SVHN"><span class="toc-number">19.</span> <span class="toc-text">2.5. ConvNet on SVHN</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-正向传播时非常节能"><span class="toc-number">20.</span> <span class="toc-text">3. 正向传播时非常节能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-1-内存大小和访问次数"><span class="toc-number">21.</span> <span class="toc-text">3.1. 内存大小和访问次数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-2-异或操作的数量"><span class="toc-number">22.</span> <span class="toc-text">3.2 异或操作的数量</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-3-利用过滤器重复"><span class="toc-number">23.</span> <span class="toc-text">3.3. 利用过滤器重复</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-在GPU上运行时快7倍"><span class="toc-number">24.</span> <span class="toc-text">4. 在GPU上运行时快7倍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-讨论和相关工作"><span class="toc-number">25.</span> <span class="toc-text">5.讨论和相关工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-结论"><span class="toc-number">26.</span> <span class="toc-text">6. 结论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-致谢"><span class="toc-number">27.</span> <span class="toc-text">7. 致谢</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">

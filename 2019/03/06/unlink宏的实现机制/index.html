@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,7 +17,7 @@
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/06/unlink宏的实现机制/unlink.jpg">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/06/unlink宏的实现机制/largebin.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/06/unlink宏的实现机制/small%20bin.png">
-<meta property="og:updated_time" content="2019-03-07T08:20:35.790Z">
+<meta property="og:updated_time" content="2019-06-04T09:27:53.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unlink宏的实现机制">
 <meta name="twitter:description" content="unlink() 是一个宏，用于将某一个空闲 chunk 从其所处的 bin 中脱链。 在 malloc_consolidate() 函数中将 fastbin 中的空闲 chunk 整理到 unsorted_bin，在 malloc() 函数中用于将 unsorted_bin 中的空闲 chunk 整理到 smallbin 或者 largebin，以及在 malloc() 中获得堆空间时，均有可能">
@@ -73,7 +73,7 @@
         
       </ul>
     </span>
-    <br>
+    <br/>
     <span id="actions">
       <ul>
         
@@ -90,7 +90,7 @@
       <span id="i-top" class="info" style="display:none;">Back to top</span>
       <span id="i-share" class="info" style="display:none;">Share post</span>
     </span>
-    <br>
+    <br/>
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/03/06/unlink宏的实现机制/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
@@ -115,7 +115,7 @@
     
     <div class="content index py4">
         
-        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
@@ -125,7 +125,7 @@
 
 
     <div class="meta">
-      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span itemprop="name">1nv0k3r's blog</span>
       </span>
       
@@ -153,9 +153,9 @@
   <div class="content" itemprop="articleBody">
     <p>unlink() 是一个宏，用于将某一个空闲 chunk 从其所处的 bin 中脱链。</p>
 <p>在 malloc_consolidate() 函数中将 fastbin 中的空闲 chunk 整理到 unsorted_bin，在 malloc() 函数中用于将 unsorted_bin 中的空闲 chunk 整理到 smallbin 或者 largebin，以及在 malloc() 中获得堆空间时，均有可能调用 unlink() 宏。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Take a chunk off a bin list */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> unlink(AV, P, BK, FD) &#123;                               </span></span><br><span class="line">    FD = P-&gt;fd;                      </span><br><span class="line">    BK = P-&gt;bk;                      </span><br><span class="line">    <span class="keyword">if</span> (__builtin_expect (FD-&gt;bk != P || BK-&gt;fd != P, <span class="number">0</span>))</span><br><span class="line">      malloc_printerr (check_action, <span class="string">"corrupted double-linked list"</span>, P, AV);</span><br><span class="line">    <span class="keyword">else</span> &#123;                       </span><br><span class="line">        FD-&gt;bk = BK;                     </span><br><span class="line">        BK-&gt;fd = FD;                     </span><br><span class="line">        <span class="keyword">if</span> (!in_smallbin_range (P-&gt;size)         </span><br><span class="line">            &amp;&amp; __builtin_expect (P-&gt;fd_nextsize != <span class="literal">NULL</span>, <span class="number">0</span>)) &#123;        </span><br><span class="line">        <span class="keyword">if</span> (__builtin_expect (P-&gt;fd_nextsize-&gt;bk_nextsize != P, <span class="number">0</span>)    </span><br><span class="line">        || __builtin_expect (P-&gt;bk_nextsize-&gt;fd_nextsize != P, <span class="number">0</span>))</span><br><span class="line">          malloc_printerr (check_action,         </span><br><span class="line">                   <span class="string">"corrupted double-linked list (not small)"</span>,</span><br><span class="line">                   P, AV);           </span><br><span class="line">            <span class="keyword">if</span> (FD-&gt;fd_nextsize == <span class="literal">NULL</span>) &#123;       </span><br><span class="line">                <span class="keyword">if</span> (P-&gt;fd_nextsize == P)         </span><br><span class="line">                  FD-&gt;fd_nextsize = FD-&gt;bk_nextsize = FD;</span><br><span class="line">                <span class="keyword">else</span> &#123;                   </span><br><span class="line">                    FD-&gt;fd_nextsize = P-&gt;fd_nextsize;    </span><br><span class="line">                    FD-&gt;bk_nextsize = P-&gt;bk_nextsize;    </span><br><span class="line">                    P-&gt;fd_nextsize-&gt;bk_nextsize = FD;    </span><br><span class="line">                    P-&gt;bk_nextsize-&gt;fd_nextsize = FD;    </span><br><span class="line">                  &#125;                  </span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;                   </span><br><span class="line">                P-&gt;fd_nextsize-&gt;bk_nextsize = P-&gt;bk_nextsize;</span><br><span class="line">                P-&gt;bk_nextsize-&gt;fd_nextsize = P-&gt;fd_nextsize;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* Take a chunk off a bin list */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> unlink(AV, P, BK, FD) &#123;</span></span><br><span class="line">    FD = P-&gt;fd;</span><br><span class="line">    BK = P-&gt;bk;</span><br><span class="line">    <span class="keyword">if</span> (__builtin_expect (FD-&gt;bk != P || BK-&gt;fd != P, <span class="number">0</span>))</span><br><span class="line">      malloc_printerr (check_action, <span class="string">"corrupted double-linked list"</span>, P, AV);</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        FD-&gt;bk = BK;</span><br><span class="line">        BK-&gt;fd = FD;</span><br><span class="line">        <span class="keyword">if</span> (!in_smallbin_range (P-&gt;size)</span><br><span class="line">            &amp;&amp; __builtin_expect (P-&gt;fd_nextsize != <span class="literal">NULL</span>, <span class="number">0</span>)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (__builtin_expect (P-&gt;fd_nextsize-&gt;bk_nextsize != P, <span class="number">0</span>)</span><br><span class="line">        || __builtin_expect (P-&gt;bk_nextsize-&gt;fd_nextsize != P, <span class="number">0</span>))</span><br><span class="line">          malloc_printerr (check_action,</span><br><span class="line">                   <span class="string">"corrupted double-linked list (not small)"</span>,</span><br><span class="line">                   P, AV);</span><br><span class="line">            <span class="keyword">if</span> (FD-&gt;fd_nextsize == <span class="literal">NULL</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (P-&gt;fd_nextsize == P)</span><br><span class="line">                  FD-&gt;fd_nextsize = FD-&gt;bk_nextsize = FD;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    FD-&gt;fd_nextsize = P-&gt;fd_nextsize;</span><br><span class="line">                    FD-&gt;bk_nextsize = P-&gt;bk_nextsize;</span><br><span class="line">                    P-&gt;fd_nextsize-&gt;bk_nextsize = FD;</span><br><span class="line">                    P-&gt;bk_nextsize-&gt;fd_nextsize = FD;</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                P-&gt;fd_nextsize-&gt;bk_nextsize = P-&gt;bk_nextsize;</span><br><span class="line">                P-&gt;bk_nextsize-&gt;fd_nextsize = P-&gt;fd_nextsize;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>参数P为待脱链的chunk, BK是前向指针, FD是后向指针</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">FD = P-&gt;fd;                      </span><br><span class="line">BK = P-&gt;bk;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">FD = P-&gt;fd;</span><br><span class="line">BK = P-&gt;bk;</span><br></pre></td></tr></table></figure>
 <p>FD保存P chunk的前一个空闲chunk, BK保存后一个空闲chunk</p>
 <p>然后是一个检查</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (__builtin_expect (FD-&gt;bk != P || BK-&gt;fd != P, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
@@ -173,31 +173,11 @@
 <p>small bin 结构图:</p>
 <p><img src="/2019/03/06/unlink宏的实现机制/small&#32;bin.png" alt="small bin"></p>
 
-      <script>
-        window.disqusProxy={
-          shortname: 'blog-tw5j2p4htr',
-          username: '1nv0k3r',
-          server: 'disqus.1nv0k3r.me',
-          port: 5509,
-          adminAvatar: '/avatars/admin-avatar.jpg',
-          identifier: '2019/03/06/unlink宏的实现机制/',
-        };
-        window.disqus_config = function () {
-          this.page.url = window.location.href;
-          this.page.identifier = window.disqusProxy.identifier;
-        };
-      </script>
   </div>
 </article>
 
     <div class="blog-post-comments">
-        
-      <script src="//cdn.bootcss.com/react/16.0.0/umd/react.production.min.js"></script>
-      <script src="//cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.production.min.js"></script>
-      <script src="//cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
-      <script src="//cdn.jsdelivr.net/npm/blockies-identicon@0.1.0/blockies.min.js"></script>
-      <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-      <div id="disqus_proxy_thread"><script src="/scripts/hexo-disqus-proxy-primary.js" async></script>
+        <div id="disqus_thread">
             <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
     </div>

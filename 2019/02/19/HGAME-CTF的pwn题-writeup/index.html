@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -69,7 +69,7 @@
         
       </ul>
     </span>
-    <br>
+    <br/>
     <span id="actions">
       <ul>
         
@@ -86,7 +86,7 @@
       <span id="i-top" class="info" style="display:none;">Back to top</span>
       <span id="i-share" class="info" style="display:none;">Share post</span>
     </span>
-    <br>
+    <br/>
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/02/19/HGAME-CTF的pwn题-writeup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
@@ -111,7 +111,7 @@
     
     <div class="content index py4">
         
-        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle" itemprop="name headline">
@@ -121,7 +121,7 @@
 
 
     <div class="meta">
-      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span itemprop="name">1nv0k3r's blog</span>
       </span>
       
@@ -158,31 +158,11 @@
 <p>v4是一个随机数, 无法预测, 利用格式化字符串漏洞读取v4的值</p>
 <p><code>%7$p</code>: 64位程序, 函数调用的时候前6个参数是保存在寄存器的, 第七个参数在栈上,</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">               +-------------------+</span><br><span class="line">rbp - 0x50----&gt;+func2 rsp          |</span><br><span class="line">               |                   |</span><br><span class="line">               |                   |</span><br><span class="line">rbp - 0x44+---&gt;+                   +&lt;----------------------+random value</span><br><span class="line">               |                   |</span><br><span class="line">rbp - 0x40----&gt;+func1 rsp          +&lt;-----+func1 buf&lt;------+func2 buf</span><br><span class="line">               |                   |      ^                     ^</span><br><span class="line">               |                   |      |                     |</span><br><span class="line">               |                   |      |                     |</span><br><span class="line">               |                   |      |                     |</span><br><span class="line">rbp - 0x30----&gt;+func3 rsp          |      |                     |</span><br><span class="line">               |                   |    0x16 * a              0x30 * a</span><br><span class="line">               |                   |      |                     |</span><br><span class="line">rbp - 0x24+---&gt;+                   +&lt;----\x66\x66-----------------------------+\x66\x66</span><br><span class="line">               |                   |     \x00\x00               |</span><br><span class="line">rbp - 0x20+---&gt;+                   +&lt;-----+-----------------------------------+func3 buf</span><br><span class="line">               |                   |      |                     |</span><br><span class="line">               |                   |      |                     |</span><br><span class="line">               |                   |      |                     |</span><br><span class="line">               |                   |      v                     v</span><br><span class="line">rbp - 0x10+---&gt;+                   +&lt;-----+\x33\x23&lt;--------+random ^alue</span><br><span class="line">               |                   |cannry+--------------------------------------------+</span><br><span class="line">               |                   |</span><br><span class="line">               |                   |</span><br><span class="line">               |                   |</span><br><span class="line">rbp+----------&gt;+-------------------+</span><br></pre></td></tr></table></figure>
-      <script>
-        window.disqusProxy={
-          shortname: 'blog-tw5j2p4htr',
-          username: '1nv0k3r',
-          server: 'disqus.1nv0k3r.me',
-          port: 5509,
-          adminAvatar: '/avatars/admin-avatar.jpg',
-          identifier: '2019/02/19/HGAME-CTF的pwn题-writeup/',
-        };
-        window.disqus_config = function () {
-          this.page.url = window.location.href;
-          this.page.identifier = window.disqusProxy.identifier;
-        };
-      </script>
   </div>
 </article>
 
     <div class="blog-post-comments">
-        
-      <script src="//cdn.bootcss.com/react/16.0.0/umd/react.production.min.js"></script>
-      <script src="//cdn.bootcss.com/react-dom/16.0.0/umd/react-dom.production.min.js"></script>
-      <script src="//cdn.bootcss.com/fetch/2.0.3/fetch.min.js"></script>
-      <script src="//cdn.jsdelivr.net/npm/blockies-identicon@0.1.0/blockies.min.js"></script>
-      <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
-      <div id="disqus_proxy_thread"><script src="/scripts/hexo-disqus-proxy-primary.js" async></script>
+        <div id="disqus_thread">
             <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
     </div>

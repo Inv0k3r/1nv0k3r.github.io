@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="好难啊, 虐哭了 做了两个re, 做到最后一步还是没做出来, pwn下了以后点开一看 libc2.27, 告辞! 赛后复现一下wp吧唉, 我还是好菜啊 pwnbaby_aegis看哈保护 [*] ‘/home/a/Desktop/0ctf_2019/aegis/aegis’    Arch:     amd64-64-little    RELRO:    Full RELRO    Stack:">
+<meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCTF 2019 Qualifier">
+<meta property="og:url" content="http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/index.html">
+<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:description" content="好难啊, 虐哭了 做了两个re, 做到最后一步还是没做出来, pwn下了以后点开一看 libc2.27, 告辞! 赛后复现一下wp吧唉, 我还是好菜啊 pwnbaby_aegis看哈保护 [*] ‘/home/a/Desktop/0ctf_2019/aegis/aegis’    Arch:     amd64-64-little    RELRO:    Full RELRO    Stack:">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-06-10T07:00:08.565Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TCTF 2019 Qualifier">
+<meta name="twitter:description" content="好难啊, 虐哭了 做了两个re, 做到最后一步还是没做出来, pwn下了以后点开一看 libc2.27, 告辞! 赛后复现一下wp吧唉, 我还是好菜啊 pwnbaby_aegis看哈保护 [*] ‘/home/a/Desktop/0ctf_2019/aegis/aegis’    Arch:     amd64-64-little    RELRO:    Full RELRO    Stack:">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>TCTF 2019 Qualifier</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/04/12/DDCTF-2019-WP/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/03/18/TensorFlow-深度学习-笔记/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&text=TCTF 2019 Qualifier"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&is_video=false&description=TCTF 2019 Qualifier"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TCTF 2019 Qualifier&body=Check out this article: http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&name=TCTF 2019 Qualifier&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn"><span class="toc-number">1.</span> <span class="toc-text">pwn</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#baby-aegis"><span class="toc-number"></span> <span class="toc-text">baby_aegis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elements"><span class="toc-number">1.</span> <span class="toc-text">Elements</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        TCTF 2019 Qualifier
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">1nv0k3r's blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-03-23T08:51:59.000Z" itemprop="datePublished">2019-03-23</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>好难啊, 虐哭了</p>
+<p>做了两个re, 做到最后一步还是没做出来, pwn下了以后点开一看 libc2.27, 告辞!</p>
+<p>赛后复现一下wp吧唉, 我还是好菜啊</p>
+<h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h1 id="baby-aegis"><a href="#baby-aegis" class="headerlink" title="baby_aegis"></a>baby_aegis</h1><p>看哈保护</p>
+<p>[*] ‘/home/a/Desktop/0ctf_2019/aegis/aegis’<br>    Arch:     amd64-64-little<br>    RELRO:    Full RELRO<br>    Stack:    Canary found<br>    NX:       NX enabled<br>    PIE:      PIE enabled<br>    FORTIFY:  Enabled<br>    ASAN:     Enabled<br>    UBSAN:    Enabled</p>
+<p>好的, 全开</p>
+<p>还有一个Address Sanitizer的保护</p>
+<p>re</p>
+<p>flag{abcdefabcdefabcdefabcdefabcdefab}<br>flag{[0-9a-f]<br>flag{01234567801234567801234567801234}</p>
+<p>32+6=38 -&gt; 22=flag{16}</p>
+<p>0x66 ^ 0x00000000ffffffff = 0x00000000ffffff99<br>0x99 -&gt; 0x990<br>0x990 + bss</p>
+<p>.text:00005573F93709E5 movzx   eax, byte ptr [rbp+rdx+0]       ; 读一个字符<br>.text:00005573F93709EA mov     rsi, rcx<br>.text:00005573F93709ED mov     rdi, rbx<br>.text:00005573F93709F0 shrd    rsi, rbx, 8                     ; 右移2字节, 用rbx补齐(8位)<br>.text:00005573F93709F5 shr     rdi, 8                          ; 右移2字节<br>.text:00005573F93709F9 add     rdx, 1                          ; 自增<br>.text:00005573F93709FD xor     eax, ecx                        ; 读取的一个字符和0x00000000ffffffff异或<br>.text:00005573F93709FF movzx   eax, al                         ; 低8位copy到eax<br>.text:00005573F9370A02 shl     rax, 4                          ; 左移4位(1字节)<br>.text:00005573F9370A06 add     rax, r8                         ; rax + bss, 修改rax内的地址, 改为bss+(输入&lt;&lt;4)<br>.text:00005573F9370A09 mov     r11, [rax]                      ; 读取rax位置的16字节<br>.text:00005573F9370A0C xor     r11, rsi                        ; 和rsi异或<br>.text:00005573F9370A0F mov     rsi, [rax+8]                    ; 读rax+8字节<br>.text:00005573F9370A13 mov     rcx, r11                        ;<br>.text:00005573F9370A16 xor     rsi, rdi<br>.text:00005573F9370A19 cmp     rdx, 16h<br>.text:00005573F9370A1D mov     rbx, rsi<br>.text:00005573F9370A20 jnz     short loc_5573F93709E5          ; 读一个字符<br>.text:00005573F9370A22 cmp     r9, rsi<br>.text:00005573F9370A25 jnz     loc_5573F9370929<br>.text:00005573F9370A2B cmp     r10, r11<br>.text:00005573F9370A2E jnz     loc_5573F9370929<br>.text:00005573F9370A34 lea     rdi, aFixedPointReac            ; “Fixed Point Reached.”</p>
+<p>after flag{</p>
+<p>rbx = 0x347B8DFA4B97ACB7<br>rcx = 0xF1BB2779591DA2B6<br>读取下一个字符到eax(AB)<br>rsi = rcx = 0xF1BB2779591DA2B6<br>rdi = rbx = 0x347B8DFA4B97ACB7<br>rsi右移8位用rbx后8位补齐 rsi=0xB7 F1BB2779591DA2<br>—-到这里都是正确的<br>rcx低8位和eax异或: 0x591da2b6 ^ 0xAB = 0x591da21d<br>低8位复制到eax: eax = 0x1d<br>rax左移4位: eax=0x1d0<br>r11存入al+bss往下8字节:r11=0x173EF0EDDA1BF468<br>r11和rsi异或:r11=0x173EF0EDDA1BF468 ^ 0xB7F1BB2779591DA2=0xa0cf4bcaa342e9ca<br>rsi存入al+bss+8往下8字节<br>r11存入rcx<br>rdi和rsi异或<br>rbx存入rsi<br>下一轮</p>
+<p>a-f, 0-9 -&gt; 00-ff -&gt; 000-ff0-&gt; 00005573F9572040 + 000 - 00005573F9572040 + ff0</p>
+<p>flag{abcdefabcdefabcdefabcdefabcdefab}<br>flag{aaaaaaaaaaaaaa04af4aab18cfd5a07d}</p>
+<p>7d-&gt;addr-15=eax-bss=rax&gt;&gt;4-&gt;eax-&gt;</p>
+<p>flag{d24ed15742d4d304af4aab18cfd5a07d}</p>
+<p>r11 = d24ed15742d4d304<br>rsi = af4aab18cfd5a07d</p>
+<p>.text:000055877B88A9E5                 movzx   eax, byte ptr [rbp+rdx+0]<br>.text:000055877B88A9EA                 mov     rsi, rcx<br>.text:000055877B88A9ED                 mov     rdi, rbx<br>.text:000055877B88A9F0                 shrd    rsi, rbx, 8<br>.text:000055877B88A9F5                 shr     rdi, 8<br>.text:000055877B88A9F9                 add     rdx, 1<br>.text:000055877B88A9FD                 xor     eax, ecx<br>.text:000055877B88A9FF                 movzx   eax, al<br>.text:000055877B88AA02                 shl     rax, 4<br>.text:000055877B88AA06                 add     rax, r8<br>.text:000055877B88AA09                 mov     r11, [rax]<br>.text:000055877B88AA0C                 xor     r11, rsi<br>.text:000055877B88AA0F                 mov     rsi, [rax+8]<br>.text:000055877B88AA13                 mov     rcx, r11<br>.text:000055877B88AA16                 xor     rsi, rdi<br>.text:000055877B88AA19                 cmp     rdx, 16h<br>.text:000055877B88AA1D                 mov     rbx, rsi<br>.text:000055877B88AA20                 jnz     short loc_55877B88A9E5</p>
+<p>flag{ rsi, rdi -&gt; xxxxxxxxxxxxxxxx}</p>
+<p>eax ^ ecx = get</p>
+<p>0x000055F1B111F067 - 15 - 0x000055F1B111F041 = al = 0x17</p>
+<p>rsi = 0xF1E4A90C037832B8<br>rdi = 0xF3EF8CCEBDFDEFA2<br>rsi = 0xA2F1E4A90C037832<br>rdi = 0x00F3EF8CCEBDFDEF<br>eax = 0x7d<br>ecx ^ 0x7d = 0xcb</p>
+<h2 id="Elements"><a href="#Elements" class="headerlink" title="Elements"></a>Elements</h2><p>IDA F5以后很容易定位到程序的验证逻辑</p>
+<p>通过阅读反编译代码可以知道, 输入的flag格式是<code>flag{[0-9a-f]{12}-[0-9a-f]{12}-[0-9a-f]{12}}</code></p>
+<p>第一段是直接判断的<code>0x391BC2164F0ALL</code> 即<code>flag{391bc2164f0a-[0-9a-f]{12}-[0-9a-f]{12}}</code></p>
+<p>之后可以看到对几个变量的逻辑判断</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ( v24 &lt;= v23 || v25 &lt;= v24 || v23 + v24 &lt;= v25 )</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">v19 = v24 * v24 + v23 * v23 - v25 * v25;</span><br><span class="line">v20 = <span class="built_in">sqrt</span>(<span class="number">4.0</span> * v23 * v23 * v24 * v24 - v19 * v19) * <span class="number">0.25</span>;</span><br><span class="line">v21 = (v20 + v20) / (v23 + v24 + v25) + <span class="number">-1.940035480806554e13</span>;</span><br><span class="line"><span class="keyword">if</span> ( v21 &lt; <span class="number">0.00001</span> &amp;&amp; v21 &gt; <span class="number">-0.00001</span> )</span><br><span class="line">&#123;</span><br><span class="line">v22 = v23 * v24 * v25 / (v20 * <span class="number">4.0</span>) + <span class="number">-4.777053952827391e13</span>;</span><br><span class="line"><span class="keyword">if</span> ( v22 &lt; <span class="number">0.00001</span> &amp;&amp; v22 &gt; <span class="number">-0.00001</span> )</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Congratz, input is your flag"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>令v24=a, b23=b, v25=c, v20=s 整理出以下逻辑:</p>
+<p>s = $\frac{1}{4}$$\sqrt {4 <em> a^2 </em> b^2 - (a^2 + b^2 - c^2)^2}$</p>
+<p>然后要满足两个条件</p>
+<ul>
+<li>${\frac{2 * s}{a + b + c}}\approx1.940035480806554e13$</li>
+<li>${\frac{a <em> b </em> c}{4 * s}}\approx4.777053952827391e13$</li>
+</ul>
+<p>已知<code>a = 0x391BC2164F0A</code></p>
+<p>需要求得b和c</p>
+<p>如果数学基础好的话可以看出来两个条件分别是三角形的内切圆和外接圆的半径公式,分别设为r和R</p>
+<ul>
+<li>由${\frac{a}{sin A}} = 2 * R$得$sin A = {\frac{a}{2R}}$</li>
+<li>$cos A = {\frac{b^2 + c^2 - a^2}{2 <em> b </em> c}} = \sqrt{1-sin^2A}$</li>
+<li>$b+c=a+b+c-a=a+4<em>R</em>r<em>(1+cosA)</em>{\frac{1}{a}}$</li>
+<li>$bc=2<em>R</em>r*\frac{(a+b+c)}{a}$</li>
+<li>$c-b=\sqrt{(b + c)^2 - 4 * bc}$</li>
+<li>$c = \frac{(b+c)+(c-b)}{2}$</li>
+<li>$b = \frac{(b+c)-(c-b)}{2}$</li>
+</ul>
+<p>由于在ida中的r和R会有一些精度丢失, 所以我在GDB中查看了这两个值:</p>
+<pre><code>gdb-peda$ p/f 0xc2b1a4ff41c1018b
+$1 = -19400354808065.543
+gdb-peda$ p/f 0xc2c5b939050828f4
+$2 = -47770539528273.906
+</code></pre><p>计算jio本:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> sqrt</span><br><span class="line">a = <span class="number">62791383142154.0</span></span><br><span class="line">r = <span class="number">19400354808065.543</span></span><br><span class="line">R = <span class="number">47770539528273.906</span></span><br><span class="line">sinA = a / (<span class="number">2.0</span> * R)</span><br><span class="line">cosA = sqrt(<span class="number">1.0</span> - sinA**<span class="number">2.0</span>)</span><br><span class="line">b_add_c = a + <span class="number">4.0</span> * R * r * (<span class="number">1.0</span> + cosA) * (<span class="number">1.0</span> / a)</span><br><span class="line">bc = <span class="number">2.0</span> * R * r * (a + b_add_c) * (<span class="number">1.0</span> / a)</span><br><span class="line">c_red_b = sqrt(b_add_c * b_add_c - <span class="number">4.0</span> * bc)</span><br><span class="line">c = (b_add_c + c_red_b) / <span class="number">2.0</span></span><br><span class="line">b = (b_add_c - c_red_b) / <span class="number">2.0</span></span><br><span class="line"></span><br><span class="line">print(<span class="string">'flag&#123;'</span> + str(hex(int(a)))[<span class="number">2</span>:] + <span class="string">'-'</span> + str(hex(int(b)))[<span class="number">2</span>:] + <span class="string">'-'</span> + str(hex(int(c)))[<span class="number">2</span>:] + <span class="string">'&#125;'</span>)</span><br></pre></td></tr></table></figure>
+<p><code>flag{391bc2164f0a-4064e4798769-56e0de138175}</code></p>
+<p>测试后发现不太对, 猜测是精度丢失问题, 在gdb中调试到两个字符串比较的位置看一下</p>
+<p>测试b的比较:</p>
+<pre><code>gdb-peda$ b *0x400AE1
+gdb-peda$ b *0x400AEB
+</code></pre><p>测试c的比较:</p>
+<pre><code>gdb-peda$ b *0x400B0D
+gdb-peda$ b *0x400B17
+</code></pre><p>结果在0x400AE1发生了跳转, 即我们的输入计算出来的</p>
+<p>$r - 19400354808065.543 &gt;= 0.00001$</p>
+<p>程序要求</p>
+<p>$r-19400354808065.543 &lt; 0.00001$</p>
+<p>而$r = {\frac{2 * s}{a + b + c}}$, 即我们的b和c越大, 则r越小</p>
+<p>尝试将b和c分别增加1</p>
+<pre><code>➜  ~ ./Elements
+flag{391bc2164f0a-4064e4798770-56e0de138175}
+➜  ~ ./Elements
+flag{391bc2164f0a-4064e4798769-56e0de138176}
+Congratz, input is your flag
+</code></pre><p>最终flag: <code>flag{391bc2164f0a-4064e4798769-56e0de138176}</code></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn"><span class="toc-number">1.</span> <span class="toc-text">pwn</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#baby-aegis"><span class="toc-number"></span> <span class="toc-text">baby_aegis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elements"><span class="toc-number">1.</span> <span class="toc-text">Elements</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&text=TCTF 2019 Qualifier"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&is_video=false&description=TCTF 2019 Qualifier"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TCTF 2019 Qualifier&body=Check out this article: http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&name=TCTF 2019 Qualifier&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 1nv0k3r
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-131778492-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?da32760b25f029bfe0c4abfc646f5f7a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-tw5j2p4htr';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
