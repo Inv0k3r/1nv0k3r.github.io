@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="abcd1234 X1Y0uN3tG00dH 234 v1 + v2 = 2020 3  v2 / 2 + 100  v3 = 115 2010 10 01 X1 Y0u N3t G00d H4Ck20101001X1Y0uN3tG00dHaCk4-107  3-3  2-70  H-880xC9 30 EC F00x000x004015CF F0EC30C9CF154000 100010000">
+    <meta name="description" content="pwn程序菜单提供了5个功能:  创建单身狗读取单身狗数量, 等于80的时候就满了否则输出单身狗数量, malloc(0x20)保存单身狗名字然后让单身狗数组指针指向这个单身狗 创建幸运狗读取数量, 最多80malloc一个幸运狗结构体, 大小为0x20第一个字节保存配偶名字, 后0x19保存幸运狗名字, 但最多读入0x18修改单身狗数组 编辑单身狗可以修改单身狗名字并输出修改后的名字 编辑幸运狗">
 <meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
 <meta property="og:type" content="article">
 <meta property="og:title" content="看雪Ctf 2019">
 <meta property="og:url" content="http://1nv0k3r.me/2019/03/12/看雪ctf-2019/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="abcd1234 X1Y0uN3tG00dH 234 v1 + v2 = 2020 3  v2 / 2 + 100  v3 = 115 2010 10 01 X1 Y0u N3t G00d H4Ck20101001X1Y0uN3tG00dHaCk4-107  3-3  2-70  H-880xC9 30 EC F00x000x004015CF F0EC30C9CF154000 100010000">
+<meta property="og:description" content="pwn程序菜单提供了5个功能:  创建单身狗读取单身狗数量, 等于80的时候就满了否则输出单身狗数量, malloc(0x20)保存单身狗名字然后让单身狗数组指针指向这个单身狗 创建幸运狗读取数量, 最多80malloc一个幸运狗结构体, 大小为0x20第一个字节保存配偶名字, 后0x19保存幸运狗名字, 但最多读入0x18修改单身狗数组 编辑单身狗可以修改单身狗名字并输出修改后的名字 编辑幸运狗">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/12/看雪ctf-2019/2019-06-12-12-29-38.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/12/看雪ctf-2019/2019-06-12-12-44-28.png">
-<meta property="og:updated_time" content="2019-06-21T11:54:39.201Z">
+<meta property="og:updated_time" content="2020-04-16T08:08:47.141Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看雪Ctf 2019">
-<meta name="twitter:description" content="abcd1234 X1Y0uN3tG00dH 234 v1 + v2 = 2020 3  v2 / 2 + 100  v3 = 115 2010 10 01 X1 Y0u N3t G00d H4Ck20101001X1Y0uN3tG00dHaCk4-107  3-3  2-70  H-880xC9 30 EC F00x000x004015CF F0EC30C9CF154000 100010000">
+<meta name="twitter:description" content="pwn程序菜单提供了5个功能:  创建单身狗读取单身狗数量, 等于80的时候就满了否则输出单身狗数量, malloc(0x20)保存单身狗名字然后让单身狗数组指针指向这个单身狗 创建幸运狗读取数量, 最多80malloc一个幸运狗结构体, 大小为0x20第一个字节保存配偶名字, 后0x19保存幸运狗名字, 但最多读入0x18修改单身狗数组 编辑单身狗可以修改单身狗名字并输出修改后的名字 编辑幸运狗">
 <meta name="twitter:image" content="http://1nv0k3r.me/2019/03/12/看雪ctf-2019/2019-06-12-12-29-38.png">
     
     
@@ -106,7 +106,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#神秘来信"><span class="toc-number">1.</span> <span class="toc-text">神秘来信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失落的岛屿"><span class="toc-number">2.</span> <span class="toc-text">失落的岛屿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#金字塔的诅咒"><span class="toc-number">3.</span> <span class="toc-text">金字塔的诅咒</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn"><span class="toc-number">1.</span> <span class="toc-text">pwn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#神秘来信"><span class="toc-number">2.</span> <span class="toc-text">神秘来信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失落的岛屿"><span class="toc-number">3.</span> <span class="toc-text">失落的岛屿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#金字塔的诅咒"><span class="toc-number">4.</span> <span class="toc-text">金字塔的诅咒</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -145,15 +145,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>abcd1234 X1Y0uN3tG00dH 234</p>
-<p>v1 + v2 = 2020</p>
-<p>3 <em> v2 / 2 + 100 </em> v3 = 115</p>
-<p>2010 10 01 X1 Y0u N3t G00d H4Ck<br>20101001X1Y0uN3tG00dHaCk<br>4-107  3-3  2-70  H-88<br>0xC9 30 EC F0<br>0x00<br>0x004015CF</p>
-<p>F0EC30C9<br>CF154000</p>
-<p>100010000</p>
-<p>01001000</p>
-<p>pwn</p>
-<p>程序菜单提供了5个功能:</p>
+    <h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><p>程序菜单提供了5个功能:</p>
 <ol>
 <li>创建单身狗<br>读取单身狗数量, 等于80的时候就满了<br>否则输出单身狗数量, malloc(0x20)保存单身狗名字<br>然后让单身狗数组指针指向这个单身狗</li>
 <li>创建幸运狗<br>读取数量, 最多80<br>malloc一个幸运狗结构体, 大小为0x20<br>第一个字节保存配偶名字, 后0x19保存幸运狗名字, 但最多读入0x18<br>修改单身狗数组</li>
@@ -208,7 +200,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#神秘来信"><span class="toc-number">1.</span> <span class="toc-text">神秘来信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失落的岛屿"><span class="toc-number">2.</span> <span class="toc-text">失落的岛屿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#金字塔的诅咒"><span class="toc-number">3.</span> <span class="toc-text">金字塔的诅咒</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn"><span class="toc-number">1.</span> <span class="toc-text">pwn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#神秘来信"><span class="toc-number">2.</span> <span class="toc-text">神秘来信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失落的岛屿"><span class="toc-number">3.</span> <span class="toc-text">失落的岛屿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#金字塔的诅咒"><span class="toc-number">4.</span> <span class="toc-text">金字塔的诅咒</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
