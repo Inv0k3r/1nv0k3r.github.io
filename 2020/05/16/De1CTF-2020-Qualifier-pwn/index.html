@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="更新中，未完待续BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 root# docker build -t delctf2020:pppd .root# docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pp">
+    <meta name="description" content="BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242">
 <meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
 <meta property="og:type" content="article">
 <meta property="og:title" content="De1CTF 2020 Qualifier Pwn">
 <meta property="og:url" content="http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="更新中，未完待续BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 root# docker build -t delctf2020:pppd .root# docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pp">
+<meta property="og:description" content="BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-19T10:29:09.825Z">
+<meta property="og:updated_time" content="2020-05-19T10:39:20.617Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="De1CTF 2020 Qualifier Pwn">
-<meta name="twitter:description" content="更新中，未完待续BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 root# docker build -t delctf2020:pppd .root# docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pp">
+<meta name="twitter:description" content="BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242">
     
     
         
@@ -103,7 +103,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#更新中，未完待续"><span class="toc-number">1.</span> <span class="toc-text">更新中，未完待续</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BroadCastTest"><span class="toc-number">1.1.</span> <span class="toc-text">BroadCastTest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-runner"><span class="toc-number">1.2.</span> <span class="toc-text">code_runner</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mc-realworld"><span class="toc-number">1.3.</span> <span class="toc-text">mc_realworld</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pppd"><span class="toc-number">1.4.</span> <span class="toc-text">pppd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stl-container"><span class="toc-number">1.5.</span> <span class="toc-text">stl_container</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BroadCastTest"><span class="toc-number">1.</span> <span class="toc-text">BroadCastTest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-runner"><span class="toc-number">2.</span> <span class="toc-text">code_runner</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mc-realworld"><span class="toc-number">3.</span> <span class="toc-text">mc_realworld</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pppd"><span class="toc-number">4.</span> <span class="toc-text">pppd</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step-1"><span class="toc-number">4.1.</span> <span class="toc-text">step 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-2"><span class="toc-number">4.2.</span> <span class="toc-text">step 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-3"><span class="toc-number">4.3.</span> <span class="toc-text">step 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4"><span class="toc-number">4.4.</span> <span class="toc-text">Step 4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stl-container"><span class="toc-number">5.</span> <span class="toc-text">stl_container</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -142,11 +142,60 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="更新中，未完待续"><a href="#更新中，未完待续" class="headerlink" title="更新中，未完待续"></a>更新中，未完待续</h1><h2 id="BroadCastTest"><a href="#BroadCastTest" class="headerlink" title="BroadCastTest"></a>BroadCastTest</h2><h2 id="code-runner"><a href="#code-runner" class="headerlink" title="code_runner"></a>code_runner</h2><h2 id="mc-realworld"><a href="#mc-realworld" class="headerlink" title="mc_realworld"></a>mc_realworld</h2><h2 id="pppd"><a href="#pppd" class="headerlink" title="pppd"></a>pppd</h2><p>赛后调试一下这个题目，官方提供了<a href="https://github.com/De1ta-team/De1CTF2020/tree/master/writeup/pwn/pppd">题目环境</a></p>
+    <h2 id="BroadCastTest"><a href="#BroadCastTest" class="headerlink" title="BroadCastTest"></a>BroadCastTest</h2><h2 id="code-runner"><a href="#code-runner" class="headerlink" title="code_runner"></a>code_runner</h2><h2 id="mc-realworld"><a href="#mc-realworld" class="headerlink" title="mc_realworld"></a>mc_realworld</h2><h2 id="pppd"><a href="#pppd" class="headerlink" title="pppd"></a>pppd</h2><p>赛后调试一下这个题目，官方提供了<a href="https://github.com/De1ta-team/De1CTF2020/tree/master/writeup/pwn/pppd">题目环境</a></p>
 <p>那么先把docker.zip下载下来解压，然后</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">root#</span> docker build -t delctf2020:pppd .</span><br><span class="line"><span class="meta">root#</span> docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppd</span><br><span class="line"><span class="meta">root#</span> nc 127.0.0.1 4242</span><br></pre></td></tr></table></figure>
-<p>pppd最近的漏洞就是<code>CVE-2020-8597</code>的栈溢出了，就是比赛的时候搞不起来环境。。。<br>官方wp也说了考点在与pppd通信以及在mips下调试，比赛提示了用socat与pppd通信</p>
-<p>参考的wp：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker build -t delctf2020:pppd .</span><br><span class="line">docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppd</span><br><span class="line">nc 127.0.0.1 4242</span><br></pre></td></tr></table></figure>
+<p>pppd最近的漏洞就是<code>CVE-2020-8597</code>的栈溢出了，就是比赛的时候搞不起来环境。。。<br>官方wp也说了考点在与pppd通信以及在mips下调试，比赛提示了用socat与pppd通信<br>题目提供了<code>rootfs.img, start.sh, vmlinux</code></p>
+<h3 id="step-1"><a href="#step-1" class="headerlink" title="step 1"></a>step 1</h3><p>首先要搞一个调试环境，因为提供了镜像文件<code>rootfs.img</code>，我们用cpio把镜像文件解压出来：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mkdir rootfs &amp;&amp; <span class="built_in">cd</span> rootfs</span><br><span class="line">cpio -ivmd &lt; rootfs.img <span class="comment"># -i是解压文件，-v列出已处理文件，-m保留文件修改时间，-d需要时创建目录</span></span><br></pre></td></tr></table></figure>
+<p>把<a href="https://github.com/rapid7/embedded-tools/blob/master/binaries/gdbserver/gdbserver.mipsle">mips的gdbserver</a>丢进root里，名字改成gdbserver，给个权限</p>
+<p>接下来修改<code>/etc/inittab</code>文件，<code>inittab</code>是Linux进程起点，pid为1，在引导完成内核后就开始运行init程序，它由若干指令构成，格式：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Format for each entry: &lt;id&gt;:&lt;runlevels&gt;:&lt;action&gt;:&lt;process&gt;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># id        == tty to run on, or empty for /dev/console</span></span><br><span class="line"><span class="comment"># runlevels == ignored</span></span><br><span class="line"><span class="comment"># action    == one of sysinit, respawn, askfirst, wait, and once</span></span><br><span class="line"><span class="comment"># process   == program to run</span></span><br></pre></td></tr></table></figure>
+<p>这部分参考<a href="https://www.cnblogs.com/ricks/p/10020886.html">这篇文章</a></p>
+<p>即系统内核引导完成以后，执行这个文件内的指令，那么接下来我们需要修改这个文件让他连接我们的gdb</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Put a getty on the serial port</span><br><span class="line">#ttyS0::respawn:/sbin/getty -L  ttyS0 0 vt100 # GENERIC_SERIAL</span><br><span class="line"># 注释掉原来启动pppd的指令</span><br><span class="line"># ttyS0::sysinit:/pppd auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"># 启动网卡</span><br><span class="line">::sysinit:/sbin/ifup -a</span><br><span class="line"># 把gdbserver拉起来，用gdbserver启动pppd</span><br><span class="line">ttyS0::sysinit:/gdbserver :1234 /pppd /dev/ttyS1 auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"></span><br><span class="line"># Stuff to do for the 3-finger salute</span><br></pre></td></tr></table></figure>
+<h3 id="step-2"><a href="#step-2" class="headerlink" title="step 2"></a>step 2</h3><p>在qemu的启动基本<code>start.sh</code>里加上gdb的1234端口参数：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">-net user,hostfwd=tcp::1234-:1234 -net nic -serial stdio -serial pty</span><br></pre></td></tr></table></figure>
+<h3 id="step-3"><a href="#step-3" class="headerlink" title="step 3"></a>step 3</h3><p>重新打包镜像:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mv rootfs.img rootfs.img.bak</span><br><span class="line"><span class="built_in">cd</span> rootfs</span><br><span class="line">find ./* | cpio -H newc -o &gt; rootfs.img</span><br></pre></td></tr></table></figure>
+<p>然后运行<code>start.sh</code>启动qemu，如果可以看到gdbserver启动消息就成功了</p>
+<pre><code>Linux version 4.11.3 (root@test) (gcc version 6.4.0 (Buildroot 2018.02-rc2) ) #5 SMP Sat Apr 11 07:33:40 UTC 2020
+earlycon: uart8250 at I/O port 0x3f8 (options &apos;38400n8&apos;)
+bootconsole [uart8250] enabled
+CPU0 revision is: 00019300 (MIPS 24Kc)
+FPU revision is: 00739300
+MIPS: machine is mti,malta
+Software DMA cache coherency enabled
+Determined physical RAM map:
+memory: 03c00000 @ 00000000 (usable)
+cacheinfo: Failed to find cpu0 device node
+Starting logging: OK
+Initializing random number generator... done.
+udhcpc: started, v1.27.2
+udhcpc: sending discover
+udhcpc: sending select for 10.0.2.15
+udhcpc: lease of 10.0.2.15 obtained, lease time 86400
+deleting routers
+adding dns 10.0.2.3
+Process /pppd created; pid = 112
+Listening on port 1234
+</code></pre><p>接下来就可以用gdb-multiarch连上去了</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">gdb-multiarch -ex <span class="string">'set architecture mips'</span>   \</span><br><span class="line">              -ex <span class="string">'target remote :1234'</span>     \</span><br><span class="line">              -ex <span class="string">'file rootfs/pppd'</span>        \</span><br><span class="line">              -ex <span class="string">'break *0x42F9A8'</span>         \</span><br><span class="line">              -ex <span class="string">'continue'</span></span><br></pre></td></tr></table></figure>
+<h3 id="Step-4"><a href="#Step-4" class="headerlink" title="Step 4"></a>Step 4</h3><p>编译一份源码来进行调试，<a href="https://www.anquanke.com/post/id/200639">参考</a></p>
+<pre><code>git clone https://github.com/paulusmack/ppp.git
+cd ppp/
+git checkout ppp-2.4.8          // 切换到存在漏洞的分支
+./configure
+make -j8
+make install
+</code></pre><p>漏洞点是在 EAP 协议中，根据文章我们修改一下源码来作为客户端，给服务器发送payload，在客户端的 eap.c 源代码 eap_request() 的函数中，在 EAPT_MD5CHAP 分支下，手动 patch 代码，加入发送到服务端的 payload</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">MD5_Init(&amp;mdContext);</span><br><span class="line">typenum = id;</span><br><span class="line">MD5_Update(&amp;mdContext, &amp;typenum, <span class="number">1</span>);</span><br><span class="line">MD5_Update(&amp;mdContext, (u_char *)secret, secret_len);</span><br><span class="line">BZERO(secret, <span class="keyword">sizeof</span> (secret));</span><br><span class="line">MD5_Update(&amp;mdContext, inp, vallen);</span><br><span class="line">MD5_Final(hash, &amp;mdContext);</span><br><span class="line"><span class="comment">/* payload start */</span></span><br><span class="line"><span class="keyword">char</span> payload[<span class="number">1024</span>];</span><br><span class="line"><span class="built_in">memset</span>(payload, <span class="string">'A'</span>, <span class="number">1024</span> - <span class="number">1</span>);</span><br><span class="line">payload[<span class="number">1024</span>] = <span class="string">'\0'</span>;</span><br><span class="line"><span class="comment">/* payload end   */</span></span><br><span class="line">eap_chap_response(esp, id, hash, esp-&gt;es_client.ea_name,</span><br><span class="line">    esp-&gt;es_client.ea_namelen);</span><br><span class="line"><span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+<p>重新编译客户端</p>
+<pre><code>make clean
+./configure
+make -j8
+make install
+</code></pre><p>参考的wp：</p>
 <ul>
 <li><a href="https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md">https://github.com/De1ta-team/De1CTF2020/blob/master/writeup/pwn/pppd/README_zh.md</a></li>
 <li><a href="https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd">https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd</a></li>
@@ -183,7 +232,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#更新中，未完待续"><span class="toc-number">1.</span> <span class="toc-text">更新中，未完待续</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BroadCastTest"><span class="toc-number">1.1.</span> <span class="toc-text">BroadCastTest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-runner"><span class="toc-number">1.2.</span> <span class="toc-text">code_runner</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mc-realworld"><span class="toc-number">1.3.</span> <span class="toc-text">mc_realworld</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pppd"><span class="toc-number">1.4.</span> <span class="toc-text">pppd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stl-container"><span class="toc-number">1.5.</span> <span class="toc-text">stl_container</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BroadCastTest"><span class="toc-number">1.</span> <span class="toc-text">BroadCastTest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-runner"><span class="toc-number">2.</span> <span class="toc-text">code_runner</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mc-realworld"><span class="toc-number">3.</span> <span class="toc-text">mc_realworld</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pppd"><span class="toc-number">4.</span> <span class="toc-text">pppd</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step-1"><span class="toc-number">4.1.</span> <span class="toc-text">step 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-2"><span class="toc-number">4.2.</span> <span class="toc-text">step 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-3"><span class="toc-number">4.3.</span> <span class="toc-text">step 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4"><span class="toc-number">4.4.</span> <span class="toc-text">Step 4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stl-container"><span class="toc-number">5.</span> <span class="toc-text">stl_container</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
