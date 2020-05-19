@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="考研凉凉的结果就是不仅失去了应届生走校招的机会，而且还因为疫情走不了，僵。因为接下来准备找一份安全相关的C/C++开发工作，所以在刷了段时间题后，把排序算法重新复习整理一下。之前虽然学习过，但是现在一些不经常用的东西很快就忘了细节了，只能偶尔复习一下。 本文主要以十大经典排序算法为参考文章来进行复习，使用C++实现。 冒泡排序(Bubble Sort)冒泡排序，选择排序和插入排序算是我使用最多的三">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="排序算法复习">
+<meta property="og:url" content="http://1nv0k3r.me/2020/04/26/排序算法复习/index.html">
+<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:description" content="考研凉凉的结果就是不仅失去了应届生走校招的机会，而且还因为疫情走不了，僵。因为接下来准备找一份安全相关的C/C++开发工作，所以在刷了段时间题后，把排序算法重新复习整理一下。之前虽然学习过，但是现在一些不经常用的东西很快就忘了细节了，只能偶尔复习一下。 本文主要以十大经典排序算法为参考文章来进行复习，使用C++实现。 冒泡排序(Bubble Sort)冒泡排序，选择排序和插入排序算是我使用最多的三">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-05-19T10:11:19.008Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="排序算法复习">
+<meta name="twitter:description" content="考研凉凉的结果就是不仅失去了应届生走校招的机会，而且还因为疫情走不了，僵。因为接下来准备找一份安全相关的C/C++开发工作，所以在刷了段时间题后，把排序算法重新复习整理一下。之前虽然学习过，但是现在一些不经常用的东西很快就忘了细节了，只能偶尔复习一下。 本文主要以十大经典排序算法为参考文章来进行复习，使用C++实现。 冒泡排序(Bubble Sort)冒泡排序，选择排序和插入排序算是我使用最多的三">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>排序算法复习</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2020/02/24/cve-2020-0022-简单分析记录/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2020/04/26/排序算法复习/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&text=排序算法复习"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&title=排序算法复习"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&is_video=false&description=排序算法复习"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=排序算法复习&body=Check out this article: http://1nv0k3r.me/2020/04/26/排序算法复习/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&title=排序算法复习"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&title=排序算法复习"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&title=排序算法复习"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&title=排序算法复习"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&name=排序算法复习&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序-Bubble-Sort"><span class="toc-number">1.</span> <span class="toc-text">冒泡排序(Bubble Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序-Selection-Sort"><span class="toc-number">2.</span> <span class="toc-text">选择排序(Selection Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序-Insertion-Sort"><span class="toc-number">3.</span> <span class="toc-text">插入排序(Insertion Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#希尔排序-Shell-Sort"><span class="toc-number">4.</span> <span class="toc-text">希尔排序(Shell Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序-Quick-Sort"><span class="toc-number">5.</span> <span class="toc-text">快速排序(Quick Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序-Heap-Sort"><span class="toc-number">6.</span> <span class="toc-text">堆排序(Heap Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计数排序-Countingg-Sort"><span class="toc-number">7.</span> <span class="toc-text">计数排序(Countingg Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桶排-Bucket-Sort"><span class="toc-number">8.</span> <span class="toc-text">桶排(Bucket Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基数排序-Radix-Sort"><span class="toc-number">9.</span> <span class="toc-text">基数排序(Radix Sort)</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        排序算法复习
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">1nv0k3r's blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-04-26T11:36:36.000Z" itemprop="datePublished">2020-04-26</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/算法/">算法</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>考研凉凉的结果就是不仅失去了应届生走校招的机会，而且还因为疫情走不了，僵。因为接下来准备找一份安全相关的C/C++开发工作，所以在刷了段时间题后，把排序算法重新复习整理一下。之前虽然学习过，但是现在一些不经常用的东西很快就忘了细节了，只能偶尔复习一下。</p>
+<p>本文主要以<a href="https://www.cnblogs.com/onepixel/articles/7674659.html">十大经典排序算法</a>为参考文章来进行复习，使用C++实现。</p>
+<h2 id="冒泡排序-Bubble-Sort"><a href="#冒泡排序-Bubble-Sort" class="headerlink" title="冒泡排序(Bubble Sort)"></a>冒泡排序(Bubble Sort)</h2><p>冒泡排序，选择排序和插入排序算是我使用最多的三种排序方法了，因为实现起来简单，惭愧惭愧。</p>
+<p>流程就是比较相邻的元素，如果前面的比后面的大，就把他们交换一下。</p>
+<p>这样一轮交换结束后，最后一个元素是所有数字里最大的，最坏情况下即数组是逆序的情况下，所有第一轮需要比较和交换n-1次，第二轮是n-2次，以此类推，最后总的比较和交换的次数是1+2+..+n-1=n(n-1)/2次，时间复杂度是O($n^2$)，每次对换需要一个temp，所以空间复杂度是O(1)，由于对换的时候可以对相同元素选择不对换，所以是稳定的排序。</p>
+<p>i = n - 2<br>j = n - 1<br>代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sort</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; BubbleSort(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">array</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="built_in">array</span>.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span>; i ++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n - i - <span class="number">1</span>; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">array</span>[j] &gt; <span class="built_in">array</span>[j + <span class="number">1</span>])&#123;</span><br><span class="line">                    <span class="keyword">int</span> temp = <span class="built_in">array</span>[j];</span><br><span class="line">                    <span class="built_in">array</span>[j] = <span class="built_in">array</span>[j + <span class="number">1</span>];</span><br><span class="line">                    <span class="built_in">array</span>[j + <span class="number">1</span>] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">array</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="选择排序-Selection-Sort"><a href="#选择排序-Selection-Sort" class="headerlink" title="选择排序(Selection Sort)"></a>选择排序(Selection Sort)</h2><p>找到最小的一个元素放在第一个位置，然后循环剩下的元素，或者找最大的放最后一个位置。</p>
+<p>比较次数和冒泡实际上是一样的，也是n-1 + n-2 + … + 1 = n * (n - 1) / 2次，时间复杂度是O($n^2$)，空间复杂度是O(1)</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sort</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; SelectionSort(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">array</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="built_in">array</span>.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i ++)&#123;</span><br><span class="line">            <span class="keyword">int</span> min = i;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; n; j ++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">array</span>[j] &lt; <span class="built_in">array</span>[i])&#123;</span><br><span class="line">                    min = j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> temp = <span class="built_in">array</span>[i];</span><br><span class="line">            <span class="built_in">array</span>[i] = <span class="built_in">array</span>[min];</span><br><span class="line">            <span class="built_in">array</span>[min] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">array</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="插入排序-Insertion-Sort"><a href="#插入排序-Insertion-Sort" class="headerlink" title="插入排序(Insertion Sort)"></a>插入排序(Insertion Sort)</h2><p>插入排序是对每一个元素，从开头开始扫描，找到合适的位置插入</p>
+<p>由于对每个元素，都需要向后移动1+2+..+n-1=n*(n-1) / 2次数据，所以时间复杂度也是O($n^2$)，空间复杂度是O(1)</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sort</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; InsertionSort(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">array</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="built_in">array</span>.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> temp = <span class="built_in">array</span>[i];</span><br><span class="line">            <span class="keyword">int</span> front = i - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (front &gt;= <span class="number">0</span> &amp;&amp; <span class="built_in">array</span>[front] &gt; temp) &#123;</span><br><span class="line">                <span class="built_in">array</span>[front + <span class="number">1</span>] = <span class="built_in">array</span>[front];</span><br><span class="line">                front--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">array</span>[front + <span class="number">1</span>] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">array</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="希尔排序-Shell-Sort"><a href="#希尔排序-Shell-Sort" class="headerlink" title="希尔排序(Shell Sort)"></a>希尔排序(Shell Sort)</h2><p>插入排序的改进，优先比较距离近的元素，所以又叫缩小增量排序，说白了就是把插入排序中，一个一个比较改成从第n个开始比较，作为增量，直到这个增量变为1，因此增量序列是$t_1，t_2，t_3…t_n$，当i &lt; j时有$t_i &gt; t_j$，$t_n = 1$</p>
+<p>目前为止还没有一个最好的增量序列，希尔提出的序列是$t_1=n/2$, $t_{i+1}=t_i/2$，最坏情况下的时间复杂度是O($n^2$)，n在特定范围的时候，时间复杂度是O($n^1.3$)，空间复杂度是O(1)</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sort</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ShellSort(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">array</span>)&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="built_in">array</span>.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> t = n / <span class="number">2</span>; t &gt; <span class="number">0</span>; t /= <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t; i ++)&#123;<span class="comment">// 循环每一组</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = i + t; j &lt; n; j += t)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(<span class="built_in">array</span>[j] &lt; <span class="built_in">array</span>[j - t])&#123;</span><br><span class="line">                        <span class="keyword">int</span> temp = <span class="built_in">array</span>[j], k;</span><br><span class="line">                        <span class="keyword">for</span>(k = j - t; k &gt;= <span class="number">0</span> &amp;&amp; <span class="built_in">array</span>[k] &gt; temp; k -= t)&#123;</span><br><span class="line">                            <span class="built_in">array</span>[k + t] = <span class="built_in">array</span>[k];</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="built_in">array</span>[k + t] = temp;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">array</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序(Quick Sort)"></a>快速排序(Quick Sort)</h2><p>快速排序是对冒泡排序的改进，基于分治法思想，先选取一个元素作为基准，通过一趟排序，把整个列表划分为独立的两部分，前半部分均小于基准，后半部分大于基准，这时，基准所在的位置是最终结果的位置，整个过程称为一趟快速排序，接下来分别对前后两个子表递归重复上述过程，直至每个部分只有一个元素或者为空为止。</p>
+<p>快速排序的空间复杂度取决于递归调用栈的深度，最好情况下是$\lceil\log_2(n+1)\rceil$，最坏情况下需要进行n-1次递归，栈深度为O(n)，因此空间复杂度在最坏情况下为O(n)，评价情况下为O($\log_2n$)。</p>
+<p>时间复杂度在最坏情况下，划分的两个部分完全不对称，即一部分是n-1个元素，另一部分是0个元素，在数组完全逆序或者基本有序的情况下，得到最坏情况的时间复杂度O($n^2$)。<br>在理想状态下，每次划分都是最平衡时，得到的两个子排序的时间复杂度都不超过n/2，此时排序的时间复杂度为O($n\log_2n$)。<br>若存在两个相同元素在右端区间，且均小于基准，在这两个元素移动到左边区间时，相对位置会发生替换，因此是不稳定的排序。</p>
+<p>有很多方法可以提高快速排序的效率。第一种方法是在子序列的规模较小的时候就换用直接插入排序。第二方法是尽量选择一个可以均匀划分序列的基准，比如从头尾及中间选取三个元素，然后取其中间值作为基准，或者随机从序列中选择一个基准。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sort</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/* 保持和前面排序函数相同的接口 */</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; QuickSort(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">array</span>) &#123;</span><br><span class="line">        QuickSortRecursion(<span class="built_in">array</span>, <span class="number">0</span>, <span class="built_in">array</span>.size() - <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">array</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">/* 用来递归的函数 */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">QuickSortRecursion</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;<span class="built_in">array</span>, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (low &lt; high) &#123; <span class="comment">// 递归结束条件</span></span><br><span class="line">            <span class="keyword">int</span> pivotpos = Partition(<span class="built_in">array</span>, low, high);</span><br><span class="line">            QuickSortRecursion(<span class="built_in">array</span>, low, pivotpos - <span class="number">1</span>);</span><br><span class="line">            QuickSortRecursion(<span class="built_in">array</span>, pivotpos + <span class="number">1</span>, high);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* 用来划分的函数 */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">Partition</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;<span class="built_in">array</span>, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> pivot = <span class="built_in">array</span>[low]; <span class="comment">// 第一个元素设置为基准</span></span><br><span class="line">        <span class="keyword">while</span> (low &lt; high) &#123;</span><br><span class="line">            <span class="keyword">while</span> (low &lt; high &amp;&amp; <span class="built_in">array</span>[high] &gt;= pivot) --high; <span class="comment">// 从后往前找一个比基准小的元素</span></span><br><span class="line">            <span class="built_in">array</span>[low] = <span class="built_in">array</span>[high]; <span class="comment">// 放在最前面</span></span><br><span class="line">            <span class="keyword">while</span> (low &lt; high &amp;&amp; <span class="built_in">array</span>[low] &lt;= pivot) ++low; <span class="comment">// 从前往后找一个比基准大的元素</span></span><br><span class="line">            <span class="built_in">array</span>[high] = <span class="built_in">array</span>[low]; <span class="comment">// 放在最后面</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">array</span>[low] = pivot; <span class="comment">// 基准放到最终位置</span></span><br><span class="line">        <span class="keyword">return</span> low;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="堆排序-Heap-Sort"><a href="#堆排序-Heap-Sort" class="headerlink" title="堆排序(Heap Sort)"></a>堆排序(Heap Sort)</h2><p>堆排序是一种树形的选择排序，在排序过程中，把待排序的序列看作一颗完全二叉树的顺序存储结构，利用二叉树来选择值最大或最小的元素。</p>
+<h2 id="计数排序-Countingg-Sort"><a href="#计数排序-Countingg-Sort" class="headerlink" title="计数排序(Countingg Sort)"></a>计数排序(Countingg Sort)</h2><h2 id="桶排-Bucket-Sort"><a href="#桶排-Bucket-Sort" class="headerlink" title="桶排(Bucket Sort)"></a>桶排(Bucket Sort)</h2><h2 id="基数排序-Radix-Sort"><a href="#基数排序-Radix-Sort" class="headerlink" title="基数排序(Radix Sort)"></a>基数排序(Radix Sort)</h2>
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序-Bubble-Sort"><span class="toc-number">1.</span> <span class="toc-text">冒泡排序(Bubble Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序-Selection-Sort"><span class="toc-number">2.</span> <span class="toc-text">选择排序(Selection Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序-Insertion-Sort"><span class="toc-number">3.</span> <span class="toc-text">插入排序(Insertion Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#希尔排序-Shell-Sort"><span class="toc-number">4.</span> <span class="toc-text">希尔排序(Shell Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序-Quick-Sort"><span class="toc-number">5.</span> <span class="toc-text">快速排序(Quick Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序-Heap-Sort"><span class="toc-number">6.</span> <span class="toc-text">堆排序(Heap Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计数排序-Countingg-Sort"><span class="toc-number">7.</span> <span class="toc-text">计数排序(Countingg Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#桶排-Bucket-Sort"><span class="toc-number">8.</span> <span class="toc-text">桶排(Bucket Sort)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基数排序-Radix-Sort"><span class="toc-number">9.</span> <span class="toc-text">基数排序(Radix Sort)</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2020/04/26/排序算法复习/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&text=排序算法复习"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&title=排序算法复习"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&is_video=false&description=排序算法复习"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=排序算法复习&body=Check out this article: http://1nv0k3r.me/2020/04/26/排序算法复习/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&title=排序算法复习"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&title=排序算法复习"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&title=排序算法复习"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&title=排序算法复习"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2020/04/26/排序算法复习/&name=排序算法复习&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 1nv0k3r
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-131778492-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?da32760b25f029bfe0c4abfc646f5f7a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-tw5j2p4htr';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

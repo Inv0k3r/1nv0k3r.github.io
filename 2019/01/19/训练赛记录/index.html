@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/5.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/6.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/01/19/训练赛记录/7.png">
-<meta property="og:updated_time" content="2019-02-27T03:22:21.739Z">
+<meta property="og:updated_time" content="2020-05-18T12:25:11.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="训练赛记录">
 <meta name="twitter:description" content="前言这周做了UCAS的内部赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732">
@@ -84,7 +84,7 @@
         <li><a class="icon" href="/2019/01/24/jarvis-oj-pwn-做题记录/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2019/01/18/强网杯2019/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/01/18/如何提高git-clone的速度/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -111,7 +111,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#checkin"><span class="toc-number">2.</span> <span class="toc-text">checkin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN1"><span class="toc-number">3.</span> <span class="toc-text">PWN1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-QEMU-MIPS调试环境搭建"><span class="toc-number">3.1.</span> <span class="toc-text">0x01 QEMU MIPS调试环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-反编译代码分析"><span class="toc-number">3.2.</span> <span class="toc-text">0x02 反编译代码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-分析"><span class="toc-number">4.</span> <span class="toc-text">0x03 分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#re"><span class="toc-number">5.</span> <span class="toc-text">re</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#checkin"><span class="toc-number">2.</span> <span class="toc-text">checkin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN1"><span class="toc-number">3.</span> <span class="toc-text">PWN1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-QEMU-MIPS调试环境搭建"><span class="toc-number">3.1.</span> <span class="toc-text">0x01 QEMU MIPS调试环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-反编译代码分析"><span class="toc-number">3.2.</span> <span class="toc-text">0x02 反编译代码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-分析"><span class="toc-number">4.</span> <span class="toc-text">0x03 分析</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -258,19 +258,7 @@ heuristic-fence-post&apos; command.
 <p>题目本身简单..保护全关, 但是麻烦的地方就是调试环境, 一开始用qemu共享库起, 报段错误, 无法运行</p>
 <p>m4x师傅给了我一个docker: <a href="https://github.com/Inv0k3r/multiarch-docker">multiarch-docker</a></p>
 <p>能运行了但是一调试就炸…最后没办法了才直接在虚拟机里跑, 装个gdb然后端口映射233</p>
-<h1 id="re"><a href="#re" class="headerlink" title="re"></a>re</h1><p>程序很简单, 对输入的64字节进行计算然后输出结果</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">__int64 __fastcall main(__int64 a1, char **a2, char **a3)</span><br><span class="line">&#123;</span><br><span class="line">  const char *v3; // rdi</span><br><span class="line">  __int128 v5; // [rsp+0h] [rbp-48h]</span><br><span class="line">  __int128 v6; // [rsp+10h] [rbp-38h]</span><br><span class="line">  __int128 v7; // [rsp+20h] [rbp-28h]</span><br><span class="line">  __int128 v8; // [rsp+30h] [rbp-18h]</span><br><span class="line"></span><br><span class="line">  v5 = 0LL;</span><br><span class="line">  v6 = 0LL;</span><br><span class="line">  v7 = 0LL;</span><br><span class="line">  v8 = 0LL;</span><br><span class="line">  fgets((char *)&amp;v5, 64, stdin);</span><br><span class="line">  v3 = &quot;Correct&quot;;</span><br><span class="line">  if ( 3115122397540209627LL * (_QWORD)v5 != -8945977187951441533LL</span><br><span class="line">    &amp;&amp; 4414703129018815665LL * *((_QWORD *)&amp;v5 + 1) != 4916877443135797676LL</span><br><span class="line">    &amp;&amp; -3600163150705005919LL * (_QWORD)v6 != 7810089588917861348LL</span><br><span class="line">    &amp;&amp; 2848986016212807631LL * *((_QWORD *)&amp;v6 + 1) != 167648691539577515LL</span><br><span class="line">    &amp;&amp; -1642960843930225163LL * (_QWORD)v7 != 7205007458378757539LL</span><br><span class="line">    &amp;&amp; -1825322870425963839LL * *((_QWORD *)&amp;v7 + 1) != -4377928447117523719LL</span><br><span class="line">    &amp;&amp; 2026288208431064569LL * (_QWORD)v8 != 1464929445109676135LL</span><br><span class="line">    &amp;&amp; 7391496157776266721LL * *((_QWORD *)&amp;v8 + 1) != -2449767388115536590LL )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = &quot;Wrong&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">  puts(v3);</span><br><span class="line">  return 0LL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>v5-8都是int128类型, 占用128 / 8 = 16字节, qword是8个字节</p>
-<p>4个变量共64字节构成key, 然后每个变量又分别分成8个字节去计算</p>
-<pre><code>3115122397540209627LL * (_QWORD)v5 != -8945977187951441533LL
-4414703129018815665LL * *((_QWORD *)&amp;v5 + 1) != 4916877443135797676LL
--3600163150705005919LL * (_QWORD)v6 != 7810089588917861348LL
-2848986016212807631LL * *((_QWORD *)&amp;v6 + 1) != 167648691539577515LL
--1642960843930225163LL * (_QWORD)v7 != 7205007458378757539LL
--1825322870425963839LL * *((_QWORD *)&amp;v7 + 1) != -4377928447117523719LL
-2026288208431064569LL * (_QWORD)v8 != 1464929445109676135LL
-7391496157776266721LL * *((_QWORD *)&amp;v8 + 1) != -2449767388115536590LL
-</code></pre>
+
   </div>
 </article>
 
@@ -301,7 +289,7 @@ heuristic-fence-post&apos; command.
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#checkin"><span class="toc-number">2.</span> <span class="toc-text">checkin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN1"><span class="toc-number">3.</span> <span class="toc-text">PWN1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-QEMU-MIPS调试环境搭建"><span class="toc-number">3.1.</span> <span class="toc-text">0x01 QEMU MIPS调试环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-反编译代码分析"><span class="toc-number">3.2.</span> <span class="toc-text">0x02 反编译代码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-分析"><span class="toc-number">4.</span> <span class="toc-text">0x03 分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#re"><span class="toc-number">5.</span> <span class="toc-text">re</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#checkin"><span class="toc-number">2.</span> <span class="toc-text">checkin</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN1"><span class="toc-number">3.</span> <span class="toc-text">PWN1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-QEMU-MIPS调试环境搭建"><span class="toc-number">3.1.</span> <span class="toc-text">0x01 QEMU MIPS调试环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-反编译代码分析"><span class="toc-number">3.2.</span> <span class="toc-text">0x02 反编译代码分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#0x03-分析"><span class="toc-number">4.</span> <span class="toc-text">0x03 分析</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">

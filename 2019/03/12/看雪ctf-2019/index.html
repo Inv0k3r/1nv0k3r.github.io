@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="pwn程序菜单提供了5个功能:  创建单身狗读取单身狗数量, 等于80的时候就满了否则输出单身狗数量, malloc(0x20)保存单身狗名字然后让单身狗数组指针指向这个单身狗 创建幸运狗读取数量, 最多80malloc一个幸运狗结构体, 大小为0x20第一个字节保存配偶名字, 后0x19保存幸运狗名字, 但最多读入0x18修改单身狗数组 编辑单身狗可以修改单身狗名字并输出修改后的名字 编辑幸运狗">
+    <meta name="description" content="神秘来信IDA反编译, 然后看算法, 输入6个字符, 第4, 5, 6位分别为3, 5, 3 前三位加起来等于149 然后一个循环   v3 = input[0] + 16  0 - 48  v3 = input[1] + 16  v3 - 48  …  v3 = input[5] + 16 * v3 - 48 动态调试以后发现会把输入的6个字符变成一组hex, 然后看到地址0x401353处有点">
 <meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
 <meta property="og:type" content="article">
 <meta property="og:title" content="看雪Ctf 2019">
 <meta property="og:url" content="http://1nv0k3r.me/2019/03/12/看雪ctf-2019/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="pwn程序菜单提供了5个功能:  创建单身狗读取单身狗数量, 等于80的时候就满了否则输出单身狗数量, malloc(0x20)保存单身狗名字然后让单身狗数组指针指向这个单身狗 创建幸运狗读取数量, 最多80malloc一个幸运狗结构体, 大小为0x20第一个字节保存配偶名字, 后0x19保存幸运狗名字, 但最多读入0x18修改单身狗数组 编辑单身狗可以修改单身狗名字并输出修改后的名字 编辑幸运狗">
+<meta property="og:description" content="神秘来信IDA反编译, 然后看算法, 输入6个字符, 第4, 5, 6位分别为3, 5, 3 前三位加起来等于149 然后一个循环   v3 = input[0] + 16  0 - 48  v3 = input[1] + 16  v3 - 48  …  v3 = input[5] + 16 * v3 - 48 动态调试以后发现会把输入的6个字符变成一组hex, 然后看到地址0x401353处有点">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/12/看雪ctf-2019/2019-06-12-12-29-38.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/12/看雪ctf-2019/2019-06-12-12-44-28.png">
-<meta property="og:updated_time" content="2020-04-16T08:08:47.141Z">
+<meta property="og:updated_time" content="2020-05-18T12:28:12.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="看雪Ctf 2019">
-<meta name="twitter:description" content="pwn程序菜单提供了5个功能:  创建单身狗读取单身狗数量, 等于80的时候就满了否则输出单身狗数量, malloc(0x20)保存单身狗名字然后让单身狗数组指针指向这个单身狗 创建幸运狗读取数量, 最多80malloc一个幸运狗结构体, 大小为0x20第一个字节保存配偶名字, 后0x19保存幸运狗名字, 但最多读入0x18修改单身狗数组 编辑单身狗可以修改单身狗名字并输出修改后的名字 编辑幸运狗">
+<meta name="twitter:description" content="神秘来信IDA反编译, 然后看算法, 输入6个字符, 第4, 5, 6位分别为3, 5, 3 前三位加起来等于149 然后一个循环   v3 = input[0] + 16  0 - 48  v3 = input[1] + 16  v3 - 48  …  v3 = input[5] + 16 * v3 - 48 动态调试以后发现会把输入的6个字符变成一组hex, 然后看到地址0x401353处有点">
 <meta name="twitter:image" content="http://1nv0k3r.me/2019/03/12/看雪ctf-2019/2019-06-12-12-29-38.png">
     
     
@@ -106,7 +106,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn"><span class="toc-number">1.</span> <span class="toc-text">pwn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#神秘来信"><span class="toc-number">2.</span> <span class="toc-text">神秘来信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失落的岛屿"><span class="toc-number">3.</span> <span class="toc-text">失落的岛屿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#金字塔的诅咒"><span class="toc-number">4.</span> <span class="toc-text">金字塔的诅咒</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#神秘来信"><span class="toc-number">1.</span> <span class="toc-text">神秘来信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失落的岛屿"><span class="toc-number">2.</span> <span class="toc-text">失落的岛屿</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -145,15 +145,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><p>程序菜单提供了5个功能:</p>
-<ol>
-<li>创建单身狗<br>读取单身狗数量, 等于80的时候就满了<br>否则输出单身狗数量, malloc(0x20)保存单身狗名字<br>然后让单身狗数组指针指向这个单身狗</li>
-<li>创建幸运狗<br>读取数量, 最多80<br>malloc一个幸运狗结构体, 大小为0x20<br>第一个字节保存配偶名字, 后0x19保存幸运狗名字, 但最多读入0x18<br>修改单身狗数组</li>
-<li>编辑单身狗<br>可以修改单身狗名字并输出修改后的名字</li>
-<li>编辑幸运狗<br>可以修改幸运狗的名字和他的配偶的名字</li>
-<li>拯救单身狗<br>产生两个随机数, 随机修改一个幸运狗的配偶为另一个单身狗<br>会先free了这个幸运狗的配偶的名字数组, 之后让这个数组变成被选中的单身狗<br>之后修改单身狗数组, 把后续单身狗往前移动一位,  修改单身狗数</li>
-</ol>
-<h2 id="神秘来信"><a href="#神秘来信" class="headerlink" title="神秘来信"></a>神秘来信</h2><p>IDA反编译, 然后看算法, 输入6个字符, 第4, 5, 6位分别为3, 5, 3</p>
+    <h2 id="神秘来信"><a href="#神秘来信" class="headerlink" title="神秘来信"></a>神秘来信</h2><p>IDA反编译, 然后看算法, 输入6个字符, 第4, 5, 6位分别为3, 5, 3</p>
 <p>前三位加起来等于149</p>
 <p>然后一个循环</p>
 <p>  v3 = input[0] + 16 <em> 0 - 48<br>  v3 = input[1] + 16 </em> v3 - 48<br>  …<br>  v3 = input[5] + 16 * v3 - 48</p>
@@ -168,7 +160,6 @@
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line">m = <span class="string">'!NGV%,$h1f4S3%2P(hkQ94=='</span></span><br><span class="line">c = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> m:</span><br><span class="line">    temp = ord(i)</span><br><span class="line">    <span class="keyword">if</span> temp == <span class="number">119</span>:</span><br><span class="line">        c += chr(<span class="number">43</span>)</span><br><span class="line">    <span class="keyword">elif</span> temp == <span class="number">121</span>:</span><br><span class="line">        c += chr(<span class="number">47</span>)</span><br><span class="line">    <span class="keyword">elif</span> temp &gt; <span class="number">47</span> + <span class="number">50</span> <span class="keyword">and</span> temp &lt;= <span class="number">57</span> + <span class="number">50</span> :</span><br><span class="line">        c += chr(temp - <span class="number">50</span>)</span><br><span class="line">    <span class="keyword">elif</span> temp &gt; <span class="number">96</span> - <span class="number">64</span> <span class="keyword">and</span> temp &lt;= <span class="number">122</span> - <span class="number">64</span>:</span><br><span class="line">        c += chr(temp + <span class="number">64</span>)</span><br><span class="line">    <span class="keyword">elif</span> temp &lt; <span class="number">155</span> - <span class="number">64</span> <span class="keyword">and</span> temp &gt;= <span class="number">155</span> - <span class="number">90</span> :</span><br><span class="line">        c += chr(<span class="number">155</span> - temp)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        c += chr(temp)</span><br><span class="line"></span><br><span class="line">print(c)</span><br></pre></td></tr></table></figure>
 <p>得到<code>aMTEeld6q4tHserKh69Jyt==</code></p>
 <p>用工具<code>Converter.exe</code>指定编码表即可得到flag</p>
-<h2 id="金字塔的诅咒"><a href="#金字塔的诅咒" class="headerlink" title="金字塔的诅咒"></a>金字塔的诅咒</h2><p>标准格式化字符串漏洞.. 先leak libc base, 然后劫持got把printf改成system即可</p>
 
   </div>
 </article>
@@ -200,7 +191,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn"><span class="toc-number">1.</span> <span class="toc-text">pwn</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#神秘来信"><span class="toc-number">2.</span> <span class="toc-text">神秘来信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失落的岛屿"><span class="toc-number">3.</span> <span class="toc-text">失落的岛屿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#金字塔的诅咒"><span class="toc-number">4.</span> <span class="toc-text">金字塔的诅咒</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#神秘来信"><span class="toc-number">1.</span> <span class="toc-text">神秘来信</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#失落的岛屿"><span class="toc-number">2.</span> <span class="toc-text">失落的岛屿</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">

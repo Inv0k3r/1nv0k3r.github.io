@@ -15,7 +15,7 @@
 <meta property="og:description" content="最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路 识别是否使用ret2dl有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数，但是题目中没有puts，printf等用来输出数据的函数，无法泄露我们常规栈溢出攻击中所需要的一些地址（libc，栈基址），这时候使用ret2dl是一种有效的方法 例题这里用前段时间国赛中的一个pwn题来学习一下 文件">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/05/10/栈溢出攻击之ret2dl/1.png">
-<meta property="og:updated_time" content="2020-04-16T08:08:46.073Z">
+<meta property="og:updated_time" content="2020-05-18T12:28:45.213Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="栈溢出攻击之Ret2dl">
 <meta name="twitter:description" content="最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路 识别是否使用ret2dl有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数，但是题目中没有puts，printf等用来输出数据的函数，无法泄露我们常规栈溢出攻击中所需要的一些地址（libc，栈基址），这时候使用ret2dl是一种有效的方法 例题这里用前段时间国赛中的一个pwn题来学习一下 文件">

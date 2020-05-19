@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="好难啊, 虐哭了 做了两个re, 做到最后一步还是没做出来, pwn下了以后点开一看 libc2.27, 告辞! 赛后复现一下wp吧唉, 我还是好菜啊 pwnbaby_aegis看哈保护 [*] ‘/home/a/Desktop/0ctf_2019/aegis/aegis’    Arch:     amd64-64-little    RELRO:    Full RELRO    Stack:">
+    <meta name="description" content="ElementsIDA F5以后很容易定位到程序的验证逻辑 通过阅读反编译代码可以知道, 输入的flag格式是flag{[0-9a-f]{12}-[0-9a-f]{12}-[0-9a-f]{12}} 第一段是直接判断的0x391BC2164F0ALL 即flag{391bc2164f0a-[0-9a-f]{12}-[0-9a-f]{12}} 之后可以看到对几个变量的逻辑判断 if ( v24 &amp;l">
 <meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCTF 2019 Qualifier">
 <meta property="og:url" content="http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="好难啊, 虐哭了 做了两个re, 做到最后一步还是没做出来, pwn下了以后点开一看 libc2.27, 告辞! 赛后复现一下wp吧唉, 我还是好菜啊 pwnbaby_aegis看哈保护 [*] ‘/home/a/Desktop/0ctf_2019/aegis/aegis’    Arch:     amd64-64-little    RELRO:    Full RELRO    Stack:">
+<meta property="og:description" content="ElementsIDA F5以后很容易定位到程序的验证逻辑 通过阅读反编译代码可以知道, 输入的flag格式是flag{[0-9a-f]{12}-[0-9a-f]{12}-[0-9a-f]{12}} 第一段是直接判断的0x391BC2164F0ALL 即flag{391bc2164f0a-[0-9a-f]{12}-[0-9a-f]{12}} 之后可以看到对几个变量的逻辑判断 if ( v24 &amp;l">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-10T07:00:08.565Z">
+<meta property="og:updated_time" content="2020-05-18T12:21:18.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCTF 2019 Qualifier">
-<meta name="twitter:description" content="好难啊, 虐哭了 做了两个re, 做到最后一步还是没做出来, pwn下了以后点开一看 libc2.27, 告辞! 赛后复现一下wp吧唉, 我还是好菜啊 pwnbaby_aegis看哈保护 [*] ‘/home/a/Desktop/0ctf_2019/aegis/aegis’    Arch:     amd64-64-little    RELRO:    Full RELRO    Stack:">
+<meta name="twitter:description" content="ElementsIDA F5以后很容易定位到程序的验证逻辑 通过阅读反编译代码可以知道, 输入的flag格式是flag{[0-9a-f]{12}-[0-9a-f]{12}-[0-9a-f]{12}} 第一段是直接判断的0x391BC2164F0ALL 即flag{391bc2164f0a-[0-9a-f]{12}-[0-9a-f]{12}} 之后可以看到对几个变量的逻辑判断 if ( v24 &amp;l">
     
     
         
@@ -103,7 +103,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn"><span class="toc-number">1.</span> <span class="toc-text">pwn</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#baby-aegis"><span class="toc-number"></span> <span class="toc-text">baby_aegis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elements"><span class="toc-number">1.</span> <span class="toc-text">Elements</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elements"><span class="toc-number">1.</span> <span class="toc-text">Elements</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -142,31 +142,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>好难啊, 虐哭了</p>
-<p>做了两个re, 做到最后一步还是没做出来, pwn下了以后点开一看 libc2.27, 告辞!</p>
-<p>赛后复现一下wp吧唉, 我还是好菜啊</p>
-<h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><h1 id="baby-aegis"><a href="#baby-aegis" class="headerlink" title="baby_aegis"></a>baby_aegis</h1><p>看哈保护</p>
-<p>[*] ‘/home/a/Desktop/0ctf_2019/aegis/aegis’<br>    Arch:     amd64-64-little<br>    RELRO:    Full RELRO<br>    Stack:    Canary found<br>    NX:       NX enabled<br>    PIE:      PIE enabled<br>    FORTIFY:  Enabled<br>    ASAN:     Enabled<br>    UBSAN:    Enabled</p>
-<p>好的, 全开</p>
-<p>还有一个Address Sanitizer的保护</p>
-<p>re</p>
-<p>flag{abcdefabcdefabcdefabcdefabcdefab}<br>flag{[0-9a-f]<br>flag{01234567801234567801234567801234}</p>
-<p>32+6=38 -&gt; 22=flag{16}</p>
-<p>0x66 ^ 0x00000000ffffffff = 0x00000000ffffff99<br>0x99 -&gt; 0x990<br>0x990 + bss</p>
-<p>.text:00005573F93709E5 movzx   eax, byte ptr [rbp+rdx+0]       ; 读一个字符<br>.text:00005573F93709EA mov     rsi, rcx<br>.text:00005573F93709ED mov     rdi, rbx<br>.text:00005573F93709F0 shrd    rsi, rbx, 8                     ; 右移2字节, 用rbx补齐(8位)<br>.text:00005573F93709F5 shr     rdi, 8                          ; 右移2字节<br>.text:00005573F93709F9 add     rdx, 1                          ; 自增<br>.text:00005573F93709FD xor     eax, ecx                        ; 读取的一个字符和0x00000000ffffffff异或<br>.text:00005573F93709FF movzx   eax, al                         ; 低8位copy到eax<br>.text:00005573F9370A02 shl     rax, 4                          ; 左移4位(1字节)<br>.text:00005573F9370A06 add     rax, r8                         ; rax + bss, 修改rax内的地址, 改为bss+(输入&lt;&lt;4)<br>.text:00005573F9370A09 mov     r11, [rax]                      ; 读取rax位置的16字节<br>.text:00005573F9370A0C xor     r11, rsi                        ; 和rsi异或<br>.text:00005573F9370A0F mov     rsi, [rax+8]                    ; 读rax+8字节<br>.text:00005573F9370A13 mov     rcx, r11                        ;<br>.text:00005573F9370A16 xor     rsi, rdi<br>.text:00005573F9370A19 cmp     rdx, 16h<br>.text:00005573F9370A1D mov     rbx, rsi<br>.text:00005573F9370A20 jnz     short loc_5573F93709E5          ; 读一个字符<br>.text:00005573F9370A22 cmp     r9, rsi<br>.text:00005573F9370A25 jnz     loc_5573F9370929<br>.text:00005573F9370A2B cmp     r10, r11<br>.text:00005573F9370A2E jnz     loc_5573F9370929<br>.text:00005573F9370A34 lea     rdi, aFixedPointReac            ; “Fixed Point Reached.”</p>
-<p>after flag{</p>
-<p>rbx = 0x347B8DFA4B97ACB7<br>rcx = 0xF1BB2779591DA2B6<br>读取下一个字符到eax(AB)<br>rsi = rcx = 0xF1BB2779591DA2B6<br>rdi = rbx = 0x347B8DFA4B97ACB7<br>rsi右移8位用rbx后8位补齐 rsi=0xB7 F1BB2779591DA2<br>—-到这里都是正确的<br>rcx低8位和eax异或: 0x591da2b6 ^ 0xAB = 0x591da21d<br>低8位复制到eax: eax = 0x1d<br>rax左移4位: eax=0x1d0<br>r11存入al+bss往下8字节:r11=0x173EF0EDDA1BF468<br>r11和rsi异或:r11=0x173EF0EDDA1BF468 ^ 0xB7F1BB2779591DA2=0xa0cf4bcaa342e9ca<br>rsi存入al+bss+8往下8字节<br>r11存入rcx<br>rdi和rsi异或<br>rbx存入rsi<br>下一轮</p>
-<p>a-f, 0-9 -&gt; 00-ff -&gt; 000-ff0-&gt; 00005573F9572040 + 000 - 00005573F9572040 + ff0</p>
-<p>flag{abcdefabcdefabcdefabcdefabcdefab}<br>flag{aaaaaaaaaaaaaa04af4aab18cfd5a07d}</p>
-<p>7d-&gt;addr-15=eax-bss=rax&gt;&gt;4-&gt;eax-&gt;</p>
-<p>flag{d24ed15742d4d304af4aab18cfd5a07d}</p>
-<p>r11 = d24ed15742d4d304<br>rsi = af4aab18cfd5a07d</p>
-<p>.text:000055877B88A9E5                 movzx   eax, byte ptr [rbp+rdx+0]<br>.text:000055877B88A9EA                 mov     rsi, rcx<br>.text:000055877B88A9ED                 mov     rdi, rbx<br>.text:000055877B88A9F0                 shrd    rsi, rbx, 8<br>.text:000055877B88A9F5                 shr     rdi, 8<br>.text:000055877B88A9F9                 add     rdx, 1<br>.text:000055877B88A9FD                 xor     eax, ecx<br>.text:000055877B88A9FF                 movzx   eax, al<br>.text:000055877B88AA02                 shl     rax, 4<br>.text:000055877B88AA06                 add     rax, r8<br>.text:000055877B88AA09                 mov     r11, [rax]<br>.text:000055877B88AA0C                 xor     r11, rsi<br>.text:000055877B88AA0F                 mov     rsi, [rax+8]<br>.text:000055877B88AA13                 mov     rcx, r11<br>.text:000055877B88AA16                 xor     rsi, rdi<br>.text:000055877B88AA19                 cmp     rdx, 16h<br>.text:000055877B88AA1D                 mov     rbx, rsi<br>.text:000055877B88AA20                 jnz     short loc_55877B88A9E5</p>
-<p>flag{ rsi, rdi -&gt; xxxxxxxxxxxxxxxx}</p>
-<p>eax ^ ecx = get</p>
-<p>0x000055F1B111F067 - 15 - 0x000055F1B111F041 = al = 0x17</p>
-<p>rsi = 0xF1E4A90C037832B8<br>rdi = 0xF3EF8CCEBDFDEFA2<br>rsi = 0xA2F1E4A90C037832<br>rdi = 0x00F3EF8CCEBDFDEF<br>eax = 0x7d<br>ecx ^ 0x7d = 0xcb</p>
-<h2 id="Elements"><a href="#Elements" class="headerlink" title="Elements"></a>Elements</h2><p>IDA F5以后很容易定位到程序的验证逻辑</p>
+    <h2 id="Elements"><a href="#Elements" class="headerlink" title="Elements"></a>Elements</h2><p>IDA F5以后很容易定位到程序的验证逻辑</p>
 <p>通过阅读反编译代码可以知道, 输入的flag格式是<code>flag{[0-9a-f]{12}-[0-9a-f]{12}-[0-9a-f]{12}}</code></p>
 <p>第一段是直接判断的<code>0x391BC2164F0ALL</code> 即<code>flag{391bc2164f0a-[0-9a-f]{12}-[0-9a-f]{12}}</code></p>
 <p>之后可以看到对几个变量的逻辑判断</p>
@@ -248,7 +224,7 @@ Congratz, input is your flag
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pwn"><span class="toc-number">1.</span> <span class="toc-text">pwn</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#baby-aegis"><span class="toc-number"></span> <span class="toc-text">baby_aegis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elements"><span class="toc-number">1.</span> <span class="toc-text">Elements</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Elements"><span class="toc-number">1.</span> <span class="toc-text">Elements</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
