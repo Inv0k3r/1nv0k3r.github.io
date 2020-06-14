@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman和Fuzzing Like A Caveman 2: Improving Performance 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faul">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-19T10:29:12.337Z">
+<meta property="og:updated_time" content="2020-06-14T15:06:32.063Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fuzz 初探">
 <meta name="twitter:description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman和Fuzzing Like A Caveman 2: Improving Performance 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faul">
@@ -101,7 +101,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#更新中，未完待续"><span class="toc-number">1.</span> <span class="toc-text">更新中，未完待续</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#挑个目标"><span class="toc-number">1.2.</span> <span class="toc-text">挑个目标</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#更新中，未完待续"><span class="toc-number">1.</span> <span class="toc-text">更新中，未完待续</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#挑个目标"><span class="toc-number">1.2.</span> <span class="toc-text">挑个目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开搞"><span class="toc-number">1.3.</span> <span class="toc-text">开搞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#了解一下JPEG和Exif的规范"><span class="toc-number">1.4.</span> <span class="toc-text">了解一下JPEG和Exif的规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始我们的fuzzer"><span class="toc-number">1.5.</span> <span class="toc-text">开始我们的fuzzer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件变异"><span class="toc-number">1.6.</span> <span class="toc-text">文件变异</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -143,7 +143,46 @@
     <h1 id="更新中，未完待续"><a href="#更新中，未完待续" class="headerlink" title="更新中，未完待续"></a>更新中，未完待续</h1><p>翻译自@h0mbre的两篇文章<a href="https://h0mbre.github.io/Fuzzing-Like-A-Caveman/">Fuzz Like A Caveman</a>和<a href="https://h0mbre.github.io/Fuzzing-Like-a-Caveman-2/">Fuzzing Like A Caveman 2: Improving Performance</a></p>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于<a href="https://twitter.com/gynvael?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">油管上的@gynvael的fuzz教程</a>，另外还要推荐一下<a href="https://www.youtube.com/user/gamozolabs/videos">Brandon Faulk的fuzz直播</a>，他还有一个很有意思的介绍fuzz思想概念的<a href="https://www.youtube.com/watch?v=SngK4W4tVc0">视频</a></p>
 <h2 id="挑个目标"><a href="#挑个目标" class="headerlink" title="挑个目标"></a>挑个目标</h2><p>我们要找一个C/C++编写的、可以解析从文件里解析出来数据的软件。我找到的第一个软件是一个从图像里解析出Exif的软件，我们还将挑选一个几乎完全不处理安全问题的软件，因为我会直接公开这些漏洞研究。</p>
-<p>通过<a href="https://www.media.mit.edu/pia/Research/deepview/exif.html">这个文章</a>，我们可以了解到一些Exif基础，Exif文件格式和JPEG文件相同</p>
+<p>通过<a href="https://www.media.mit.edu/pia/Research/deepview/exif.html">这个文章</a>，我们可以了解到一些Exif基础，Exif文件格式和JPEG文件相同，Exif按照JPEG的规范，将一些图像信息数据和缩略图，插入到JPEG文件中，因此你可以在兼容JPEG的浏览器/图片查看器/图片修改等软件中，如同浏览普通JPEG文件一样浏览Exif格式的图像文件。</p>
+<p>因此Exif可以按照JPEG规范，把元数据类型信息插入到图像中，并且有很多软件可以用来解析这些数据。</p>
+<h2 id="开搞"><a href="#开搞" class="headerlink" title="开搞"></a>开搞</h2><p>我们将用Python3做一个基于突变样本的fuzzer，来调整合法的，填充了Exif数据的JPEG文件，然后把它们提供给解析器，看看能不能得到一个崩溃。</p>
+<p>首先，我们需要一个填充了Exif数据的合法的JPEG文件，谷歌搜索<code>Sample JPEG with Exif</code>可以找到这个<a href="https://github.com/ianare/exif-samples/tree/master/jpg">repo</a>，我接下来会用<code>Canon_40D.jpg</code>来作为测试样本。</p>
+<h2 id="了解一下JPEG和Exif的规范"><a href="#了解一下JPEG和Exif的规范" class="headerlink" title="了解一下JPEG和Exif的规范"></a>了解一下JPEG和Exif的规范</h2><p>在开始写代码前，我们应该先了解一下JPEG和Exif规范，保证我们制作的样本都是符合规范的，这样可以防止浪费我们宝贵的fuzz循环。</p>
+<p>通过这个<a href="https://www.media.mit.edu/pia/Research/deepview/exif.html">文档</a>我们可以知道JPEG文件以<code>0xFFD8</code>开始，以<code>0xFFD9</code>结束，前两个字节即操作系统用来标志文件类型的所谓的<a href="https://en.wikipedia.org/wiki/List_of_file_signatures">魔数</a>。</p>
+<pre><code>root@kali:~# file Canon_40D.jpg 
+Canon_40D.jpg: JPEG image data, JFIF standard 1.01, resolution (DPI), density 72x72, segment length 16, Exif Standard: [TIFF image data, little-endian, direntries=11, manufacturer=Canon, model=Canon EOS 40D, orientation=upper-left, xresolution=166, yresolution=174, resolutionunit=2, software=GIMP 2.4.5, datetime=2008:07:31 10:38:11, GPS-Data], baseline, precision 8, 100x68, components 3
+</code></pre><p>我们可以去掉<code>.jpeg</code>得到相同的输出，因为操作系统靠前文中的魔数来识别文件类型。</p>
+<pre><code>root@kali:~# file Canon
+Canon: JPEG image data, JFIF standard 1.01, resolution (DPI), density 72x72, segment length 16, Exif Standard: [TIFF image data, little-endian, direntries=11, manufacturer=Canon, model=Canon EOS 40D, orientation=upper-left, xresolution=166, yresolution=174, resolutionunit=2, software=GIMP 2.4.5, datetime=2008:07:31 10:38:11, GPS-Data], baseline, precision 8, 100x68, components 3
+</code></pre><p>用hexdump查看文件的话，可以看到开头和结尾是<code>0xFFD8</code>和<code>0xFFD9</code></p>
+<pre><code>root@kali:~# hexdump Canon
+0000000 d8ff e0ff 1000 464a 4649 0100 0101 4800
+------SNIP------
+0001f10 5aed 5158 d9ff 
+</code></pre><p>文件规范中有个很有意思的信息是标记以<code>0xFF</code>开头，然后有几个静态标记：</p>
+<ul>
+<li>图像开始标记：<code>0xFFD8</code></li>
+<li>APP1标记：<code>0xFFE1</code></li>
+<li>通用标记：<code>0xFFXX</code></li>
+<li>图片结束标记：<code>0xFFD9</code></li>
+</ul>
+<p>由于我们不想改变图像的长度或者类型，所以让我们搞个计划，尽可能保持文件头尾不变，比如我们不希望把<code>0xFFD9</code>插入到图像中央，这样的话就会截断图像，导致图像解析器以非崩溃的方式出错。</p>
+<h2 id="开始我们的fuzzer"><a href="#开始我们的fuzzer" class="headerlink" title="开始我们的fuzzer"></a>开始我们的fuzzer</h2><p>首先我们要提取出来我们要作为<code>有效</code>输入的JPEG样本中的所有字节，当然我们会对它进行一些修改。我们的代码开始是这样的：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从合法JPEG文件中读取字节数据并保存在数组中</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_bytes</span><span class="params">(filename)</span>:</span></span><br><span class="line">    f = open(filename, <span class="string">"rb"</span>).read()</span><br><span class="line">    <span class="keyword">return</span> bytearray(f)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> len(sys.argv) &lt; <span class="number">2</span>:</span><br><span class="line">    print(<span class="string">"Usage: JPEGfuzz.py &lt;valid_jpg&gt;"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    filename = sys.argv[<span class="number">1</span>]</span><br><span class="line">    data = get_bytes(filename)</span><br></pre></td></tr></table></figure>
+<p>如果想看一下读取到的数据是什么样的，可以输出一下前十个数据：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    filename = sys.argv[<span class="number">1</span>]</span><br><span class="line">    data = get_bytes(filename)</span><br><span class="line">    counter = <span class="number">10</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> data:</span><br><span class="line">        <span class="keyword">if</span> counter &lt; <span class="number">10</span>:</span><br><span class="line">            print(i)</span><br><span class="line">        counter += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>接下来试着用我们的字节数组创建一个新的有效的JPEG文件：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_new</span><span class="params">(data)</span>:</span></span><br><span class="line">    f = open(<span class="string">"mutated.jpg"</span>, <span class="string">"wb+"</span>)</span><br><span class="line">    f.write(data)</span><br><span class="line">    f.close()</span><br></pre></td></tr></table></figure>
+<p>看一下md5：</p>
+<pre><code>root@kali:~# shasum Canon_40D.jpg mutated.jpg 
+c3d98686223ad69ea29c811aaab35d343ff1ae9e  Canon_40D.jpg
+c3d98686223ad69ea29c811aaab35d343ff1ae9e  mutated.jpg
+</code></pre><h2 id="文件变异"><a href="#文件变异" class="headerlink" title="文件变异"></a>文件变异</h2><p>为了保持fuzzer的简单，接下来将仅使用两种突变方法：</p>
+<ul>
+<li>比特翻转</li>
+<li>用Gynvael的魔数来覆盖字节序列</li>
+</ul>
+<p>我们先从比特翻转开始，如果255（0xFF）用二进制表示是<code>11111111</code>，随即反转一位比如下标是2的位，就会变成<code>11011111</code>，即223或者0xDF。</p>
 
   </div>
 </article>
@@ -175,7 +214,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#更新中，未完待续"><span class="toc-number">1.</span> <span class="toc-text">更新中，未完待续</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#挑个目标"><span class="toc-number">1.2.</span> <span class="toc-text">挑个目标</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#更新中，未完待续"><span class="toc-number">1.</span> <span class="toc-text">更新中，未完待续</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#挑个目标"><span class="toc-number">1.2.</span> <span class="toc-text">挑个目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开搞"><span class="toc-number">1.3.</span> <span class="toc-text">开搞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#了解一下JPEG和Exif的规范"><span class="toc-number">1.4.</span> <span class="toc-text">了解一下JPEG和Exif的规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始我们的fuzzer"><span class="toc-number">1.5.</span> <span class="toc-text">开始我们的fuzzer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件变异"><span class="toc-number">1.6.</span> <span class="toc-text">文件变异</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
