@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang=en>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="r -L ./dependency -kernel ./vmlinuz-5.4.0-58-generic -initrd ./rootfs.cpio -cpu kvm64,+smep -m 64M -monitor none -device fun -append &amp;quot;root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet kaslr">
+<meta name="keywords" content="qemu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rwctf 2020 Baby Escape">
+<meta property="og:url" content="http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/index.html">
+<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:description" content="r -L ./dependency -kernel ./vmlinuz-5.4.0-58-generic -initrd ./rootfs.cpio -cpu kvm64,+smep -m 64M -monitor none -device fun -append &amp;quot;root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet kaslr">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2021-01-09T11:39:40.577Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rwctf 2020 Baby Escape">
+<meta name="twitter:description" content="r -L ./dependency -kernel ./vmlinuz-5.4.0-58-generic -initrd ./rootfs.cpio -cpu kvm64,+smep -m 64M -monitor none -device fun -append &amp;quot;root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet kaslr">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Rwctf 2020 Baby Escape</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/05/18/fuzz-初探/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&text=Rwctf 2020 Baby Escape"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&title=Rwctf 2020 Baby Escape"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&is_video=false&description=Rwctf 2020 Baby Escape"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Rwctf 2020 Baby Escape&body=Check out this article: http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&title=Rwctf 2020 Baby Escape"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&title=Rwctf 2020 Baby Escape"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&title=Rwctf 2020 Baby Escape"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&title=Rwctf 2020 Baby Escape"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&name=Rwctf 2020 Baby Escape&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Rwctf 2020 Baby Escape
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">1nv0k3r's blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-01-09T06:34:16.000Z" itemprop="datePublished">2021-01-09</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/qemu/">qemu</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><code>r -L ./dependency -kernel ./vmlinuz-5.4.0-58-generic -initrd ./rootfs.cpio -cpu kvm64,+smep -m 64M -monitor none -device fun -append &quot;root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet kaslr&quot; -nographic</code></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FunState</span>&#123;</span></span><br><span class="line">    PCIDevice_0 pdev;</span><br><span class="line">    MemoryRegion_0 mmio;</span><br><span class="line">    uit32_t_0 addr;</span><br><span class="line">    uit32_t_0 size;</span><br><span class="line">    uit32_t_0 idx;</span><br><span class="line">    uit32_t_0 result_addr;</span><br><span class="line">    Funreq *req;</span><br><span class="line">    AddressSpace_0 *as;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="number">00000000</span> FunState        struc ; (<span class="keyword">sizeof</span>=<span class="number">0xA00</span>, align=<span class="number">0x10</span>, copyof_4860)</span><br><span class="line"><span class="number">00000000</span> pdev            PCIDevice_0 ?</span><br><span class="line"><span class="number">000008F</span>0 mmio            MemoryRegion_0 ?</span><br><span class="line"><span class="number">000009E0</span> addr            dd ?</span><br><span class="line"><span class="number">000009E4</span> size            dd ?</span><br><span class="line"><span class="number">000009E8</span> idx             dd ?</span><br><span class="line"><span class="number">000009</span>EC result_addr     dd ?</span><br><span class="line"><span class="number">000009F</span>0 req             dq ?                    ; offset</span><br><span class="line"><span class="number">000009F</span>8 as              dq ?                    ; offset</span><br><span class="line"><span class="number">00000</span>A00 FunState        ends</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FunReq</span>&#123;</span></span><br><span class="line">    uint32_t_0 total_size;</span><br><span class="line">    <span class="keyword">char</span> *<span class="built_in">list</span>[<span class="number">127</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">FunReq *__<span class="function">cdecl <span class="title">create_req</span><span class="params">(uint32_t_0 size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  uint32_t_0 i; <span class="comment">// [rsp+10h] [rbp-10h]</span></span><br><span class="line">  uint32_t_0 t; <span class="comment">// [rsp+14h] [rbp-Ch]</span></span><br><span class="line">  FunReq *req; <span class="comment">// [rsp+18h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( size &gt; <span class="number">0x1FBFF</span> )                     <span class="comment">// size = 0x1fbff</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0L</span>L;</span><br><span class="line">  req = (FunReq *)<span class="built_in">malloc</span>(<span class="number">0x400</span>uLL);     </span><br><span class="line">  <span class="built_in">memset</span>(req, <span class="number">0</span>, <span class="keyword">sizeof</span>(FunReq));</span><br><span class="line">  req-&gt;total_size = size;                   <span class="comment">// total_size = 0x1ffbf</span></span><br><span class="line">  t = (req-&gt;total_size &gt;&gt; <span class="number">10</span>) + <span class="number">1</span>;          <span class="comment">// t = 0x1ffbf &gt;&gt; 10 + 1 = 126 + 1 = 127</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; t; ++i )</span><br><span class="line">    req-&gt;<span class="built_in">list</span>[i] = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">0x400</span>uLL);<span class="comment">// i: 0-126</span></span><br><span class="line">  <span class="keyword">return</span> req;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> __<span class="function">cdecl <span class="title">delete_req</span><span class="params">(FunReq *req)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  uint32_t_0 i; <span class="comment">// [rsp+18h] [rbp-8h]</span></span><br><span class="line">  uint32_t_0 t; <span class="comment">// [rsp+1Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  t = (req-&gt;total_size &gt;&gt; <span class="number">10</span>) + <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; t; ++i )</span><br><span class="line">    <span class="built_in">free</span>(req-&gt;<span class="built_in">list</span>[i]);</span><br><span class="line">  <span class="built_in">free</span>(req);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> __<span class="function">cdecl <span class="title">handle_data_read</span><span class="params">(FunState *fun, FunReq *req, uint32_t_0 val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( req-&gt;total_size &amp;&amp; val &lt;= <span class="number">0x7E</span> &amp;&amp; val &lt; (req-&gt;total_size &gt;&gt; <span class="number">10</span>) + <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    put_result(fun, <span class="number">1u</span>);</span><br><span class="line">    dma_memory_read_9(fun-&gt;as, (val &lt;&lt; <span class="number">10</span>) + fun-&gt;addr, req-&gt;<span class="built_in">list</span>[val], <span class="number">0x400</span>uLL);</span><br><span class="line">    put_result(fun, <span class="number">2u</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> __<span class="function">cdecl <span class="title">handle_data_write</span><span class="params">(FunState *fun, FunReq *req, uint32_t_0 val)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( req-&gt;total_size &amp;&amp; val &lt;= <span class="number">0x7E</span> &amp;&amp; val &lt; (req-&gt;total_size &gt;&gt; <span class="number">10</span>) + <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    put_result(fun, <span class="number">1u</span>);</span><br><span class="line">    dma_memory_write_9(fun-&gt;as, (val &lt;&lt; <span class="number">10</span>) + fun-&gt;addr, req-&gt;<span class="built_in">list</span>[val], <span class="number">0x400</span>uLL);</span><br><span class="line">    put_result(fun, <span class="number">2u</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>fun_mmio_read和fun_mmio_write</p>
+<p>进入函数以后有一波相同的操作，根据size来计算一个rax进行跳转</p>
+<p>根据size的值, 4位一组进行操作</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mov     rax, [rbp+addr]     ;size = 10/9/8, rax = 8, size = 7/6/5/4, rax = 4, size=3/2/1/0, rax = 0, 盲猜一个size=12/13/14/15, rax=12</span><br><span class="line">                            ;size = 16/17/18/19, rax = 16 = 0x10, 满足跳转</span><br><span class="line">lea     rdx, ds:0[rax*4]    ;rdx = 0x20 = 32 = rax * 4</span><br><span class="line">lea     rax, unk_A450B0     ;rax = rip + 0x573362 = 0x55b24522906c -&gt;const</span><br><span class="line">mov     eax, [rdx+rax]      ;eax = [rip + 0x573362 + rax * 4] = 0xffa8ccd4</span><br><span class="line">cdqe                        ;eax = 0xffffffffffa8ccd4</span><br><span class="line">lea     rdx, unk_A450B0     ;rdx = rip + 0x573356 = 0x55b24522906c -&gt;const</span><br><span class="line">add     rax, rdx            ;rax = rax + rdx = 0xffffffffffa8ccd4 + 0x55b24522906c = 0x1000055b244cb5d40 溢出1位 = 0x55b244cb5d40</span><br><span class="line">db      3Eh</span><br><span class="line">jmp     rax                 ;跳转，我们的目的是跳到0x4D1D64，另外几个块是0x4D1D1C, 0x4D1D2E, 0x4D1D40, 0x4D1D52(size大于10跳到这里)</span><br><span class="line">                            ;即0x55b244cb5d64, 0x1000055b244cb5d64 - 0x55b24522906c = 0xffffffffffa8ccf8</span><br></pre></td></tr></table></figure>
+<p>看一下0x55b24522906c处的内容</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gdb-peda$ x/30gx 0x55b24522906c                                            </span><br><span class="line">0x55b24522906c:	0xffa8cd2effa8ccb0	0xffa8cd2effa8cd2e</span><br><span class="line">0x55b24522907c:	0xffa8cd2effa8ccc2	0xffa8cd2effa8cd2e</span><br><span class="line">0x55b24522908c:	0xffa8cd2effa8ccd4	0xffa8cd2effa8cd2e</span><br><span class="line">0x55b24522909c:	0xffa8cd2effa8cce6	0xffa8cd2effa8cd2e</span><br><span class="line">0x55b2452290ac:	0xffa8cd46ffa8ccf8	0xffa8ce38ffa8ce38</span><br><span class="line">0x55b2452290bc:	0xffa8cd58ffa8ce38	0xffa8ce38ffa8ce38</span><br><span class="line">0x55b2452290cc:	0xffa8cd6affa8ce38	0xffa8ce38ffa8ce38</span><br><span class="line">0x55b2452290dc:	0xffa8cd7cffa8ce38	0xffa8ce38ffa8ce38</span><br><span class="line">0x55b2452290ec:	0xffa8cd8effa8ce38	0xffa8ce38ffa8ce38</span><br><span class="line">0x55b2452290fc:	0xffa8cdc8ffa8ce38	0xffa8ce38ffa8ce38</span><br><span class="line">0x55b24522910c:	0xffa8cdf6ffa8ce38	0x696d2f77682f2e2e</span><br><span class="line">0x55b24522911c:	0x632e6e75662f6373	0x6e7566006e756600</span><br><span class="line">0x55b24522912c:	0x0000006f696d6d2d	0x0000000000000000</span><br><span class="line">0x55b24522913c:	0x5f69637000000000	0x6c6165725f6e7566</span><br></pre></td></tr></table></figure>
+<p>可知0x55b2452290ac是我们的目标，即0x55b2452290ac - 0x55b24522906c = rax * 4 = 64, 得rax=16, 于是来到</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mov     rax, [rbp+fun]      ;rax = 0x55834aee6b70, fun对象的地址</span><br><span class="line">mov     rax, [rax+9F0h]     ;MemoryRegion_0</span><br><span class="line">test    rax, rax</span><br><span class="line">jz      short loc_4D1D9D</span><br></pre></td></tr></table></figure>
+<p>要进入目标函数， 需要让rax的值不为0, 而这个地址是写死的, 所以我们需要先操作堆地址往这里写一些东西</p>
+<p>再看fun_mmio_write, const=0x564b3c7a00b0</p>
+<pre><code>gdb-peda$ x/30gx 0x564b3c7a00b0
+0x564b3c7a00b0:    0xffa8ce38ffa8cd46    0xffa8ce38ffa8ce38
+0x564b3c7a00c0:    0xffa8ce38ffa8cd58    0xffa8ce38ffa8ce38
+0x564b3c7a00d0:    0xffa8ce38ffa8cd6a    0xffa8ce38ffa8ce38
+0x564b3c7a00e0:    0xffa8ce38ffa8cd7c    0xffa8ce38ffa8ce38
+0x564b3c7a00f0:    0xffa8ce38ffa8cd8e    0xffa8ce38ffa8ce38
+0x564b3c7a0100:    0xffa8ce38ffa8cdc8    0xffa8ce38ffa8ce38
+0x564b3c7a0110:    0x682f2e2effa8cdf6    0x662f6373696d2f77
+0x564b3c7a0120:    0x6e756600632e6e75    0x696d6d2d6e756600
+0x564b3c7a0130:    0x000000000000006f    0x0000000000000000
+</code></pre><ul>
+<li>delete:   0x4D1EA6, 0x10000564b3c22cea6 - 0x564b3c7a00b0 = 0xffffffffffa8cdf6 &lt;- 0x564b3c7a0110 - 0x564b3c7a00b0 = 0x60 / 4 = 24 = 0x18</li>
+<li>read  :   0x4D1E3E, 0x10000564b3c22ce3e - 0x564b3c7a00b0 = 0xffffffffffa8cd8e &lt;- 0x564b3c7a00f0 - 0x564b3c7a00b0 = 0x40 / 4 = 16 = 0x10</li>
+<li>create:   0x4D1E78, 0x10000564b3c22ce78 - 0x564b3c7a00b0 = 0xffffffffffa8cdc8 &lt;- 0x564b3c7a0100 - 0x564b3c7a00b0 = 0x50 / 4 = 20 = 0x14</li>
+<li>set size: 0x4D1DF6, 0x10000564b3c22cef6 - 0x564b3c7a00b0 = 0xffffffffffa8ce46 &lt;- 0x564b3c7a00b0 - 0x564b3c7a00b0 = 0x0</li>
+<li>set addr: 0x4D1E08, </li>
+<li>set result addr: 0x4D1E1A,</li>
+<li>set idx:  0x4D1E2C,</li>
+</ul>
+<p>那么先调用create, mmio_write(0, 130047), 可以看到130047作为val进入了fun_mmio_write函数</p>
+<p>之后再用mmio_write(20, 0)创建req</p>
+<p>调用mmio_write(16, 0)来触发read</p>
+<ol>
+<li>fun_mmio_read函数<ol>
+<li>读FunState的各种数据到val, 包括addr, size, idx, result_addr</li>
+<li>handle_data_write, dma_memory_write_9(fun-&gt;as, (val &lt;&lt; 10) + fun-&gt;addr, req-&gt;list[val], 0x400uLL); 应该是用来将req里指定val的数据写入到Address_Space</li>
+</ol>
+</li>
+<li>fun_mmio_write<ol>
+<li>向FunStatus的addr, size, idx, result_addr写入val中的数据</li>
+<li>create_req, 传入FunStatus的size, 创建FunReq的对象, 设置它的total_size</li>
+<li>delete_req, 根据total_size free list</li>
+<li>handle_data_read, dma_memory_read_9(fun-&gt;as, (val &lt;&lt; 10) + fun-&gt;addr, req-&gt;list[val], 0x400uLL); 用来把Address_Space的东西读取到req里</li>
+</ol>
+</li>
+</ol>
+<p>size = 0x1fbff<br>req-&gt;total_size = 0x1fbff<br>t = 126 + 1 = 127<br>b <em>fun_mmio_read<br>b </em>fun_mmio_write<br>r -L ./dependency -kernel ./vmlinuz-5.4.0-58-generic -initrd ./rootfs.cpio -cpu kvm64,+smep -m 64M -monitor none -device fun -append “root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet kaslr” -nographicr -L ./dependency -kernel ./vmlinuz-5.4.0-58-generic -initrd ./rootfs.cpio -cpu kvm64,+smep -m 64M -monitor none -device fun -append “root=/dev/ram rw console=ttyS0 oops=panic panic=1 quiet kaslr” -nographic</p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&text=Rwctf 2020 Baby Escape"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&title=Rwctf 2020 Baby Escape"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&is_video=false&description=Rwctf 2020 Baby Escape"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Rwctf 2020 Baby Escape&body=Check out this article: http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&title=Rwctf 2020 Baby Escape"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&title=Rwctf 2020 Baby Escape"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&title=Rwctf 2020 Baby Escape"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&title=Rwctf 2020 Baby Escape"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2021/01/09/rwctf-2020-baby-escape/&name=Rwctf 2020 Baby Escape&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 1nv0k3r
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-131778492-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?da32760b25f029bfe0c4abfc646f5f7a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-tw5j2p4htr';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

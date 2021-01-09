@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman和Fuzzing Like A Caveman 2: Improving Performance 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faul">
+    <meta name="description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faulk的fuzz直播，他还有一个很有意思的介绍fuzz思想概念的视频 挑个目标我们要找一个C/C++">
 <meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fuzz 初探">
 <meta property="og:url" content="http://1nv0k3r.me/2020/05/18/fuzz-初探/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman和Fuzzing Like A Caveman 2: Improving Performance 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faul">
+<meta property="og:description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faulk的fuzz直播，他还有一个很有意思的介绍fuzz思想概念的视频 挑个目标我们要找一个C/C++">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-06-14T15:06:32.063Z">
+<meta property="og:updated_time" content="2020-06-15T06:00:31.239Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fuzz 初探">
-<meta name="twitter:description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman和Fuzzing Like A Caveman 2: Improving Performance 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faul">
+<meta name="twitter:description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faulk的fuzz直播，他还有一个很有意思的介绍fuzz思想概念的视频 挑个目标我们要找一个C/C++">
     
     
         
@@ -72,6 +72,8 @@
     <br/>
     <span id="actions">
       <ul>
+        
+        <li><a class="icon" href="/2021/01/09/rwctf-2020-baby-escape/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -140,7 +142,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h1 id="更新中，未完待续"><a href="#更新中，未完待续" class="headerlink" title="更新中，未完待续"></a>更新中，未完待续</h1><p>翻译自@h0mbre的两篇文章<a href="https://h0mbre.github.io/Fuzzing-Like-A-Caveman/">Fuzz Like A Caveman</a>和<a href="https://h0mbre.github.io/Fuzzing-Like-a-Caveman-2/">Fuzzing Like A Caveman 2: Improving Performance</a></p>
+    <h1 id="更新中，未完待续"><a href="#更新中，未完待续" class="headerlink" title="更新中，未完待续"></a>更新中，未完待续</h1><p>翻译自@h0mbre的两篇文章<a href="https://h0mbre.github.io/Fuzzing-Like-A-Caveman/">Fuzz Like A Caveman</a></p>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于<a href="https://twitter.com/gynvael?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">油管上的@gynvael的fuzz教程</a>，另外还要推荐一下<a href="https://www.youtube.com/user/gamozolabs/videos">Brandon Faulk的fuzz直播</a>，他还有一个很有意思的介绍fuzz思想概念的<a href="https://www.youtube.com/watch?v=SngK4W4tVc0">视频</a></p>
 <h2 id="挑个目标"><a href="#挑个目标" class="headerlink" title="挑个目标"></a>挑个目标</h2><p>我们要找一个C/C++编写的、可以解析从文件里解析出来数据的软件。我找到的第一个软件是一个从图像里解析出Exif的软件，我们还将挑选一个几乎完全不处理安全问题的软件，因为我会直接公开这些漏洞研究。</p>
 <p>通过<a href="https://www.media.mit.edu/pia/Research/deepview/exif.html">这个文章</a>，我们可以了解到一些Exif基础，Exif文件格式和JPEG文件相同，Exif按照JPEG的规范，将一些图像信息数据和缩略图，插入到JPEG文件中，因此你可以在兼容JPEG的浏览器/图片查看器/图片修改等软件中，如同浏览普通JPEG文件一样浏览Exif格式的图像文件。</p>
@@ -246,7 +248,7 @@ c3d98686223ad69ea29c811aaab35d343ff1ae9e  mutated.jpg
         
         <footer id="footer">
   <div class="footer-left">
-    Copyright &copy; 2020 1nv0k3r
+    Copyright &copy; 2021 1nv0k3r
   </div>
   <div class="footer-right">
     <nav>
