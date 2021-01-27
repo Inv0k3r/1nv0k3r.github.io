@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路 识别是否使用ret2dl有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数，但是题目中没有puts，printf等用来输出数据的函数，无法泄露我们常规栈溢出攻击中所需要的一些地址（libc，栈基址），这时候使用ret2dl是一种有效的方法 例题这里用前段时间国赛中的一个pwn题来学习一下 文件">
-<meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
+    <meta name="description" content="最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路 识别是否使用ret2dl有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数 但是题目中没有puts, printf, write等用来输出数据的函数 无法泄露我们常规栈溢出攻击中所需要的一些地址(libc, 栈基址) 这时候使用ret2dl是一种有效的方法 例题先通过32位的一个栈溢出来理解原">
+<meta name="keywords" content="ctf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="栈溢出攻击之Ret2dl">
 <meta property="og:url" content="http://1nv0k3r.me/2019/05/10/栈溢出攻击之ret2dl/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路 识别是否使用ret2dl有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数，但是题目中没有puts，printf等用来输出数据的函数，无法泄露我们常规栈溢出攻击中所需要的一些地址（libc，栈基址），这时候使用ret2dl是一种有效的方法 例题这里用前段时间国赛中的一个pwn题来学习一下 文件">
+<meta property="og:description" content="最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路 识别是否使用ret2dl有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数 但是题目中没有puts, printf, write等用来输出数据的函数 无法泄露我们常规栈溢出攻击中所需要的一些地址(libc, 栈基址) 这时候使用ret2dl是一种有效的方法 例题先通过32位的一个栈溢出来理解原">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://1nv0k3r.me/2019/05/10/栈溢出攻击之ret2dl/1.png">
-<meta property="og:updated_time" content="2020-05-18T12:28:45.213Z">
+<meta property="og:updated_time" content="2021-01-25T15:34:25.053Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="栈溢出攻击之Ret2dl">
-<meta name="twitter:description" content="最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路 识别是否使用ret2dl有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数，但是题目中没有puts，printf等用来输出数据的函数，无法泄露我们常规栈溢出攻击中所需要的一些地址（libc，栈基址），这时候使用ret2dl是一种有效的方法 例题这里用前段时间国赛中的一个pwn题来学习一下 文件">
+<meta name="twitter:description" content="最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路 识别是否使用ret2dl有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数 但是题目中没有puts, printf, write等用来输出数据的函数 无法泄露我们常规栈溢出攻击中所需要的一些地址(libc, 栈基址) 这时候使用ret2dl是一种有效的方法 例题先通过32位的一个栈溢出来理解原">
 <meta name="twitter:image" content="http://1nv0k3r.me/2019/05/10/栈溢出攻击之ret2dl/1.png">
     
     
@@ -105,7 +105,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#识别是否使用ret2dl"><span class="toc-number">1.</span> <span class="toc-text">识别是否使用ret2dl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">2.</span> <span class="toc-text">例题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用原理"><span class="toc-number">3.</span> <span class="toc-text">利用原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ELF文件结构"><span class="toc-number">3.1.</span> <span class="toc-text">ELF文件结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ELF头"><span class="toc-number">3.1.1.</span> <span class="toc-text">ELF头</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#识别是否使用ret2dl"><span class="toc-number">1.</span> <span class="toc-text">识别是否使用ret2dl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">2.</span> <span class="toc-text">例题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -138,6 +138,11 @@
       
 
       
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/ctf/">ctf</a>
+    </div>
+
 
     </div>
   </header>
@@ -145,10 +150,13 @@
 
   <div class="content" itemprop="articleBody">
     <p>最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路</p>
-<h2 id="识别是否使用ret2dl"><a href="#识别是否使用ret2dl" class="headerlink" title="识别是否使用ret2dl"></a>识别是否使用ret2dl</h2><p>有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数，<br>但是题目中没有puts，printf等用来输出数据的函数，<br>无法泄露我们常规栈溢出攻击中所需要的一些地址（libc，栈基址），<br>这时候使用ret2dl是一种有效的方法</p>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>这里用前段时间国赛中的一个pwn题来学习一下</p>
+<h2 id="识别是否使用ret2dl"><a href="#识别是否使用ret2dl" class="headerlink" title="识别是否使用ret2dl"></a>识别是否使用ret2dl</h2><p>有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数</p>
+<p>但是题目中没有puts, printf, write等用来输出数据的函数</p>
+<p>无法泄露我们常规栈溢出攻击中所需要的一些地址(libc, 栈基址)</p>
+<p>这时候使用ret2dl是一种有效的方法</p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>先通过32位的一个栈溢出来理解原理, 然后完成一个64位程序的攻击, 然后还有两个例题加深一波理解</p>
 <p>文件下载：<a href="https://github.com/Inv0k3r/pwnable_files/raw/master/baby_pwn">baby_pwn </a></p>
-<h2 id="利用原理"><a href="#利用原理" class="headerlink" title="利用原理"></a>利用原理</h2><h3 id="ELF文件结构"><a href="#ELF文件结构" class="headerlink" title="ELF文件结构"></a>ELF文件结构</h3><p>我们用<code>010 Editor</code>打开题目文件,然后在Templates里运行一下ELF模板, 按<code>alt+F4</code>打开Template窗口</p>
+<p>我们用<code>010 Editor</code>打开题目文件,然后在Templates里运行一下ELF模板, 按<code>alt+F4</code>打开Template窗口</p>
 <p><img src="/2019/05/10/栈溢出攻击之ret2dl/1.png" alt="img"></p>
 <p>可以看到一个标准的ELF文件由以下部分组成</p>
 <ul>
@@ -158,7 +166,13 @@
 <li>符号表</li>
 <li>静态符号表</li>
 </ul>
-<h4 id="ELF头"><a href="#ELF头" class="headerlink" title="ELF头"></a>ELF头</h4>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://ctf-wiki.org/executable/elf/structure/basic-info/">https://ctf-wiki.org/executable/elf/structure/basic-info/</a></li>
+<li><a href="https://ctf-wiki.org/pwn/linux/stackoverflow/advanced-rop/ret2dlresolve/">https://ctf-wiki.org/pwn/linux/stackoverflow/advanced-rop/ret2dlresolve/</a></li>
+<li><a href="https://firmianay.gitbook.io/ctf-all-in-one/6_writeup/pwn/6.1.3_pwn_xdctf2015_pwn200#ti-mu-fu-xian">https://firmianay.gitbook.io/ctf-all-in-one/6_writeup/pwn/6.1.3_pwn_xdctf2015_pwn200#ti-mu-fu-xian</a></li>
+<li><a href="http://pwn4.fun/2016/11/09/Return-to-dl-resolve/">http://pwn4.fun/2016/11/09/Return-to-dl-resolve/</a></li>
+</ul>
+
   </div>
 </article>
 
@@ -189,7 +203,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#识别是否使用ret2dl"><span class="toc-number">1.</span> <span class="toc-text">识别是否使用ret2dl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">2.</span> <span class="toc-text">例题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用原理"><span class="toc-number">3.</span> <span class="toc-text">利用原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ELF文件结构"><span class="toc-number">3.1.</span> <span class="toc-text">ELF文件结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ELF头"><span class="toc-number">3.1.1.</span> <span class="toc-text">ELF头</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#识别是否使用ret2dl"><span class="toc-number">1.</span> <span class="toc-text">识别是否使用ret2dl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#例题"><span class="toc-number">2.</span> <span class="toc-text">例题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
