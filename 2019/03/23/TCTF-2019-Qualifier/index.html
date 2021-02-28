@@ -9,7 +9,7 @@
     <meta name="description" content="ElementsIDA F5以后很容易定位到程序的验证逻辑 通过阅读反编译代码可以知道, 输入的flag格式是flag{[0-9a-f]{12}-[0-9a-f]{12}-[0-9a-f]{12}} 第一段是直接判断的0x391BC2164F0ALL 即flag{391bc2164f0a-[0-9a-f]{12}-[0-9a-f]{12}} 之后可以看到对几个变量的逻辑判断 if ( v24 &amp;l">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCTF 2019 Qualifier">
-<meta property="og:url" content="http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/index.html">
+<meta property="og:url" content="http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="ElementsIDA F5以后很容易定位到程序的验证逻辑 通过阅读反编译代码可以知道, 输入的flag格式是flag{[0-9a-f]{12}-[0-9a-f]{12}-[0-9a-f]{12}} 第一段是直接判断的0x391BC2164F0ALL 即flag{391bc2164f0a-[0-9a-f]{12}-[0-9a-f]{12}} 之后可以看到对几个变量的逻辑判断 if ( v24 &amp;l">
 <meta property="og:locale" content="en_US">
@@ -98,16 +98,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&text=TCTF 2019 Qualifier"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&is_video=false&description=TCTF 2019 Qualifier"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=TCTF 2019 Qualifier&body=Check out this article: http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&name=TCTF 2019 Qualifier&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&text=TCTF 2019 Qualifier"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&is_video=false&description=TCTF 2019 Qualifier"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TCTF 2019 Qualifier&body=Check out this article: http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&name=TCTF 2019 Qualifier&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -238,16 +238,16 @@ Congratz, input is your flag
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&text=TCTF 2019 Qualifier"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&is_video=false&description=TCTF 2019 Qualifier"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=TCTF 2019 Qualifier&body=Check out this article: http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/&name=TCTF 2019 Qualifier&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&text=TCTF 2019 Qualifier"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&is_video=false&description=TCTF 2019 Qualifier"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=TCTF 2019 Qualifier&body=Check out this article: http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&title=TCTF 2019 Qualifier"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/03/23/TCTF-2019-Qualifier/&name=TCTF 2019 Qualifier&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

@@ -9,7 +9,7 @@
     <meta name="description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faulk的fuzz直播，他还有一个很有意思的介绍fuzz思想概念的视频 挑个目标我们要找一个C&#x2F;C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fuzz 初探">
-<meta property="og:url" content="http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/index.html">
+<meta property="og:url" content="http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faulk的fuzz直播，他还有一个很有意思的介绍fuzz思想概念的视频 挑个目标我们要找一个C&#x2F;C++">
 <meta property="og:locale" content="en_US">
@@ -98,16 +98,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&text=Fuzz 初探"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&is_video=false&description=Fuzz 初探"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Fuzz 初探&body=Check out this article: http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&name=Fuzz 初探&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&text=Fuzz 初探"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&is_video=false&description=Fuzz 初探"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Fuzz 初探&body=Check out this article: http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&name=Fuzz 初探&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -230,16 +230,16 @@ c3d98686223ad69ea29c811aaab35d343ff1ae9e  mutated.jpg
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&text=Fuzz 初探"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&is_video=false&description=Fuzz 初探"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Fuzz 初探&body=Check out this article: http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&name=Fuzz 初探&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&text=Fuzz 初探"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&is_video=false&description=Fuzz 初探"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Fuzz 初探&body=Check out this article: http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&title=Fuzz 初探"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/&name=Fuzz 初探&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
