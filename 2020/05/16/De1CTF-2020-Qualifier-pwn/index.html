@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242">
-<meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
 <meta property="og:type" content="article">
 <meta property="og:title" content="De1CTF 2020 Qualifier Pwn">
-<meta property="og:url" content="http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/index.html">
+<meta property="og:url" content="http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242">
-<meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-19T10:39:20.617Z">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-05-16T02:13:41.000Z">
+<meta property="article:modified_time" content="2020-05-19T10:39:20.617Z">
+<meta property="article:author" content="1nv0k3r">
+<meta property="article:tag" content="1nv0k3r">
+<meta property="article:tag" content=" blog">
+<meta property="article:tag" content=" pwn">
+<meta property="article:tag" content=" binary">
+<meta property="article:tag" content=" exploit">
+<meta property="article:tag" content=" vuln">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="De1CTF 2020 Qualifier Pwn">
-<meta name="twitter:description" content="BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242">
     
     
         
@@ -39,15 +44,19 @@
     <!-- title -->
     <title>De1CTF 2020 Qualifier Pwn</title>
     <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
     <!-- persian styles -->
     
-      <link rel="stylesheet" href="/css/rtl.css">
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
     
     <!-- rss -->
     
     
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="max-width mx-auto px3 ltr">
     
@@ -73,10 +82,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2020/05/18/fuzz-初探/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2020/04/26/排序算法复习/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2020/04/26/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E5%A4%8D%E4%B9%A0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -89,16 +98,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&text=De1CTF 2020 Qualifier Pwn"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&is_video=false&description=De1CTF 2020 Qualifier Pwn"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=De1CTF 2020 Qualifier Pwn&body=Check out this article: http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&name=De1CTF 2020 Qualifier Pwn&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&text=De1CTF 2020 Qualifier Pwn"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&is_video=false&description=De1CTF 2020 Qualifier Pwn"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=De1CTF 2020 Qualifier Pwn&body=Check out this article: http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&name=De1CTF 2020 Qualifier Pwn&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -153,14 +162,14 @@
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Format for each entry: &lt;id&gt;:&lt;runlevels&gt;:&lt;action&gt;:&lt;process&gt;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># id        == tty to run on, or empty for /dev/console</span></span><br><span class="line"><span class="comment"># runlevels == ignored</span></span><br><span class="line"><span class="comment"># action    == one of sysinit, respawn, askfirst, wait, and once</span></span><br><span class="line"><span class="comment"># process   == program to run</span></span><br></pre></td></tr></table></figure>
 <p>这部分参考<a href="https://www.cnblogs.com/ricks/p/10020886.html">这篇文章</a></p>
 <p>即系统内核引导完成以后，执行这个文件内的指令，那么接下来我们需要修改这个文件让他连接我们的gdb</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Put a getty on the serial port</span><br><span class="line">#ttyS0::respawn:/sbin/getty -L  ttyS0 0 vt100 # GENERIC_SERIAL</span><br><span class="line"># 注释掉原来启动pppd的指令</span><br><span class="line"># ttyS0::sysinit:/pppd auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"># 启动网卡</span><br><span class="line">::sysinit:/sbin/ifup -a</span><br><span class="line"># 把gdbserver拉起来，用gdbserver启动pppd</span><br><span class="line">ttyS0::sysinit:/gdbserver :1234 /pppd /dev/ttyS1 auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"></span><br><span class="line"># Stuff to do for the 3-finger salute</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Put a getty on the serial port</span><br><span class="line">#ttyS0::respawn:&#x2F;sbin&#x2F;getty -L  ttyS0 0 vt100 # GENERIC_SERIAL</span><br><span class="line"># 注释掉原来启动pppd的指令</span><br><span class="line"># ttyS0::sysinit:&#x2F;pppd auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"># 启动网卡</span><br><span class="line">::sysinit:&#x2F;sbin&#x2F;ifup -a</span><br><span class="line"># 把gdbserver拉起来，用gdbserver启动pppd</span><br><span class="line">ttyS0::sysinit:&#x2F;gdbserver :1234 &#x2F;pppd &#x2F;dev&#x2F;ttyS1 auth local lock defaultroute nodetach 172.16.1.1:172.16.1.2 ms-dns 8.8.8.8 require-eap lcp-max-configure 100</span><br><span class="line"></span><br><span class="line"># Stuff to do for the 3-finger salute</span><br></pre></td></tr></table></figure>
 <h3 id="step-2"><a href="#step-2" class="headerlink" title="step 2"></a>step 2</h3><p>在qemu的启动基本<code>start.sh</code>里加上gdb的1234端口参数：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">-net user,hostfwd=tcp::1234-:1234 -net nic -serial stdio -serial pty</span><br></pre></td></tr></table></figure>
 <h3 id="step-3"><a href="#step-3" class="headerlink" title="step 3"></a>step 3</h3><p>重新打包镜像:</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">mv rootfs.img rootfs.img.bak</span><br><span class="line"><span class="built_in">cd</span> rootfs</span><br><span class="line">find ./* | cpio -H newc -o &gt; rootfs.img</span><br></pre></td></tr></table></figure>
 <p>然后运行<code>start.sh</code>启动qemu，如果可以看到gdbserver启动消息就成功了</p>
 <pre><code>Linux version 4.11.3 (root@test) (gcc version 6.4.0 (Buildroot 2018.02-rc2) ) #5 SMP Sat Apr 11 07:33:40 UTC 2020
-earlycon: uart8250 at I/O port 0x3f8 (options &apos;38400n8&apos;)
+earlycon: uart8250 at I/O port 0x3f8 (options &#39;38400n8&#39;)
 bootconsole [uart8250] enabled
 CPU0 revision is: 00019300 (MIPS 24Kc)
 FPU revision is: 00739300
@@ -237,16 +246,16 @@ make install
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&text=De1CTF 2020 Qualifier Pwn"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&is_video=false&description=De1CTF 2020 Qualifier Pwn"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=De1CTF 2020 Qualifier Pwn&body=Check out this article: http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&name=De1CTF 2020 Qualifier Pwn&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&text=De1CTF 2020 Qualifier Pwn"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&is_video=false&description=De1CTF 2020 Qualifier Pwn"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=De1CTF 2020 Qualifier Pwn&body=Check out this article: http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&name=De1CTF 2020 Qualifier Pwn&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -287,13 +296,23 @@ make install
 </body>
 </html>
 <!-- styles -->
+
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
 <link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
+
 <!-- jquery -->
+
 <script src="/lib/jquery/jquery.min.js"></script>
+
+
 <script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
 <script src="/js/main.js"></script>
+
 <!-- search -->
 
 <!-- Google Analytics -->

@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp;amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
-<meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="调用Malloc后发生了什么">
-<meta property="og:url" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/index.html">
+<meta property="og:url" content="http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp;amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/1.jpg">
-<meta property="og:image" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/2.jpg">
-<meta property="og:updated_time" content="2019-04-22T08:16:47.670Z">
+<meta property="og:description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/1.jpg">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/2.jpg">
+<meta property="article:published_time" content="2019-02-26T10:13:14.000Z">
+<meta property="article:modified_time" content="2019-04-22T08:16:47.670Z">
+<meta property="article:author" content="1nv0k3r">
+<meta property="article:tag" content="1nv0k3r">
+<meta property="article:tag" content=" blog">
+<meta property="article:tag" content=" pwn">
+<meta property="article:tag" content=" binary">
+<meta property="article:tag" content=" exploit">
+<meta property="article:tag" content=" vuln">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="调用Malloc后发生了什么">
-<meta name="twitter:description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp;amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
-<meta name="twitter:image" content="http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/1.jpg">
+<meta name="twitter:image" content="http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/1.jpg">
     
     
         
@@ -42,15 +47,19 @@
     <!-- title -->
     <title>调用Malloc后发生了什么</title>
     <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
     <!-- persian styles -->
     
-      <link rel="stylesheet" href="/css/rtl.css">
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
     
     <!-- rss -->
     
     
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="max-width mx-auto px3 ltr">
     
@@ -76,10 +85,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2019/03/04/peda的几个命令/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/03/04/peda%E7%9A%84%E5%87%A0%E4%B8%AA%E5%91%BD%E4%BB%A4/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2019/02/26/how2heap-学习记录/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -92,16 +101,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&text=调用Malloc后发生了什么"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&title=调用Malloc后发生了什么"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&is_video=false&description=调用Malloc后发生了什么"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=调用Malloc后发生了什么&body=Check out this article: http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&title=调用Malloc后发生了什么"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&title=调用Malloc后发生了什么"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&title=调用Malloc后发生了什么"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&title=调用Malloc后发生了什么"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&name=调用Malloc后发生了什么&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&text=调用Malloc后发生了什么"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&title=调用Malloc后发生了什么"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&is_video=false&description=调用Malloc后发生了什么"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=调用Malloc后发生了什么&body=Check out this article: http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&title=调用Malloc后发生了什么"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&title=调用Malloc后发生了什么"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&title=调用Malloc后发生了什么"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&title=调用Malloc后发生了什么"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&name=调用Malloc后发生了什么&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -147,7 +156,7 @@
   <div class="content" itemprop="articleBody">
     <p>malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址</p>
 <p>malloc是glibc函数, 实际上对应的系统调用是brk()函数</p>
-<h2 id="进程的地址空间"><a href="#进程的地址空间" class="headerlink" title="进程的地址空间:"></a>进程的地址空间:</h2><p><img src="/2019/02/26/调用malloc后发生了什么/1.jpg" alt="img"></p>
+<h2 id="进程的地址空间"><a href="#进程的地址空间" class="headerlink" title="进程的地址空间:"></a>进程的地址空间:</h2><p><img src="/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/1.jpg" alt="img"></p>
 <p>众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加</p>
 <h2 id="brk-amp-sbrk"><a href="#brk-amp-sbrk" class="headerlink" title="brk &amp; sbrk"></a>brk &amp; sbrk</h2><p>看一下<a href="https://www.cnblogs.com/shayu/p/3371880.html">brk和sbrk的用法</a>:</p>
 <p>brk和sbrk提供底层的内存分配</p>
@@ -215,22 +224,22 @@ Start              End                Perm    Name
 <li>heap_info</li>
 </ol>
 <p>即heap header, 由于一个arena包括多个heap, 所以给每个heap设置一个header便于管理</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">heap_info</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    mstate ar_ptr; <span class="comment">/* 这个heap所在的arena */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">heap_info</span> *<span class="title">prev</span>;</span> <span class="comment">/* 前一个heap */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">size_t</span> size;   <span class="comment">/* 当前heap的大小(单位: byte) */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">size_t</span> mprotect_size; <span class="comment">/* 写保护和读保护的字节数 PROT_READ|PROT_WRITE */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> pad[<span class="number">-6</span> * SIZE_SZ &amp; MALLOC_ALIGN_MASK]; <span class="comment">/* 用于数据对齐, 确保 sizeof (heap_info) + 2 * SIZE_SZ 的值是MALLOC_ALIGNMENT的倍数*/</span></span><br><span class="line"></span><br><span class="line">&#125; heap_info;</span><br></pre></td></tr></table></figure>
-<ol start="2">
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">heap_info</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    mstate ar_ptr; <span class="comment">/* 这个heap所在的arena */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">heap_info</span> *<span class="title">prev</span>;</span> <span class="comment">/* 前一个heap */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">size_t</span> <span class="built_in">size</span>;   <span class="comment">/* 当前heap的大小(单位: byte) */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">size_t</span> mprotect_size; <span class="comment">/* 写保护和读保护的字节数 PROT_READ|PROT_WRITE */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> pad[<span class="number">-6</span> * SIZE_SZ &amp; MALLOC_ALIGN_MASK]; <span class="comment">/* 用于数据对齐, 确保 sizeof (heap_info) + 2 * SIZE_SZ 的值是MALLOC_ALIGNMENT的倍数*/</span></span><br><span class="line"></span><br><span class="line">&#125; heap_info;</span><br></pre></td></tr></table></figure>
+<ol>
 <li>malloc_state</li>
 </ol>
 <p>即arena header, 每个线程只有一个arena header, 包括各种bins的信息, top chunk和remainder chunk等信息</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">mutex_t</span> mutex; <span class="comment">/* 互斥锁, 学过操作系统的应该对mutex这个词很熟悉, 用来对arena进行操作时的同步和互斥 */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> flags; <span class="comment">/* 标志位 */</span></span><br><span class="line"></span><br><span class="line">    mfastbinptr fastbinsY[NFASTBINS]; <span class="comment">/* fastbin的链表数组, 包括了多个fastbin链表, 是单链表结构 */</span></span><br><span class="line"></span><br><span class="line">    mchunkptr top; <span class="comment">/* top chunk, 当找不到合适大小的bin时, 就在top chunk中分离一段内存并分配 */</span></span><br><span class="line"></span><br><span class="line">    mchunkptr last_remainder; <span class="comment">/* top chunk分离后剩下的未分配的内存 */</span></span><br><span class="line"></span><br><span class="line">    mchunkptr bins[NBINS * <span class="number">2</span> - <span class="number">2</span>];  <span class="comment">/* 除了fastbin的其他bin, 即small bin, large bin, unsorted bin, 都使用的是双向链表*/</span></span><br><span class="line">                                    <span class="comment">/* 下标1是unsorted bin, 2~63是small bin, 64~126是large bin */</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> binmap[BINMAPSIZE]; <span class="comment">/* 用于指示bin是否被使用的一个位图 */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span> *<span class="title">next</span>;</span> <span class="comment">/* 下一个已分配的malloc_state的位置, 即malloc_state是单链表的一个结点 */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_state</span> *<span class="title">next_free</span>;</span> <span class="comment">/* 指向未分配的arena的列表 */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 当前arena中被分配的系统内存的总量  */</span></span><br><span class="line"></span><br><span class="line">    INTERNAL_SIZE_T system_mem;</span><br><span class="line">    INTERNAL_SIZE_T max_system_mem;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ol start="3">
+<ol>
 <li>malloc_chunk</li>
 </ol>
 <p>即chunk header, 一个heap被分为多个chunk</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span> &#123;</span></span><br><span class="line">    <span class="comment">/* #define INTERNAL_SIZE_T size_t */</span></span><br><span class="line">    INTERNAL_SIZE_T      prev_size;  <span class="comment">/* 前一个chunk的大小(前一个chunk空闲时有意义, 若非空闲则指向用户数据)  */</span></span><br><span class="line">    INTERNAL_SIZE_T      size;       <span class="comment">/* 当前chunk的大小, 包括头部数据, 末三位作为标志位 */</span></span><br><span class="line">                                     <span class="comment">/* 最低位表示前一个chunk是否被使用 */</span></span><br><span class="line">                                     <span class="comment">/* 倒数第二位表示该chunk是否由mmap分配 */</span></span><br><span class="line">                                     <span class="comment">/* 倒数第三位表示该chunk是否存在于main arena */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd</span>;</span>         <span class="comment">/* 双向链表的前向指针, 这两个指针只在free chunk中存在*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk</span>;</span>         <span class="comment">/* 双向链表的后向指针, 同上 */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 只用于large chunk, 指向下一个large chunk size */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd_nextsize</span>;</span> <span class="comment">/* 双向链表, 空闲时有效 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk_nextsize</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span> &#123;</span></span><br><span class="line">    <span class="comment">/* #define INTERNAL_SIZE_T size_t */</span></span><br><span class="line">    INTERNAL_SIZE_T      prev_size;  <span class="comment">/* 前一个chunk的大小(前一个chunk空闲时有意义, 若非空闲则指向用户数据)  */</span></span><br><span class="line">    INTERNAL_SIZE_T      <span class="built_in">size</span>;       <span class="comment">/* 当前chunk的大小, 包括头部数据, 末三位作为标志位 */</span></span><br><span class="line">                                     <span class="comment">/* 最低位表示前一个chunk是否被使用 */</span></span><br><span class="line">                                     <span class="comment">/* 倒数第二位表示该chunk是否由mmap分配 */</span></span><br><span class="line">                                     <span class="comment">/* 倒数第三位表示该chunk是否存在于main arena */</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd</span>;</span>         <span class="comment">/* 双向链表的前向指针, 这两个指针只在free chunk中存在*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk</span>;</span>         <span class="comment">/* 双向链表的后向指针, 同上 */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 只用于large chunk, 指向下一个large chunk size */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">fd_nextsize</span>;</span> <span class="comment">/* 双向链表, 空闲时有效 */</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">malloc_chunk</span>* <span class="title">bk_nextsize</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>未被分配时:</p>
 <pre><code>    chunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             |             Size of previous chunk                            |
             +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    `head:&apos; |             Size of chunk, in bytes                         |P|
+    `head:&#39; |             Size of chunk, in bytes                         |P|
       mem-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             |             Forward pointer to previous chunk in list         |
             +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -240,23 +249,23 @@ Start              End                Perm    Name
             .                                                               .
             .                                                               |
 nextchunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    `foot:&apos; |             Size of chunk, in bytes                           |
+    `foot:&#39; |             Size of chunk, in bytes                           |
             +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </code></pre><p>被分配时:</p>
-<pre><code>chunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-        |             Size of previous chunk, if unallocated (P clear)  |
-        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-        |             Size of chunk, in bytes                     |A|M|P|
-mem-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-        |             User data starts here...                          .
-        .                                                               .
-        .             (malloc_usable_size() bytes)                      .
-next    .                                                               |
-chunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-        |             (size of chunk, but used for application data)    |
-        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-        |             Size of next chunk, in bytes                |A|0|1|
-        +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+<pre><code>    chunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             Size of previous chunk, if unallocated (P clear)  |
+            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             Size of chunk, in bytes                     |A|M|P|
+    mem-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             User data starts here...                          .
+            .                                                               .
+            .             (malloc_usable_size() bytes)                      .
+    next    .                                                               |
+    chunk-&gt; +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             (size of chunk, but used for application data)    |
+            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+            |             Size of next chunk, in bytes                |A|0|1|
+            +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </code></pre><h2 id="bins和chunk"><a href="#bins和chunk" class="headerlink" title="bins和chunk:"></a>bins和chunk:</h2><pre><code>bins直译过来是箱子的意思, 因而bins是和内存回收相关的一个结构
 用户释放之前申请的内存时, 操作系统根据释放的内存大小来决定将释放的内存放入哪个bin中
 所以bin相当于一个内存回收的分类
@@ -273,6 +282,7 @@ fastbin是一个单链表, 操作更快
 如果申请的内存大小不是 2 * SIZE_SZ 的整数倍，
 会被转换满足大小的最小的 2 * SIZE_SZ 的倍数。32 位系统中，SIZE_SZ 是 4；64 位系统中，SIZE_SZ 是 8。
 </code></pre><p>32位下:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -334,7 +344,9 @@ fastbin是一个单链表, 操作更快
 </tr>
 </tbody>
 </table>
+</div>
 <p>64位下:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -386,6 +398,7 @@ fastbin是一个单链表, 操作更快
 </tr>
 </tbody>
 </table>
+</div>
 <h3 id="small-bin"><a href="#small-bin" class="headerlink" title="small bin"></a>small bin</h3><pre><code>small bin 用来存放512byte以内的chunk, 共62个, 每个的间距是8byte
 如果有两个相邻的空闲small bin, 则这两个bin会合并
 </code></pre><h3 id="large-bin"><a href="#large-bin" class="headerlink" title="large bin"></a>large bin</h3><pre><code>包含大于512 byte的chunk, 共63个, 间距为8byte
@@ -400,7 +413,7 @@ fastbin是一个单链表, 操作更快
 <h3 id="unsorted-bin"><a href="#unsorted-bin" class="headerlink" title="unsorted bin"></a>unsorted bin</h3><pre><code>当small bin和large bin中的chunk被释放的时候会放入unsorted bin
 只有一个, 是一个循环链表
 </code></pre><h2 id="top-chunk和remainder-chunk"><a href="#top-chunk和remainder-chunk" class="headerlink" title="top chunk和remainder chunk"></a>top chunk和remainder chunk</h2><p>引用一张图片:</p>
-<p><img src="/2019/02/26/调用malloc后发生了什么/2.jpg" alt="img"></p>
+<p><img src="/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/2.jpg" alt="img"></p>
 <p>可以看到top chunk是在最上面的(最高地址处), 是一个内存分配的边界(有效内存)</p>
 <p>这个chunk不属于任何bin, 默认这个chunk永远存在, 大小不够的时候会通过系统调用来分配新的内存</p>
 <p>在main arena通过sbrk分配的内存会直接加入到top chunk来拓展heap</p>
@@ -461,16 +474,16 @@ https://www.anquanke.com/post/id/163971
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&text=调用Malloc后发生了什么"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&title=调用Malloc后发生了什么"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&is_video=false&description=调用Malloc后发生了什么"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=调用Malloc后发生了什么&body=Check out this article: http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&title=调用Malloc后发生了什么"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&title=调用Malloc后发生了什么"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&title=调用Malloc后发生了什么"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&title=调用Malloc后发生了什么"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/02/26/调用malloc后发生了什么/&name=调用Malloc后发生了什么&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&text=调用Malloc后发生了什么"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&title=调用Malloc后发生了什么"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&is_video=false&description=调用Malloc后发生了什么"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=调用Malloc后发生了什么&body=Check out this article: http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&title=调用Malloc后发生了什么"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&title=调用Malloc后发生了什么"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&title=调用Malloc后发生了什么"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&title=调用Malloc后发生了什么"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/&name=调用Malloc后发生了什么&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -511,13 +524,23 @@ https://www.anquanke.com/post/id/163971
 </body>
 </html>
 <!-- styles -->
+
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
 <link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
+
 <!-- jquery -->
+
 <script src="/lib/jquery/jquery.min.js"></script>
+
+
 <script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
 <script src="/js/main.js"></script>
+
 <!-- search -->
 
 <!-- Google Analytics -->

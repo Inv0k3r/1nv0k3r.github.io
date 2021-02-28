@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https://www.thinkcss.com/css/921.shtml 要实现最外层div高度为100%（百分之百 关键对html和body要设置高度100% 如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。 但由">
-<meta name="keywords" content="博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https:&#x2F;&#x2F;www.thinkcss.com&#x2F;css&#x2F;921.shtml 要实现最外层div高度为100%（百分之百 关键对html和body要设置高度100% 如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。 但由">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo Cactus主题主页有滚动条的解决方法">
-<meta property="og:url" content="http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/index.html">
+<meta property="og:url" content="http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https://www.thinkcss.com/css/921.shtml 要实现最外层div高度为100%（百分之百 关键对html和body要设置高度100% 如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。 但由">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/1.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/2.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/3.png">
-<meta property="og:updated_time" content="2019-04-04T01:13:48.498Z">
+<meta property="og:description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https:&#x2F;&#x2F;www.thinkcss.com&#x2F;css&#x2F;921.shtml 要实现最外层div高度为100%（百分之百 关键对html和body要设置高度100% 如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。 但由">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/1.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/2.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/3.png">
+<meta property="article:published_time" content="2019-01-27T09:07:03.000Z">
+<meta property="article:modified_time" content="2019-04-04T01:13:48.498Z">
+<meta property="article:author" content="1nv0k3r">
+<meta property="article:tag" content="博客">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo Cactus主题主页有滚动条的解决方法">
-<meta name="twitter:description" content="如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受 搜了一波解决方案: https://www.thinkcss.com/css/921.shtml 要实现最外层div高度为100%（百分之百 关键对html和body要设置高度100% 如果只设置html和body标签其中一个高100%，也是无法实现body内第一个盒子高度100%的。 但由">
-<meta name="twitter:image" content="http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/1.png">
+<meta name="twitter:image" content="http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/1.png">
     
     
         
@@ -43,15 +43,19 @@
     <!-- title -->
     <title>Hexo Cactus主题主页有滚动条的解决方法</title>
     <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
     <!-- persian styles -->
     
-      <link rel="stylesheet" href="/css/rtl.css">
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
     
     <!-- rss -->
     
     
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="max-width mx-auto px3 ltr">
     
@@ -77,7 +81,7 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2019/02/15/二进制深度神经网络/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/02/15/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2019/01/26/Codegate-CTF-2019/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -93,16 +97,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&text=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&is_video=false&description=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Hexo Cactus主题主页有滚动条的解决方法&body=Check out this article: http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&name=Hexo Cactus主题主页有滚动条的解决方法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&text=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&is_video=false&description=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Hexo Cactus主题主页有滚动条的解决方法&body=Check out this article: http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&name=Hexo Cactus主题主页有滚动条的解决方法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -142,7 +146,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/博客/">博客</a>
+        <a class="tag-link" href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag">博客</a>
     </div>
 
 
@@ -151,7 +155,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p><img src="/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/1.png" alt="img"></p>
+    <p><img src="/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/1.png" alt="img"></p>
 <p>如图所示, cactus主题的hexo博客建立起来以后会有一个滚动条可以上下微微滚动, 本强迫症非常难受</p>
 <p>搜了一波解决方案:</p>
 <p><a href="https://www.thinkcss.com/css/921.shtml">https://www.thinkcss.com/css/921.shtml</a></p>
@@ -162,8 +166,8 @@
 所以可以对body设置margin为零，去除间距实现div height 100%也无滚动条效果。
 </code></pre><p>打开hexo的文件夹, 在 <code>./themes/cactus/source/css/style.styl</code> 文件里</p>
 <p>body下加一行 <code>margin: 0</code> 即可解决</p>
-<p><img src="/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/2.png" alt="img"></p>
-<p><img src="/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/3.png" alt="img"></p>
+<p><img src="/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/2.png" alt="img"></p>
+<p><img src="/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/3.png" alt="img"></p>
 <hr>
 <p>已合并到master</p>
 
@@ -202,16 +206,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&text=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&is_video=false&description=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Hexo Cactus主题主页有滚动条的解决方法&body=Check out this article: http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/01/27/hexo-cactus主题主页有滚动条的解决方法/&name=Hexo Cactus主题主页有滚动条的解决方法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&text=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&is_video=false&description=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Hexo Cactus主题主页有滚动条的解决方法&body=Check out this article: http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&title=Hexo Cactus主题主页有滚动条的解决方法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/01/27/hexo-cactus%E4%B8%BB%E9%A2%98%E4%B8%BB%E9%A1%B5%E6%9C%89%E6%BB%9A%E5%8A%A8%E6%9D%A1%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/&name=Hexo Cactus主题主页有滚动条的解决方法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -252,13 +256,23 @@
 </body>
 </html>
 <!-- styles -->
+
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
 <link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
+
 <!-- jquery -->
+
 <script src="/lib/jquery/jquery.min.js"></script>
+
+
 <script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
 <script src="/js/main.js"></script>
+
 <!-- search -->
 
 <!-- Google Analytics -->

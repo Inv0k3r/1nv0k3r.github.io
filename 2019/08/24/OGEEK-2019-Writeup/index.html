@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="签到flag{Reno} babyrop输入一个字符串和一个随机串通过strcmp比较, 如果比较成功可以到达漏洞点进行栈溢出 可以通过在输入串开头加&amp;#39;\x00&amp;#39;来绕过, 然后栈溢出leak libc基地址, 之后利用ropgadget搞个ropchain即可getshell from pwn import *from struct import pack# r = process">
-<meta name="keywords" content="1nv0k3r, blog, pwn, binary, exploit, vuln">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="签到flag{Reno} babyrop输入一个字符串和一个随机串通过strcmp比较, 如果比较成功可以到达漏洞点进行栈溢出 可以通过在输入串开头加&#39;\x00&#39;来绕过, 然后栈溢出leak libc基地址, 之后利用ropgadget搞个ropchain即可getshell from pwn import *from struct import pack# r &#x3D; process">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OGEEK 2019 Writeup">
-<meta property="og:url" content="http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/index.html">
+<meta property="og:url" content="http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="签到flag{Reno} babyrop输入一个字符串和一个随机串通过strcmp比较, 如果比较成功可以到达漏洞点进行栈溢出 可以通过在输入串开头加&amp;#39;\x00&amp;#39;来绕过, 然后栈溢出leak libc基地址, 之后利用ropgadget搞个ropchain即可getshell from pwn import *from struct import pack# r = process">
-<meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-18T12:19:11.399Z">
+<meta property="og:description" content="签到flag{Reno} babyrop输入一个字符串和一个随机串通过strcmp比较, 如果比较成功可以到达漏洞点进行栈溢出 可以通过在输入串开头加&#39;\x00&#39;来绕过, 然后栈溢出leak libc基地址, 之后利用ropgadget搞个ropchain即可getshell from pwn import *from struct import pack# r &#x3D; process">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-08-24T06:32:26.000Z">
+<meta property="article:modified_time" content="2020-05-18T12:19:11.399Z">
+<meta property="article:author" content="1nv0k3r">
+<meta property="article:tag" content="1nv0k3r">
+<meta property="article:tag" content=" blog">
+<meta property="article:tag" content=" pwn">
+<meta property="article:tag" content=" binary">
+<meta property="article:tag" content=" exploit">
+<meta property="article:tag" content=" vuln">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OGEEK 2019 Writeup">
-<meta name="twitter:description" content="签到flag{Reno} babyrop输入一个字符串和一个随机串通过strcmp比较, 如果比较成功可以到达漏洞点进行栈溢出 可以通过在输入串开头加&amp;#39;\x00&amp;#39;来绕过, 然后栈溢出leak libc基地址, 之后利用ropgadget搞个ropchain即可getshell from pwn import *from struct import pack# r = process">
     
     
         
@@ -39,15 +44,19 @@
     <!-- title -->
     <title>OGEEK 2019 Writeup</title>
     <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
     <!-- persian styles -->
     
-      <link rel="stylesheet" href="/css/rtl.css">
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
     
     <!-- rss -->
     
     
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="max-width mx-auto px3 ltr">
     
@@ -73,10 +82,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2019/09/06/CVE-2019-15846-分析/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/09/06/CVE-2019-15846-%E5%88%86%E6%9E%90/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2019/06/06/修改ELF文件的NX保护/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/06/06/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -89,16 +98,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&text=OGEEK 2019 Writeup"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&is_video=false&description=OGEEK 2019 Writeup"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=OGEEK 2019 Writeup&body=Check out this article: http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&name=OGEEK 2019 Writeup&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&text=OGEEK 2019 Writeup"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&is_video=false&description=OGEEK 2019 Writeup"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=OGEEK 2019 Writeup&body=Check out this article: http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&name=OGEEK 2019 Writeup&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -183,16 +192,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&text=OGEEK 2019 Writeup"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&is_video=false&description=OGEEK 2019 Writeup"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=OGEEK 2019 Writeup&body=Check out this article: http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/08/24/OGEEK-2019-Writeup/&name=OGEEK 2019 Writeup&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&text=OGEEK 2019 Writeup"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&is_video=false&description=OGEEK 2019 Writeup"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=OGEEK 2019 Writeup&body=Check out this article: http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&title=OGEEK 2019 Writeup"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/&name=OGEEK 2019 Writeup&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -233,13 +242,23 @@
 </body>
 </html>
 <!-- styles -->
+
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
 <link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
+
 <!-- jquery -->
+
 <script src="/lib/jquery/jquery.min.js"></script>
+
+
 <script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
 <script src="/js/main.js"></script>
+
 <!-- search -->
 
 <!-- Google Analytics -->

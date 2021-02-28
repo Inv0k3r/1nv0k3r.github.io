@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang=en>
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="0x01 环境how2heap 是由 shellphish 团队制作的堆利用教程，介绍了多种堆利用技术。使用 Ubuntu 16.04 64位系统环境，glibc 版本如下： $ file /lib/x86_64-linux-gnu/libc-2.23.so /lib/x86_64-linux-gnu/libc-2.23.so: ELF 64-bit LSB shared object, x86-">
-<meta name="keywords" content="pwn">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="0x01 环境how2heap 是由 shellphish 团队制作的堆利用教程，介绍了多种堆利用技术。使用 Ubuntu 16.04 64位系统环境，glibc 版本如下： $ file &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so: ELF 64-bit LSB shared object, x86-">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How2heap 学习记录">
-<meta property="og:url" content="http://1nv0k3r.me/2019/02/26/how2heap-学习记录/index.html">
+<meta property="og:url" content="http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="0x01 环境how2heap 是由 shellphish 团队制作的堆利用教程，介绍了多种堆利用技术。使用 Ubuntu 16.04 64位系统环境，glibc 版本如下： $ file /lib/x86_64-linux-gnu/libc-2.23.so /lib/x86_64-linux-gnu/libc-2.23.so: ELF 64-bit LSB shared object, x86-">
-<meta property="og:locale" content="en">
-<meta property="og:image" content="http://1nv0k3r.me/2019/02/26/how2heap-学习记录/1.jpg">
-<meta property="og:updated_time" content="2020-05-18T12:28:48.490Z">
+<meta property="og:description" content="0x01 环境how2heap 是由 shellphish 团队制作的堆利用教程，介绍了多种堆利用技术。使用 Ubuntu 16.04 64位系统环境，glibc 版本如下： $ file &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so: ELF 64-bit LSB shared object, x86-">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.jpg">
+<meta property="article:published_time" content="2019-02-26T02:34:42.000Z">
+<meta property="article:modified_time" content="2020-05-18T12:28:48.490Z">
+<meta property="article:author" content="1nv0k3r">
+<meta property="article:tag" content="pwn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="How2heap 学习记录">
-<meta name="twitter:description" content="0x01 环境how2heap 是由 shellphish 团队制作的堆利用教程，介绍了多种堆利用技术。使用 Ubuntu 16.04 64位系统环境，glibc 版本如下： $ file /lib/x86_64-linux-gnu/libc-2.23.so /lib/x86_64-linux-gnu/libc-2.23.so: ELF 64-bit LSB shared object, x86-">
-<meta name="twitter:image" content="http://1nv0k3r.me/2019/02/26/how2heap-学习记录/1.jpg">
+<meta name="twitter:image" content="http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.jpg">
     
     
         
@@ -41,15 +41,19 @@
     <!-- title -->
     <title>How2heap 学习记录</title>
     <!-- styles -->
-    <link rel="stylesheet" href="/css/style.css">
+    
+<link rel="stylesheet" href="/css/style.css">
+
     <!-- persian styles -->
     
-      <link rel="stylesheet" href="/css/rtl.css">
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
     
     <!-- rss -->
     
     
-</head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 <body class="max-width mx-auto px3 ltr">
     
@@ -75,10 +79,10 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2019/02/26/调用malloc后发生了什么/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" href="/2019/02/25/2019年2月总结/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" href="/2019/02/25/2019%E5%B9%B42%E6%9C%88%E6%80%BB%E7%BB%93/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -91,16 +95,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&text=How2heap 学习记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&title=How2heap 学习记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&is_video=false&description=How2heap 学习记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=How2heap 学习记录&body=Check out this article: http://1nv0k3r.me/2019/02/26/how2heap-学习记录/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&title=How2heap 学习记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&title=How2heap 学习记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&title=How2heap 学习记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&title=How2heap 学习记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&name=How2heap 学习记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&text=How2heap 学习记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&title=How2heap 学习记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&is_video=false&description=How2heap 学习记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How2heap 学习记录&body=Check out this article: http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&title=How2heap 学习记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&title=How2heap 学习记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&title=How2heap 学习记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&title=How2heap 学习记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&name=How2heap 学习记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -140,7 +144,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/pwn/">pwn</a>
+        <a class="tag-link" href="/tags/pwn/" rel="tag">pwn</a>
     </div>
 
 
@@ -165,7 +169,7 @@ $ make
 <li>正常情况下返回指定大小的内存的指针</li>
 </ul>
 <p>malloc本身是一个用户函数, 并没有真正和系统进行交互, 而是通过调用brk和sbrk以及mmap, munmap函数来操作</p>
-<p><img src="/2019/02/26/how2heap-学习记录/1.jpg" alt="img"></p>
+<p><img src="/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.jpg" alt="img"></p>
 <p>图片来自<a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/heap_overview/#_4">ctfwiki</a></p>
 <p>限于篇幅, 调用malloc后系统的操作将在另一篇文章里说明</p>
 <h3 id="free-free-void-p"><a href="#free-free-void-p" class="headerlink" title="free: free(void* p)"></a>free: <code>free(void* p)</code></h3><ul>
@@ -208,19 +212,19 @@ vmmap 虚拟内存映射
 </code></pre><h2 id="0x04-first-fit"><a href="#0x04-first-fit" class="headerlink" title="0x04 first_fit"></a>0x04 first_fit</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"This file doesn't demonstrate an attack, but shows the nature of glibc's allocator.\n"</span>);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"glibc uses a first-fit algorithm to select a free chunk.\n"</span>);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"If a chunk is free and large enough, malloc will select this chunk.\n"</span>);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"This can be exploited in a use-after-free situation.\n"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Allocating 2 buffers. They can be large, don't have to be fastbin.\n"</span>);</span><br><span class="line">	<span class="keyword">char</span>* a = <span class="built_in">malloc</span>(<span class="number">512</span>);</span><br><span class="line">	<span class="keyword">char</span>* b = <span class="built_in">malloc</span>(<span class="number">256</span>);</span><br><span class="line">	<span class="keyword">char</span>* c;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"1st malloc(512): %p\n"</span>, a);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"2nd malloc(256): %p\n"</span>, b);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"we could continue mallocing here...\n"</span>);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"now let's put a string at a that we can read later \"this is A!\"\n"</span>);</span><br><span class="line">	<span class="built_in">strcpy</span>(a, <span class="string">"this is A!"</span>);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"first allocation %p points to %s\n"</span>, a, a);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Freeing the first one...\n"</span>);</span><br><span class="line">	<span class="built_in">free</span>(a);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"We don't need to free anything again. As long as we allocate less than 512, it will end up at %p\n"</span>, a);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"So, let's allocate 500 bytes\n"</span>);</span><br><span class="line">	c = <span class="built_in">malloc</span>(<span class="number">500</span>);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"3rd malloc(500): %p\n"</span>, c);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"And put a different string here, \"this is C!\"\n"</span>);</span><br><span class="line">	<span class="built_in">strcpy</span>(c, <span class="string">"this is C!"</span>);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"3rd allocation %p points to %s\n"</span>, c, c);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"first allocation %p points to %s\n"</span>, a, a);</span><br><span class="line">	<span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"If we reuse the first allocation, it now holds the data from the third allocation.\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>第一个程序展示了glibc的堆分配算法, 即first fit首次适应算法</p>
 <pre><code>➜  how2heap git:(master) ✗ ./first_fit 
-This file doesn&apos;t demonstrate an attack, but shows the nature of glibc&apos;s allocator.
+This file doesn&#39;t demonstrate an attack, but shows the nature of glibc&#39;s allocator.
 glibc uses a first-fit algorithm to select a free chunk.
 If a chunk is free and large enough, malloc will select this chunk.
 This can be exploited in a use-after-free situation.
-Allocating 2 buffers. They can be large, don&apos;t have to be fastbin.
+Allocating 2 buffers. They can be large, don&#39;t have to be fastbin.
 1st malloc(512): 0x21f1010
 2nd malloc(256): 0x21f1220
 we could continue mallocing here...
-now let&apos;s put a string at a that we can read later &quot;this is A!&quot;
+now let&#39;s put a string at a that we can read later &quot;this is A!&quot;
 first allocation 0x21f1010 points to this is A!
 Freeing the first one...
-We don&apos;t need to free anything again. As long as we allocate less than 512, it will end up at 0x21f1010
-So, let&apos;s allocate 500 bytes
+We don&#39;t need to free anything again. As long as we allocate less than 512, it will end up at 0x21f1010
+So, let&#39;s allocate 500 bytes
 3rd malloc(500): 0x21f1010
 And put a different string here, &quot;this is C!&quot;
 3rd allocation 0x21f1010 points to this is C!
@@ -234,19 +238,19 @@ If we reuse the first allocation, it now holds the data from the third allocatio
 <p>现在加上内存检测参数重新编译</p>
 <pre><code>➜  how2heap git:(master) ✗ gcc -fsanitize=address -g first_fit.c
 ➜  how2heap git:(master) ✗ ./a.out                              
-This file doesn&apos;t demonstrate an attack, but shows the nature of glibc&apos;s allocator.
+This file doesn&#39;t demonstrate an attack, but shows the nature of glibc&#39;s allocator.
 glibc uses a first-fit algorithm to select a free chunk.
 If a chunk is free and large enough, malloc will select this chunk.
 This can be exploited in a use-after-free situation.
-Allocating 2 buffers. They can be large, don&apos;t have to be fastbin.
+Allocating 2 buffers. They can be large, don&#39;t have to be fastbin.
 1st malloc(512): 0x61500000fd00
 2nd malloc(256): 0x611000009f00
 we could continue mallocing here...
-now let&apos;s put a string at a that we can read later &quot;this is A!&quot;
+now let&#39;s put a string at a that we can read later &quot;this is A!&quot;
 first allocation 0x61500000fd00 points to this is A!
 Freeing the first one...
-We don&apos;t need to free anything again. As long as we allocate less than 512, it will end up at 0x61500000fd00
-So, let&apos;s allocate 500 bytes
+We don&#39;t need to free anything again. As long as we allocate less than 512, it will end up at 0x61500000fd00
+So, let&#39;s allocate 500 bytes
 3rd malloc(500): 0x61500000fa80
 And put a different string here, &quot;this is C!&quot;
 3rd allocation 0x61500000fa80 points to this is C!
@@ -366,7 +370,7 @@ Allocating 3 buffers.
 3rd malloc(8): 0xa92050
 Freeing the first one...
 If we free 0xa92010 again, things will crash because 0xa92010 is at the top of the free list.
-*** Error in `./fastbin_dup&apos;: double free or corruption (fasttop): 0x0000000000a92010 ***
+*** Error in `./fastbin_dup&#39;: double free or corruption (fasttop): 0x0000000000a92010 ***
 ======= Backtrace: =========
 /lib/x86_64-linux-gnu/libc.so.6(+0x777e5)[0x7fe8490a57e5]
 /lib/x86_64-linux-gnu/libc.so.6(+0x8037a)[0x7fe8490ae37a]
@@ -413,9 +417,9 @@ Allocating 3 buffers.
 3rd malloc(8): 0x1101050
 Freeing the first one...
 If we free 0x1101010 again, things will crash because 0x1101010 is at the top of the free list.
-So, instead, we&apos;ll free 0x1101030.
-Now, we can free 0x1101010 again, since it&apos;s not the head of the free list.
-Now the free list has [ 0x1101010, 0x1101030, 0x1101010 ]. If we malloc 3 times, we&apos;ll get 0x1101010 twice!
+So, instead, we&#39;ll free 0x1101030.
+Now, we can free 0x1101010 again, since it&#39;s not the head of the free list.
+Now the free list has [ 0x1101010, 0x1101030, 0x1101010 ]. If we malloc 3 times, we&#39;ll get 0x1101010 twice!
 1st malloc(8): 0x1101010
 2nd malloc(8): 0x1101030
 3rd malloc(8): 0x1101010
@@ -472,7 +476,7 @@ fastbins
 <p>这也是为什么stack_var被设置为0x21(0x20也可以), 设置一个和之前chunk大小相同的size</p>
 <pre><code>pwndbg&gt; stack
 00:0000│ rsp  0x7fffffffdd90 ◂— 0x0
-01:0008│      0x7fffffffdd98 ◂— 0x21 /* &apos;!&apos; */
+01:0008│      0x7fffffffdd98 ◂— 0x21 /* &#39;!&#39; */
 02:0010│      0x7fffffffdda0 —▸ 0x602010 —▸ 0x7fffffffdd90 ◂— 0x0
 pwndbg&gt; x/20gx 0x7fffffffdd90
 0x7fffffffdd90:    0x0000000000000000    0x0000000000000021 &lt;------------------ fake chunk
@@ -630,16 +634,16 @@ New Value: BBBBBBBB
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&text=How2heap 学习记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&title=How2heap 学习记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&is_video=false&description=How2heap 学习记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=How2heap 学习记录&body=Check out this article: http://1nv0k3r.me/2019/02/26/how2heap-学习记录/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&title=How2heap 学习记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&title=How2heap 学习记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&title=How2heap 学习记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&title=How2heap 学习记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2019/02/26/how2heap-学习记录/&name=How2heap 学习记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&text=How2heap 学习记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&title=How2heap 学习记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&is_video=false&description=How2heap 学习记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=How2heap 学习记录&body=Check out this article: http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&title=How2heap 学习记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&title=How2heap 学习记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&title=How2heap 学习记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&title=How2heap 学习记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/&name=How2heap 学习记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -680,13 +684,23 @@ New Value: BBBBBBBB
 </body>
 </html>
 <!-- styles -->
+
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
 <link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
+
 <!-- jquery -->
+
 <script src="/lib/jquery/jquery.min.js"></script>
+
+
 <script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
 <script src="/js/main.js"></script>
+
 <!-- search -->
 
 <!-- Google Analytics -->
