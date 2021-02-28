@@ -14,7 +14,7 @@
 <meta property="og:description" content="更新中，未完待续考研凉凉的结果就是不仅失去了应届生走校招的机会，而且还因为疫情走不了，僵。因为接下来准备找一份安全相关的C&#x2F;C++开发工作，所以在刷了段时间题后，把排序算法重新复习整理一下。之前虽然学习过，但是现在一些不经常用的东西很快就忘了细结了，只能偶尔复习一下。 本文主要以十大经典排序算法为参考文章来进行复习，使用C++实现，代码都经过了测试。 冒泡排序(Bubble Sort)冒泡排序，选">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-26T11:36:36.000Z">
-<meta property="article:modified_time" content="2020-06-02T12:48:24.556Z">
+<meta property="article:modified_time" content="2021-02-28T09:42:51.154Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -53,8 +53,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -165,7 +164,7 @@
 <p>由于对每个元素，都需要向后移动1+2+..+n-1=n*(n-1) / 2次数据，所以时间复杂度也是O($n^2$)，空间复杂度是O(1)</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sort</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">InsertionSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">array</span>)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="built_in">array</span>.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> temp = <span class="built_in">array</span>[i];</span><br><span class="line">            <span class="keyword">int</span> front = i - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (front &gt;= <span class="number">0</span> &amp;&amp; <span class="built_in">array</span>[front] &gt; temp) &#123;</span><br><span class="line">                <span class="built_in">array</span>[front + <span class="number">1</span>] = <span class="built_in">array</span>[front];</span><br><span class="line">                front--;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">array</span>[front + <span class="number">1</span>] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">array</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="希尔排序-Shell-Sort"><a href="#希尔排序-Shell-Sort" class="headerlink" title="希尔排序(Shell Sort)"></a>希尔排序(Shell Sort)</h2><p>插入排序的改进，优先比较距离近的元素，所以又叫缩小增量排序，说白了就是把插入排序中，一个一个比较改成从第n个开始比较，作为增量，直到这个增量变为1，因此增量序列是$t_1，t_2，t_3…t_n$，当i &lt; j时有$t_i &gt; t_j$，$t_n = 1$</p>
-<p>目前为止还没有一个最好的增量序列，希尔提出的序列是$t_1=n/2$, $t_{i+1}=t_i/2$，最坏情况下的时间复杂度是O($n^2$)，n在特定范围的时候，时间复杂度是O($n^1.3$)，空间复杂度是O(1)</p>
+<p>目前为止还没有一个最好的增量序列，希尔提出的序列是$t<em>1=n/2$, $t</em>{i+1}=t_i/2$，最坏情况下的时间复杂度是O($n^2$)，n在特定范围的时候，时间复杂度是O($n^1.3$)，空间复杂度是O(1)</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sort</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ShellSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">array</span>)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = <span class="built_in">array</span>.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> t = n / <span class="number">2</span>; t &gt; <span class="number">0</span>; t /= <span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; t; i ++)&#123;<span class="comment">// 循环每一组</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> j = i + t; j &lt; n; j += t)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(<span class="built_in">array</span>[j] &lt; <span class="built_in">array</span>[j - t])&#123;</span><br><span class="line">                        <span class="keyword">int</span> temp = <span class="built_in">array</span>[j], k;</span><br><span class="line">                        <span class="keyword">for</span>(k = j - t; k &gt;= <span class="number">0</span> &amp;&amp; <span class="built_in">array</span>[k] &gt; temp; k -= t)&#123;</span><br><span class="line">                            <span class="built_in">array</span>[k + t] = <span class="built_in">array</span>[k];</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="built_in">array</span>[k + t] = temp;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">array</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h2 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序(Quick Sort)"></a>快速排序(Quick Sort)</h2><p>快速排序是对冒泡排序的改进，基于分治法思想，先选取一个元素作为基准，通过一趟排序，把整个列表划分为独立的两部分，前半部分均小于基准，后半部分大于基准，这时，基准所在的位置是最终结果的位置，整个过程称为一趟快速排序，接下来分别对前后两个子表递归重复上述过程，直至每个部分只有一个元素或者为空为止。</p>
 <p>快速排序的空间复杂度取决于递归调用栈的深度，最好情况下是$\lceil\log_2(n+1)\rceil$，最坏情况下需要进行n-1次递归，栈深度为O(n)，因此空间复杂度在最坏情况下为O(n)，评价情况下为O($\log_2n$)。</p>
@@ -269,6 +268,21 @@
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
 <!-- styles -->
