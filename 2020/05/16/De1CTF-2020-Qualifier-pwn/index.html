@@ -6,22 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242">
+    <meta name="description" content="pppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242 pppd最近的漏洞就是CVE-2020-8597的栈溢出了，就是比赛的时">
 <meta property="og:type" content="article">
 <meta property="og:title" content="De1CTF 2020 Qualifier Pwn">
 <meta property="og:url" content="http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
-<meta property="og:description" content="BroadCastTestcode_runnermc_realworldpppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242">
+<meta property="og:description" content="pppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242 pppd最近的漏洞就是CVE-2020-8597的栈溢出了，就是比赛的时">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-16T02:13:41.000Z">
-<meta property="article:modified_time" content="2020-05-19T10:39:20.617Z">
+<meta property="article:modified_time" content="2021-03-02T07:21:31.163Z">
 <meta property="article:author" content="1nv0k3r">
-<meta property="article:tag" content="1nv0k3r">
-<meta property="article:tag" content=" blog">
-<meta property="article:tag" content=" pwn">
-<meta property="article:tag" content=" binary">
-<meta property="article:tag" content=" exploit">
-<meta property="article:tag" content=" vuln">
+<meta property="article:tag" content="pwn">
 <meta name="twitter:card" content="summary">
     
     
@@ -111,7 +106,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BroadCastTest"><span class="toc-number">1.</span> <span class="toc-text">BroadCastTest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-runner"><span class="toc-number">2.</span> <span class="toc-text">code_runner</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mc-realworld"><span class="toc-number">3.</span> <span class="toc-text">mc_realworld</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pppd"><span class="toc-number">4.</span> <span class="toc-text">pppd</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step-1"><span class="toc-number">4.1.</span> <span class="toc-text">step 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-2"><span class="toc-number">4.2.</span> <span class="toc-text">step 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-3"><span class="toc-number">4.3.</span> <span class="toc-text">step 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4"><span class="toc-number">4.4.</span> <span class="toc-text">Step 4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stl-container"><span class="toc-number">5.</span> <span class="toc-text">stl_container</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pppd"><span class="toc-number">1.</span> <span class="toc-text">pppd</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step-1"><span class="toc-number">1.1.</span> <span class="toc-text">step 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-2"><span class="toc-number">1.2.</span> <span class="toc-text">step 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-3"><span class="toc-number">1.3.</span> <span class="toc-text">step 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4"><span class="toc-number">1.4.</span> <span class="toc-text">Step 4</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -144,13 +139,18 @@
       
 
       
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/pwn/" rel="tag">pwn</a>
+    </div>
+
 
     </div>
   </header>
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="BroadCastTest"><a href="#BroadCastTest" class="headerlink" title="BroadCastTest"></a>BroadCastTest</h2><h2 id="code-runner"><a href="#code-runner" class="headerlink" title="code_runner"></a>code_runner</h2><h2 id="mc-realworld"><a href="#mc-realworld" class="headerlink" title="mc_realworld"></a>mc_realworld</h2><h2 id="pppd"><a href="#pppd" class="headerlink" title="pppd"></a>pppd</h2><p>赛后调试一下这个题目，官方提供了<a href="https://github.com/De1ta-team/De1CTF2020/tree/master/writeup/pwn/pppd">题目环境</a></p>
+    <h2 id="pppd"><a href="#pppd" class="headerlink" title="pppd"></a>pppd</h2><p>赛后调试一下这个题目，官方提供了<a href="https://github.com/De1ta-team/De1CTF2020/tree/master/writeup/pwn/pppd">题目环境</a></p>
 <p>那么先把docker.zip下载下来解压，然后</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">docker build -t delctf2020:pppd .</span><br><span class="line">docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppd</span><br><span class="line">nc 127.0.0.1 4242</span><br></pre></td></tr></table></figure>
 <p>pppd最近的漏洞就是<code>CVE-2020-8597</code>的栈溢出了，就是比赛的时候搞不起来环境。。。<br>官方wp也说了考点在与pppd通信以及在mips下调试，比赛提示了用socat与pppd通信<br>题目提供了<code>rootfs.img, start.sh, vmlinux</code></p>
@@ -209,7 +209,7 @@ make install
 <li><a href="https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd">https://github.com/xf1les/ctf-writeups/tree/master/De1taCTF_2020/pppd</a></li>
 <li><a href="https://github.com/mephi42/ctf/tree/master/2020.05.02-De1CTF_2020/pppd">https://github.com/mephi42/ctf/tree/master/2020.05.02-De1CTF_2020/pppd</a></li>
 </ul>
-<h2 id="stl-container"><a href="#stl-container" class="headerlink" title="stl_container"></a>stl_container</h2>
+
   </div>
 </article>
 
@@ -240,7 +240,7 @@ make install
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#BroadCastTest"><span class="toc-number">1.</span> <span class="toc-text">BroadCastTest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#code-runner"><span class="toc-number">2.</span> <span class="toc-text">code_runner</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mc-realworld"><span class="toc-number">3.</span> <span class="toc-text">mc_realworld</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pppd"><span class="toc-number">4.</span> <span class="toc-text">pppd</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step-1"><span class="toc-number">4.1.</span> <span class="toc-text">step 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-2"><span class="toc-number">4.2.</span> <span class="toc-text">step 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-3"><span class="toc-number">4.3.</span> <span class="toc-text">step 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4"><span class="toc-number">4.4.</span> <span class="toc-text">Step 4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stl-container"><span class="toc-number">5.</span> <span class="toc-text">stl_container</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#pppd"><span class="toc-number">1.</span> <span class="toc-text">pppd</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step-1"><span class="toc-number">1.1.</span> <span class="toc-text">step 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-2"><span class="toc-number">1.2.</span> <span class="toc-text">step 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-3"><span class="toc-number">1.3.</span> <span class="toc-text">step 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Step-4"><span class="toc-number">1.4.</span> <span class="toc-text">Step 4</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
