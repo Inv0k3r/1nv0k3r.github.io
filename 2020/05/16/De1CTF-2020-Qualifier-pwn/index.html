@@ -9,7 +9,7 @@
     <meta name="description" content="pppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242 pppd最近的漏洞就是CVE-2020-8597的栈溢出了，就是比赛的时">
 <meta property="og:type" content="article">
 <meta property="og:title" content="De1CTF 2020 Qualifier Pwn">
-<meta property="og:url" content="http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/index.html">
+<meta property="og:url" content="http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="pppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242 pppd最近的漏洞就是CVE-2020-8597的栈溢出了，就是比赛的时">
 <meta property="og:locale" content="en_US">
@@ -92,16 +92,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&text=De1CTF 2020 Qualifier Pwn"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&is_video=false&description=De1CTF 2020 Qualifier Pwn"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=De1CTF 2020 Qualifier Pwn&body=Check out this article: http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&name=De1CTF 2020 Qualifier Pwn&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&text=De1CTF 2020 Qualifier Pwn"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&is_video=false&description=De1CTF 2020 Qualifier Pwn"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=De1CTF 2020 Qualifier Pwn&body=Check out this article: http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&name=De1CTF 2020 Qualifier Pwn&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -245,16 +245,16 @@ make install
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&text=De1CTF 2020 Qualifier Pwn"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&is_video=false&description=De1CTF 2020 Qualifier Pwn"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=De1CTF 2020 Qualifier Pwn&body=Check out this article: http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2020/05/16/De1CTF-2020-Qualifier-pwn/&name=De1CTF 2020 Qualifier Pwn&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&text=De1CTF 2020 Qualifier Pwn"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&is_video=false&description=De1CTF 2020 Qualifier Pwn"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=De1CTF 2020 Qualifier Pwn&body=Check out this article: http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&title=De1CTF 2020 Qualifier Pwn"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/&name=De1CTF 2020 Qualifier Pwn&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

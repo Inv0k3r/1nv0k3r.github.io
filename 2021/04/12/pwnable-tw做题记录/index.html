@@ -9,7 +9,7 @@
     <meta name="description" content="start是一段汇编 push    esp             ; esp是栈顶指针寄存器, 将栈顶地址入栈push    offset _exit    ; 将exit函数地址入栈xor     eax, eax        ; 清空eax, ebx, ecx, edx寄存器xor     ebx, ebx        ;xor     ecx, ecx        ;xor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pwnable.tw做题记录">
-<meta property="og:url" content="http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:url" content="http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="start是一段汇编 push    esp             ; esp是栈顶指针寄存器, 将栈顶地址入栈push    offset _exit    ; 将exit函数地址入栈xor     eax, eax        ; 清空eax, ebx, ecx, edx寄存器xor     ebx, ebx        ;xor     ecx, ecx        ;xor">
 <meta property="og:locale" content="en_US">
@@ -90,16 +90,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable.tw做题记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable.tw做题记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=pwnable.tw做题记录&body=Check out this article: http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable.tw做题记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable.tw做题记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable.tw做题记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=pwnable.tw做题记录&body=Check out this article: http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable.tw做题记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -212,16 +212,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable.tw做题记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable.tw做题记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=pwnable.tw做题记录&body=Check out this article: http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.me/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable.tw做题记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable.tw做题记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable.tw做题记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=pwnable.tw做题记录&body=Check out this article: http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable.tw做题记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
