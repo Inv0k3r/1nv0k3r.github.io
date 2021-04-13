@@ -16,13 +16,13 @@
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/1.png">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/1.jpg">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/2.jpg">
-<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/2.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/3.jpg">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/2.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/3.jpg">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/4.jpg">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/5.jpg">
 <meta property="og:image" content="http://1nv0k3r.me/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/6.jpg">
 <meta property="article:published_time" content="2019-03-11T02:52:44.000Z">
-<meta property="article:modified_time" content="2020-05-18T12:28:17.965Z">
+<meta property="article:modified_time" content="2021-04-13T15:39:52.232Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="1nv0k3r">
 <meta property="article:tag" content=" blog">
@@ -246,13 +246,13 @@ to solve it.
 <p>  0401130   55  db  55  ;     CHAR ‘U’<br>  0401131   8b  db  8b<br>  0401132   ec  db  ec<br>  0401133   6a  db  6a  ;     CHAR ‘j’</p>
 <p>这样的形式</p>
 <p>按下Ctrl + A强迫OD重新分析代码, 即可得到去壳后的程序</p>
-<p><img src="/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/2.png" alt="img"></p>
+<p><img src="images/3月月赛/2.png" alt="img"></p>
 <p>然后把去壳后的程序dump出来</p>
 <p>在入口点那里右键, 用od脱壳调试进程, 保存即可</p>
 <p>用ida打开以后就可以看到脱壳后的代码了</p>
 <p>程序逻辑是 对输入的数据进行了一波操作, 然后跟一组数据比对</p>
 <p>第一个操作函数, 根据我多(bu)年(cun)逆(zai)向(de)的经验来看是base64算法</p>
-<p><img src="/2019/03/11/3%E6%9C%88%E6%9C%88%E8%B5%9B/3.jpg" alt="img"></p>
+<p><img src="images/3月月赛/3.jpg" alt="img"></p>
 <p>2333, 实际上是根据代码里的几个等于号猜测是base64算法</p>
 <p>那么我们测试一下输入test12345, 找个在线加密的网站 结果是dGVzdDEyMzQ1</p>
 <p>看一下返回的result</p>
