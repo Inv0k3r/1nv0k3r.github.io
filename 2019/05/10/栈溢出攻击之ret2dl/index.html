@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路 识别是否使用ret2dl有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数 但是题目中没有puts, printf, write等用来输出数据的函数 无法泄露我们常规栈溢出攻击中所需要的一些地址(libc, 栈基址) 这时候使用ret2dl是一种有效的方法 例题先通过32位的一个栈溢出来理解原">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://1nv0k3r.me/2019/05/10/%E6%A0%88%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB%E4%B9%8Bret2dl/images/%E6%A0%88%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB%E4%B9%8Bret2dl/1.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/05/10/%E6%A0%88%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB%E4%B9%8Bret2dl/1.png">
 <meta property="article:published_time" content="2019-05-10T05:26:45.000Z">
-<meta property="article:modified_time" content="2021-04-13T15:43:55.364Z">
+<meta property="article:modified_time" content="2021-04-13T16:20:16.092Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://1nv0k3r.me/2019/05/10/%E6%A0%88%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB%E4%B9%8Bret2dl/images/%E6%A0%88%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB%E4%B9%8Bret2dl/1.png">
+<meta name="twitter:image" content="http://1nv0k3r.me/2019/05/10/%E6%A0%88%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB%E4%B9%8Bret2dl/1.png">
     
     
         
@@ -160,7 +160,7 @@
 <h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>先通过32位的一个栈溢出来理解原理, 然后完成一个64位程序的攻击, 然后还有两个例题加深一波理解</p>
 <p>文件下载：<a href="https://github.com/Inv0k3r/pwnable_files/raw/master/baby_pwn">baby_pwn </a></p>
 <p>我们用<code>010 Editor</code>打开题目文件,然后在Templates里运行一下ELF模板, 按<code>alt+F4</code>打开Template窗口</p>
-<p><img src="images/栈溢出攻击之ret2dl/1.png" alt="img"></p>
+<p><img src="/2019/05/10/%E6%A0%88%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB%E4%B9%8Bret2dl/1.png" alt="img"></p>
 <p>可以看到一个标准的ELF文件由以下部分组成</p>
 <ul>
 <li>ELF头部</li>

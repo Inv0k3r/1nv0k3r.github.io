@@ -13,15 +13,15 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="第一周pwn1标准ret2dl，找了个脚本直接改改就ok #!&#x2F;usr&#x2F;bin&#x2F;python#coding:utf-8from pwn import *elf &#x3D; ELF(&#39;pwn01&#39;)read_plt &#x3D; elf.plt[&#39;read&#39;]memcpy_plt &#x3D; elf.plt[&#39;memcpy&#39;]ppp_ret &#x3D; 0x08048519pop_ebp_ret &#x3D; 0x0804851bleave_">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/images/ISCC-2019-WP/2.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/images/ISCC-2019-WP/3.png">
-<meta property="og:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/images/ISCC-2019-WP/1.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/2.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/3.png">
+<meta property="og:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/1.png">
 <meta property="article:published_time" content="2019-05-01T11:18:00.000Z">
-<meta property="article:modified_time" content="2021-04-13T15:47:48.728Z">
+<meta property="article:modified_time" content="2021-04-13T16:20:11.231Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/images/ISCC-2019-WP/2.png">
+<meta name="twitter:image" content="http://1nv0k3r.me/2019/05/01/ISCC-2019-WP/2.png">
     
     
         
@@ -196,9 +196,9 @@ FLAG{ISCC KEYBOARD CIPHER}
 <p>ida反编译以后可以看到程序有3个功能，分别是malloc+gets, free和put</p>
 <p>做法蛮多的，这里用最容易的一种方法</p>
 <p>先malloc两个0x30的chunk，看一下堆：</p>
-<p><img src="images/ISCC-2019-WP/2.png" alt="img"></p>
+<p><img src="/2019/05/01/ISCC-2019-WP/2.png" alt="img"></p>
 <p>然后把它们free掉：</p>
-<p><img src="images/ISCC-2019-WP/3.png" alt="img"></p>
+<p><img src="/2019/05/01/ISCC-2019-WP/3.png" alt="img"></p>
 <p>接着再malloc一个堆块，利用gets造成的堆溢出来伪造前一个fastbin的fd指针，使其指向got表</p>
 <p>这里要注意伪造的chunk低32位地址必须是正确的大小，即0x40，利用地址对齐选一个合适的地址：</p>
 <p>把<code>\x00\x00\x73\x68\x00\x00</code>作为pattern写入got，然后覆盖malloc的got地址为后门函数的地址，设置参数为sh的地址即可getshell</p>
@@ -243,7 +243,7 @@ FLAG{ISCC KEYBOARD CIPHER}
 <p>然后post输入用户名密码，提示flag是密码，发现存在注入，过滤了左右括号和等于号以及注释符，使用order by方法拿flag即可</p>
 <p>参考: <a href="https://www.cnblogs.com/deen-/p/7008939.html">https://www.cnblogs.com/deen-/p/7008939.html</a></p>
 <h3 id="web6"><a href="#web6" class="headerlink" title="web6"></a>web6</h3><p>要登录admin，注册一个号以后发现有jwt，在<code>https://jwt.io/</code>解密</p>
-<p><img src="images/ISCC-2019-WP/1.png" alt="img"></p>
+<p><img src="/2019/05/01/ISCC-2019-WP/1.png" alt="img"></p>
 <p>RS256方式，需要密钥，在common.js里可以看到获取方法:</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getpubkey</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">    get the pubkey for test</span></span><br><span class="line"><span class="comment">    /pubkey/&#123;md5(username+password)&#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>那么路径是<code>url/pubkey/7ddd87ba87514cd838a5c048f649228e</code></p>

@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="0x01 环境how2heap 是由 shellphish 团队制作的堆利用教程，介绍了多种堆利用技术。使用 Ubuntu 16.04 64位系统环境，glibc 版本如下： $ file &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so &#x2F;lib&#x2F;x86_64-linux-gnu&#x2F;libc-2.23.so: ELF 64-bit LSB shared object, x86-">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://1nv0k3r.me/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/images/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.jpg">
+<meta property="og:image" content="http://1nv0k3r.me/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.jpg">
 <meta property="article:published_time" content="2019-02-26T02:34:42.000Z">
-<meta property="article:modified_time" content="2021-04-13T15:47:25.712Z">
+<meta property="article:modified_time" content="2021-04-13T16:20:11.788Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="pwn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://1nv0k3r.me/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/images/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.jpg">
+<meta name="twitter:image" content="http://1nv0k3r.me/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.jpg">
     
     
         
@@ -168,7 +168,7 @@ $ make
 <li>正常情况下返回指定大小的内存的指针</li>
 </ul>
 <p>malloc本身是一个用户函数, 并没有真正和系统进行交互, 而是通过调用brk和sbrk以及mmap, munmap函数来操作</p>
-<p><img src="images/how2heap-学习记录/1.jpg" alt="img"></p>
+<p><img src="/2019/02/26/how2heap-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/1.jpg" alt="img"></p>
 <p>图片来自<a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/heap_overview/#_4">ctfwiki</a></p>
 <p>限于篇幅, 调用malloc后系统的操作将在另一篇文章里说明</p>
 <h3 id="free-free-void-p"><a href="#free-free-void-p" class="headerlink" title="free: free(void* p)"></a>free: <code>free(void* p)</code></h3><ul>
