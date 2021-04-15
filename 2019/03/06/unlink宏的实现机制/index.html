@@ -13,15 +13,15 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="unlink() 是一个宏，用于将某一个空闲 chunk 从其所处的 bin 中脱链。 在 malloc_consolidate() 函数中将 fastbin 中的空闲 chunk 整理到 unsorted_bin，在 malloc() 函数中用于将 unsorted_bin 中的空闲 chunk 整理到 smallbin 或者 largebin，以及在 malloc() 中获得堆空间时，均有可能">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/06/images/unlink%E5%AE%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/unlink.jpg">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/06/images/unlink%E5%AE%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/largebin.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/03/06/images/unlink%E5%AE%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/small&#32;bin.png">
+<meta property="og:image" content="http://1nv0k3r.fun/images/unlink%E5%AE%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/unlink.jpg">
+<meta property="og:image" content="http://1nv0k3r.fun/images/unlink%E5%AE%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/largebin.png">
+<meta property="og:image" content="http://1nv0k3r.fun/images/unlink%E5%AE%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/small&#32;bin.png">
 <meta property="article:published_time" content="2019-03-06T06:47:18.000Z">
-<meta property="article:modified_time" content="2021-04-15T06:24:01.010Z">
+<meta property="article:modified_time" content="2021-04-15T06:30:36.624Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="pwn">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://1nv0k3r.fun/2019/03/06/images/unlink%E5%AE%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/unlink.jpg">
+<meta name="twitter:image" content="http://1nv0k3r.fun/images/unlink%E5%AE%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/unlink.jpg">
     
     
         
@@ -57,7 +57,8 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">    
+<body class="max-width mx-auto px3 ltr">
+    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -166,15 +167,15 @@
 <p>因为fastbins是单链表结构, 所以unlink只能是从smallbins和largebins来脱离</p>
 <p>判断成立的话, 会把这个chunk解下来</p>
 <p>贴一张ctf wiki的图</p>
-<p><img src="../images/unlink宏的实现机制/unlink.jpg" alt=""></p>
+<p><img src="/images/unlink宏的实现机制/unlink.jpg" alt=""></p>
 <p>接着判断:</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!in_smallbin_range (P-&gt;<span class="built_in">size</span>) &amp;&amp; __builtin_expect (P-&gt;fd_nextsize != <span class="literal">NULL</span>, <span class="number">0</span>))</span><br></pre></td></tr></table></figure>
 <p>即 判断P chunk的size是否在small bin的范围内, 并且判断前一个chunk的size是否为空</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NBINS             128</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NSMALLBINS         64</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SMALLBIN_WIDTH    MALLOC_ALIGNMENT <span class="comment">//16 in i386</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SMALLBIN_CORRECTION (MALLOC_ALIGNMENT &gt; 2 * SIZE_SZ)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MIN_LARGE_SIZE    ((NSMALLBINS - SMALLBIN_CORRECTION) * SMALLBIN_WIDTH)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> in_smallbin_range(sz)  \</span></span><br><span class="line">  ((<span class="keyword">unsigned</span> <span class="keyword">long</span>) (sz) &lt; (<span class="keyword">unsigned</span> <span class="keyword">long</span>) MIN_LARGE_SIZE)</span><br></pre></td></tr></table></figure>
 <p>large bin 结构图:</p>
-<p><img src="../images/unlink宏的实现机制/largebin.png" alt=""></p>
+<p><img src="/images/unlink宏的实现机制/largebin.png" alt=""></p>
 <p>small bin 结构图:</p>
-<p><img src="../images/unlink宏的实现机制/small&#32;bin.png" alt=""></p>
+<p><img src="/images/unlink宏的实现机制/small&#32;bin.png" alt=""></p>
 
   </div>
 </article>
@@ -258,22 +259,6 @@
 </footer>
 
     </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
 </body>
 </html>
 <!-- styles -->
