@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fuzz 初探">
 <meta property="og:url" content="http://1nv0k3r.fun/2020/05/18/fuzz-%E5%88%9D%E6%8E%A2/index.html">
-<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:site_name" content="1nv0k3r&#39;s notebook">
 <meta property="og:description" content="更新中，未完待续翻译自@h0mbre的两篇文章Fuzz Like A Caveman 介绍本文将会展示如何创建一个非常简单的基于变异的fuzzer，理想情况下可以在开源的软件里找到一些crash。文章创建的fuzzer是基于油管上的@gynvael的fuzz教程，另外还要推荐一下Brandon Faulk的fuzz直播，他还有一个很有意思的介绍fuzz思想概念的视频 挑个目标我们要找一个C&#x2F;C++">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-17T16:29:35.000Z">
@@ -58,8 +58,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -131,7 +130,7 @@
 
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">1nv0k3r's blog</span>
+        <span itemprop="name">1nv0k3r's notebook</span>
       </span>
       
     <div class="postdate">
@@ -277,6 +276,22 @@ c3d98686223ad69ea29c811aaab35d343ff1ae9e  mutated.jpg
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->

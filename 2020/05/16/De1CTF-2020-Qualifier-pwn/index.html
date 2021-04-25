@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="De1CTF 2020 Qualifier Pwn">
 <meta property="og:url" content="http://1nv0k3r.fun/2020/05/16/De1CTF-2020-Qualifier-pwn/index.html">
-<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:site_name" content="1nv0k3r&#39;s notebook">
 <meta property="og:description" content="pppd赛后调试一下这个题目，官方提供了题目环境 那么先把docker.zip下载下来解压，然后 docker build -t delctf2020:pppd .docker run -d -p 127.0.0.1:4242:4242 --name pppd delctf2020:pppdnc 127.0.0.1 4242 pppd最近的漏洞就是CVE-2020-8597的栈溢出了，就是比赛的时">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-16T02:13:41.000Z">
@@ -53,8 +53,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -126,7 +125,7 @@
 
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">1nv0k3r's blog</span>
+        <span itemprop="name">1nv0k3r's notebook</span>
       </span>
       
     <div class="postdate">
@@ -293,6 +292,22 @@ make install
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->

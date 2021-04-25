@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="修改ELF文件的NX保护">
 <meta property="og:url" content="http://1nv0k3r.fun/2019/06/06/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/index.html">
-<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:site_name" content="1nv0k3r&#39;s notebook">
 <meta property="og:description" content="NX是栈不可执行保护, 即让栈上的数据无法作为指令执行NX实际上是给栈加了一个权限标志位, 让程序识别其权限 这个标志位保存在program header里启动神器010editor, 运行ELF文件的template  可以看到各个段的信息, GNU stack即栈, 点开可以看到权限  0x7表示R&#x2F;W&#x2F;X权限, 即NX Disable 那么我们如果想开NX, 设置为R&#x2F;W权限即可  例题:">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://1nv0k3r.fun/images/%E4%BF%AE%E6%94%B9ELF%E6%96%87%E4%BB%B6%E7%9A%84NX%E4%BF%9D%E6%8A%A4/2019-06-06-13-35-56.png">
@@ -64,8 +64,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -137,7 +136,7 @@
 
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">1nv0k3r's blog</span>
+        <span itemprop="name">1nv0k3r's notebook</span>
       </span>
       
     <div class="postdate">
@@ -255,6 +254,22 @@
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->

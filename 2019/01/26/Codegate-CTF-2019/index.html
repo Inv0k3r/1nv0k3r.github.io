@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Codegate CTF 2019">
 <meta property="og:url" content="http://1nv0k3r.fun/2019/01/26/Codegate-CTF-2019/index.html">
-<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:site_name" content="1nv0k3r&#39;s notebook">
 <meta property="og:description" content="签到题base85一把梭 KingMaker20000给了20k个.so文件, 然后用一个程序去调用, 分类一波以后一共如下四种:  filter1 过滤了;, *, |, &amp;, $, &#96;, &gt;, &lt;, r filter2 过滤了v, m, p, d, n, bin, sh, bash, f, l, g      test1 memset(&amp;buf, 0, 0x30uL">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-01-26T03:40:38.000Z">
@@ -53,8 +53,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -126,7 +125,7 @@
 
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">1nv0k3r's blog</span>
+        <span itemprop="name">1nv0k3r's notebook</span>
       </span>
       
     <div class="postdate">
@@ -243,6 +242,22 @@
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->

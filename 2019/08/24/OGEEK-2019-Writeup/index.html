@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="OGEEK 2019 Writeup">
 <meta property="og:url" content="http://1nv0k3r.fun/2019/08/24/OGEEK-2019-Writeup/index.html">
-<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:site_name" content="1nv0k3r&#39;s notebook">
 <meta property="og:description" content="签到flag{Reno} babyrop输入一个字符串和一个随机串通过strcmp比较, 如果比较成功可以到达漏洞点进行栈溢出 可以通过在输入串开头加&#39;\x00&#39;来绕过, 然后栈溢出leak libc基地址, 之后利用ropgadget搞个ropchain即可getshell from pwn import *from struct import pack# r &#x3D; process">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-08-24T06:32:26.000Z">
@@ -58,8 +58,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -131,7 +130,7 @@
 
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">1nv0k3r's blog</span>
+        <span itemprop="name">1nv0k3r's notebook</span>
       </span>
       
     <div class="postdate">
@@ -239,6 +238,22 @@
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->

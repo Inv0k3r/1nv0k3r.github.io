@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="ISCC 2019 WP">
 <meta property="og:url" content="http://1nv0k3r.fun/2019/05/01/ISCC-2019-WP/index.html">
-<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:site_name" content="1nv0k3r&#39;s notebook">
 <meta property="og:description" content="第一周pwn1标准ret2dl，找了个脚本直接改改就ok #!&#x2F;usr&#x2F;bin&#x2F;python#coding:utf-8from pwn import *elf &#x3D; ELF(&#39;pwn01&#39;)read_plt &#x3D; elf.plt[&#39;read&#39;]memcpy_plt &#x3D; elf.plt[&#39;memcpy&#39;]ppp_ret &#x3D; 0x08048519pop_ebp_ret &#x3D; 0x0804851bleave_">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://1nv0k3r.fun/images/ISCC-2019-WP/2.png">
@@ -57,8 +57,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -130,7 +129,7 @@
 
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">1nv0k3r's blog</span>
+        <span itemprop="name">1nv0k3r's notebook</span>
       </span>
       
     <div class="postdate">
@@ -336,6 +335,22 @@ FLAG{ISCC KEYBOARD CIPHER}
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->

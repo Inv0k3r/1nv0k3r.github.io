@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCTF 2019 Qualifier">
 <meta property="og:url" content="http://1nv0k3r.fun/2019/03/23/TCTF-2019-Qualifier/index.html">
-<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:site_name" content="1nv0k3r&#39;s notebook">
 <meta property="og:description" content="ElementsIDA F5以后很容易定位到程序的验证逻辑 通过阅读反编译代码可以知道, 输入的flag格式是flag{[0-9a-f]{12}-[0-9a-f]{12}-[0-9a-f]{12}} 第一段是直接判断的0x391BC2164F0ALL 即flag{391bc2164f0a-[0-9a-f]{12}-[0-9a-f]{12}} 之后可以看到对几个变量的逻辑判断 if ( v24 &amp;l">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-03-23T08:51:59.000Z">
@@ -58,8 +58,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -131,7 +130,7 @@
 
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">1nv0k3r's blog</span>
+        <span itemprop="name">1nv0k3r's notebook</span>
       </span>
       
     <div class="postdate">
@@ -285,6 +284,22 @@ Congratz, input is your flag
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->

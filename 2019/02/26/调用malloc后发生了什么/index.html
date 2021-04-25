@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="调用Malloc后发生了什么">
 <meta property="og:url" content="http://1nv0k3r.fun/2019/02/26/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/index.html">
-<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:site_name" content="1nv0k3r&#39;s notebook">
 <meta property="og:description" content="malloc函数是用来进行内存分配的函数, 会在在堆上分配一段内存并返回地址 malloc是glibc函数, 实际上对应的系统调用是brk()函数 进程的地址空间: 众所周知, 栈由高地址向低地址增加, 堆则从低地址向高地址增加 brk &amp; sbrk看一下brk和sbrk的用法: brk和sbrk提供底层的内存分配 共同维护一个系统指针, 用于对同类型的大块数据的动态存放 定义:#incl">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://1nv0k3r.fun/images/%E8%B0%83%E7%94%A8malloc%E5%90%8E%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88/1.jpg">
@@ -61,8 +61,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -134,7 +133,7 @@
 
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">1nv0k3r's blog</span>
+        <span itemprop="name">1nv0k3r's notebook</span>
       </span>
       
     <div class="postdate">
@@ -521,6 +520,22 @@ https://www.anquanke.com/post/id/163971
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->

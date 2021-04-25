@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="栈溢出攻击之Ret2dl">
 <meta property="og:url" content="http://1nv0k3r.fun/2019/05/10/%E6%A0%88%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB%E4%B9%8Bret2dl/index.html">
-<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:site_name" content="1nv0k3r&#39;s notebook">
 <meta property="og:description" content="最近几次比赛碰到好几个利用ret2dl进行攻击的题目，这里总结一下具体思路 识别是否使用ret2dl有些栈溢出的题目，明显可以看到使用了gets、memcpy之类的导致栈溢出的函数 但是题目中没有puts, printf, write等用来输出数据的函数 无法泄露我们常规栈溢出攻击中所需要的一些地址(libc, 栈基址) 这时候使用ret2dl是一种有效的方法 例题先通过32位的一个栈溢出来理解原">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://1nv0k3r.fun/images/%E6%A0%88%E6%BA%A2%E5%87%BA%E6%94%BB%E5%87%BB%E4%B9%8Bret2dl/1.png">
@@ -55,8 +55,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -128,7 +127,7 @@
 
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">1nv0k3r's blog</span>
+        <span itemprop="name">1nv0k3r's notebook</span>
       </span>
       
     <div class="postdate">
@@ -259,6 +258,22 @@
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->

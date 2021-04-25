@@ -10,7 +10,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unlink宏的实现机制">
 <meta property="og:url" content="http://1nv0k3r.fun/2019/03/06/unlink%E5%AE%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/index.html">
-<meta property="og:site_name" content="1nv0k3r&#39;s blog">
+<meta property="og:site_name" content="1nv0k3r&#39;s notebook">
 <meta property="og:description" content="unlink() 是一个宏，用于将某一个空闲 chunk 从其所处的 bin 中脱链。 在 malloc_consolidate() 函数中将 fastbin 中的空闲 chunk 整理到 unsorted_bin，在 malloc() 函数中用于将 unsorted_bin 中的空闲 chunk 整理到 smallbin 或者 largebin，以及在 malloc() 中获得堆空间时，均有可能">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://1nv0k3r.fun/images/unlink%E5%AE%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6/unlink.jpg">
@@ -57,8 +57,7 @@
     
 <meta name="generator" content="Hexo 4.2.1"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
+<body class="max-width mx-auto px3 ltr">    
       <div id="header-post">
   <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
   <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
@@ -130,7 +129,7 @@
 
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">1nv0k3r's blog</span>
+        <span itemprop="name">1nv0k3r's notebook</span>
       </span>
       
     <div class="postdate">
@@ -259,6 +258,22 @@
 </footer>
 
     </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
 <!-- styles -->
