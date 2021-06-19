@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="解包下载来的是.chk文件 参考这里 先用binwalk解出.ubi文件, 然后用脚本ubi_reader拿到squashfs文件系统, 挂上qemu启动 Reference https:&#x2F;&#x2F;www.netgear.com&#x2F;support&#x2F;download&#x2F; https:&#x2F;&#x2F;gist.github.com&#x2F;nstarke&#x2F;7d12de1d209d9c699dc0bbc481837848 https">
+    <meta name="description" content="前言下载了一个Netgear R7000P的固件, 然后跟了一下system的引用, 找到一个过滤不严格的命令注入, 可以绕过, 就喊导师搞了一个路由器, 可惜后续研究发现这个洞必须要在debug模式下才能触发, 所以接下来不能浪费买路由器的钱, 还得挖一下其他的洞 解包下载来的是.chk文件 参考这里 先用binwalk解出.ubi文件, 然后用脚本ubi_reader拿到squashfs文件系">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Netgear固件分析笔记">
 <meta property="og:url" content="http://1nv0k3r.fun/2021/04/24/Netgear%E5%9B%BA%E4%BB%B6%E5%88%86%E6%9E%90%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="1nv0k3r&#39;s notebook">
-<meta property="og:description" content="解包下载来的是.chk文件 参考这里 先用binwalk解出.ubi文件, 然后用脚本ubi_reader拿到squashfs文件系统, 挂上qemu启动 Reference https:&#x2F;&#x2F;www.netgear.com&#x2F;support&#x2F;download&#x2F; https:&#x2F;&#x2F;gist.github.com&#x2F;nstarke&#x2F;7d12de1d209d9c699dc0bbc481837848 https">
+<meta property="og:description" content="前言下载了一个Netgear R7000P的固件, 然后跟了一下system的引用, 找到一个过滤不严格的命令注入, 可以绕过, 就喊导师搞了一个路由器, 可惜后续研究发现这个洞必须要在debug模式下才能触发, 所以接下来不能浪费买路由器的钱, 还得挖一下其他的洞 解包下载来的是.chk文件 参考这里 先用binwalk解出.ubi文件, 然后用脚本ubi_reader拿到squashfs文件系">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-23T16:08:11.000Z">
-<meta property="article:modified_time" content="2021-04-24T16:50:54.543Z">
+<meta property="article:modified_time" content="2021-06-19T12:51:34.019Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="1nv0k3r">
 <meta property="article:tag" content=" blog">
@@ -111,7 +111,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#解包"><span class="toc-number">1.</span> <span class="toc-text">解包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">2.</span> <span class="toc-text">Reference</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解包"><span class="toc-number">2.</span> <span class="toc-text">解包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#历史漏洞"><span class="toc-number">3.</span> <span class="toc-text">历史漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口开放情况"><span class="toc-number">4.</span> <span class="toc-text">端口开放情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞挖掘"><span class="toc-number">5.</span> <span class="toc-text">漏洞挖掘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调试"><span class="toc-number">6.</span> <span class="toc-text">调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -150,13 +150,191 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="解包"><a href="#解包" class="headerlink" title="解包"></a>解包</h2><p>下载来的是<code>.chk</code>文件</p>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>下载了一个Netgear R7000P的固件, 然后跟了一下<code>system</code>的引用, 找到一个过滤不严格的命令注入, 可以绕过, 就喊导师搞了一个路由器, 可惜后续研究发现这个洞必须要在debug模式下才能触发, 所以接下来不能浪费买路由器的钱, 还得挖一下其他的洞</p>
+<h2 id="解包"><a href="#解包" class="headerlink" title="解包"></a>解包</h2><p>下载来的是<code>.chk</code>文件</p>
 <p>参考<a href="https://gist.github.com/nstarke/7d12de1d209d9c699dc0bbc481837848">这里</a></p>
-<p>先用binwalk解出<code>.ubi</code>文件, 然后用脚本<a href="https://github.com/jrspruitt/ubi_reader">ubi_reader</a>拿到<code>squashfs</code>文件系统, 挂上qemu启动</p>
+<p>先用binwalk解出<code>.ubi</code>文件, 然后用脚本<a href="https://github.com/jrspruitt/ubi_reader">ubi_reader</a>拿到<code>squashfs</code>文件系统</p>
+<h2 id="历史漏洞"><a href="#历史漏洞" class="headerlink" title="历史漏洞"></a>历史漏洞</h2><h2 id="端口开放情况"><a href="#端口开放情况" class="headerlink" title="端口开放情况"></a>端口开放情况</h2><p>nmap扫一下：</p>
+<pre><code>➜  ~ nmap 192.168.1.1 -p1-65535 
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-05-24 18:49 PDT
+Nmap scan report for 192.168.1.1
+Host is up (0.011s latency).
+Not shown: 65518 filtered ports
+PORT      STATE SERVICE
+53/tcp    open  domain
+80/tcp    open  http
+631/tcp   open  ipp
+1990/tcp  open  stun-p1
+5000/tcp  open  upnp
+8200/tcp  open  trivnet1
+9100/tcp  open  jetdirect
+9101/tcp  open  jetdirect
+9102/tcp  open  jetdirect
+9103/tcp  open  jetdirect
+9104/tcp  open  jetdirect
+9106/tcp  open  jetdirect
+9107/tcp  open  jetdirect
+9108/tcp  open  unknown
+9109/tcp  open  unknown
+20005/tcp open  btx
+33344/tcp open  unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 127.17 seconds
+
+➜  ~ sudo nmap -sU -A -T5 192.168.1.1 -p 9100-9109
+Starting Nmap 7.80 ( https://nmap.org ) at 2021-05-24 19:42 PDT
+Nmap scan report for 192.168.1.1
+Host is up (0.00047s latency).
+
+PORT     STATE         SERVICE        VERSION
+9100/udp open|filtered hp-pdl-datastr
+9101/udp open|filtered bacula-dir
+9102/udp open|filtered bacula-fd
+9103/udp open|filtered bacula-sd
+9104/udp open|filtered peerwire
+9105/udp open|filtered xadmin
+9106/udp open|filtered astergate-disc
+9107/udp open|filtered unknown
+9108/udp open|filtered unknown
+9109/udp open|filtered unknown
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: WAP|general purpose
+Running: Actiontec embedded, Linux 2.4.X|3.X
+OS CPE: cpe:/h:actiontec:mi424wr-gen3i cpe:/o:linux:linux_kernel cpe:/o:linux:linux_kernel:2.4.37 cpe:/o:linux:linux_kernel:3.2 cpe:/o:linux:linux_kernel:4.4
+OS details: Actiontec MI424WR-GEN3I WAP, DD-WRT v24-sp2 (Linux 2.4.37), Linux 3.2, Linux 4.4
+Network Distance: 2 hops
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT     ADDRESS
+1   0.04 ms _gateway (192.168.190.2)
+2   0.06 ms 192.168.1.1
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 241.27 seconds
+</code></pre><p>由于我们通过串口直接拿到了root shell, 所以其实可以用<code>netstat</code>直接看:</p>
+<pre><code># netstat -nl 
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State
+tcp        0      0 0.0.0.0:33344           0.0.0.0:*               LISTEN      
+tcp        0      0 127.0.0.1:14369         0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:20005           0.0.0.0:*               LISTEN      
+tcp        0      0 192.168.1.1:1990        0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:8200            0.0.0.0:*               LISTEN      
+tcp        0      0 192.168.1.1:5000        0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9100            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9101            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9102            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9103            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9104            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9105            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9106            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9107            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9108            0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:9109            0.0.0.0:*               LISTEN      
+tcp        0      0 192.168.1.1:53          0.0.0.0:*               LISTEN      
+tcp        0      0 0.0.0.0:631             0.0.0.0:*               LISTEN      
+tcp        0      0 127.0.0.1:5916          0.0.0.0:*               LISTEN      
+tcp        0      0 :::80                   :::*                    LISTEN      
+tcp        0      0 :::53                   :::*                    LISTEN      
+udp        0      0 127.0.0.1:44032         0.0.0.0:*                           
+udp        0      0 192.168.1.1:34057       0.0.0.0:*                           
+udp        0      0 0.0.0.0:42000           0.0.0.0:*                           
+udp        0      0 127.0.0.1:42032         0.0.0.0:*                           
+udp        0      0 127.0.0.1:40500         0.0.0.0:*                           
+udp        0      0 192.168.1.1:53          0.0.0.0:*                           
+udp        0      0 0.0.0.0:67              0.0.0.0:*                           
+udp        0      0 0.0.0.0:50000           0.0.0.0:*                           
+udp        0      0 0.0.0.0:45926           0.0.0.0:*                           
+udp        0      0 0.0.0.0:49000           0.0.0.0:*                           
+udp        0      0 239.255.255.250:1900    0.0.0.0:*                           
+udp        0      0 0.0.0.0:1900            0.0.0.0:*                           
+udp        0      0 0.0.0.0:1900            0.0.0.0:*                           
+udp        0      0 0.0.0.0:38000           0.0.0.0:*                           
+udp        0      0 0.0.0.0:48000           0.0.0.0:*                           
+udp        0      0 0.0.0.0:37000           0.0.0.0:*                           
+udp        0      0 127.0.0.1:38032         0.0.0.0:*                           
+udp        0      0 0.0.0.0:47000           0.0.0.0:*                           
+udp        0      0 0.0.0.0:46000           0.0.0.0:*                           
+udp        0      0 127.0.0.1:37064         0.0.0.0:*                           
+udp        0      0 0.0.0.0:45000           0.0.0.0:*                           
+udp        0      0 0.0.0.0:44000           0.0.0.0:*                           
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           
+udp        0      0 0.0.0.0:43000           0.0.0.0:*                           
+udp        0      0 :::53                   :::*                                
+Active UNIX domain sockets (only servers)
+Proto RefCnt Flags       Type       State         I-Node Path
+unix  2      [ ACC ]     STREAM     LISTENING     20308  /var/run/cal_cmd
+unix  2      [ ACC ]     STREAM     LISTENING     20310  /var/run/cal_port
+</code></pre><p>我们可以看一下这些端口是哪些服务在使用:</p>
+<pre><code>Usage: netstat [-laentuwxrW]
+
+Display networking information
+
+Options:
+    -l    Display listening server sockets
+    -a    Display all sockets (default: connected)
+    -e    Display other/more information
+    -n    Don&#39;t resolve names
+    -t    Tcp sockets
+    -u    Udp sockets
+    -w    Raw sockets
+    -x    Unix sockets
+    -r    Display routing table
+    -W    Display with no column truncation
+</code></pre><p>由于自带的netstat没有查看占用端口的程序的pid的功能, 我们通过以下方式查看:</p>
+<pre><code># netstat -an|grep   
+tcp        0      0 0.0.0.0:33344           0.0.0.0:*               LISTEN      
+# 转成了16进制
+# echo 33344 | awk &#39;{ printf &quot;%x\n&quot;, $1 }&#39;
+8240
+# grep -i 8240 /proc/net/udp | awk &#39;{ printf &quot;local: %s inode: %s\n&quot;, $2, $10 }&#39;
+local: 0100007F:AC00 inode: 18874
+# ls -al /proc/*/fd/* 2&gt;/dev/null | grep 18874
+lrwx------    1 admin    root           64 May 28 05:33 /proc/1695/fd/4 -&gt; socket:[18874]
+# ps w|grep 1695
+1695 admin      1736 S   mevent 
+20502 admin      2908 S   grep 1695 
+</code></pre><p>即33344端口运行的程序是<code>mevent</code>, 以此我们可以推出所有端口运行的程序:</p>
+<pre><code>TCP:
+    1990:   /bin/wps_monitor
+    5000:   upnp
+    8200:   minidlna.exe
+    9100-9109: KC_PRINT
+    20005:
+    33344:  mevent
+    14369:  /opt/xagent/xagent -w -d --ca_file /opt/xagent/certs/ca-bundle-mega.crt --hardware_id 5J930570A03AD --mode
+    5916:   /usr/sbin/acsd
+UDP:
+    44032:  mevent
+    34057:  minidlna.exe
+    42000, 50000, 49000, 38000, 48000, 37000, 46000, 45000, 44000, 43000:  /bin/eapd
+    42032:  /usr/bin/acsd
+    40500, 37064:  /bin/wps_monitor
+    53:     dns
+    67:     
+    45926:  upnpd
+    1900:   
+    38032:  nas
+    5353:   KC_BONJOUR
+</code></pre><h2 id="漏洞挖掘"><a href="#漏洞挖掘" class="headerlink" title="漏洞挖掘"></a>漏洞挖掘</h2><h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>调试使用了gdb的远程调试, 把编译好的gdbserver, 通过wget下载到路由器上(只有/tmp目录可写), 我穿了一份在自己服务器上</p>
+<pre><code>wget http://39.104.59.155/gdbserver-armel
+</code></pre><p>路由器上执行<code>./gdbserver-armel --attach 0.0.0.0:9999 pid</code></p>
+<p>在主机里attach上去</p>
+<p>设置子进程跟踪<code>set follow-fork-mode child</code>, 然后attach上去<code>target remote 192.168.1.1:9999</code></p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
 <li><a href="https://www.netgear.com/support/download/">https://www.netgear.com/support/download/</a></li>
 <li><a href="https://gist.github.com/nstarke/7d12de1d209d9c699dc0bbc481837848">https://gist.github.com/nstarke/7d12de1d209d9c699dc0bbc481837848</a></li>
 <li><a href="https://paper.seebug.org/1311/#5">https://paper.seebug.org/1311/#5</a></li>
+<li><a href="https://forum.dd-wrt.com/phpBB2/viewtopic.php?p=1144504">https://forum.dd-wrt.com/phpBB2/viewtopic.php?p=1144504</a></li>
+<li><a href="https://www.anquanke.com/post/id/85125">https://www.anquanke.com/post/id/85125</a></li>
+<li><a href="https://ssd-disclosure.com/ssd-advisory-netgear-nighthawk-r7000-httpd-preauth-rce/">https://ssd-disclosure.com/ssd-advisory-netgear-nighthawk-r7000-httpd-preauth-rce/</a></li>
+<li><a href="https://zybuluo.com/H4l0/note/1524758#%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E6%80%9D%E8%B7%AF%E6%8A%80%E5%B7%A7">https://zybuluo.com/H4l0/note/1524758#%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98%E6%80%9D%E8%B7%AF%E6%8A%80%E5%B7%A7</a></li>
+<li><a href="https://zybuluo.com/H4l0/note/1524758#%E5%AE%9E%E4%BE%8B%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90">https://zybuluo.com/H4l0/note/1524758#%E5%AE%9E%E4%BE%8B%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90</a></li>
+<li><a href="https://www.anquanke.com/post/id/204326#h2-3">https://www.anquanke.com/post/id/204326#h2-3</a></li>
+<li><a href="https://wizardforcel.gitbooks.io/100-gdb-tips/content/set-follow-fork-mode-child.html">https://wizardforcel.gitbooks.io/100-gdb-tips/content/set-follow-fork-mode-child.html</a></li>
+<li><a href="http://blog.chinaunix.net/uid-69947851-id-5825875.html">http://blog.chinaunix.net/uid-69947851-id-5825875.html</a></li>
+<li><a href="https://wizardforcel.gitbooks.io/100-gdb-tips/content/set-detach-on-fork.html">https://wizardforcel.gitbooks.io/100-gdb-tips/content/set-detach-on-fork.html</a></li>
+<li></li>
 </ol>
 
   </div>
@@ -189,7 +367,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#解包"><span class="toc-number">1.</span> <span class="toc-text">解包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">2.</span> <span class="toc-text">Reference</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解包"><span class="toc-number">2.</span> <span class="toc-text">解包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#历史漏洞"><span class="toc-number">3.</span> <span class="toc-text">历史漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口开放情况"><span class="toc-number">4.</span> <span class="toc-text">端口开放情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞挖掘"><span class="toc-number">5.</span> <span class="toc-text">漏洞挖掘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调试"><span class="toc-number">6.</span> <span class="toc-text">调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
