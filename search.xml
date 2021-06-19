@@ -122,25 +122,6 @@
     
     
     <entry>
-      <title>2021春秋杯</title>
-      <link href="/2021/05/29/2021%E6%98%A5%E7%A7%8B%E6%9D%AF/"/>
-      <url>/2021/05/29/2021%E6%98%A5%E7%A7%8B%E6%9D%AF/</url>
-      
-        <content type="html"><![CDATA[<p>icq173ea91e5aedf22ae67cbfd8d7797</p><h2 id="pwn"><a href="#pwn" class="headerlink" title="pwn"></a>pwn</h2><p>要求输入长度为44, 开头经过以下加密后是<code>/bin//sh</code>的反向, 即<code>aHMvL25pYi9Q</code>:</p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">c = i &amp; <span class="number">3</span>;</span><br><span class="line">v11 = &amp;re[(<span class="keyword">unsigned</span> <span class="keyword">int</span>)count];</span><br><span class="line"><span class="keyword">switch</span> ( c )</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    count = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)(count + <span class="number">1</span>);</span><br><span class="line">    *v11 |= (v6 &gt;&gt; <span class="number">2</span>) &amp; <span class="number">0xF</span>;</span><br><span class="line">    re[(<span class="keyword">unsigned</span> <span class="keyword">int</span>)count] = v6 &lt;&lt; <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">    count = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)(count + <span class="number">1</span>);</span><br><span class="line">    *v11 |= v6;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">    count = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)(count + <span class="number">1</span>);</span><br><span class="line">    *v11 |= (v6 &gt;&gt; <span class="number">4</span>) &amp; <span class="number">3</span>;</span><br><span class="line">    re[(<span class="keyword">unsigned</span> <span class="keyword">int</span>)count] = <span class="number">16</span> * v6;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  <span class="keyword">default</span>:</span><br><span class="line">    *v11 = <span class="number">4</span> * v6;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>测了一下是base64解密, 需要输入的开头是<code>aHMvL25pYi9Q</code></p><p>然后是接下来的24个字符的加密后, 过一个check:</p><pre><code>if ( *(_QWORD *)arr1 != *(_QWORD *)arr2 + v17 + 0x20 )</code></pre><p>aHMvL25pYi9QAAAAAAAAABAAAAAAAAAAIAAAAAAAAAD3: 2</p><h2 id="encrypt"><a href="#encrypt" class="headerlink" title="encrypt"></a>encrypt</h2><p>第一轮加密由于用的是<code>gmpy2.next_prime(p2)</code>, 所以可以用<code>yafu</code>解出来, 拿到两个time:</p><pre><code>time.struct_time(tm_year=2021, tm_mon=4, tm_mday=28, tm_hour=20, tm_min=42, tm_sec=6, tm_wday=2, tm_yday=118, tm_isdst=0)3.1603143215179443</code></pre>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> ctf </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Linux X86软件启动流程</title>
       <link href="/2021/05/19/Linux-X86%E8%BD%AF%E4%BB%B6%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/"/>
       <url>/2021/05/19/Linux-X86%E8%BD%AF%E4%BB%B6%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</url>
