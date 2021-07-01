@@ -14,7 +14,7 @@
 <meta property="og:description" content="前言下载了一个Netgear R7000P的固件, 然后跟了一下system的引用, 找到一个过滤不严格的命令注入, 可以绕过, 就喊导师搞了一个路由器, 可惜后续研究发现这个洞必须要在debug模式下才能触发, 所以接下来不能浪费买路由器的钱, 还得挖一下其他的洞 解包下载来的是.chk文件 参考这里 先用binwalk解出.ubi文件, 然后用脚本ubi_reader拿到squashfs文件系">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-23T16:08:11.000Z">
-<meta property="article:modified_time" content="2021-06-19T12:51:34.019Z">
+<meta property="article:modified_time" content="2021-06-21T03:13:42.828Z">
 <meta property="article:author" content="1nv0k3r">
 <meta property="article:tag" content="1nv0k3r">
 <meta property="article:tag" content=" blog">
@@ -316,7 +316,9 @@ UDP:
     1900:   
     38032:  nas
     5353:   KC_BONJOUR
-</code></pre><h2 id="漏洞挖掘"><a href="#漏洞挖掘" class="headerlink" title="漏洞挖掘"></a>漏洞挖掘</h2><h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>调试使用了gdb的远程调试, 把编译好的gdbserver, 通过wget下载到路由器上(只有/tmp目录可写), 我穿了一份在自己服务器上</p>
+</code></pre><h2 id="漏洞挖掘"><a href="#漏洞挖掘" class="headerlink" title="漏洞挖掘"></a>漏洞挖掘</h2><p>首要的目标肯定是未授权, 所以在httpd里先搜索一下cgi, 然后写个脚本批量跑一下看看有哪些是可以不登陆就访问到的</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>调试使用了gdb的远程调试, 把编译好的gdbserver, 通过wget下载到路由器上(只有/tmp目录可写), 我穿了一份在自己服务器上</p>
 <pre><code>wget http://39.104.59.155/gdbserver-armel
 </code></pre><p>路由器上执行<code>./gdbserver-armel --attach 0.0.0.0:9999 pid</code></p>
 <p>在主机里attach上去</p>
